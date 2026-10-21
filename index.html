@@ -14,7 +14,7 @@
   <!-- Apple Frosted Glass Navbar -->
   <header class="navbar">
     <div class="container nav-container">
-      <a href="#" class="logo">
+      <a href="index.html" class="logo">
         <div class="logo-icon">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
             <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
@@ -937,10 +937,10 @@
         <div>
           <h4 class="footer-heading">Company</h4>
           <ul class="footer-links">
-            <li><a href="https://github.com" target="_blank" rel="noopener">GitHub Project</a></li>
-            <li><a href="#">Privacy Policy</a></li>
-            <li><a href="#">Terms of Service</a></li>
-            <li><a href="#">Press Kit</a></li>
+            <li><a href="https://github.com/2023137460/DINA" target="_blank" rel="noopener">GitHub Project</a></li>
+            <li><a href="#privacyModal" class="open-privacy">Privacy Policy</a></li>
+            <li><a href="#termsModal" class="open-terms">Terms of Service</a></li>
+            <li><a href="#pressModal" class="open-press">Press Kit</a></li>
           </ul>
         </div>
       </div>
@@ -1003,6 +1003,99 @@
         <p style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.5;">
           Welcome to the future of smart cooking. We've sent a receipt and your priority queue number to your inbox.
         </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Privacy Policy Modal -->
+  <div class="modal-overlay" id="privacyModal">
+    <div class="modal-content modal-content-lg">
+      <button class="modal-close-btn" id="privacyClose" aria-label="Close modal">&times;</button>
+      <div class="modal-scroll-body">
+        <span class="section-tag">GDPR & RGPD Compliant</span>
+        <h3 class="modal-legal-title">Privacy Policy</h3>
+        <p class="modal-legal-date">Last Updated: October 2026 • Portuguese Law 58/2019 & EU GDPR</p>
+        
+        <div class="legal-section">
+          <h4>1. Local-First Matter Network Operation</h4>
+          <p>DINA is built on a local-first IoT architecture. When you connect DINA to your Apple Home, Google Home, or Home Assistant via Matter, all telemetry (temperatures, motor carousel positions, door sensors) is communicated over your local Wi-Fi or Thread network. We do not track your meal schedules, dietary preferences, or home inventory on external cloud databases without your explicit consent.</p>
+        </div>
+
+        <div class="legal-section">
+          <h4>2. Data Minimization & Security</h4>
+          <p>For cloud remote dispatch (DINA Cloud OS), data is encrypted end-to-end with TLS 1.3. We only collect the minimal account information required to provide service (your email address, encrypted reservation ID, and firmware version). We never sell your personal data to grocery advertisers, delivery apps, or third parties.</p>
+        </div>
+
+        <div class="legal-section">
+          <h4>3. Your Rights under EU GDPR / RGPD</h4>
+          <p>Under Portuguese Law no. 58/2019 and the European General Data Protection Regulation, you have the right to access, rectify, export, or delete your customer record at any time. To exercise your rights, contact our Data Protection Officer at <a href="mailto:privacy@dina.pt" class="legal-link">privacy@dina.pt</a>.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Terms of Service Modal -->
+  <div class="modal-overlay" id="termsModal">
+    <div class="modal-content modal-content-lg">
+      <button class="modal-close-btn" id="termsClose" aria-label="Close modal">&times;</button>
+      <div class="modal-scroll-body">
+        <span class="section-tag">Consumer Rights & Warranty</span>
+        <h3 class="modal-legal-title">Terms of Service</h3>
+        <p class="modal-legal-date">Governed by Portuguese & European Consumer Law (DL 84/2021)</p>
+        
+        <div class="legal-section">
+          <h4>1. 100% Refundable €99 Reservation Deposit</h4>
+          <p>Your €99 pre-order deposit secures your priority production allocation in Batch 1. This deposit is held in escrow and is 100% refundable at any moment prior to your unit's dispatch, with zero fees or penalties. If you change your mind for any reason, tap 'Cancel Reservation' in your confirmation email for an instant refund.</p>
+        </div>
+
+        <div class="legal-section">
+          <h4>2. 30-Day Risk-Free In-Home Trial</h4>
+          <p>Once DINA is delivered to your home in Portugal or the EU, you have 30 calendar days to cook with it and test its active conduction thaw chamber. If you are not completely satisfied with the flavor, texture, and convenience of automatic defrosting, we will collect the unit free of charge and refund your full purchase price.</p>
+        </div>
+
+        <div class="legal-section">
+          <h4>3. 3-Year Legal Warranty (Portugal / EU)</h4>
+          <p>Pursuant to Portuguese Decree-Law no. 84/2021, all DINA hardware units come standard with a 3-year comprehensive warranty covering all mechanical components (NEMA carousel motor, conduction drawer sliders, Peltier solid-state thermal plate), inverter compressor, and 7" touchscreen display against defects.</p>
+        </div>
+
+        <div class="legal-section">
+          <h4>4. CE & EU Food Contact Compliance</h4>
+          <p>All internal materials, stainless steel contact plates, and food carousel dividers comply with EU Food Contact Regulation (EC) No 1935/2004 and RoHS 2011/65/EU.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Press Kit Modal -->
+  <div class="modal-overlay" id="pressModal">
+    <div class="modal-content modal-content-lg">
+      <button class="modal-close-btn" id="pressClose" aria-label="Close modal">&times;</button>
+      <div class="modal-scroll-body">
+        <span class="section-tag">Media Resources</span>
+        <h3 class="modal-legal-title">Press Kit & Brand Assets</h3>
+        <p class="modal-legal-date">Product Overview, Technical Factsheet & High-Res Renders</p>
+        
+        <div class="legal-section">
+          <h4>Executive Summary</h4>
+          <p><strong>DINA (Defrost Is Now Automatic)</strong> is the world's first smart chest freezer equipped with an active solid-state conduction thaw chamber and an 8-position mechatronic carousel. By transferring proteins from deep freeze (-18°C) to gentle thawing (+10°C) with a single tap from a smartphone, DINA eliminates the rubbery edges of microwave thawing while maintaining 100% natural juices and food safety.</p>
+        </div>
+
+        <div class="legal-section">
+          <h4>Quick Factsheet</h4>
+          <ul class="press-specs-list">
+            <li><strong>Capacity:</strong> 180 Liters total storage vault + 8-slot motorized carousel</li>
+            <li><strong>Thaw Technology:</strong> Solid-State Conduction Thermal Plate (&lt; 90 min thaw)</li>
+            <li><strong>Acoustics:</strong> &lt; 32 dBA whisper-quiet inverter operation</li>
+            <li><strong>Power:</strong> 230 V / 50 Hz EU Standard (Type F Schuko plug)</li>
+            <li><strong>Connectivity:</strong> Matter over Wi-Fi / Thread, Apple Home, Google Home</li>
+            <li><strong>Origin:</strong> Engineered in Portugal (ESTG - Politécnico de Leiria)</li>
+          </ul>
+        </div>
+
+        <div class="legal-section">
+          <h4>Press Inquiries & Review Units</h4>
+          <p>For press sample requests, interview requests, or high-res B-roll footage, please contact our media team at <a href="mailto:press@dina.pt" class="legal-link">press@dina.pt</a>.</p>
+        </div>
       </div>
     </div>
   </div>

@@ -131,61 +131,14 @@
         <!-- Quick Inventory Slots -->
         <div class="section-headline">
           <h2>Freezer Stock (8 Slots)</h2>
-          <span>Tap to stage dinner</span>
+          <button class="btn-quick-load" id="btnQuickLoadHome" title="Open Loading Mode">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+            <span>Load Item</span>
+          </button>
         </div>
 
-        <div class="slot-list">
-          <div class="slot-item active-selected" data-slot="02">
-            <div class="slot-left">
-              <div class="slot-icon-box">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12c-1.5 0-3-1.5-3-3s1.5-3 3-3 3 1.5 3 3-1.5 3-3 3z"></path><path d="M5 19c2 0 4-1 5-2.5 1 1.5 3 2.5 5 2.5 3 0 5-2 5-5 0-4-5-8-10-8S0 10 0 14c0 3 2 5 5 5z"></path></svg>
-              </div>
-              <div>
-                <div class="slot-name">Prime Angus Ribeye Steak</div>
-                <div class="slot-meta">450g • Staged for Tonight</div>
-              </div>
-            </div>
-            <button class="slot-btn-thaw">Selected</button>
-          </div>
-
-          <div class="slot-item" data-slot="04">
-            <div class="slot-left">
-              <div class="slot-icon-box">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 12c.5-2.5 2-4.5 4.5-5 3.5-.5 6.5 1 8.5 4-2 3-5 4.5-8.5 4-2.5-.5-4-2.5-4.5-5z"></path><path d="M18 12c2-1 3.5-3 4-4-1 2-1 4 0 6-.5-1-2-3-4-2z"></path></svg>
-              </div>
-              <div>
-                <div class="slot-name">Atlantic Salmon Fillet</div>
-                <div class="slot-meta">320g • Wild Caught • Thaw: 65m</div>
-              </div>
-            </div>
-            <button class="slot-btn-thaw">Thaw</button>
-          </div>
-
-          <div class="slot-item" data-slot="01">
-            <div class="slot-left">
-              <div class="slot-icon-box">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 16v1a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h11a2 2 0 0 1 2 2v1"></path><path d="M18 8a4 4 0 0 1 4 4v0a4 4 0 0 1-4 4"></path></svg>
-              </div>
-              <div>
-                <div class="slot-name">Organic Chicken Breasts</div>
-                <div class="slot-meta">500g • Free-Range • Thaw: 95m</div>
-              </div>
-            </div>
-            <button class="slot-btn-thaw">Thaw</button>
-          </div>
-
-          <div class="slot-item" data-slot="05">
-            <div class="slot-left">
-              <div class="slot-icon-box">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"></rect><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-              </div>
-              <div>
-                <div class="slot-name">Artisanal Lasagna Prep</div>
-                <div class="slot-meta">650g • Batch Prepped • Thaw: 110m</div>
-              </div>
-            </div>
-            <button class="slot-btn-thaw">Thaw</button>
-          </div>
+        <div class="slot-list" id="quickSlotList">
+          <!-- Populated dynamically by app.js -->
         </div>
       </section>
 
@@ -196,61 +149,19 @@
           <p>8-Position Rotating Carousel</p>
         </div>
 
-        <div class="slot-list">
-          <div class="slot-item" data-slot="01">
-            <div class="slot-left">
-              <div class="slot-icon-box"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 16v1a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h11a2 2 0 0 1 2 2v1"></path></svg></div>
-              <div>
-                <div class="slot-name">Organic Chicken Breast</div>
-                <div class="slot-meta">Slot 01 • 500g • 95m Thaw</div>
-              </div>
-            </div>
-            <button class="slot-btn-thaw">Select</button>
+        <!-- Inventory Action Bar & Loading Mode Pill -->
+        <div class="inventory-action-bar">
+          <div class="vault-occupancy">
+            <span class="occupancy-pill" id="occupancyPill">5 of 8 Slots Loaded</span>
           </div>
+          <button class="btn-load-mode" id="btnOpenLoadModal">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+            <span>Load Food</span>
+          </button>
+        </div>
 
-          <div class="slot-item active-selected" data-slot="02">
-            <div class="slot-left">
-              <div class="slot-icon-box"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 19c2 0 4-1 5-2.5 1 1.5 3 2.5 5 2.5 3 0 5-2 5-5 0-4-5-8-10-8S0 10 0 14c0 3 2 5 5 5z"></path></svg></div>
-              <div>
-                <div class="slot-name">Prime Angus Ribeye Steak</div>
-                <div class="slot-meta">Slot 02 • 450g • 85m Thaw</div>
-              </div>
-            </div>
-            <button class="slot-btn-thaw">Selected</button>
-          </div>
-
-          <div class="slot-item" data-slot="03">
-            <div class="slot-left">
-              <div class="slot-icon-box"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"></path></svg></div>
-              <div>
-                <div class="slot-name">Wild Tiger Prawns</div>
-                <div class="slot-meta">Slot 03 • 300g • 45m Thaw</div>
-              </div>
-            </div>
-            <button class="slot-btn-thaw">Select</button>
-          </div>
-
-          <div class="slot-item" data-slot="04">
-            <div class="slot-left">
-              <div class="slot-icon-box"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 12c.5-2.5 2-4.5 4.5-5 3.5-.5 6.5 1 8.5 4-2 3-5 4.5-8.5 4-2.5-.5-4-2.5-4.5-5z"></path></svg></div>
-              <div>
-                <div class="slot-name">Atlantic Salmon Fillet</div>
-                <div class="slot-meta">Slot 04 • 320g • 65m Thaw</div>
-              </div>
-            </div>
-            <button class="slot-btn-thaw">Select</button>
-          </div>
-
-          <div class="slot-item" data-slot="05">
-            <div class="slot-left">
-              <div class="slot-icon-box"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"></rect></svg></div>
-              <div>
-                <div class="slot-name">Artisanal Lasagna Prep</div>
-                <div class="slot-meta">Slot 05 • 650g • 110m Thaw</div>
-              </div>
-            </div>
-            <button class="slot-btn-thaw">Select</button>
-          </div>
+        <div class="slot-list" id="fullInventorySlotList">
+          <!-- Populated dynamically by app.js -->
         </div>
       </section>
 
@@ -362,6 +273,100 @@
 
       <button class="sheet-primary-btn" id="sheetStageBtn">
         <span>Stage for Tonight's Dinner</span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+      </button>
+    </div>
+
+    <!-- Loading Mode Sheet (Add Food & Calculate Defrost) -->
+    <div class="sheet-backdrop" id="loadBackdrop"></div>
+    <div class="bottom-sheet load-food-sheet" id="loadSheet">
+      <div class="sheet-handle" id="loadSheetHandle"></div>
+      <div class="sheet-header-row">
+        <div>
+          <span class="badge-status" style="margin-bottom: 4px;">Vault Loading Mode</span>
+          <h3 class="sheet-title">Add Food to Freezer</h3>
+          <p class="sheet-subtitle">Select slot, food type & weight to calculate thaw</p>
+        </div>
+        <button class="sheet-close-btn" id="btnCloseLoadSheet" aria-label="Close">&times;</button>
+      </div>
+
+      <div class="load-scroll-container">
+        <!-- 1. Slot Selector -->
+        <div class="load-form-group">
+          <label class="load-field-label">
+            <span>1. Target Carousel Slot:</span>
+            <span class="text-warm font-mono" id="selectedSlotText">Slot 06 (Empty)</span>
+          </label>
+          <div class="carousel-slot-grid" id="carouselSlotGrid">
+            <!-- 8 slot chips (01 - 08) generated dynamically -->
+          </div>
+        </div>
+
+        <!-- 2. Food Category & Name -->
+        <div class="load-form-group">
+          <label class="load-field-label">
+            <span>2. What protein or dish are you loading?</span>
+          </label>
+          <div class="food-category-chips" id="foodCategoryChips">
+            <button class="food-cat-btn active" data-cat="beef" data-name="Grass-Fed Ribeye Steak" data-factor="0.13" data-base="25">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12c-1.5 0-3-1.5-3-3s1.5-3 3-3 3 1.5 3 3-1.5 3-3 3z"></path><path d="M5 19c2 0 4-1 5-2.5 1 1.5 3 2.5 5 2.5 3 0 5-2 5-5 0-4-5-8-10-8S0 10 0 14c0 3 2 5 5 5z"></path></svg>
+              <span>Beef / Steak</span>
+            </button>
+            <button class="food-cat-btn" data-cat="chicken" data-name="Organic Chicken Breast" data-factor="0.13" data-base="30">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 16v1a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h11a2 2 0 0 1 2 2v1"></path><path d="M18 8a4 4 0 0 1 4 4v0a4 4 0 0 1-4 4"></path></svg>
+              <span>Chicken</span>
+            </button>
+            <button class="food-cat-btn" data-cat="fish" data-name="Atlantic Salmon Fillet" data-factor="0.14" data-base="20">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 12c.5-2.5 2-4.5 4.5-5 3.5-.5 6.5 1 8.5 4-2 3-5 4.5-8.5 4-2.5-.5-4-2.5-4.5-5z"></path><path d="M18 12c2-1 3.5-3 4-4-1 2-1 4 0 6-.5-1-2-3-4-2z"></path></svg>
+              <span>Fish</span>
+            </button>
+            <button class="food-cat-btn" data-cat="shrimp" data-name="Wild Tiger Prawns" data-factor="0.10" data-base="15">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M8 12a4 4 0 0 1 8 0"></path></svg>
+              <span>Seafood</span>
+            </button>
+            <button class="food-cat-btn" data-cat="lasagna" data-name="Artisanal Lasagna Prep" data-factor="0.115" data-base="35">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"></rect><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+              <span>Prep Dish</span>
+            </button>
+            <button class="food-cat-btn" data-cat="pork" data-name="Iberian Pork Tenderloin" data-factor="0.13" data-base="28">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"></circle><path d="M9 10h.01M15 10h.01M10 15c.5.5 1.5.5 2 0"></path></svg>
+              <span>Pork / Lamb</span>
+            </button>
+          </div>
+          <input type="text" id="loadFoodName" class="load-text-input" placeholder="Custom food name..." value="Grass-Fed Ribeye Steak">
+        </div>
+
+        <!-- 3. Portion Weight & Real-Time Thaw Calculation -->
+        <div class="load-form-group">
+          <div class="load-field-label">
+            <span>3. Portion Weight:</span>
+            <span class="text-warm font-mono" id="loadGramsDisplay">400g</span>
+          </div>
+          <input type="range" min="100" max="1200" step="25" value="400" class="slider-custom" id="loadGramsSlider">
+          <div class="weight-preset-chips" id="weightPresetChips">
+            <button class="preset-chip" data-weight="250">250g</button>
+            <button class="preset-chip" data-weight="350">350g</button>
+            <button class="preset-chip active" data-weight="400">400g</button>
+            <button class="preset-chip" data-weight="500">500g</button>
+            <button class="preset-chip" data-weight="750">750g</button>
+          </div>
+        </div>
+
+        <!-- Calculated Thaw Card -->
+        <div class="calculated-thaw-banner">
+          <div class="calc-thaw-metric">
+            <div class="calc-thaw-label">Calculated Active Thaw</div>
+            <div class="calc-thaw-number text-warm" id="calcThawDisplay">77 min</div>
+          </div>
+          <div class="calc-thaw-meta">
+            <div><span class="meta-dot"></span> Active Conduction Plate</div>
+            <div><span class="meta-dot"></span> Safe-Hold Holding at +3°C</div>
+          </div>
+        </div>
+      </div>
+
+      <button class="sheet-primary-btn" id="btnConfirmLoad" style="margin-top: 14px;">
+        <span id="btnConfirmLoadText">Store in Slot 06 & Rotate Vault</span>
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
       </button>
     </div>

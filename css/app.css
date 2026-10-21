@@ -466,6 +466,7 @@ html, body {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 10px;
   cursor: pointer;
 }
 
@@ -482,6 +483,13 @@ html, body {
   display: flex;
   align-items: center;
   gap: 10px;
+  min-width: 0;
+  flex: 1;
+}
+
+.slot-left > div:not(.slot-icon-box) {
+  min-width: 0;
+  flex: 1;
 }
 
 .slot-icon-box {
@@ -500,11 +508,17 @@ html, body {
   font-size: 0.85rem;
   font-weight: 600;
   color: #ffffff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .slot-meta {
   font-size: 0.7rem;
   color: var(--text-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .slot-btn-thaw {
@@ -516,6 +530,8 @@ html, body {
   background: rgba(255, 255, 255, 0.06);
   border: 1px solid var(--border-subtle);
   color: #ffffff;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .slot-item.active-selected .slot-btn-thaw {
@@ -742,4 +758,353 @@ html, body {
 .app-toast.visible {
   transform: translateY(0);
   opacity: 1;
+}
+
+/* ==========================================================================
+   Vault Loading Mode & Dynamic Inventory Styles
+   ========================================================================== */
+.inventory-action-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  gap: 10px;
+}
+
+.occupancy-pill {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border-subtle);
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+}
+
+.btn-load-mode {
+  min-height: 36px;
+  padding: 0 12px;
+  border-radius: var(--radius-full);
+  background: rgba(255, 159, 10, 0.12);
+  border: 1px solid var(--accent-warm);
+  color: var(--accent-warm-light);
+  font-size: 0.78rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+  flex-shrink: 0;
+  cursor: pointer;
+  transition: all var(--dur-press) ease;
+}
+
+.btn-load-mode:active {
+  transform: scale(0.96);
+  background: rgba(255, 159, 10, 0.22);
+}
+
+.btn-quick-load {
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+  background: rgba(255, 159, 10, 0.12);
+  border: 1px solid var(--accent-warm);
+  color: var(--accent-warm-light);
+  font-size: 0.72rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+  transition: transform var(--dur-press) ease;
+}
+
+.btn-quick-load:active {
+  transform: scale(0.96);
+}
+
+/* Empty Slot State */
+.slot-item.slot-empty {
+  border: 1px dashed rgba(255, 255, 255, 0.16);
+  background: rgba(255, 255, 255, 0.015);
+  opacity: 0.85;
+}
+
+.slot-item.slot-empty:hover {
+  border-color: var(--accent-warm);
+  background: rgba(255, 159, 10, 0.03);
+  opacity: 1;
+}
+
+.slot-icon-box.empty-icon {
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text-tertiary);
+  border: 1px dashed rgba(255, 255, 255, 0.15);
+}
+
+.slot-btn-load {
+  min-height: 32px;
+  padding: 0 12px;
+  border-radius: var(--radius-full);
+  font-size: 0.72rem;
+  font-weight: 600;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-primary);
+  white-space: nowrap;
+  flex-shrink: 0;
+  cursor: pointer;
+  transition: all var(--dur-press) ease;
+}
+
+.slot-btn-load:hover {
+  border-color: var(--accent-warm);
+  color: var(--accent-warm-light);
+}
+
+/* Loading Mode Bottom Sheet Specifics */
+.load-food-sheet {
+  max-height: 88vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.sheet-header-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.sheet-close-btn {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-secondary);
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: all var(--dur-press) ease;
+}
+
+.sheet-close-btn:active {
+  transform: scale(0.92);
+}
+
+.load-scroll-container {
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  max-height: calc(85vh - 140px);
+  padding-right: 4px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.load-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.load-field-label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+/* Carousel Slot Selector Grid (4x2) */
+.carousel-slot-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6px;
+}
+
+.slot-chip {
+  background: var(--app-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: 10px;
+  padding: 8px 6px;
+  text-align: center;
+  cursor: pointer;
+  transition: all var(--dur-press) ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.slot-chip:active {
+  transform: scale(0.96);
+}
+
+.slot-chip.selected {
+  background: rgba(255, 159, 10, 0.15);
+  border-color: var(--accent-warm);
+}
+
+.slot-chip-num {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: #ffffff;
+}
+
+.slot-chip.selected .slot-chip-num {
+  color: var(--accent-warm-light);
+}
+
+.slot-chip-status {
+  font-size: 0.62rem;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  max-width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.slot-chip.occupied .slot-chip-status {
+  color: var(--accent-warm-light);
+}
+
+/* Food Category Chips */
+.food-category-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.food-cat-btn {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  padding: 6px 10px;
+  font-size: 0.74rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+  transition: all var(--dur-press) ease;
+}
+
+.food-cat-btn:active {
+  transform: scale(0.96);
+}
+
+.food-cat-btn.active {
+  background: rgba(255, 159, 10, 0.12);
+  border-color: var(--accent-warm);
+  color: var(--accent-warm-light);
+}
+
+.load-text-input {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  padding: 10px 12px;
+  font-size: 0.85rem;
+  color: #ffffff;
+  outline: none;
+  font-family: var(--font-sans);
+  transition: border-color var(--dur-press) ease;
+}
+
+.load-text-input:focus {
+  border-color: var(--accent-warm);
+}
+
+/* Weight Presets */
+.weight-preset-chips {
+  display: flex;
+  gap: 6px;
+  margin-top: 4px;
+}
+
+.preset-chip {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border-subtle);
+  border-radius: 6px;
+  padding: 5px;
+  font-size: 0.72rem;
+  font-family: var(--font-mono);
+  color: var(--text-secondary);
+  text-align: center;
+  cursor: pointer;
+  transition: all var(--dur-press) ease;
+}
+
+.preset-chip:active {
+  transform: scale(0.95);
+}
+
+.preset-chip.active {
+  background: rgba(255, 159, 10, 0.12);
+  border-color: var(--accent-warm);
+  color: var(--accent-warm-light);
+  font-weight: 700;
+}
+
+/* Real-Time Calculated Thaw Banner */
+.calculated-thaw-banner {
+  background: linear-gradient(135deg, rgba(255, 159, 10, 0.1) 0%, rgba(20, 21, 25, 0.8) 100%);
+  border: 1px solid rgba(255, 159, 10, 0.35);
+  border-radius: 14px;
+  padding: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.calc-thaw-metric {
+  display: flex;
+  flex-direction: column;
+}
+
+.calc-thaw-label {
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  letter-spacing: 0.03em;
+}
+
+.calc-thaw-number {
+  font-family: var(--font-mono);
+  font-size: 1.45rem;
+  font-weight: 800;
+  color: var(--accent-warm-light);
+}
+
+.calc-thaw-meta {
+  font-size: 0.7rem;
+  color: var(--text-secondary);
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  text-align: right;
+}
+
+.meta-dot {
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--accent-green);
+  margin-right: 4px;
+  vertical-align: 1px;
 }

@@ -147,11 +147,42 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Keyboard escape key to close modals
+  // Informational Modals (Privacy Policy, Terms of Service, Press Kit)
+  function setupInfoModal(triggerSelector, modalId, closeBtnId) {
+    const modal = document.getElementById(modalId);
+    const closeBtn = document.getElementById(closeBtnId);
+    const triggers = document.querySelectorAll(triggerSelector);
+
+    triggers.forEach(t => {
+      t.addEventListener("click", (e) => {
+        e.preventDefault();
+        if (modal) modal.classList.add("open");
+      });
+    });
+
+    if (closeBtn && modal) {
+      closeBtn.addEventListener("click", () => {
+        modal.classList.remove("open");
+      });
+    }
+
+    if (modal) {
+      modal.addEventListener("click", (e) => {
+        if (e.target === modal) {
+          modal.classList.remove("open");
+        }
+      });
+    }
+  }
+
+  setupInfoModal(".open-privacy", "privacyModal", "privacyClose");
+  setupInfoModal(".open-terms", "termsModal", "termsClose");
+  setupInfoModal(".open-press", "pressModal", "pressClose");
+
+  // Keyboard escape key to close any open modal
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape") {
-      if (lightboxModal) lightboxModal.classList.remove("open");
-      if (preorderModal) preorderModal.classList.remove("open");
+      document.querySelectorAll(".modal-overlay.open").forEach(m => m.classList.remove("open"));
     }
   });
 });

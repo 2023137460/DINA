@@ -1545,6 +1545,86 @@ button {
   right: 14px;
   font-size: 1.25rem;
   color: var(--text-secondary);
+  cursor: pointer;
+  background: none;
+  border: none;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all var(--dur-press) ease;
+}
+
+.modal-close-btn:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.modal-content-lg {
+  max-width: 580px;
+  max-height: 85vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-scroll-body {
+  overflow-y: auto;
+  padding-right: 6px;
+  max-height: calc(85vh - 50px);
+}
+
+.modal-legal-title {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin: 6px 0 2px;
+}
+
+.modal-legal-date {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  margin-bottom: 20px;
+}
+
+.legal-section {
+  margin-bottom: 18px;
+}
+
+.legal-section h4 {
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 6px;
+}
+
+.legal-section p {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+.legal-link {
+  color: var(--accent-warm-light);
+  text-decoration: underline;
+}
+
+.press-specs-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  background: rgba(255, 255, 255, 0.03);
+  padding: 12px 14px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-subtle);
+}
+
+.press-specs-list strong {
+  color: #ffffff;
 }
 
 .lightbox-img {
