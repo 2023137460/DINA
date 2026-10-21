@@ -1,0 +1,1014 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>DINA — Defrost Is Now Automatic | The Smart Kitchen Companion</title>
+  <meta name="description" content="Never come home to a frozen dinner again. Tap your phone from work — DINA moves your dinner from deep freeze to gentle, chef-grade thaw.">
+  <link rel="stylesheet" href="css/styles.css?v=4.0">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ff9f0a'><path d='M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z'/></svg>">
+</head>
+<body>
+  <div class="bg-ambient-glow"></div>
+
+  <!-- Apple Frosted Glass Navbar -->
+  <header class="navbar">
+    <div class="container nav-container">
+      <a href="#" class="logo">
+        <div class="logo-icon">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+            <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+          </svg>
+        </div>
+        <span class="logo-text">DINA</span>
+        <span class="logo-sub">Defrost Is Now Automatic</span>
+      </a>
+
+      <!-- Desktop Navigation Links -->
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#how-it-works" class="nav-link">How It Works</a></li>
+        <li><a href="#the-problem" class="nav-link">Why DINA</a></li>
+        <li><a href="#app-preview" class="nav-link">Mobile App</a></li>
+        <li><a href="#calculator" class="nav-link">Savings Calculator</a></li>
+        <li><a href="#reviews" class="nav-link">Reviews</a></li>
+        <li><a href="#pricing" class="nav-link">Pricing</a></li>
+        <li><a href="#faq" class="nav-link">FAQ</a></li>
+      </ul>
+
+      <!-- Action Area: Strictly Collision-Free on Mobile! -->
+      <div class="nav-actions">
+        <a href="app.html" class="btn-pill-app" title="Launch Interactive Mobile App">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0;"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>
+          <span>App Demo</span>
+        </a>
+        <button class="btn-primary open-preorder nav-desktop-btn" style="min-height: 36px; padding: 6px 16px;">Pre-Order</button>
+        <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle navigation">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Dropdown Navigation Overlay -->
+  <div class="mobile-nav-overlay" id="mobileNavOverlay">
+    <a href="#how-it-works" class="mobile-nav-link">How It Works</a>
+    <a href="#the-problem" class="mobile-nav-link">Why DINA</a>
+    <a href="app.html" class="mobile-nav-link" style="color: var(--accent-warm-light); display: flex; align-items: center; gap: 8px;">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>
+      <span>Interactive App Demo</span>
+    </a>
+    <a href="#calculator" class="mobile-nav-link">Savings Calculator</a>
+    <a href="#reviews" class="mobile-nav-link">Customer Reviews</a>
+    <a href="#pricing" class="mobile-nav-link">Pricing & Models</a>
+    <a href="#faq" class="mobile-nav-link">FAQ</a>
+    <button class="btn-primary open-preorder" style="width: 100%; min-height: 48px; margin-top: 12px;">Pre-Order DINA (€99 Deposit)</button>
+  </div>
+
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="container">
+      <div class="badge-apple">
+        <span class="badge-dot"></span>
+        <span>DINA 1.0 • 30-Day Risk-Free In-Home Trial</span>
+      </div>
+
+      <h1 class="hero-title">
+        Never come home to a <span class="text-gradient-warm">frozen dinner</span> again.
+      </h1>
+
+      <p class="hero-subtitle">
+        You're leaving the office at 4:30 PM. Tap your phone — <strong>DINA</strong> moves your ribeye, salmon, or chicken 
+        from deep freeze (<span class="text-warm">-18°C</span>) to gentle, chef-grade thaw (<span class="text-warm">+10°C</span>). 
+        By the time you walk through your front door, it's juicy, tender, and ready to cook.
+      </p>
+
+      <div class="hero-actions">
+        <button class="btn-primary open-preorder">
+          <span>Pre-Order DINA — €99 Deposit</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </button>
+        <a href="app.html" class="btn-secondary">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="3"/><line x1="12" y1="18" x2="12" y2="18"/></svg>
+          <span>Try Interactive App Demo</span>
+        </a>
+      </div>
+
+      <!-- Hero Visual Showcase -->
+      <div class="hero-visual-card">
+        <div class="hero-image-wrap">
+          <img src="assets/images/Smart_Freezer_Operating_Open.png" alt="DINA Smart Chest Freezer" class="hero-image" data-zoom="assets/images/Smart_Freezer_Operating_Open.png">
+        </div>
+
+        <!-- Mobile-Engineered Telemetry Strip (NO overlapping chips!) -->
+        <div class="telemetry-strip">
+          <div class="telemetry-cell">
+            <div class="cell-label">Freezer Vault</div>
+            <div class="cell-value">-18°C Deep Freeze</div>
+          </div>
+          <div class="telemetry-cell">
+            <div class="cell-label">Dinner Staged</div>
+            <div class="cell-value" style="color: var(--accent-warm-light);">Ribeye Steak 450g</div>
+          </div>
+          <div class="telemetry-cell">
+            <div class="cell-label">Thaw Drawer</div>
+            <div class="cell-value">+10°C Gentle Thaw</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Consumer Trust & Value Strip -->
+      <div class="stat-strip">
+        <div class="stat-item">
+          <div class="stat-number">0 min</div>
+          <div class="stat-label">Hovering by microwave</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">4×</div>
+          <div class="stat-label">Faster natural thaw than air</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">€1,800+</div>
+          <div class="stat-label">Annual takeout saved</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">100%</div>
+          <div class="stat-label">Natural moisture locked in</div>
+        </div>
+      </div>
+
+      <!-- Guarantee Bar -->
+      <div class="guarantee-bar">
+        <div class="guarantee-item">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <span>30-Day Risk-Free In-Home Trial</span>
+        </div>
+        <div class="guarantee-item">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13" rx="2"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+          <span>Free White-Glove Delivery</span>
+        </div>
+        <div class="guarantee-item">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          <span>2-Year Comprehensive Warranty</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works (Everyday Routine) -->
+  <section class="section-pad" id="how-it-works">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Effortless Cooking</span>
+        <h2 class="section-title">How DINA Fits Into Your Day</h2>
+        <p class="section-desc">
+          No meal planning stress. No emergency dinner panic. Just delicious, freshly cooked meals on your schedule.
+        </p>
+      </div>
+
+      <div class="steps-timeline">
+        <!-- Step 1 -->
+        <div class="step-row">
+          <div class="step-text">
+            <span class="step-number">STEP 01</span>
+            <h3 class="step-title">Stock on Sunday</h3>
+            <p class="step-desc">
+              Unpack your grocery haul into DINA's 8-slot rotating vault. The generous 180-liter deep freezer keeps your meats, fish, and favorite meals frozen solid at -18°C.
+            </p>
+            <ul class="step-specs-list">
+              <li>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                <span>Holds 8 ready-to-cook dinners in the rotating tower</span>
+              </li>
+              <li>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                <span>Food-grade materials that never stick or freeze together</span>
+              </li>
+              <li>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                <span>Additional bulk wire baskets for ice cream and frozen bags</span>
+              </li>
+            </ul>
+          </div>
+          <div class="step-visual">
+            <img src="assets/images/Smart_Freezer_Internal_Mechanisms.png" alt="Inside DINA Smart Freezer" data-zoom="assets/images/Smart_Freezer_Internal_Mechanisms.png">
+          </div>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="step-row reverse">
+          <div class="step-text">
+            <span class="step-number">STEP 02</span>
+            <h3 class="step-title">Tap from Work at 4:30 PM</h3>
+            <p class="step-desc">
+              Sitting at your desk or wrapping up an afternoon meeting? Open the DINA app on your iPhone, Android, or Apple Watch. 
+              Pick tonight's meal and set your arrival time. DINA calculates the exact thaw duration and begins right on cue.
+            </p>
+            <ul class="step-specs-list">
+              <li>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                <span>1-Tap dispatch from anywhere in the world</span>
+              </li>
+              <li>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                <span>Gentle, uniform contact heat locks in cellular moisture</span>
+              </li>
+              <li>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                <span><strong>Traffic Delay Shield:</strong> Stuck late? DINA cools down to +3°C fridge mode</span>
+              </li>
+            </ul>
+          </div>
+          <div class="step-visual">
+            <img src="assets/images/Smart_Freezer_Ghost_Isometric.png" alt="DINA Smart Mechanism" data-zoom="assets/images/Smart_Freezer_Ghost_Isometric.png">
+          </div>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="step-row">
+          <div class="step-text">
+            <span class="step-number">STEP 03</span>
+            <h3 class="step-title">Walk In, Sear & Enjoy</h3>
+            <p class="step-desc">
+              Open your front door at 7:00 PM. Slide out DINA's smooth stainless thaw drawer. 
+              Your steak, salmon, or chicken is at ideal chef prep temperature: completely tender, uniformly thawed, and holding 100% of its moisture.
+            </p>
+            <ul class="step-specs-list">
+              <li>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                <span>Zero rubbery cooked borders, zero frozen core</span>
+              </li>
+              <li>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                <span>Stainless plate wipes clean in 10 seconds or goes in dishwasher</span>
+              </li>
+              <li>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                <span>Dinner on the table in 15 minutes</span>
+              </li>
+            </ul>
+          </div>
+          <div class="step-visual">
+            <img src="assets/images/Smart_Freezer_Defrost_Chamber_Interior.png" alt="DINA Clean Thaw Drawer" data-zoom="assets/images/Smart_Freezer_Defrost_Chamber_Interior.png">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- The Problem vs DINA (Comparison) -->
+  <section class="section-pad" id="the-problem" style="background: rgba(255, 255, 255, 0.015);">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Stop The Compromise</span>
+        <h2 class="section-title">Why Traditional Thawing Ruins Dinner</h2>
+        <p class="section-desc">
+          When you forget to thaw dinner, every existing shortcut sacrifices food quality, health, or money.
+        </p>
+      </div>
+
+      <div class="comparison-grid">
+        <!-- Microwave Defrost -->
+        <div class="comp-card bad">
+          <span class="comp-badge danger">The Microwave</span>
+          <h3 class="comp-title">The Gray Rubber Boot</h3>
+          <p class="comp-subtitle">Radio waves boil the outer edges while the center stays icy. Meat turns dry, chewy, and half-cooked.</p>
+          <ul class="comp-features-list">
+            <li class="negative">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+              <span>Destroys natural tenderness & flavor</span>
+            </li>
+            <li class="negative">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+              <span>Boils the rim while center stays frozen</span>
+            </li>
+            <li class="negative">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+              <span>Requires constant flipping and watching</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Warm Water Bath -->
+        <div class="comp-card bad">
+          <span class="comp-badge danger">Sink Water Bath</span>
+          <h3 class="comp-title">The Science Experiment</h3>
+          <p class="comp-subtitle">Submerging meat in warm tap water leaks into bags, clutters your sink, and exposes food to bacteria.</p>
+          <ul class="comp-features-list">
+            <li class="negative">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+              <span>Dangerous bacterial growth danger zone</span>
+            </li>
+            <li class="negative">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+              <span>Water seeps into bags, ruining textures</span>
+            </li>
+            <li class="negative">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+              <span>Clutters your sink after a long day</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Delivery Apps -->
+        <div class="comp-card bad">
+          <span class="comp-badge danger">Delivery Apps</span>
+          <h3 class="comp-title">The €25 Takeout Trap</h3>
+          <p class="comp-subtitle">Out of desperation, you order takeout. An hour later, you get lukewarm food with excess sodium and delivery fees.</p>
+          <ul class="comp-features-list">
+            <li class="negative">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+              <span>€20 - €35 per single dinner</span>
+            </li>
+            <li class="negative">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+              <span>50-minute unpredictable delivery wait</span>
+            </li>
+            <li class="negative">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+              <span>Costs over €180 every single month</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- DINA Smart Thaw Solution -->
+        <div class="comp-card hero-solution">
+          <span class="comp-badge winner">★ The DINA Experience</span>
+          <h3 class="comp-title">Gentle Conduction Thaw</h3>
+          <p class="comp-subtitle">1-Tap from your phone. Gentle solid-state thermal plate warms uniformly, keeping food tender, juicy, and 100% safe.</p>
+          <ul class="comp-features-list">
+            <li class="positive">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>Zero effort: triggered right from your desk</span>
+            </li>
+            <li class="positive">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>100% steakhouse tenderness & natural juices</span>
+            </li>
+            <li class="positive">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>Automatic +3°C holding fridge if you're delayed</span>
+            </li>
+            <li class="positive">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>Pays for itself in 5 months of avoided takeout</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Mobile Companion App Spotlight -->
+  <section class="app-spotlight-section" id="app-preview">
+    <div class="container">
+      <div class="app-spotlight-grid">
+        <div>
+          <span class="section-tag">DINA Mobile OS</span>
+          <h2 class="section-title">The Remote Control for Dinner</h2>
+          <p class="section-desc">
+            Designed according to Apple Human Interface Guidelines. Fluid gesture physics, real-time temperatures, and one-tap simplicity.
+          </p>
+
+          <div class="app-feature-pills">
+            <div class="app-feature-pill">
+              <div class="app-pill-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent-warm)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+                </svg>
+              </div>
+              <div>
+                <h4 class="app-pill-title">1-Tap Slide to Thaw</h4>
+                <p class="app-pill-desc">Slide to initiate thaw with instant visual feedback and haptic confirmation.</p>
+              </div>
+            </div>
+
+            <div class="app-feature-pill">
+              <div class="app-pill-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent-warm)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.5 2.8C2.1 10.9 2 11.2 2 11.5V16c0 .6.4 1 1 1h2"></path>
+                  <circle cx="7" cy="17" r="2"></circle>
+                  <path d="M9 17h6"></path>
+                  <circle cx="17" cy="17" r="2"></circle>
+                </svg>
+              </div>
+              <div>
+                <h4 class="app-pill-title">Commute & Traffic Sync</h4>
+                <p class="app-pill-desc">DINA monitors traffic and holds dinner chilled if your commute gets delayed.</p>
+              </div>
+            </div>
+
+            <div class="app-feature-pill">
+              <div class="app-pill-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent-warm)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3" y="3" width="7" height="7" rx="1.5"></rect>
+                  <rect x="14" y="3" width="7" height="7" rx="1.5"></rect>
+                  <rect x="14" y="14" width="7" height="7" rx="1.5"></rect>
+                  <rect x="3" y="14" width="7" height="7" rx="1.5"></rect>
+                </svg>
+              </div>
+              <div>
+                <h4 class="app-pill-title">Live Vault Inventory</h4>
+                <p class="app-pill-desc">See exactly what proteins you have ready at home right from your phone.</p>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <a href="app.html" class="btn-primary" style="padding: 12px 24px; font-size: 0.95rem;">
+              <span>Open Interactive App Demo</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <div style="display: flex; justify-content: center; width: 100%;">
+          <a href="app.html" class="web-app-preview-link" title="Click to test the interactive mobile web app">
+            <div class="web-app-preview-card">
+              <div class="web-app-browser-bar">
+                <div class="web-app-url-pill">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                  <span>dina.local</span>
+                </div>
+                <div class="app-device-status">
+                  <span class="status-pulse-dot"></span>
+                  <span>Matter Connected</span>
+                </div>
+              </div>
+
+              <div class="app-header">
+                <div>
+                  <div style="font-weight: 700; font-size: 0.92rem; color: #ffffff;">Kitchen DINA</div>
+                  <div style="font-size: 0.7rem; color: var(--text-secondary);">Local Network • Instant Access</div>
+                </div>
+                <div style="font-size: 0.72rem; color: var(--accent-green); font-weight: 600;">
+                  ● Ready
+                </div>
+              </div>
+
+              <div class="app-temp-gauges">
+                <div class="gauge-card">
+                  <div class="gauge-val">-18.0°C</div>
+                  <div class="gauge-label">Storage Vault</div>
+                </div>
+                <div class="gauge-card">
+                  <div class="gauge-val" style="color: var(--accent-warm-light);">-18.0°C</div>
+                  <div class="gauge-label">Thaw Drawer</div>
+                </div>
+              </div>
+
+              <div class="app-meal-preview">
+                <div style="font-size: 0.68rem; color: var(--accent-warm); text-transform: uppercase; font-weight: 700; margin-bottom: 2px;">Selected for Tonight</div>
+                <div class="app-meal-name">Prime Angus Ribeye Steak</div>
+                <div class="app-meal-meta">450g • Vault Slot 02 • Est: 85m</div>
+              </div>
+
+              <div class="app-thaw-slider" style="margin-top: 14px;">
+                <div class="slider-handle">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                </div>
+                <div class="slider-text">TAP TO TEST APP DEMO</div>
+              </div>
+
+              <div style="text-align: center; margin-top: 10px; font-size: 0.7rem; color: var(--text-secondary);">
+                Fluid Touch Gestures • Responsive Web App
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive Savings Calculator -->
+  <section class="simulator-section" id="calculator">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Smart Calculator</span>
+        <h2 class="section-title">See How Much Time & Money You Save</h2>
+        <p class="section-desc">
+          Calculate your dinner schedule tonight and see how quickly DINA pays for itself in avoided takeout.
+        </p>
+      </div>
+
+      <div class="sim-container">
+        <!-- Calculator Box -->
+        <div class="calc-card">
+          <h3 class="calc-title">Tonight's Dinner Planner</h3>
+          <p class="calc-subtitle">Pick your meal and dinner time to see your schedule & savings.</p>
+
+          <div class="form-group">
+            <label class="form-label">
+              <span>What are you craving tonight?</span>
+              <span class="text-warm" id="selectedMealLabel">Ribeye Steak 450g</span>
+            </label>
+            <div class="meal-pills">
+              <button class="meal-pill-btn active" data-meal="steak">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M19 12c-1.5 0-3-1.5-3-3s1.5-3 3-3 3 1.5 3 3-1.5 3-3 3z"></path><path d="M5 19c2 0 4-1 5-2.5 1 1.5 3 2.5 5 2.5 3 0 5-2 5-5 0-4-5-8-10-8S0 10 0 14c0 3 2 5 5 5z"></path></svg>
+                <span>Ribeye Steak</span>
+              </button>
+              <button class="meal-pill-btn" data-meal="salmon">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 12c.5-2.5 2-4.5 4.5-5 3.5-.5 6.5 1 8.5 4-2 3-5 4.5-8.5 4-2.5-.5-4-2.5-4.5-5z"></path><path d="M18 12c2-1 3.5-3 4-4-1 2-1 4 0 6-.5-1-2-3-4-2z"></path></svg>
+                <span>Salmon Fillet</span>
+              </button>
+              <button class="meal-pill-btn" data-meal="chicken">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M16 16v1a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h11a2 2 0 0 1 2 2v1"></path><path d="M18 8a4 4 0 0 1 4 4v0a4 4 0 0 1-4 4"></path></svg>
+                <span>Chicken Breast</span>
+              </button>
+              <button class="meal-pill-btn" data-meal="lasagna">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="5" width="18" height="14" rx="2"></rect><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                <span>Lasagna Prep</span>
+              </button>
+              <button class="meal-pill-btn" data-meal="shrimp">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"></circle><path d="M8 12a4 4 0 0 1 8 0"></path></svg>
+                <span>Tiger Prawns</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="form-label">
+              <span>Target Dinner Time:</span>
+              <span class="text-warm font-mono" id="dinnerTimeDisplay">19:30</span>
+            </div>
+            <input type="range" min="1050" max="1350" step="15" value="1170" class="slider-custom" id="dinnerTimeSlider">
+          </div>
+
+          <!-- Calculated Results -->
+          <div class="calc-results-box">
+            <div class="res-grid">
+              <div>
+                <div class="res-val" id="calcTriggerTime">18:05</div>
+                <div class="res-label">Auto-Trigger Time</div>
+              </div>
+              <div>
+                <div class="res-val" id="calcDuration">85 min</div>
+                <div class="res-label">Gentle Thaw Time</div>
+              </div>
+              <div>
+                <div class="res-val" id="calcSavings">€26.00</div>
+                <div class="res-label">Takeout Saved Tonight</div>
+              </div>
+            </div>
+          </div>
+
+          <div style="text-align: center; margin-top: 14px;">
+            <span class="savings-highlight-badge">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 5px;"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+              <span>Annual Takeout Savings: Over €1,800 / Year</span>
+            </span>
+          </div>
+
+          <button class="calc-action-btn" id="simulateTriggerBtn" style="margin-top: 18px;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+            </svg>
+            <span>Simulate 1-Tap Cloud Trigger</span>
+          </button>
+        </div>
+
+        <!-- Live Connected Appliance Console -->
+        <div class="calc-live-preview-card">
+          <div class="app-header">
+            <div>
+              <div style="font-weight: 700; font-size: 0.92rem; color: #ffffff;">DINA Web Console</div>
+              <div style="font-size: 0.7rem; color: var(--text-secondary);">Kitchen Unit #1 • Matter Active</div>
+            </div>
+            <div class="app-device-status">
+              <span class="status-pulse-dot"></span>
+              <span>Online</span>
+            </div>
+          </div>
+
+          <!-- Dual Temp Gauges -->
+          <div class="app-temp-gauges">
+            <div class="gauge-card">
+              <div class="gauge-val">-18.0°C</div>
+              <div class="gauge-label">Vault Storage</div>
+            </div>
+            <div class="gauge-card">
+              <div class="gauge-val" id="appDrawerTemp" style="color: var(--accent-warm-light);">-18.0°C</div>
+              <div class="gauge-label">Thaw Drawer</div>
+            </div>
+          </div>
+
+          <!-- Meal Card in Console -->
+          <div class="app-meal-preview">
+            <div style="font-size: 0.68rem; color: var(--accent-warm); text-transform: uppercase; font-weight: 700; margin-bottom: 2px;">Target Meal</div>
+            <div class="app-meal-name" id="appMealName">Prime Ribeye Steak</div>
+            <div class="app-meal-meta" id="appMealMeta">450g • Vault Slot 02</div>
+          </div>
+
+          <div style="margin: 10px 0; text-align: center;">
+            <div id="appStatusText" style="font-size: 0.76rem; font-weight: 600; color: var(--accent-green);">
+              Standby • Connected to Matter
+            </div>
+          </div>
+
+          <!-- Slide to Thaw Control in Console -->
+          <div class="app-thaw-slider" id="phoneSlider" title="Click or tap to simulate remote thaw" role="button" tabindex="0">
+            <div class="slider-handle">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+            </div>
+            <div class="slider-text">CLICK TO DISPATCH THAW</div>
+          </div>
+
+          <div style="text-align: center; margin-top: 12px; font-size: 0.7rem; color: var(--text-secondary);">
+            Synchronized with Kitchen Conduction Chamber
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Real Customer Reviews -->
+  <section class="section-pad" id="reviews" style="background: rgba(255, 255, 255, 0.015);">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Customer Stories</span>
+        <h2 class="section-title">Loved by Busy Professionals & Home Cooks</h2>
+        <p class="section-desc">
+          Hear how DINA transformed weekday evenings for real people who love good food.
+        </p>
+      </div>
+
+      <div class="testimonials-grid">
+        <div class="testimonial-card">
+          <p class="test-text">
+            "I used to order UberEats at 7 PM because I forgot to take steaks out of the freezer before leaving for work at 8 AM. 
+            DINA paid for itself in less than 5 months just in saved takeout bills."
+          </p>
+          <div class="test-author-box">
+            <div class="test-avatar">MT</div>
+            <div>
+              <div class="test-name">Marcus Thorne</div>
+              <div class="test-role">Software Architect & Home Cook, London</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card">
+          <p class="test-text">
+            "Microwaving chicken breasts always left the edges rubbery and dry. 
+            DINA's stainless contact plate thaws meat so gently that it sears like a fresh cut from the butcher counter."
+          </p>
+          <div class="test-author-box">
+            <div class="test-avatar">SL</div>
+            <div>
+              <div class="test-name">Dr. Sophia Lin</div>
+              <div class="test-role">Biomedical Researcher & Meal Prepper, Boston</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card">
+          <p class="test-text">
+            "When I got stuck in a 45-minute highway jam on the commute home, DINA automatically chilled the drawer back down to 3°C 
+            to protect dinner. It is truly the smartest appliance in my house."
+          </p>
+          <div class="test-author-box">
+            <div class="test-avatar">ER</div>
+            <div>
+              <div class="test-name">Eduardo Ramos</div>
+              <div class="test-role">Product Designer & Father of Two, Lisbon</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing & Pre-Order Tiers -->
+  <section class="section-pad" id="pricing">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Reserve Your Unit</span>
+        <h2 class="section-title">Bring DINA into Your Kitchen</h2>
+        <p class="section-desc">
+          Reserve your unit today with a 100% refundable €99 deposit. First production batch ships Q1 2027.
+        </p>
+      </div>
+
+      <div class="pricing-grid">
+        <!-- Starter Hardware -->
+        <div class="pricing-card">
+          <div class="tier-name">DINA Home</div>
+          <div class="tier-desc">Complete smart chest freezer with built-in 7" touchscreen and Wi-Fi control.</div>
+          <div class="tier-price-box">
+            <div class="price-main">€1,299</div>
+            <div class="price-sub">or €49/mo with 0% APR financing</div>
+          </div>
+          <ul class="tier-perks-list">
+            <li>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>DINA Smart Chest Freezer (180 Liters)</span>
+            </li>
+            <li>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>Stainless Steel Contact Thawing Drawer</span>
+            </li>
+            <li>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>Integrated 7" Touchscreen & Matter Bridge</span>
+            </li>
+            <li>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>1-Year DINA Mobile App Connectivity</span>
+            </li>
+            <li>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>3-Year Comprehensive EU Consumer Warranty</span>
+            </li>
+          </ul>
+          <button class="btn-tier btn-tier-outline open-preorder">Pre-Order for €99</button>
+        </div>
+
+        <!-- Featured SaaS Tier -->
+        <div class="pricing-card featured">
+          <div class="pricing-badge">★ Most Popular</div>
+          <div class="tier-name">DINA Pro + Cloud OS</div>
+          <div class="tier-desc">The complete smart kitchen companion with remote dispatch, commute sync, and delay protection.</div>
+          <div class="tier-price-box">
+            <div class="price-main">€1,449</div>
+            <div class="price-sub">Includes 2 Years of DINA Cloud OS (€199 value)</div>
+          </div>
+          <ul class="tier-perks-list">
+            <li>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>Everything in DINA Home</span>
+            </li>
+            <li>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>1-Tap Remote Dispatch from Anywhere</span>
+            </li>
+            <li>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>Traffic & Calendar Auto-Delay Hold Protection</span>
+            </li>
+            <li>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>Meal Inventory & Expiration Alerts</span>
+            </li>
+            <li>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>Apple HomeKit, Google Home & Matter Certified</span>
+            </li>
+            <li>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>3-Year Extended Warranty + Free White-Glove Setup in Portugal</span>
+            </li>
+          </ul>
+          <button class="btn-tier btn-tier-primary open-preorder">Pre-Order DINA Pro</button>
+        </div>
+
+        <!-- Founder's Edition -->
+        <div class="pricing-card">
+          <div class="tier-name">Founder's Batch</div>
+          <div class="tier-desc">Limited run of 500 numbered units with titanium anodized finishes and lifetime cloud.</div>
+          <div class="tier-price-box">
+            <div class="price-main">€1,899</div>
+            <div class="price-sub">Lifetime Free DINA OS Cloud & Priority Delivery in Portugal & EU</div>
+          </div>
+          <ul class="tier-perks-list">
+            <li>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>Numbered Laser-Engraved Chassis (001–500)</span>
+            </li>
+            <li>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>Lifetime DINA Cloud OS Subscription Included</span>
+            </li>
+            <li>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>Titanium Gray Anodized Handles & Accents</span>
+            </li>
+            <li>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>Direct Concierge Support Channel</span>
+            </li>
+            <li>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>5-Year Hassle-Free Full Replacement Guarantee</span>
+            </li>
+          </ul>
+          <button class="btn-tier btn-tier-outline open-preorder">Reserve Founder's Edition</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Buyer FAQ Section -->
+  <section class="section-pad" id="faq">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Common Questions</span>
+        <h2 class="section-title">Frequently Asked Questions</h2>
+        <p class="section-desc">
+          Everything you need to know about cooking, safety, and daily operation with DINA.
+        </p>
+      </div>
+
+      <div class="faq-accordion">
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>How does the taste and texture compare to regular thawing?</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            DINA thaws food far better than a microwave or countertop. Because it uses a sanitary stainless steel contact plate, heat spreads gently and uniformly across the bottom of the package. Cellular walls remain intact, meaning zero juice loss, zero cooked gray edges, and prime steakhouse tenderness when you sear it.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>What happens if I get held up late at work or stuck in traffic?</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            DINA has an automatic <strong>Safe-Hold feature</strong>. If dinner finishes thawing and you haven't opened the drawer within 30 minutes (or if your phone signals you're still on your commute), DINA immediately drops the drawer temperature to +3°C (standard refrigerator chill). Your food remains fresh and refrigerated for hours until you get home.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>Can I still use DINA to store regular groceries like ice cream and frozen bags?</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            Yes! DINA is a full 180-liter chest freezer. The rotating dinner tower only takes up a portion of the vault, leaving plenty of room with wire baskets for standard frozen vegetables, ice cream, pizzas, and bulk bags.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>What kind of packaging can I put inside?</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            You can use standard vacuum-sealed bags, store-bought butcher wrap, freezer-safe zip bags, or reusable meal prep containers (PP-R, glass with silicone lids, or food-grade silicone bags).
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>How loud is DINA? Will it make noise in my kitchen?</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            DINA runs below 32 decibels — quieter than a whisper in a library. Its advanced variable inverter compressor is engineered to operate silently in modern open-plan kitchens.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>Is the €99 pre-order deposit refundable?</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            100% refundable, no questions asked. You can cancel your reservation at any time before your unit ships for a full refund back to your original payment method. Plus, once delivered in Portugal or the EU, you enjoy a 30-day risk-free home trial.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Final Call to Action Banner -->
+  <section class="container">
+    <div class="cta-banner">
+      <h2 class="cta-banner-title">Take dinner back from the microwave.</h2>
+      <p class="cta-banner-desc">
+        Join over 1,200 home cooks and busy professionals who have reserved their spot for effortless, chef-quality dinners.
+      </p>
+      <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
+        <button class="btn-primary open-preorder" style="padding: 12px 28px; font-size: 0.95rem;">
+          <span>Pre-Order DINA — €99 Refundable Deposit</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </button>
+        <a href="app.html" class="btn-secondary" style="padding: 12px 22px; font-size: 0.95rem;">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 5px;"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>
+          <span>Launch Web App Demo</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="logo">
+            <div class="logo-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+              </svg>
+            </div>
+            <span class="logo-text">DINA</span>
+          </div>
+          <p style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 10px; line-height: 1.5;">
+            The smart chest freezer that moves dinner from deep freeze to active thaw with one tap from work.
+          </p>
+        </div>
+
+        <div>
+          <h4 class="footer-heading">Product</h4>
+          <ul class="footer-links">
+            <li><a href="#how-it-works">How It Works</a></li>
+            <li><a href="#the-problem">Why DINA</a></li>
+            <li><a href="app.html">Mobile App Demo</a></li>
+            <li><a href="#calculator">Savings Calculator</a></li>
+            <li><a href="#pricing">Pricing</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-heading">Experience</h4>
+          <ul class="footer-links">
+            <li><a href="app.html">Interactive App</a></li>
+            <li><a href="#reviews">Customer Stories</a></li>
+            <li><a href="#faq">FAQ</a></li>
+            <li><a href="#pricing">30-Day Home Trial</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-heading">Company</h4>
+          <ul class="footer-links">
+            <li><a href="https://github.com" target="_blank" rel="noopener">GitHub Project</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms of Service</a></li>
+            <li><a href="#">Press Kit</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>© 2026 DINA Inc. All rights reserved. Defrost Is Now Automatic™ is a registered trademark.</div>
+        <div>Built for GitHub Pages deployment • Optimized with 30-Day Risk-Free Trial</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Lightbox Modal for HD Images -->
+  <div class="modal-overlay" id="lightboxModal">
+    <button class="modal-close-btn" id="lightboxClose" aria-label="Close image zoom">&times;</button>
+    <img src="" alt="Enlarged Product View" class="lightbox-img" id="lightboxImg">
+  </div>
+
+  <!-- Pre-Order Modal -->
+  <div class="modal-overlay" id="preorderModal">
+    <div class="modal-content">
+      <button class="modal-close-btn" id="preorderClose" aria-label="Close modal">&times;</button>
+      
+      <form id="preorderForm">
+        <h3 style="font-size: 1.4rem; font-weight: 800; margin-bottom: 6px; color: #ffffff;">Reserve Your DINA</h3>
+        <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 20px;">
+          Lock in your priority production slot for €99 (100% refundable anytime before shipping). Free delivery in Portugal.
+        </p>
+
+        <div style="margin-bottom: 14px;">
+          <label style="display: block; font-size: 0.8rem; font-weight: 600; margin-bottom: 5px; color: #e5e5ea;">Full Name</label>
+          <input type="text" required placeholder="Alex Mercer" style="width: 100%; padding: 10px 14px; border-radius: var(--radius-sm); background: rgba(255,255,255,0.06); border: 1px solid var(--border-medium); color: #fff; font-size: 0.9rem; outline: none;">
+        </div>
+
+        <div style="margin-bottom: 14px;">
+          <label style="display: block; font-size: 0.8rem; font-weight: 600; margin-bottom: 5px; color: #e5e5ea;">Work / Primary Email</label>
+          <input type="email" id="preorderEmail" required placeholder="alex@company.com" style="width: 100%; padding: 10px 14px; border-radius: var(--radius-sm); background: rgba(255,255,255,0.06); border: 1px solid var(--border-medium); color: #fff; font-size: 0.9rem; outline: none;">
+        </div>
+
+        <div style="margin-bottom: 20px;">
+          <label style="display: block; font-size: 0.8rem; font-weight: 600; margin-bottom: 5px; color: #e5e5ea;">Preferred Model</label>
+          <select style="width: 100%; padding: 10px 14px; border-radius: var(--radius-sm); background: #1a1b20; border: 1px solid var(--border-medium); color: #fff; font-size: 0.9rem; outline: none;">
+            <option value="pro">DINA Pro + 2 Years Cloud OS (€1,449) — Most Popular</option>
+            <option value="home">DINA Home Edition (€1,299)</option>
+            <option value="founder">Founder's Batch Numbered Edition (€1,899)</option>
+          </select>
+        </div>
+
+        <button type="submit" class="btn-primary" style="width: 100%; justify-content: center; min-height: 48px;">
+          Confirm Reservation (€99 Deposit)
+        </button>
+      </form>
+
+      <div id="preorderSuccess" style="display: none; text-align: center; padding: 18px 0;">
+        <div style="display: flex; justify-content: center; margin-bottom: 14px;">
+          <div style="width: 56px; height: 56px; border-radius: 50%; background: rgba(48, 209, 88, 0.15); border: 1px solid rgba(48, 209, 88, 0.35); display: flex; align-items: center; justify-content: center; color: var(--accent-green);">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          </div>
+        </div>
+        <h3 style="font-size: 1.4rem; font-weight: 800; margin-bottom: 6px; color: #ffffff;">Reservation Confirmed!</h3>
+        <p style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.5;">
+          Welcome to the future of smart cooking. We've sent a receipt and your priority queue number to your inbox.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/calculator.js?v=4.0"></script>
+  <script src="js/main.js?v=4.0"></script>
+</body>
+</html>

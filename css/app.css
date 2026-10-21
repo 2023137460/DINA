@@ -1,0 +1,745 @@
+/* ==========================================================================
+   DINA Mobile OS — Progressive Web Application
+   Apple Human Interface Guidelines & Touch Ergonomics
+   - Real responsive Web App (NO fake phone bezels, NO fake battery/time/5G)
+   - Zero emojis: Clean, lightweight vector SVGs
+   - Edge-to-edge mobile viewport with safe-area-inset protection
+   - Apple Titanium, Deep Graphite & Warm Amber (#ff9f0a)
+   ========================================================================== */
+
+:root {
+  --app-bg: #000000;
+  --app-surface: #121316;
+  --app-surface-elevated: #1a1b20;
+  --app-surface-active: #23242b;
+
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --border-medium: rgba(255, 255, 255, 0.14);
+  --border-focus: rgba(255, 159, 10, 0.4);
+
+  --text-primary: #f5f5f7;
+  --text-secondary: #86868b;
+  --text-tertiary: #636366;
+
+  --accent-warm: #ff9f0a;        /* Apple System Warm Amber */
+  --accent-warm-light: #ffb340;
+  --accent-green: #30d158;       /* Apple System Safe Green */
+  --accent-red: #ff453a;
+
+  --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", system-ui, sans-serif;
+  --font-mono: "SF Mono", ui-monospace, Menlo, Monaco, Consolas, monospace;
+
+  --ease-apple: cubic-bezier(0.25, 1, 0.5, 1);
+  --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
+  --dur-press: 120ms;
+}
+
+.text-warm {
+  color: var(--accent-warm-light);
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  background-color: var(--app-bg);
+  font-family: var(--font-sans);
+  color: var(--text-primary);
+  line-height: 1.4;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow: hidden;
+}
+
+/* Standalone Web App Root Shell */
+.app-shell {
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--app-bg);
+  position: relative;
+  overflow: hidden;
+}
+
+@media (min-width: 640px) {
+  body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #090a0c;
+  }
+  .app-shell {
+    max-width: 440px;
+    height: 840px;
+    max-height: 94vh;
+    border-radius: 28px;
+    border: 1px solid var(--border-medium);
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8);
+  }
+}
+
+/* ==========================================================================
+   Real Web App Top Header Bar (Clean, NO fake phone status icons!)
+   ========================================================================== */
+.app-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 52px;
+  padding: 0 16px;
+  padding-top: env(safe-area-inset-top);
+  background: rgba(14, 15, 18, 0.9);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border-subtle);
+  flex-shrink: 0;
+  z-index: 50;
+}
+
+.topbar-back-btn {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--accent-warm-light);
+  min-height: 44px;
+  padding: 0 8px;
+  margin-left: -8px;
+}
+
+.topbar-back-btn:active {
+  opacity: 0.7;
+}
+
+.topbar-center {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--accent-green);
+}
+
+.topbar-action-btn {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-secondary);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.topbar-action-btn:active {
+  transform: scale(0.92);
+}
+
+/* ==========================================================================
+   Main Scrollable Screen Content
+   ========================================================================== */
+.app-content-body {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 16px 16px 90px;
+  -webkit-overflow-scrolling: touch;
+}
+
+.app-content-body::-webkit-scrollbar {
+  display: none;
+}
+
+/* Section Title */
+.app-hero-title {
+  margin-bottom: 16px;
+}
+
+.app-hero-title h1 {
+  font-size: 1.35rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: #ffffff;
+}
+
+.app-hero-title p {
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+}
+
+/* Dual Zone Temperature Cards */
+.temp-gauge-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.gauge-box {
+  background: var(--app-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: 16px;
+  padding: 14px 12px;
+}
+
+.gauge-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+
+.gauge-tag {
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.gauge-temp {
+  font-family: var(--font-mono);
+  font-size: 1.65rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: #ffffff;
+  margin-bottom: 2px;
+}
+
+.gauge-thaw .gauge-temp {
+  color: var(--accent-warm-light);
+}
+
+.gauge-sub {
+  font-size: 0.72rem;
+  color: var(--text-secondary);
+}
+
+/* Active Thaw Action Card */
+.active-thaw-card {
+  background: linear-gradient(180deg, #18191e 0%, #111215 100%);
+  border: 1px solid var(--border-medium);
+  border-radius: 20px;
+  padding: 18px 16px;
+  margin-bottom: 20px;
+}
+
+.badge-status {
+  display: inline-block;
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 3px 8px;
+  border-radius: var(--radius-full);
+  background: rgba(255, 159, 10, 0.12);
+  color: var(--accent-warm-light);
+  border: 1px solid rgba(255, 159, 10, 0.25);
+  margin-bottom: 8px;
+}
+
+.meal-highlight-name {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin-bottom: 2px;
+}
+
+.meal-highlight-specs {
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+}
+
+/* Progress Ring & Telemetry Row */
+.progress-telemetry-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 14px 0;
+}
+
+.ring-wrap {
+  position: relative;
+  width: 64px;
+  height: 64px;
+  flex-shrink: 0;
+}
+
+.ring-svg {
+  transform: rotate(-90deg);
+  width: 100%;
+  height: 100%;
+}
+
+.ring-bg {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.08);
+  stroke-width: 6;
+}
+
+.ring-fill {
+  fill: none;
+  stroke: var(--accent-warm);
+  stroke-width: 6;
+  stroke-linecap: round;
+  stroke-dasharray: 200;
+  stroke-dashoffset: 200;
+  transition: stroke-dashoffset 300ms var(--ease-apple);
+}
+
+.ring-center-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: #ffffff;
+}
+
+.telemetry-col {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.telem-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.72rem;
+  gap: 6px;
+}
+
+.telem-label {
+  color: var(--text-secondary);
+}
+
+.telem-val {
+  font-family: var(--font-mono);
+  font-weight: 600;
+  color: #ffffff;
+}
+
+/* Slide to Thaw Control (Touch-First Gesture) */
+.slider-container {
+  position: relative;
+  width: 100%;
+  height: 52px;
+  background: #090a0d;
+  border: 1px solid var(--border-medium);
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  padding: 4px;
+  user-select: none;
+  touch-action: none;
+  overflow: hidden;
+}
+
+.slider-track-text {
+  position: absolute;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--accent-warm-light);
+  pointer-events: none;
+}
+
+.slider-thumb {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: #ffffff;
+  color: #000000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  cursor: grab;
+  position: relative;
+  z-index: 10;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+.slider-thumb:active {
+  cursor: grabbing;
+  transform: scale(0.96);
+}
+
+.slider-fill-glow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 0%;
+  background: rgba(255, 159, 10, 0.2);
+  border-radius: var(--radius-full);
+  pointer-events: none;
+}
+
+/* Quick Actions */
+.quick-action-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.btn-tactile {
+  min-height: 44px;
+  padding: 8px 12px;
+  border-radius: 12px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  border: 1px solid var(--border-subtle);
+  background: rgba(255, 255, 255, 0.05);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  cursor: pointer;
+  transition: transform var(--dur-press) ease;
+}
+
+.btn-tactile:active {
+  transform: scale(0.97);
+}
+
+/* Inventory Slots Section */
+.section-headline {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 20px 0 10px;
+}
+
+.section-headline h2 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.section-headline span {
+  font-size: 0.72rem;
+  color: var(--text-secondary);
+}
+
+.slot-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.slot-item {
+  min-height: 52px;
+  background: var(--app-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: 14px;
+  padding: 10px 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+}
+
+.slot-item:active {
+  transform: scale(0.98);
+}
+
+.slot-item.active-selected {
+  border-color: var(--accent-warm);
+  background: rgba(255, 159, 10, 0.06);
+}
+
+.slot-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.slot-icon-box {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.06);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent-warm-light);
+  flex-shrink: 0;
+}
+
+.slot-name {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.slot-meta {
+  font-size: 0.7rem;
+  color: var(--text-secondary);
+}
+
+.slot-btn-thaw {
+  min-height: 36px;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--border-subtle);
+  color: #ffffff;
+}
+
+.slot-item.active-selected .slot-btn-thaw {
+  background: #ffffff;
+  color: #000000;
+  font-weight: 700;
+}
+
+/* ==========================================================================
+   Bottom Navigation Bar (Anchored in Thumb Zone with Safe-Area Insets)
+   ========================================================================== */
+.bottom-nav {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: calc(56px + env(safe-area-inset-bottom, 14px));
+  background: rgba(14, 15, 18, 0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-top: 1px solid var(--border-subtle);
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-around;
+  padding: 6px 8px env(safe-area-inset-bottom, 14px);
+  z-index: 90;
+}
+
+.nav-tab-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  width: 25%;
+  min-height: 44px;
+  color: var(--text-secondary);
+  font-size: 0.65rem;
+  font-weight: 600;
+  background: none;
+  border: none;
+}
+
+.nav-tab-btn.active {
+  color: #ffffff;
+}
+
+.nav-tab-btn svg {
+  stroke-width: 2;
+}
+
+/* ==========================================================================
+   Bottom Sheet (Meal Staging & Details)
+   ========================================================================== */
+.sheet-backdrop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(8px);
+  z-index: 200;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 240ms ease;
+}
+
+.sheet-backdrop.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.bottom-sheet {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #141519;
+  border-radius: 24px 24px 0 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.14);
+  padding: 14px 18px calc(24px + env(safe-area-inset-bottom, 12px));
+  z-index: 210;
+  transform: translateY(100%);
+  transition: transform 260ms var(--ease-drawer);
+}
+
+.bottom-sheet.open {
+  transform: translateY(0);
+}
+
+.sheet-handle {
+  width: 36px;
+  height: 5px;
+  background: rgba(255, 255, 255, 0.25);
+  border-radius: 9999px;
+  margin: 0 auto 14px;
+}
+
+.sheet-title {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin-bottom: 2px;
+}
+
+.sheet-subtitle {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  margin-bottom: 18px;
+}
+
+.sheet-detail-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.sheet-detail-card {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border-subtle);
+  border-radius: 12px;
+  padding: 10px;
+}
+
+.sheet-card-label {
+  font-size: 0.65rem;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+}
+
+.sheet-card-val {
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-top: 2px;
+}
+
+.sheet-primary-btn {
+  width: 100%;
+  min-height: 48px;
+  border-radius: 14px;
+  background: #ffffff;
+  color: #000000;
+  font-size: 0.9rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: none;
+}
+
+.sheet-primary-btn:active {
+  transform: scale(0.97);
+}
+
+/* Tab Views */
+.tab-view {
+  display: none;
+}
+
+.tab-view.active {
+  display: block;
+}
+
+.telemetry-card {
+  background: var(--app-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: 16px;
+  padding: 14px;
+  margin-bottom: 12px;
+}
+
+.telem-header {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.telem-data-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  font-size: 0.75rem;
+}
+
+/* Toast Notifications */
+.toast-container {
+  position: absolute;
+  top: calc(56px + env(safe-area-inset-top, 0px));
+  left: 14px;
+  right: 14px;
+  z-index: 300;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  pointer-events: none;
+}
+
+.app-toast {
+  background: #1c1d22;
+  border: 1px solid var(--border-medium);
+  border-radius: 12px;
+  padding: 10px 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #ffffff;
+  font-size: 0.78rem;
+  font-weight: 500;
+  transform: translateY(-16px);
+  opacity: 0;
+  transition: transform 200ms var(--ease-drawer), opacity 180ms ease;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+}
+
+.app-toast.visible {
+  transform: translateY(0);
+  opacity: 1;
+}

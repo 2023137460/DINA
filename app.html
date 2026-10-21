@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>DINA OS — Mobile Web App</title>
+  <meta name="description" content="Control your DINA Smart Chest Freezer from anywhere with one tap.">
+  <link rel="stylesheet" href="css/app.css?v=4.0">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ff9f0a'><path d='M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z'/></svg>">
+</head>
+<body>
+  <!-- Native Web App Root Shell -->
+  <main class="app-shell">
+    
+    <!-- Top Web App Navigation Bar -->
+    <header class="app-topbar">
+      <a href="index.html" class="topbar-back-btn">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
+        <span>Store</span>
+      </a>
+
+      <div class="topbar-center">
+        <span class="status-dot"></span>
+        <span>Kitchen DINA</span>
+      </div>
+
+      <button class="topbar-action-btn" id="btnRefreshApp" aria-label="Sync status">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="23 4 23 10 17 10"></polyline>
+          <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path>
+        </svg>
+      </button>
+    </header>
+
+    <!-- Toast Container for Notifications -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- Scrollable Screen Content Body -->
+    <div class="app-content-body">
+      
+      <!-- TAB 1: Vault / Home -->
+      <section class="tab-view active" id="tab-home">
+        <div class="app-hero-title">
+          <h1>Dinner Control</h1>
+          <p>Matter over Wi-Fi • Standby</p>
+        </div>
+
+        <!-- Dual Temperature Cards -->
+        <div class="temp-gauge-grid">
+          <div class="gauge-box">
+            <div class="gauge-header">
+              <span class="gauge-tag">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="2" x2="12" y2="22"></line><line x1="2" y1="12" x2="22" y2="12"></line><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"></line><line x1="19.07" y1="4.93" x2="4.93" y2="19.07"></line></svg>
+                Vault
+              </span>
+            </div>
+            <div class="gauge-temp">-18.0°C</div>
+            <div class="gauge-sub">Deep Frozen • 7 Meals</div>
+          </div>
+
+          <div class="gauge-box gauge-thaw">
+            <div class="gauge-header">
+              <span class="gauge-tag">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"></path></svg>
+                Thaw Drawer
+              </span>
+            </div>
+            <div class="gauge-temp" id="drawerTempDisplay">-18.0°C</div>
+            <div class="gauge-sub">Conduction Standby</div>
+          </div>
+        </div>
+
+        <!-- Active Thaw Action Card -->
+        <div class="active-thaw-card">
+          <span class="badge-status" id="thawStatusBadge">Ready to Thaw</span>
+          <h3 class="meal-highlight-name" id="heroMealName">Prime Angus Ribeye Steak</h3>
+          <p class="meal-highlight-specs" id="heroMealSpecs">450g • Vault Slot 02 • Est: 85m</p>
+
+          <!-- Progress Ring & Telemetry -->
+          <div class="progress-telemetry-row">
+            <div class="ring-wrap">
+              <svg class="ring-svg" viewBox="0 0 76 76">
+                <circle class="ring-bg" cx="38" cy="38" r="32" />
+                <circle class="ring-fill" id="ringProgress" cx="38" cy="38" r="32" />
+              </svg>
+              <div class="ring-center-text" id="ringPctText">0%</div>
+            </div>
+
+            <div class="telemetry-col">
+              <div class="telem-item">
+                <span class="telem-label">Target Dinner</span>
+                <span class="telem-val" id="targetTimeLabel">19:30</span>
+              </div>
+              <div class="telem-item">
+                <span class="telem-label">Thaw Method</span>
+                <span class="telem-val" style="color: var(--accent-warm-light);">Gentle Conduction</span>
+              </div>
+              <div class="telem-item">
+                <span class="telem-label">Safety Status</span>
+                <span class="telem-val" style="color: var(--accent-green);">Food-Safe +3°C</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Slide to Thaw Control (Touch-First Gesture) -->
+          <div class="slider-container" id="sliderTrack">
+            <div class="slider-fill-glow" id="sliderFill"></div>
+            <div class="slider-track-text" id="sliderText">SLIDE TO START THAW</div>
+            <div class="slider-thumb" id="sliderThumb">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+                <polyline points="9 18 15 12 9 6"></polyline>
+              </svg>
+            </div>
+          </div>
+
+          <!-- Quick Actions -->
+          <div class="quick-action-row">
+            <button class="btn-tactile" id="btnDelay">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+              <span>+30m Commute Delay</span>
+            </button>
+            <button class="btn-tactile" id="btnSafeHold">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+              <span>+3°C Safe-Hold</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Quick Inventory Slots -->
+        <div class="section-headline">
+          <h2>Freezer Stock (8 Slots)</h2>
+          <span>Tap to stage dinner</span>
+        </div>
+
+        <div class="slot-list">
+          <div class="slot-item active-selected" data-slot="02">
+            <div class="slot-left">
+              <div class="slot-icon-box">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12c-1.5 0-3-1.5-3-3s1.5-3 3-3 3 1.5 3 3-1.5 3-3 3z"></path><path d="M5 19c2 0 4-1 5-2.5 1 1.5 3 2.5 5 2.5 3 0 5-2 5-5 0-4-5-8-10-8S0 10 0 14c0 3 2 5 5 5z"></path></svg>
+              </div>
+              <div>
+                <div class="slot-name">Prime Angus Ribeye Steak</div>
+                <div class="slot-meta">450g • Staged for Tonight</div>
+              </div>
+            </div>
+            <button class="slot-btn-thaw">Selected</button>
+          </div>
+
+          <div class="slot-item" data-slot="04">
+            <div class="slot-left">
+              <div class="slot-icon-box">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 12c.5-2.5 2-4.5 4.5-5 3.5-.5 6.5 1 8.5 4-2 3-5 4.5-8.5 4-2.5-.5-4-2.5-4.5-5z"></path><path d="M18 12c2-1 3.5-3 4-4-1 2-1 4 0 6-.5-1-2-3-4-2z"></path></svg>
+              </div>
+              <div>
+                <div class="slot-name">Atlantic Salmon Fillet</div>
+                <div class="slot-meta">320g • Wild Caught • Thaw: 65m</div>
+              </div>
+            </div>
+            <button class="slot-btn-thaw">Thaw</button>
+          </div>
+
+          <div class="slot-item" data-slot="01">
+            <div class="slot-left">
+              <div class="slot-icon-box">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 16v1a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h11a2 2 0 0 1 2 2v1"></path><path d="M18 8a4 4 0 0 1 4 4v0a4 4 0 0 1-4 4"></path></svg>
+              </div>
+              <div>
+                <div class="slot-name">Organic Chicken Breasts</div>
+                <div class="slot-meta">500g • Free-Range • Thaw: 95m</div>
+              </div>
+            </div>
+            <button class="slot-btn-thaw">Thaw</button>
+          </div>
+
+          <div class="slot-item" data-slot="05">
+            <div class="slot-left">
+              <div class="slot-icon-box">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"></rect><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+              </div>
+              <div>
+                <div class="slot-name">Artisanal Lasagna Prep</div>
+                <div class="slot-meta">650g • Batch Prepped • Thaw: 110m</div>
+              </div>
+            </div>
+            <button class="slot-btn-thaw">Thaw</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 2: Full Inventory -->
+      <section class="tab-view" id="tab-slots">
+        <div class="app-hero-title">
+          <h1>Vault Inventory</h1>
+          <p>8-Position Rotating Carousel</p>
+        </div>
+
+        <div class="slot-list">
+          <div class="slot-item" data-slot="01">
+            <div class="slot-left">
+              <div class="slot-icon-box"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 16v1a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h11a2 2 0 0 1 2 2v1"></path></svg></div>
+              <div>
+                <div class="slot-name">Organic Chicken Breast</div>
+                <div class="slot-meta">Slot 01 • 500g • 95m Thaw</div>
+              </div>
+            </div>
+            <button class="slot-btn-thaw">Select</button>
+          </div>
+
+          <div class="slot-item active-selected" data-slot="02">
+            <div class="slot-left">
+              <div class="slot-icon-box"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 19c2 0 4-1 5-2.5 1 1.5 3 2.5 5 2.5 3 0 5-2 5-5 0-4-5-8-10-8S0 10 0 14c0 3 2 5 5 5z"></path></svg></div>
+              <div>
+                <div class="slot-name">Prime Angus Ribeye Steak</div>
+                <div class="slot-meta">Slot 02 • 450g • 85m Thaw</div>
+              </div>
+            </div>
+            <button class="slot-btn-thaw">Selected</button>
+          </div>
+
+          <div class="slot-item" data-slot="03">
+            <div class="slot-left">
+              <div class="slot-icon-box"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"></path></svg></div>
+              <div>
+                <div class="slot-name">Wild Tiger Prawns</div>
+                <div class="slot-meta">Slot 03 • 300g • 45m Thaw</div>
+              </div>
+            </div>
+            <button class="slot-btn-thaw">Select</button>
+          </div>
+
+          <div class="slot-item" data-slot="04">
+            <div class="slot-left">
+              <div class="slot-icon-box"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 12c.5-2.5 2-4.5 4.5-5 3.5-.5 6.5 1 8.5 4-2 3-5 4.5-8.5 4-2.5-.5-4-2.5-4.5-5z"></path></svg></div>
+              <div>
+                <div class="slot-name">Atlantic Salmon Fillet</div>
+                <div class="slot-meta">Slot 04 • 320g • 65m Thaw</div>
+              </div>
+            </div>
+            <button class="slot-btn-thaw">Select</button>
+          </div>
+
+          <div class="slot-item" data-slot="05">
+            <div class="slot-left">
+              <div class="slot-icon-box"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"></rect></svg></div>
+              <div>
+                <div class="slot-name">Artisanal Lasagna Prep</div>
+                <div class="slot-meta">Slot 05 • 650g • 110m Thaw</div>
+              </div>
+            </div>
+            <button class="slot-btn-thaw">Select</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 3: Commute Planner -->
+      <section class="tab-view" id="tab-planner">
+        <div class="app-hero-title">
+          <h1>Commute Sync</h1>
+          <p>Traffic Integration & Timing</p>
+        </div>
+
+        <div class="telemetry-card">
+          <div class="telem-header">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+            <span>Transit Schedule</span>
+          </div>
+          <p style="font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 12px;">
+            DINA automatically monitors traffic conditions and adjusts thaw onset so food finishes as you arrive.
+          </p>
+          <div class="telem-data-row">
+            <span style="color: var(--text-secondary);">Office Departure</span>
+            <span class="telem-val">18:30 CET</span>
+          </div>
+          <div class="telem-data-row">
+            <span style="color: var(--text-secondary);">Transit Time</span>
+            <span class="telem-val">35 mins</span>
+          </div>
+          <div class="telem-data-row">
+            <span style="color: var(--text-secondary);">Expected Arrival</span>
+            <span class="telem-val">19:05 CET</span>
+          </div>
+        </div>
+
+        <div class="telemetry-card">
+          <div class="telem-header">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+            <span>Safe-Hold Protection</span>
+          </div>
+          <p style="font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 8px;">
+            If held up past 19:30, drawer chills to +3.0°C to keep meat safely refrigerated.
+          </p>
+          <div class="telem-data-row">
+            <span style="color: var(--text-secondary);">Protection Mode</span>
+            <span class="telem-val" style="color: var(--accent-green);">Armed & Active</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 4: Appliance Telemetry -->
+      <section class="tab-view" id="tab-hardware">
+        <div class="app-hero-title">
+          <h1>Appliance Status</h1>
+          <p>Hardware Health & Power</p>
+        </div>
+
+        <div class="telemetry-card">
+          <div class="telem-header">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+            <span>Efficiency & Consumption</span>
+          </div>
+          <div class="telem-data-row">
+            <span style="color: var(--text-secondary);">Power Draw</span>
+            <span class="telem-val">34 W (Inverter Eco)</span>
+          </div>
+          <div class="telem-data-row">
+            <span style="color: var(--text-secondary);">Sound Level</span>
+            <span class="telem-val">&lt; 32 dBA (Silent)</span>
+          </div>
+          <div class="telem-data-row">
+            <span style="color: var(--text-secondary);">Energy Class</span>
+            <span class="telem-val" style="color: var(--accent-green);">EU Class A</span>
+          </div>
+        </div>
+
+        <div class="telemetry-card">
+          <div class="telem-header">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+            <span>Thermal Barrier</span>
+          </div>
+          <div class="telem-data-row">
+            <span style="color: var(--text-secondary);">Vacuum Barrier</span>
+            <span class="telem-val">Sealed (-55% Loss)</span>
+          </div>
+          <div class="telem-data-row">
+            <span style="color: var(--text-secondary);">Safety Index</span>
+            <span class="telem-val" style="color: var(--accent-warm-light);">0% Danger Zone</span>
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- Bottom Sheet Drawer -->
+    <div class="sheet-backdrop" id="sheetBackdrop"></div>
+    <div class="bottom-sheet" id="bottomSheet">
+      <div class="sheet-handle" id="sheetHandle"></div>
+      <h3 class="sheet-title" id="sheetTitle">Meal Details</h3>
+      <p class="sheet-subtitle" id="sheetSub">Portion Specs & Thaw Time</p>
+
+      <div class="sheet-detail-grid">
+        <div class="sheet-detail-card">
+          <div class="sheet-card-label">Thaw Duration</div>
+          <div class="sheet-card-val text-warm" id="sheetTime">85 min</div>
+        </div>
+        <div class="sheet-detail-card">
+          <div class="sheet-card-label">Weight</div>
+          <div class="sheet-card-val" id="sheetWeight">450g</div>
+        </div>
+      </div>
+
+      <button class="sheet-primary-btn" id="sheetStageBtn">
+        <span>Stage for Tonight's Dinner</span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+      </button>
+    </div>
+
+    <!-- Web App Bottom Navigation Bar -->
+    <nav class="bottom-nav">
+      <button class="nav-tab-btn active" data-tab="tab-home">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+        <span>Vault</span>
+      </button>
+
+      <button class="nav-tab-btn" data-tab="tab-slots">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+        <span>Inventory</span>
+      </button>
+
+      <button class="nav-tab-btn" data-tab="tab-planner">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+        <span>Commute</span>
+      </button>
+
+      <button class="nav-tab-btn" data-tab="tab-hardware">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+        <span>Status</span>
+      </button>
+    </nav>
+  </main>
+
+  <script src="js/app.js?v=4.0"></script>
+</body>
+</html>
