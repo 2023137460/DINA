@@ -131,4 +131,26 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     });
   }
+
+  // Kitchen Appliance View Toggle (3/4 Perspective vs Front View)
+  const kitchenImg = document.getElementById("kitchenMainImg");
+  const kitchenBtns = document.querySelectorAll(".kitchen-view-btn");
+
+  if (kitchenImg && kitchenBtns.length) {
+    kitchenBtns.forEach(btn => {
+      btn.addEventListener("click", () => {
+        const newSrc = btn.getAttribute("data-img");
+        if (newSrc && kitchenImg.getAttribute("src") !== newSrc) {
+          kitchenBtns.forEach(b => b.classList.remove("active"));
+          btn.classList.add("active");
+          kitchenImg.style.transition = "opacity 0.18s ease";
+          kitchenImg.style.opacity = "0.3";
+          setTimeout(() => {
+            kitchenImg.src = newSrc;
+            kitchenImg.style.opacity = "1";
+          }, 180);
+        }
+      });
+    });
+  }
 });

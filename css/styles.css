@@ -1184,13 +1184,18 @@ p.lead {
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 8px;
+  box-sizing: border-box;
 }
 
 .routine-photo-thumb {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
   display: block;
+  filter: drop-shadow(0 4px 10px rgba(25, 25, 25, 0.07));
 }
 
 /* Defrost Drawer Hardware Showcase */
@@ -1242,10 +1247,10 @@ p.lead {
   object-fit: contain;
   display: block;
   margin-bottom: 10px;
-  border: var(--hairline);
-  background: var(--white);
-  padding: 6px;
+  background: transparent;
+  padding: 4px;
   box-sizing: border-box;
+  filter: drop-shadow(0 4px 12px rgba(25, 25, 25, 0.08));
 }
 
 .halo-legend-row {
@@ -1281,12 +1286,46 @@ p.lead {
 .kitchen-product-photo {
   border: var(--hairline);
   background: var(--paper);
-  padding: 24px 16px;
+  padding: 20px 16px;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   box-sizing: border-box;
   text-align: center;
+}
+
+.kitchen-view-toggle {
+  display: inline-flex;
+  gap: 4px;
+  margin-bottom: 16px;
+  background: var(--sand);
+  border: var(--hairline);
+  padding: 3px;
+}
+
+.kitchen-view-btn {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 6px 14px;
+  background: transparent;
+  border: none;
+  color: var(--ink-soft);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.kitchen-view-btn:hover {
+  color: var(--ink);
+}
+
+.kitchen-view-btn.active {
+  background: var(--paper);
+  color: var(--ink);
+  font-weight: 600;
+  box-shadow: 0 1px 3px rgba(25, 25, 25, 0.06);
 }
 
 .kitchen-product-photo img {
@@ -1310,10 +1349,10 @@ p.lead {
   max-height: 180px;
   width: auto;
   max-width: 100%;
-  border: var(--hairline);
+  border: none;
   margin-bottom: 12px;
   display: block;
-  filter: drop-shadow(0 6px 16px rgba(25, 25, 25, 0.08));
+  filter: drop-shadow(0 8px 20px rgba(25, 25, 25, 0.10));
 }
 
 /* Appliance Cutaway Scheme & Interactive Halo */
