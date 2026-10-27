@@ -1,10 +1,55 @@
 /**
  * DINA Main Website JavaScript
- * Reveal animations & navigation scrollspy
- * Strictly adheres to /dina-brand-identity
+ * Reveal animations, mobile menu toggle, & navigation scrollspy
+ * Strictly adheres to /dina-brand-identity. Zero emojis.
  */
 
 document.addEventListener("DOMContentLoaded", () => {
+  // Mobile Navigation Drawer Toggle
+  const mobileMenuBtn = document.getElementById("mobileMenuBtn");
+  const mobileNavMenu = document.getElementById("mobileNavMenu");
+
+  if (mobileMenuBtn && mobileNavMenu) {
+    function toggleMobileMenu() {
+      const isOpen = mobileNavMenu.classList.contains("open");
+      if (isOpen) {
+        closeMobileMenu();
+      } else {
+        openMobileMenu();
+      }
+    }
+
+    function openMobileMenu() {
+      mobileNavMenu.classList.add("open");
+      mobileMenuBtn.classList.add("active");
+      mobileMenuBtn.setAttribute("aria-expanded", "true");
+    }
+
+    function closeMobileMenu() {
+      mobileNavMenu.classList.remove("open");
+      mobileMenuBtn.classList.remove("active");
+      mobileMenuBtn.setAttribute("aria-expanded", "false");
+    }
+
+    mobileMenuBtn.addEventListener("click", toggleMobileMenu);
+
+    // Close menu when tapping any navigation link
+    mobileNavMenu.querySelectorAll("a").forEach(link => {
+      link.addEventListener("click", () => {
+        closeMobileMenu();
+      });
+    });
+
+    // Close on click outside
+    document.addEventListener("click", (e) => {
+      if (mobileNavMenu.classList.contains("open")) {
+        if (!mobileNavMenu.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
+          closeMobileMenu();
+        }
+      }
+    });
+  }
+
   // Reveal on scroll (Safe with prefers-reduced-motion)
   const revealElements = document.querySelectorAll(".reveal");
   
@@ -23,16 +68,16 @@ document.addEventListener("DOMContentLoaded", () => {
     revealElements.forEach(el => observer.observe(el));
   }
 
-  // Active navigation tracking
+  // Active navigation tracking for both desktop & mobile links
   const sections = document.querySelectorAll("section[id], main[id]");
-  const navLinks = document.querySelectorAll(".nav-strip a[href^='#']");
+  const allNavLinks = document.querySelectorAll(".nav-strip a[href^='#'], .mobile-nav-link[href^='#']");
 
-  if ("IntersectionObserver" in window && sections.length && navLinks.length) {
+  if ("IntersectionObserver" in window && sections.length && allNavLinks.length) {
     const navObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           const id = entry.target.getAttribute("id");
-          navLinks.forEach(link => {
+          allNavLinks.forEach(link => {
             if (link.getAttribute("href") === `#${id}`) {
               link.setAttribute("aria-current", "page");
             } else {

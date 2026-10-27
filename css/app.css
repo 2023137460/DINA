@@ -48,159 +48,138 @@ body.app-body {
   min-height: 100vh;
   min-height: 100dvh;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  padding: 20px 10px;
+  justify-content: center;
+  align-items: stretch;
+  padding: 0;
+  margin: 0;
   overflow-x: hidden;
   overscroll-behavior-y: none;
 }
 
-/* Desktop App Bar */
-.desktop-bar {
+/* Web App Shell Container (Native Web App Experience, Zero Phone Frame/Bezel) */
+.web-app-shell {
   width: 100%;
-  max-width: 440px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 12px;
-  padding: 0 4px;
-}
-
-.desktop-bar a,
-.desktop-bar button {
-  font-family: var(--font-head);
-  font-size: 11px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--ink);
-  text-decoration: none;
-  background: transparent;
-  border: 1px solid var(--stone);
-  min-height: 36px;
-  padding: 8px 16px;
-  cursor: pointer;
-  touch-action: manipulation;
-  transition: background 160ms var(--ease-out), color 160ms var(--ease-out), transform 160ms var(--ease-out);
-}
-
-.desktop-bar a:active,
-.desktop-bar button:active {
-  transform: scale(0.97);
-}
-
-@media (hover: hover) and (pointer: fine) {
-  .desktop-bar a:hover,
-  .desktop-bar button:hover {
-    background: var(--ink);
-    color: var(--paper);
-  }
-}
-
-/* iPhone Hardware Chassis Mockup */
-.phone-chassis {
-  width: 390px;
-  height: 844px;
-  background: #000000;
-  border-radius: 52px;
-  padding: 11px;
-  box-shadow: 0 25px 60px -15px rgba(25, 25, 25, 0.35), 0 0 0 1px rgba(25, 25, 25, 0.15);
-  position: relative;
-  transition: width 240ms var(--ease-out), height 240ms var(--ease-out);
-}
-
-/* Fullscreen Mode on Desktop */
-body.full-mode {
-  padding: 0;
+  max-width: 480px;
+  min-height: 100vh;
+  min-height: 100dvh;
   background: var(--paper);
-}
-body.full-mode .desktop-bar {
-  max-width: 100%;
-  padding: 10px 20px;
-  background: var(--sand);
-  border-bottom: var(--hairline);
-  margin-bottom: 0;
-}
-body.full-mode .phone-chassis {
-  width: 100%;
-  max-width: 440px;
-  height: calc(100vh - 54px);
-  height: calc(100dvh - 54px);
-  border-radius: 0;
-  padding: 0;
-  box-shadow: none;
-  background: var(--paper);
-}
-
-/* Phone Screen Inner Shell */
-.phone-screen {
-  width: 100%;
-  height: 100%;
-  background: var(--paper);
-  border-radius: 42px;
-  overflow: hidden;
   display: flex;
   flex-direction: column;
   position: relative;
+  box-shadow: 0 0 35px rgba(25, 25, 25, 0.08);
+  border-left: var(--hairline);
+  border-right: var(--hairline);
 }
 
-body.full-mode .phone-screen {
-  border-radius: 0;
-}
-
-/* iOS Dynamic Island & Status Bar */
-.ios-status-bar {
-  height: 44px;
-  padding: 12px 24px 0;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", var(--font-body);
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--ink);
-  z-index: 10;
-  user-select: none;
-  flex-shrink: 0;
-}
-
-.ios-status-time {
-  letter-spacing: -0.2px;
-}
-
-.ios-dynamic-island {
-  position: absolute;
-  top: 10px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 116px;
-  height: 32px;
-  background: #000000;
-  border-radius: 20px;
-  z-index: 20;
-}
-
-.ios-status-icons {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.ios-status-icons svg {
-  stroke: var(--ink);
-}
-
-/* Top App Header: matches poster with min 44px touch targets */
+/* Top Web App Header */
 .app-header {
-  height: 48px;
+  height: 52px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 0 14px;
   border-bottom: var(--hairline);
   background: var(--paper);
-  z-index: 5;
+  position: sticky;
+  top: 0;
+  z-index: 20;
   flex-shrink: 0;
+}
+
+.app-header-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  text-decoration: none;
+  color: var(--ink);
+  font-family: var(--font-head);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  min-height: var(--touch-target-min);
+  padding: 0 4px;
+  touch-action: manipulation;
+  transition: transform 140ms var(--ease-out), color 140ms var(--ease-out);
+}
+
+.app-header-back:active {
+  transform: scale(0.96);
+  color: var(--clay);
+}
+
+.app-back-label {
+  display: inline-block;
+}
+
+.app-header-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.app-header-title {
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  line-height: 1.15;
+}
+
+.app-status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 10px;
+  color: var(--ink-soft);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-weight: 500;
+}
+
+.status-pulse-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #4A8B63;
+  display: inline-block;
+}
+
+.app-header-actions {
+  display: flex;
+  align-items: center;
+}
+
+.app-header-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--touch-target-min);
+  height: var(--touch-target-min);
+  min-width: var(--touch-target-min);
+  min-height: var(--touch-target-min);
+  color: var(--ink);
+  touch-action: manipulation;
+  transition: transform 140ms var(--ease-out), opacity 140ms var(--ease-out);
+}
+
+.app-header-btn:active {
+  transform: scale(0.92);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .app-header-btn:hover {
+    opacity: 0.7;
+  }
+  .app-header-back:hover {
+    color: var(--clay);
+  }
 }
 
 .app-header-btn {
@@ -952,26 +931,17 @@ body.full-mode .phone-screen {
   transition: opacity 220ms var(--ease-out), transform 220ms var(--ease-out);
 }
 
-/* Responsive Mobile Handling */
+/* Responsive Mobile Handling (Zero Fake Chassis) */
 @media (max-width: 480px) {
   body.app-body {
     padding: 0;
     background: var(--paper);
   }
-  .desktop-bar {
-    display: none;
-  }
-  .phone-chassis {
-    width: 100vw;
-    height: 100vh;
-    height: 100dvh;
-    border-radius: 0;
-    padding: 0;
+  .web-app-shell {
+    max-width: 100%;
+    border-left: none;
+    border-right: none;
     box-shadow: none;
-    background: var(--paper);
-  }
-  .phone-screen {
-    border-radius: 0;
   }
 }
 

@@ -11,7 +11,7 @@
 </head>
 <body>
 
-  <!-- Site Header & Sand Nav Strip starting at 25% width -->
+  <!-- Site Header: Sand Nav Strip on Desktop, Accessible Drawer on Mobile -->
   <header class="site-header" role="banner">
     <div class="header-inner">
       <div class="brand-cell">
@@ -21,8 +21,10 @@
         </a>
       </div>
 
-      <nav class="nav-strip" aria-label="Main Navigation">
+      <!-- Desktop Navigation Strip (Sand background starting at 25%) -->
+      <nav class="nav-strip desktop-nav" aria-label="Desktop Navigation">
         <a href="#home" aria-current="page">Overview</a>
+        <a href="#dilemma">The Dilemma</a>
         <a href="#experience">The Experience</a>
         <a href="#drawer">Defrost Drawer</a>
         <a href="#calculator">Taste Calculator</a>
@@ -34,7 +36,63 @@
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
         </a>
       </nav>
+
+      <!-- Mobile Header Actions (Visible only on <= 900px) -->
+      <div class="mobile-header-actions">
+        <a href="app.html" class="mobile-app-cta-pill">Try App</a>
+        <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle navigation menu" aria-expanded="false">
+          <span class="menu-btn-label">Menu</span>
+          <span class="menu-icon-bars" aria-hidden="true">
+            <span class="bar bar-1"></span>
+            <span class="bar bar-2"></span>
+          </span>
+        </button>
+      </div>
     </div>
+
+    <!-- Mobile Navigation Drawer (All 8 destinations clearly visible and discoverable) -->
+    <nav class="mobile-nav-menu" id="mobileNavMenu" aria-label="Mobile Navigation Menu">
+      <div class="mobile-nav-list">
+        <a href="#home" class="mobile-nav-link" aria-current="page">
+          <span class="mobile-nav-num">01</span>
+          <span class="mobile-nav-title">Overview</span>
+        </a>
+        <a href="#dilemma" class="mobile-nav-link">
+          <span class="mobile-nav-num">02</span>
+          <span class="mobile-nav-title">The 4:30 PM Dilemma</span>
+        </a>
+        <a href="#experience" class="mobile-nav-link">
+          <span class="mobile-nav-num">03</span>
+          <span class="mobile-nav-title">The Routine &amp; Experience</span>
+        </a>
+        <a href="#drawer" class="mobile-nav-link">
+          <span class="mobile-nav-num">04</span>
+          <span class="mobile-nav-title">Defrost Drawer &amp; Halo</span>
+        </a>
+        <a href="#calculator" class="mobile-nav-link">
+          <span class="mobile-nav-num">05</span>
+          <span class="mobile-nav-title">Taste &amp; Thaw Calculator</span>
+        </a>
+        <a href="#kitchen" class="mobile-nav-link">
+          <span class="mobile-nav-num">06</span>
+          <span class="mobile-nav-title">Kitchen Fit (60 cm)</span>
+        </a>
+        <a href="#app" class="mobile-nav-link">
+          <span class="mobile-nav-num">07</span>
+          <span class="mobile-nav-title">Connected Living &amp; Matter</span>
+        </a>
+        <a href="#pricing" class="mobile-nav-link">
+          <span class="mobile-nav-num">08</span>
+          <span class="mobile-nav-title">Pricing &amp; Availability</span>
+        </a>
+      </div>
+      <div class="mobile-nav-footer">
+        <a href="app.html" class="btn btn-clay mobile-drawer-btn">
+          Launch Mobile App Demo
+          <svg viewBox="0 0 48 48" class="dina-icon" style="width:16px;height:16px;margin-left:6px;"><path d="M8 24H38M28 14L38 24L28 34" stroke="currentColor" stroke-width="3" fill="none"/></svg>
+        </a>
+      </div>
+    </nav>
   </header>
 
   <!-- Hero Section: The Promise (Matches the Editorial Poster) -->
@@ -76,27 +134,66 @@
     </aside>
   </main>
 
-  <!-- SECTION 1: The 24-Hour Dilemma (Customer Empathy) -->
-  <section class="row">
-    <p class="caption muted">The Problem</p>
-    <h2>The 24-hour <em>dilemma</em></h2>
-    <p class="lead">We all want to eat healthy, home-cooked food. But frozen meals come with daily friction.</p>
+  <!-- SECTION 1: The 4:30 PM Dilemma (SaaS Story Arc & Customer Empathy) -->
+  <section id="dilemma" class="row">
+    <p class="caption muted">The 4:30 PM Dilemma</p>
+    <h2>&ldquo;Shit. I forgot to defrost <em>dinner&hellip;&rdquo;</em></h2>
+    <p class="lead">
+      Have you ever been at your desk at 4:30 PM and had that sinking feeling? Tonight&rsquo;s healthy dinner plan collapses before you even leave the office. Now you are stuck choosing between three terrible compromises:
+    </p>
 
     <div class="cols">
+      <!-- Compromise 01: Microwave -->
       <article class="feature-card reveal">
-        <h3 class="feature-title">The Planning Barrier</h3>
-        <p>Safely thawing meat or prepared food in a refrigerator requires 12 to 24 hours of advance notice. If you forget before leaving for work in the morning, healthy home dinner plans vanish.</p>
+        <span class="dilemma-tag">Option 01 &bull; The Microwave</span>
+        <h3 class="feature-title">The Gray Rubber Boot</h3>
+        <p>
+          Four minutes on the &ldquo;Defrost&rdquo; button par-cooks gray crusts, wrings out natural moisture, and turns premium steak or chicken into dry rubber &mdash; while the center stays an iceberg. Good food ruined in four minutes.
+        </p>
       </article>
 
+      <!-- Compromise 02: Countertop / Warm Water -->
       <article class="feature-card reveal">
-        <h3 class="feature-title">Countertop Hazards</h3>
-        <p>Leaving frozen meat out on the kitchen counter exposes it to room temperature for hours. Outer layers enter the bacterial danger zone while the center remains frozen solid.</p>
+        <span class="dilemma-tag">Option 02 &bull; The Countertop</span>
+        <h3 class="feature-title">The Science Experiment</h3>
+        <p>
+          Submerging a vacuum pack into a sink of lukewarm tap water like a sketchy chemistry project. The outer surface sits in the bacterial danger zone for an hour while you stand around waiting for uneven results.
+        </p>
       </article>
 
+      <!-- Compromise 03: Delivery Apps -->
       <article class="feature-card reveal">
-        <h3 class="feature-title">Microwave Rubber</h3>
-        <p>The microwave defrost button par-cooks gray borders, dries out natural juices, and destroys texture. Good food deserves gentle, even thawing that preserves taste.</p>
+        <span class="dilemma-tag">Option 03 &bull; The Delivery App</span>
+        <h3 class="feature-title">Overpriced Takeout. Again.</h3>
+        <p>
+          Admitting defeat, opening a delivery app, and spending &euro;25 on greasy, sodium-heavy takeout &mdash; while the fresh, high-quality groceries you carefully bought sit frozen and untouched in your freezer.
+        </p>
       </article>
+    </div>
+
+    <!-- The DINA Resolution Callout -->
+    <div class="dilemma-resolution-callout reveal">
+      <div class="resolution-content">
+        <span class="caption clay-text">Presenting DINA</span>
+        <h3 class="resolution-heading">Tap your phone from the office.</h3>
+        <p class="resolution-lead">
+          DINA moves your meal from deep freeze to active thaw, safely and right on schedule.
+        </p>
+        <div class="resolution-punchline">
+          <span>You walk in.</span>
+          <span class="dot-separator">&bull;</span>
+          <span>You cook.</span>
+          <span class="dot-separator">&bull;</span>
+          <span>You eat.</span>
+        </div>
+        <p class="resolution-signature">DINA. Dinner, handled before you even leave your desk.</p>
+      </div>
+      <div class="resolution-action">
+        <a href="app.html" class="btn btn-clay">
+          Try Mobile App Demo
+          <svg viewBox="0 0 48 48" class="dina-icon" style="width:16px;height:16px;margin-left:4px;"><path d="M8 24H38M28 14L38 24L28 34" stroke="currentColor" stroke-width="3" fill="none"/></svg>
+        </a>
+      </div>
     </div>
   </section>
 
@@ -357,8 +454,9 @@
         <h4>Experience</h4>
         <ul>
           <li><a href="app.html">Interactive App Demo</a></li>
+          <li><a href="#dilemma">The 4:30 PM Dilemma</a></li>
+          <li><a href="#app">Matter &amp; Smart Home</a></li>
           <li><a href="#pricing">Availability</a></li>
-          <li><a href="assets/audio/dina_promo.mp3">Audio Overview</a></li>
         </ul>
       </div>
     </div>

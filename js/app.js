@@ -103,18 +103,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // Desktop Device Frame Toggle
-  const btnToggleView = document.getElementById("btnToggleView");
-  if (btnToggleView) {
-    btnToggleView.addEventListener("click", () => {
-      document.body.classList.toggle("full-mode");
-      if (document.body.classList.contains("full-mode")) {
-        btnToggleView.textContent = "Phone Frame";
-      } else {
-        btnToggleView.textContent = "Full View";
-      }
-    });
-  }
+
 
   // Dial SVG Generation & Drag Handling
   const dialContainer = document.getElementById("dialContainer");
