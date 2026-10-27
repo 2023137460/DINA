@@ -107,4 +107,28 @@ document.addEventListener("DOMContentLoaded", () => {
 
     sections.forEach(sec => navObserver.observe(sec));
   }
+
+  // Interactive Defrost Drawer Halo Handle Simulator
+  const haloRing = document.getElementById("webHaloRing");
+  const haloStatus = document.getElementById("webHaloStatus");
+  const haloBtns = document.querySelectorAll(".halo-chip-btn");
+
+  if (haloRing && haloStatus && haloBtns.length) {
+    haloBtns.forEach(btn => {
+      btn.addEventListener("click", () => {
+        haloBtns.forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        const state = btn.getAttribute("data-state");
+        if (state === "ready") {
+          haloRing.classList.remove("amber");
+          haloRing.classList.add("green");
+          haloStatus.textContent = "Status: Thawed & Chilled at +3.0 °C (Ready)";
+        } else {
+          haloRing.classList.remove("green");
+          haloRing.classList.add("amber");
+          haloStatus.textContent = "Status: Actively Thawing on Schedule";
+        }
+      });
+    });
+  }
 });
