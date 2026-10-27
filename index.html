@@ -302,38 +302,46 @@
     <!-- 3 Animated Dilemma Cards with Visual Vector Schemes -->
     <div class="dilemma-cards-grid">
       <!-- Option 01: Microwave -->
-      <article class="dilemma-card reveal">
-        <div class="dilemma-scheme-box">
+      <article class="dilemma-card">
+        <div class="dilemma-card-header">
+          <span class="dilemma-tag">Option 01 &bull; Microwave</span>
           <span class="dilemma-pill alert">Gray Crust</span>
-          <svg class="scheme-svg" viewBox="0 0 160 80" fill="none" stroke="currentColor" role="img" aria-label="Microwave gray crust scheme">
-            <rect x="15" y="10" width="130" height="60" rx="3" stroke="#191919" stroke-width="1.5" fill="#F1EFE5"/>
-            <rect x="25" y="18" width="80" height="44" rx="2" stroke="#9E9696" stroke-width="1.5"/>
-            <path d="M40 40c10-8 20 8 30 0 8-6 15 4 20 0" stroke="#C0775B" stroke-width="2" stroke-dasharray="3 3"/>
-            <line x1="120" y1="24" x2="135" y2="24" stroke="#191919" stroke-width="1.5"/>
-            <circle cx="127" cy="46" r="6" stroke="#C0775B" stroke-width="1.5"/>
-            <text x="36" y="55" font-family="'Playfair Display', Georgia, serif" font-size="8.5" fill="#C0775B" font-weight="700">PAR-COOKED</text>
+        </div>
+        <div class="dilemma-scheme-box">
+          <svg class="scheme-svg" viewBox="0 0 120 70" fill="none" stroke="currentColor" role="img" aria-label="Microwave gray crust scheme">
+            <rect x="10" y="8" width="100" height="54" rx="4" stroke="var(--ink)" stroke-width="1.75" fill="var(--paper)"/>
+            <rect x="18" y="15" width="62" height="40" rx="2" stroke="var(--stone)" stroke-width="1.25"/>
+            <!-- Par-cooked steak: gray charred outer ring, cold blue center -->
+            <path d="M30 35c4-7 14-8 24-4s12 8 8 13-14 6-22 1-14-3-10-10z" stroke="var(--stone)" stroke-width="2" fill="none"/>
+            <path d="M36 35c2-3 8-4 12-2s5 4 3 6-7 3-10 1-7-2-5-5z" stroke="var(--clay)" stroke-width="1.5" stroke-dasharray="2.5 2.5" fill="none"/>
+            <circle cx="95" cy="24" r="5" stroke="var(--ink)" stroke-width="1.5"/>
+            <line x1="88" y1="42" x2="102" y2="42" stroke="var(--stone)" stroke-width="1.5"/>
+            <line x1="88" y1="48" x2="102" y2="48" stroke="var(--stone)" stroke-width="1.5"/>
           </svg>
         </div>
-        <span class="caption muted">Option 01 &bull; The Microwave</span>
         <h3 class="dilemma-title">The Gray Rubber Boot</h3>
         <ul class="dilemma-bullet-list">
-          <li>Four minutes on defrost cooks gray edges while the center stays solid ice.</li>
+          <li>Defrost setting par-cooks gray edges while the center stays solid ice.</li>
           <li>Wrings out natural juices, turning prime cuts into tough, dry rubber.</li>
         </ul>
       </article>
 
       <!-- Option 02: Countertop Sink -->
-      <article class="dilemma-card reveal">
-        <div class="dilemma-scheme-box">
+      <article class="dilemma-card">
+        <div class="dilemma-card-header">
+          <span class="dilemma-tag">Option 02 &bull; Countertop</span>
           <span class="dilemma-pill alert">Danger Zone</span>
-          <svg class="scheme-svg" viewBox="0 0 160 80" fill="none" stroke="currentColor" role="img" aria-label="Warm water sink danger zone scheme">
-            <path d="M25 22h110c-5 36-22 48-55 48S30 58 25 22z" stroke="#191919" stroke-width="1.5" fill="#F1EFE5"/>
-            <path d="M35 34c15 3 25-3 45 0s30-3 45 0" stroke="#9E9696" stroke-width="1.5"/>
-            <rect x="58" y="30" width="44" height="24" rx="2" stroke="#C0775B" stroke-width="1.5"/>
-            <text x="64" y="45" font-family="'Playfair Display', Georgia, serif" font-size="8" fill="#C0775B" font-weight="700">+22 &deg;C SINK</text>
+        </div>
+        <div class="dilemma-scheme-box">
+          <svg class="scheme-svg" viewBox="0 0 120 70" fill="none" stroke="currentColor" role="img" aria-label="Warm water sink danger zone scheme">
+            <!-- Sink / water bath -->
+            <path d="M18 18h84c-4 32-18 44-42 44s-38-12-42-44z" stroke="var(--ink)" stroke-width="1.75" fill="var(--paper)"/>
+            <path d="M26 28c12 2 20-2 34 0s20-2 34 0" stroke="var(--stone)" stroke-width="1.25"/>
+            <!-- Pack sitting in lukewarm water with alert sign -->
+            <rect x="42" y="24" width="36" height="22" rx="3" stroke="var(--clay)" stroke-width="1.5"/>
+            <path d="M60 30v7m0 4v.01" stroke="var(--clay)" stroke-width="2" stroke-linecap="round"/>
           </svg>
         </div>
-        <span class="caption muted">Option 02 &bull; The Countertop</span>
         <h3 class="dilemma-title">The Science Experiment</h3>
         <ul class="dilemma-bullet-list">
           <li>Submerging sealed packs into lukewarm tap water like a sketchy chemistry lab.</li>
@@ -342,18 +350,21 @@
       </article>
 
       <!-- Option 03: Delivery Apps -->
-      <article class="dilemma-card reveal">
-        <div class="dilemma-scheme-box">
+      <article class="dilemma-card">
+        <div class="dilemma-card-header">
+          <span class="dilemma-tag">Option 03 &bull; Delivery App</span>
           <span class="dilemma-pill alert">25 &euro; Regret</span>
-          <svg class="scheme-svg" viewBox="0 0 160 80" fill="none" stroke="currentColor" role="img" aria-label="Delivery receipt takeout scheme">
-            <path d="M48 10h64v60l-8-4-8 4-8-4-8 4-8-4-8 4-8-4-8 4-8-4-8 4V10z" stroke="#191919" stroke-width="1.5" fill="#F1EFE5"/>
-            <line x1="60" y1="22" x2="100" y2="22" stroke="#9E9696" stroke-width="1.5"/>
-            <line x1="60" y1="30" x2="88" y2="30" stroke="#9E9696" stroke-width="1.5"/>
-            <line x1="60" y1="38" x2="96" y2="38" stroke="#9E9696" stroke-width="1.5"/>
-            <text x="62" y="52" font-family="'Playfair Display', Georgia, serif" font-size="11" fill="#C0775B" font-weight="700">25.00 &euro;</text>
+        </div>
+        <div class="dilemma-scheme-box">
+          <svg class="scheme-svg" viewBox="0 0 120 70" fill="none" stroke="currentColor" role="img" aria-label="Delivery receipt takeout scheme">
+            <!-- Receipt paper -->
+            <path d="M36 10h48v48l-6-3-6 3-6-3-6 3-6-3-6 3-6-3-6 3V10z" stroke="var(--ink)" stroke-width="1.75" fill="var(--paper)"/>
+            <line x1="46" y1="20" x2="74" y2="20" stroke="var(--stone)" stroke-width="1.5"/>
+            <line x1="46" y1="26" x2="68" y2="26" stroke="var(--stone)" stroke-width="1.5"/>
+            <line x1="46" y1="32" x2="74" y2="32" stroke="var(--stone)" stroke-width="1.5"/>
+            <line x1="46" y1="42" x2="74" y2="42" stroke="var(--clay)" stroke-width="2"/>
           </svg>
         </div>
-        <span class="caption muted">Option 03 &bull; The Delivery App</span>
         <h3 class="dilemma-title">Overpriced Takeout. Again.</h3>
         <ul class="dilemma-bullet-list">
           <li>Admitting defeat and ordering greasy, sodium-heavy delivery meals.</li>
@@ -362,8 +373,8 @@
       </article>
     </div>
 
-    <!-- The DINA Resolution Flow Banner (4-step animated timeline) -->
-    <div class="dina-flow-banner reveal">
+    <!-- The DINA Resolution Flow Banner (Responsive Horizontal on Desktop, Clean Vertical Stack on Mobile) -->
+    <div class="dina-flow-banner">
       <div class="flow-banner-header">
         <span class="caption clay-text">Presenting DINA &bull; Defrosting Is Now Automatic</span>
         <h3 class="flow-banner-heading">Tap your phone from the office.</h3>
@@ -371,45 +382,51 @@
       </div>
 
       <div class="flow-steps-grid">
+        <!-- Step 1 -->
         <div class="flow-step-item">
-          <span class="flow-time-pill clay">16:30 Office Tap</span>
-          <div class="flow-step-icon clay">
-            <svg class="dina-icon" viewBox="0 0 48 48" style="width:32px;height:32px;"><rect x="14" y="6" width="20" height="36" rx="3" stroke="currentColor" stroke-width="2" fill="none"/><line x1="21" y1="11" x2="27" y2="11" stroke="currentColor" stroke-width="2"/><circle cx="24" cy="36" r="2" fill="currentColor"/></svg>
+          <div class="flow-step-icon">
+            <svg class="dina-icon" viewBox="0 0 48 48" style="width:26px;height:26px;"><rect x="14" y="6" width="20" height="36" rx="3" stroke="currentColor" stroke-width="2" fill="none"/><line x1="21" y1="11" x2="27" y2="11" stroke="currentColor" stroke-width="2"/><circle cx="24" cy="36" r="2" fill="#C0775B"/></svg>
           </div>
-          <strong class="flow-step-title">Tap From Desk</strong>
+          <div class="flow-step-header-mobile">
+            <strong class="flow-step-title">Tap From Desk</strong>
+            <span class="flow-time-pill clay">16:30 Office Tap</span>
+          </div>
           <p class="flow-step-desc">Pick dinner and your target arrival time with a single tap.</p>
         </div>
 
-        <div class="flow-step-arrow">&rarr;</div>
-
+        <!-- Step 2 -->
         <div class="flow-step-item">
-          <span class="flow-time-pill">17:00 Airlock Drop</span>
           <div class="flow-step-icon">
-            <svg class="dina-icon" viewBox="0 0 48 48" style="width:32px;height:32px;"><path d="M12 14v16m24-16v16" stroke="currentColor" stroke-width="2" fill="none"/><path d="M8 30h32" stroke="currentColor" stroke-width="2"/><rect x="18" y="18" width="12" height="8" rx="1.5" stroke="#C0775B" stroke-width="2" fill="none"/></svg>
+            <svg class="dina-icon" viewBox="0 0 48 48" style="width:26px;height:26px;"><path d="M12 14v16m24-16v16" stroke="currentColor" stroke-width="2" fill="none"/><path d="M8 30h32" stroke="currentColor" stroke-width="2"/><rect x="18" y="18" width="12" height="8" rx="1.5" stroke="#C0775B" stroke-width="2" fill="none"/></svg>
           </div>
-          <strong class="flow-step-title">Airlock Transfer</strong>
-          <p class="flow-step-desc">Carousel rotates and releases meal into the defrost drawer.</p>
+          <div class="flow-step-header-mobile">
+            <strong class="flow-step-title">Airlock Transfer</strong>
+            <span class="flow-time-pill">17:00 Airlock Drop</span>
+          </div>
+          <p class="flow-step-desc">Carousel rotates and dispenses portion into the defrost drawer.</p>
         </div>
 
-        <div class="flow-step-arrow">&rarr;</div>
-
+        <!-- Step 3 -->
         <div class="flow-step-item">
-          <span class="flow-time-pill">18:30 Convection</span>
           <div class="flow-step-icon">
-            <svg class="dina-icon" viewBox="0 0 48 48" style="width:32px;height:32px;"><circle cx="24" cy="24" r="16" stroke="currentColor" stroke-width="2" fill="none"/><path d="M24 16c0 4 5 8 8 8s-4 5-8 8" stroke="#C0775B" stroke-width="2" fill="none"/></svg>
+            <svg class="dina-icon" viewBox="0 0 48 48" style="width:26px;height:26px;"><circle cx="24" cy="24" r="16" stroke="currentColor" stroke-width="2" fill="none"/><path d="M24 16c0 4 5 8 8 8s-4 5-8 8" stroke="#C0775B" stroke-width="2" fill="none"/></svg>
           </div>
-          <strong class="flow-step-title">Gentle Thawing</strong>
-          <p class="flow-step-desc">Gentle air circulation preserves juices, tenderness, and flavor.</p>
+          <div class="flow-step-header-mobile">
+            <strong class="flow-step-title">Gentle Thawing</strong>
+            <span class="flow-time-pill">18:30 Convection</span>
+          </div>
+          <p class="flow-step-desc">Gentle air circulation preserves natural juices and tenderness.</p>
         </div>
 
-        <div class="flow-step-arrow">&rarr;</div>
-
+        <!-- Step 4 -->
         <div class="flow-step-item">
-          <span class="flow-time-pill clay">19:30 Pan-Ready</span>
-          <div class="flow-step-icon clay">
-            <svg class="dina-icon" viewBox="0 0 48 48" style="width:32px;height:32px;"><circle cx="24" cy="26" r="14" stroke="currentColor" stroke-width="2" fill="none"/><path d="M21 15c-2-2 2-4 0-6m6 6c-2-2 2-4 0-6" stroke="#C0775B" stroke-width="2" fill="none"/></svg>
+          <div class="flow-step-icon">
+            <svg class="dina-icon" viewBox="0 0 48 48" style="width:26px;height:26px;"><circle cx="24" cy="26" r="14" stroke="currentColor" stroke-width="2" fill="none"/><path d="M21 15c-2-2 2-4 0-6m6 6c-2-2 2-4 0-6" stroke="#C0775B" stroke-width="2" fill="none"/></svg>
           </div>
-          <strong class="flow-step-title">Chilled at +3 &deg;C</strong>
+          <div class="flow-step-header-mobile">
+            <strong class="flow-step-title">Chilled at +3 &deg;C</strong>
+            <span class="flow-time-pill clay">19:30 Pan-Ready</span>
+          </div>
           <p class="flow-step-desc">Handle halo glows calm green. Ready to sear immediately.</p>
         </div>
       </div>
