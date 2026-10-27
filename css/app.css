@@ -1,5 +1,5 @@
 /* DINA Mobile OS — Styling
-   Strictly follows /dina-brand-identity and PRD 3.0.0
+   Strictly follows /dina-brand-identity, /mobile-design, and /emil-design-eng
    Palette: Ink #191919, Paper #F1EFE5, Sand #DAD8CB, Stone #9E9696, White #FFFFFF, Clay #C0775B (<=5%), Ink-soft #5A5753
    Typography: Playfair Display, Archivo. Zero emojis.
 */
@@ -22,7 +22,14 @@
   --font-head: "Playfair Display", Georgia, serif;
   --font-body: "Archivo", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   
-  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+  /* Emil Kowalski custom high-performance easing curves */
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+  --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
+  --ease: var(--ease-out);
+
+  /* Touch Target Standard */
+  --touch-target-min: 44px;
 }
 
 * {
@@ -39,12 +46,14 @@ body.app-body {
   font-size: 14px;
   line-height: 1.45;
   min-height: 100vh;
+  min-height: 100dvh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
   padding: 20px 10px;
   overflow-x: hidden;
+  overscroll-behavior-y: none;
 }
 
 /* Desktop App Bar */
@@ -68,15 +77,24 @@ body.app-body {
   text-decoration: none;
   background: transparent;
   border: 1px solid var(--stone);
-  padding: 6px 14px;
+  min-height: 36px;
+  padding: 8px 16px;
   cursor: pointer;
-  transition: all 0.2s var(--ease);
+  touch-action: manipulation;
+  transition: background 160ms var(--ease-out), color 160ms var(--ease-out), transform 160ms var(--ease-out);
 }
 
-.desktop-bar a:hover,
-.desktop-bar button:hover {
-  background: var(--ink);
-  color: var(--paper);
+.desktop-bar a:active,
+.desktop-bar button:active {
+  transform: scale(0.97);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .desktop-bar a:hover,
+  .desktop-bar button:hover {
+    background: var(--ink);
+    color: var(--paper);
+  }
 }
 
 /* iPhone Hardware Chassis Mockup */
@@ -88,7 +106,7 @@ body.app-body {
   padding: 11px;
   box-shadow: 0 25px 60px -15px rgba(25, 25, 25, 0.35), 0 0 0 1px rgba(25, 25, 25, 0.15);
   position: relative;
-  transition: all 0.3s var(--ease);
+  transition: width 240ms var(--ease-out), height 240ms var(--ease-out);
 }
 
 /* Fullscreen Mode on Desktop */
@@ -107,6 +125,7 @@ body.full-mode .phone-chassis {
   width: 100%;
   max-width: 440px;
   height: calc(100vh - 54px);
+  height: calc(100dvh - 54px);
   border-radius: 0;
   padding: 0;
   box-shadow: none;
@@ -142,6 +161,7 @@ body.full-mode .phone-screen {
   color: var(--ink);
   z-index: 10;
   user-select: none;
+  flex-shrink: 0;
 }
 
 .ios-status-time {
@@ -170,16 +190,17 @@ body.full-mode .phone-screen {
   stroke: var(--ink);
 }
 
-/* Top App Header: matches poster */
+/* Top App Header: matches poster with min 44px touch targets */
 .app-header {
   height: 48px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 18px;
+  padding: 0 14px;
   border-bottom: var(--hairline);
   background: var(--paper);
   z-index: 5;
+  flex-shrink: 0;
 }
 
 .app-header-btn {
@@ -189,14 +210,24 @@ body.full-mode .phone-screen {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 34px;
-  height: 34px;
+  width: var(--touch-target-min);
+  height: var(--touch-target-min);
+  min-width: var(--touch-target-min);
+  min-height: var(--touch-target-min);
   color: var(--ink);
   text-decoration: none;
+  touch-action: manipulation;
+  transition: transform 140ms var(--ease-out), opacity 140ms var(--ease-out);
 }
 
-.app-header-btn:hover {
-  opacity: 0.7;
+.app-header-btn:active {
+  transform: scale(0.92);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .app-header-btn:hover {
+    opacity: 0.7;
+  }
 }
 
 .app-header-title {
@@ -207,22 +238,27 @@ body.full-mode .phone-screen {
   color: var(--ink);
 }
 
-/* Pill Navigation Tabs: Frozen, Meals, Map, Chat */
+/* Pill Navigation Tabs: Frozen, Meals, Map, Chat (Min 44px Touch Target) */
 .pill-tabs-nav {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 10px 16px 8px;
+  padding: 8px 14px;
   gap: 8px;
   background: var(--paper);
   border-bottom: var(--hairline);
+  flex-shrink: 0;
 }
 
 .pill-tab {
   flex: 1;
   text-align: center;
-  padding: 7px 0;
-  border-radius: 20px;
+  min-height: var(--touch-target-min);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 4px;
+  border-radius: 22px;
   font-family: var(--font-body);
   font-size: 13px;
   font-weight: 500;
@@ -230,7 +266,12 @@ body.full-mode .phone-screen {
   background: transparent;
   border: 1px solid transparent;
   cursor: pointer;
-  transition: all 0.2s var(--ease);
+  touch-action: manipulation;
+  transition: transform 160ms var(--ease-out), background 160ms var(--ease-out), color 160ms var(--ease-out), border-color 160ms var(--ease-out);
+}
+
+.pill-tab:active {
+  transform: scale(0.96);
 }
 
 .pill-tab.active {
@@ -240,32 +281,39 @@ body.full-mode .phone-screen {
   border-color: #D3C9B6;
 }
 
-/* Main App Scroll Area */
+/* Main App Scroll Area with touch inertia */
 .app-main-content {
   flex: 1;
   overflow-y: auto;
   overflow-x: hidden;
   position: relative;
   -webkit-overflow-scrolling: touch;
+  overscroll-behavior-y: contain;
 }
 
-/* Screen Sections */
+/* Screen Sections with Emil Kowalski enter animation */
 .tab-content {
   display: none;
-  padding: 14px 16px 24px;
-  animation: fadeIn 0.25s var(--ease);
+  padding: 14px 16px 28px;
 }
 
 .tab-content.active {
   display: block;
+  animation: tabFadeIn 180ms var(--ease-out) forwards;
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(4px); }
-  to { opacity: 1; transform: translateY(0); }
+@keyframes tabFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 
-/* TAB 1: FROZEN (Matches the user poster) */
+/* TAB 1: FROZEN (Matches user poster) */
 .meal-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -280,13 +328,40 @@ body.full-mode .phone-screen {
   cursor: pointer;
   display: flex;
   flex-direction: column;
-  transition: all 0.2s var(--ease);
-  padding: 4px;
+  padding: 6px;
   border: 1.5px solid transparent;
+  touch-action: manipulation;
+  transition: transform 160ms var(--ease-out), border-color 160ms var(--ease-out), background 160ms var(--ease-out);
+  animation: mealCardStagger 240ms var(--ease-out) both;
 }
 
-.meal-card:hover {
-  transform: translateY(-2px);
+/* Stagger Animations: Emil philosophy (30-80ms delays) */
+.meal-card:nth-child(1) { animation-delay: 0ms; }
+.meal-card:nth-child(2) { animation-delay: 35ms; }
+.meal-card:nth-child(3) { animation-delay: 70ms; }
+.meal-card:nth-child(4) { animation-delay: 105ms; }
+.meal-card:nth-child(5) { animation-delay: 140ms; }
+.meal-card:nth-child(6) { animation-delay: 175ms; }
+
+@keyframes mealCardStagger {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.meal-card:active {
+  transform: scale(0.97);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .meal-card:hover {
+    transform: translateY(-2px);
+  }
 }
 
 .meal-card.selected {
@@ -316,18 +391,19 @@ body.full-mode .phone-screen {
 /* "Tagged" Pill Badge: terracotta in poster */
 .badge-tagged {
   position: absolute;
-  top: 8px;
-  left: 8px;
+  top: 10px;
+  left: 10px;
   background: var(--clay);
   color: var(--white);
   font-family: var(--font-body);
   font-size: 10px;
   font-weight: 600;
-  padding: 2px 8px;
+  padding: 3px 8px;
   border-radius: 10px;
   letter-spacing: 0.02em;
   box-shadow: 0 1px 3px rgba(0,0,0,0.2);
   z-index: 2;
+  pointer-events: none;
 }
 
 .meal-label {
@@ -349,7 +425,7 @@ body.full-mode .phone-screen {
   color: var(--ink-soft);
 }
 
-/* Schedule Dial Widget Container */
+/* Schedule Dial Widget Container with touch capture */
 .schedule-widget-wrap {
   display: flex;
   flex-direction: column;
@@ -357,6 +433,7 @@ body.full-mode .phone-screen {
   margin-top: 4px;
   margin-bottom: 16px;
   user-select: none;
+  -webkit-user-select: none;
 }
 
 .dial-container {
@@ -364,12 +441,19 @@ body.full-mode .phone-screen {
   height: 200px;
   position: relative;
   cursor: pointer;
+  touch-action: none; /* Crucial for smooth dial touch rotation */
+  transition: transform 160ms var(--ease-out);
+}
+
+.dial-container:active {
+  transform: scale(0.985);
 }
 
 .dial-svg {
   width: 100%;
   height: 100%;
   transform: rotate(-90deg);
+  display: block;
 }
 
 .dial-bg-circle {
@@ -390,6 +474,7 @@ body.full-mode .phone-screen {
   align-items: center;
   justify-content: center;
   box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.06);
+  pointer-events: none;
 }
 
 .dial-title {
@@ -424,10 +509,11 @@ body.full-mode .phone-screen {
   text-align: center;
 }
 
-/* Primary Terracotta Pill Action Button (as in poster) */
+/* Primary Terracotta Pill Action Button: Thumb Zone Ergonomics */
 .btn-action-primary {
   display: block;
   width: 100%;
+  min-height: 52px;
   background: var(--clay);
   color: var(--white);
   border: none;
@@ -438,17 +524,21 @@ body.full-mode .phone-screen {
   font-weight: 600;
   text-align: center;
   cursor: pointer;
-  transition: all 0.2s var(--ease);
+  touch-action: manipulation;
+  transition: transform 140ms var(--ease-out), background 140ms var(--ease-out), box-shadow 140ms var(--ease-out);
   box-shadow: 0 4px 14px rgba(192, 119, 91, 0.25);
 }
 
-.btn-action-primary:hover {
-  background: var(--clay-hover);
-  transform: translateY(-1px);
+.btn-action-primary:active {
+  transform: scale(0.97);
+  box-shadow: 0 2px 6px rgba(192, 119, 91, 0.2);
 }
 
-.btn-action-primary:active {
-  transform: translateY(1px);
+@media (hover: hover) and (pointer: fine) {
+  .btn-action-primary:hover {
+    background: var(--clay-hover);
+    transform: translateY(-1px);
+  }
 }
 
 /* TAB 2: MEALS (2-Tier Drum & Loading Aperture) */
@@ -509,14 +599,22 @@ body.full-mode .phone-screen {
 .drum-slot-btn {
   background: var(--paper);
   border: 1px solid var(--stone);
+  min-height: 52px;
   padding: 8px 6px;
   text-align: left;
   cursor: pointer;
-  transition: all 0.15s var(--ease);
+  touch-action: manipulation;
+  transition: transform 140ms var(--ease-out), border-color 140ms var(--ease-out), background 140ms var(--ease-out);
 }
 
-.drum-slot-btn:hover {
-  border-color: var(--ink);
+.drum-slot-btn:active {
+  transform: scale(0.97);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .drum-slot-btn:hover {
+    border-color: var(--ink);
+  }
 }
 
 .drum-slot-btn.active {
@@ -567,26 +665,34 @@ body.full-mode .phone-screen {
   text-transform: uppercase;
   letter-spacing: 0.08em;
   color: var(--ink-soft);
-  margin-bottom: 6px;
+  margin-bottom: 8px;
   display: block;
 }
 
 .category-chips-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 6px;
-  margin-bottom: 12px;
+  gap: 8px;
+  margin-bottom: 14px;
 }
 
 .cat-chip {
   background: var(--paper);
   border: 1px solid var(--stone);
-  padding: 7px 10px;
+  min-height: var(--touch-target-min);
+  padding: 8px 10px;
   font-size: 12px;
   text-align: left;
   cursor: pointer;
   color: var(--ink);
-  transition: all 0.15s var(--ease);
+  touch-action: manipulation;
+  display: flex;
+  align-items: center;
+  transition: transform 140ms var(--ease-out), background 140ms var(--ease-out), color 140ms var(--ease-out), border-color 140ms var(--ease-out);
+}
+
+.cat-chip:active {
+  transform: scale(0.97);
 }
 
 .cat-chip.selected {
@@ -599,7 +705,7 @@ body.full-mode .phone-screen {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 6px;
+  margin-bottom: 8px;
 }
 
 .weight-val {
@@ -609,11 +715,23 @@ body.full-mode .phone-screen {
   color: var(--clay);
 }
 
+/* Touch-optimized Range Slider */
 .range-slider {
   width: 100%;
+  height: 36px;
   accent-color: var(--clay);
   margin-bottom: 12px;
   cursor: pointer;
+  touch-action: manipulation;
+}
+
+.range-slider::-webkit-slider-thumb {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--clay);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.3);
+  cursor: grab;
 }
 
 .calc-result-box {
@@ -659,15 +777,15 @@ body.full-mode .phone-screen {
 }
 
 .step-circle {
-  width: 28px;
-  height: 28px;
+  width: 32px;
+  height: 32px;
   border: 1px solid var(--stone);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   font-family: var(--font-head);
-  font-size: 11px;
+  font-size: 12px;
   flex-shrink: 0;
 }
 
@@ -733,7 +851,7 @@ body.full-mode .phone-screen {
   border-radius: 50%;
   margin: 12px auto;
   border: 4px solid var(--clay);
-  transition: all 0.3s var(--ease);
+  transition: border-color 200ms var(--ease-out), box-shadow 200ms var(--ease-out);
 }
 
 .halo-ring-visual.cyan {
@@ -776,33 +894,45 @@ body.full-mode .phone-screen {
 
 .halo-buttons-row {
   display: flex;
-  gap: 6px;
+  gap: 8px;
   justify-content: center;
-  margin-top: 10px;
+  flex-wrap: wrap;
+  margin-top: 12px;
 }
 
 .halo-btn {
   background: var(--paper);
   border: 1px solid var(--stone);
-  padding: 5px 10px;
+  min-height: var(--touch-target-min);
+  padding: 8px 12px;
   font-size: 11px;
   cursor: pointer;
+  touch-action: manipulation;
+  display: inline-flex;
+  align-items: center;
+  transition: transform 140ms var(--ease-out), background 140ms var(--ease-out), color 140ms var(--ease-out);
 }
 
-.halo-btn:hover {
-  background: var(--ink);
-  color: var(--paper);
+.halo-btn:active {
+  transform: scale(0.96);
 }
 
-/* Toast Notification (Brand compliant) */
+@media (hover: hover) and (pointer: fine) {
+  .halo-btn:hover {
+    background: var(--ink);
+    color: var(--paper);
+  }
+}
+
+/* Toast Notification (Emil Asymmetric Enter/Exit) */
 .toast-msg {
   position: absolute;
   bottom: 24px;
-  left: 20px;
-  right: 20px;
+  left: 18px;
+  right: 18px;
   background: var(--ink);
   color: var(--paper);
-  padding: 12px 16px;
+  padding: 13px 18px;
   font-size: 13px;
   display: flex;
   align-items: center;
@@ -810,18 +940,19 @@ body.full-mode .phone-screen {
   border-radius: 8px;
   box-shadow: 0 10px 25px rgba(0,0,0,0.25);
   opacity: 0;
-  transform: translateY(20px);
+  transform: translateY(14px) scale(0.96);
   pointer-events: none;
-  transition: all 0.25s var(--ease);
+  transition: opacity 140ms var(--ease-out), transform 140ms var(--ease-out);
   z-index: 100;
 }
 
 .toast-msg.visible {
   opacity: 1;
-  transform: translateY(0);
+  transform: translateY(0) scale(1);
+  transition: opacity 220ms var(--ease-out), transform 220ms var(--ease-out);
 }
 
-/* Responsive Handling */
+/* Responsive Mobile Handling */
 @media (max-width: 480px) {
   body.app-body {
     padding: 0;
@@ -833,6 +964,7 @@ body.full-mode .phone-screen {
   .phone-chassis {
     width: 100vw;
     height: 100vh;
+    height: 100dvh;
     border-radius: 0;
     padding: 0;
     box-shadow: none;
@@ -840,5 +972,16 @@ body.full-mode .phone-screen {
   }
   .phone-screen {
     border-radius: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .meal-card,
+  .tab-content,
+  .toast-msg,
+  .halo-ring-visual {
+    animation: none !important;
+    transition: opacity 0.15s ease !important;
+    transform: none !important;
   }
 }

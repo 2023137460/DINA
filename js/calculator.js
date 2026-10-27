@@ -1,18 +1,54 @@
 /**
- * DINA Thermodynamic Thaw Calculator
- * Strictly follows PRD 3.0.0 Section 4.1 formulas
+ * DINA Customer Taste & Thaw Calculator
+ * Customer-centric, appetizing, and based strictly on PRD 3.0.0 Section 4.1 formulas
  * Zero emojis, calm editorial voice
  */
 
 document.addEventListener("DOMContentLoaded", () => {
   // PRD 4.1 Thermodynamic Formulas
   const CATEGORIES = {
-    beef: { name: "Prime Angus Beef Ribeye (Carne)", base: 25, factor: 0.13, defaultGrams: 450 },
-    chicken: { name: "Organic Chicken Breast", base: 30, factor: 0.13, defaultGrams: 500 },
-    fish: { name: "Atlantic Salmon Fillet (Peixe)", base: 20, factor: 0.14, defaultGrams: 320 },
-    shrimp: { name: "Wild Tiger Prawns", base: 15, factor: 0.10, defaultGrams: 250 },
-    vegetables: { name: "Steamed Vegetables / Sides (Vegetais)", base: 15, factor: 0.08, defaultGrams: 350 },
-    lasagna: { name: "Artisanal Lasagna Prep", base: 35, factor: 0.115, defaultGrams: 600 }
+    beef: { 
+      name: "Prime Angus Ribeye", 
+      base: 25, 
+      factor: 0.13, 
+      defaultGrams: 450,
+      benefit: "Gentle convective thaw tailored for beef &bull; Marbling and juices preserved"
+    },
+    chicken: { 
+      name: "Organic Chicken Breast", 
+      base: 30, 
+      factor: 0.13, 
+      defaultGrams: 500,
+      benefit: "Even circulating warmth &bull; Zero rubbery par-cooked borders"
+    },
+    fish: { 
+      name: "Atlantic Salmon Fillet", 
+      base: 20, 
+      factor: 0.14, 
+      defaultGrams: 320,
+      benefit: "Delicate low-temperature thaw &bull; Flaky, moist, restaurant-grade texture"
+    },
+    shrimp: { 
+      name: "Wild Tiger Prawns", 
+      base: 15, 
+      factor: 0.10, 
+      defaultGrams: 250,
+      benefit: "Quick, crisp defrost &bull; Sweet flavor and natural snap preserved"
+    },
+    vegetables: { 
+      name: "Steamed Fresh Vegetables", 
+      base: 15, 
+      factor: 0.08, 
+      defaultGrams: 350,
+      benefit: "Gentle warming &bull; Cell structure and fresh garden crispness intact"
+    },
+    lasagna: { 
+      name: "Artisanal Lasagna Prep", 
+      base: 35, 
+      factor: 0.115, 
+      defaultGrams: 600,
+      benefit: "Even heat distribution through every savory, cheesy layer"
+    }
   };
 
   let currentCategory = "beef";
@@ -51,7 +87,7 @@ document.addEventListener("DOMContentLoaded", () => {
       dropTriggerDisplay.textContent = formatMinutes(triggerMins);
     }
     if (formulaCaption) {
-      formulaCaption.textContent = `${config.base} min base + (${config.factor} min/g \u00d7 ${currentWeight} g) = ${thawMins} min convective thaw`;
+      formulaCaption.innerHTML = `${config.benefit} (${thawMins} min thaw)`;
     }
   }
 
