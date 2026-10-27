@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48" role="img" aria-label="Safe-hold temperature">
+<title>Safe-hold temperature</title>
+<g fill="none" stroke="#191919" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+<path d="M20 29V12a4 4 0 0 1 8 0V29a8 8 0 1 1 -8 0Z"/><path d="M32 14H36M32 20H36M32 26H36"/><g><path stroke="#C0775B" d="M24 33V17"/></g><circle fill="#C0775B" stroke="none" cx="24" cy="36" r="3.2"/>
+</g>
+</svg>

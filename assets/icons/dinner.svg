@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" class="dina-icon" viewBox="0 0 48 48" width="48" height="48" role="img" aria-label="Dinner ready">
+<title>Dinner ready</title>
+<style>svg.dina-icon{--ink:#191919;--accent:#C0775B}
+.dina-icon *{fill:none;stroke:var(--ink);stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.dina-icon .ac{stroke:var(--accent)}
+.dina-icon .fl{fill:var(--accent);stroke:none}
+.dina-icon .d{animation:dina-draw 1.1s cubic-bezier(.22,.61,.36,1) both;animation-delay:calc(var(--i,0)*.08s)}
+@keyframes dina-draw{from{stroke-dasharray:1;stroke-dashoffset:1}to{stroke-dasharray:1;stroke-dashoffset:0}}
+.dina-icon .vb{transform-box:view-box}
+@media (prefers-reduced-motion:reduce){.dina-icon *{animation:none!important}}
+.dina-icon .steam{animation:dina-steam 3.2s ease-in-out infinite}@keyframes dina-steam{0%,100%{transform:translateY(0);opacity:1}50%{transform:translateY(-2px);opacity:.35}}</style>
+<circle class="d " style="--i:0" pathLength="1" cx="26" cy="28" r="11"/><circle class="d " style="--i:1" pathLength="1" cx="26" cy="28" r="6.5"/><path class="d " style="--i:2" pathLength="1" d="M6 8V16a3 3 0 0 0 6 0V8M9 8V19M9 19V43"/><path class="d " style="--i:2" pathLength="1" d="M42 8C38 10 37 16 37 23H42M42 8V43"/><g class="steam"><path class="d ac" style="--i:4" pathLength="1" d="M22 15c-2-2 2-4 0-7"/><path class="d ac" style="--i:4" pathLength="1" d="M29 15c-2-2 2-4 0-7"/></g>
+</svg>

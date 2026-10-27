@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" class="dina-icon" viewBox="0 0 48 48" width="48" height="48" role="img" aria-label="Gravity drop through the airlock">
+<title>Gravity drop through the airlock</title>
+<style>svg.dina-icon{--ink:#191919;--accent:#C0775B}
+.dina-icon *{fill:none;stroke:var(--ink);stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.dina-icon .ac{stroke:var(--accent)}
+.dina-icon .fl{fill:var(--accent);stroke:none}
+.dina-icon .d{animation:dina-draw 1.1s cubic-bezier(.22,.61,.36,1) both;animation-delay:calc(var(--i,0)*.08s)}
+@keyframes dina-draw{from{stroke-dasharray:1;stroke-dashoffset:1}to{stroke-dasharray:1;stroke-dashoffset:0}}
+.dina-icon .vb{transform-box:view-box}
+@media (prefers-reduced-motion:reduce){.dina-icon *{animation:none!important}}
+.dina-icon .fall{animation:dina-fall 3s cubic-bezier(.5,0,.75,.5) infinite 1.4s}@keyframes dina-fall{0%{transform:translateY(0);opacity:1}60%{transform:translateY(22px);opacity:1}75%,100%{transform:translateY(22px);opacity:0}}</style>
+<path class="d " style="--i:0" pathLength="1" d="M10 29H19M29 29H38"/><path class="d " style="--i:1" pathLength="1" d="M14 12V25M34 12V25"/><rect class="d " style="--i:2" pathLength="1" x="11" y="36" width="26" height="8" rx="1.5"/><g class="vb fall"><rect class="d ac" style="--i:3" pathLength="1" x="19" y="8" width="10" height="8" rx="1.5"/></g>
+</svg>

@@ -1,0 +1,79 @@
+/* DINA brand tokens. Source: Slidesgo "Packaging & Case Designer Portfolio" deck (official swatches
+   191919 / F1EFE5 / DAD8CB / 9E9696 / FFFFFF). Import once, then use the variables and classes. */
+@import url("https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,400;0,600;0,700;1,400&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap");
+
+:root{
+  --ink:#191919;          /* text, icon strokes */
+  --paper:#F1EFE5;        /* page background */
+  --sand:#DAD8CB;         /* nav strip, quiet panels */
+  --stone:#9E9696;        /* hairlines, disabled */
+  --white:#FFFFFF;        /* cards on paper, rarely */
+  --clay:#C0775B;         /* the single accent, taken from the deck photography. 5% of any surface, at most */
+  --ink-soft:#5A5753;     /* secondary text (ink at roughly 70% on paper, keeps AA contrast) */
+
+  --font-head:"Playfair Display",Georgia,"Times New Roman",serif;
+  --font-body:"Archivo","Helvetica Neue",Arial,sans-serif;
+
+  --hairline:1px solid var(--stone);
+  --ease:cubic-bezier(.22,.61,.36,1);
+  --t-draw:1.1s; --t-ui:.35s; --t-reveal:.8s;
+
+  --space-1:4px; --space-2:8px; --space-3:16px; --space-4:24px; --space-5:40px; --space-6:64px; --space-7:96px;
+  --margin-x:clamp(24px,7.8vw,112px);   /* matches the 0.78in slide margin */
+  --nav-h:clamp(44px,10.5vh,64px);      /* matches the 0.59in slide nav strip */
+}
+
+*{box-sizing:border-box;border-radius:0}   /* square corners everywhere; circles only via .circle */
+html{background:var(--paper);color:var(--ink);font-family:var(--font-body);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
+body{margin:0;background:var(--paper)}
+h1,h2,h3,.head{font-family:var(--font-head);font-weight:400;text-transform:uppercase;letter-spacing:.01em;line-height:1.08;margin:0}
+h1{font-size:clamp(40px,6.2vw,84px)}
+h2{font-size:clamp(28px,3.6vw,48px)}
+h3{font-size:clamp(18px,2vw,24px)}
+h1 em,h2 em,.head em{font-style:italic;text-transform:uppercase}   /* one italic word per heading, as in the deck cover */
+p{margin:0 0 var(--space-3);max-width:62ch}
+.caption,.nav a{font-family:var(--font-head);font-size:11px;letter-spacing:.08em;text-transform:uppercase}
+.muted{color:var(--ink-soft)}
+a{color:inherit;text-decoration-thickness:1px;text-underline-offset:3px}
+
+/* nav strip: sand bar that starts at 25% of the width, like the deck */
+.nav{display:flex;align-items:center;height:var(--nav-h);margin-left:25%;background:var(--sand);padding:0 var(--space-4);gap:var(--space-5)}
+.nav a{text-decoration:none}
+.nav a[aria-current="page"]{font-weight:700;text-decoration:underline}
+@media (max-width:720px){.nav{margin-left:0;overflow-x:auto;gap:var(--space-4)}}
+
+/* hairlines and grid */
+.rule{border:0;border-top:var(--hairline);margin:0}
+.row{border-top:var(--hairline);padding:var(--space-4) var(--margin-x)}
+.row:last-child{border-bottom:var(--hairline)}
+.split{display:grid;grid-template-columns:3fr 1fr;border-top:var(--hairline)}   /* content | photo column, 75/25 */
+.split>.photo{border-left:var(--hairline);min-height:320px;background:var(--sand);display:grid;place-items:center}
+@media (max-width:720px){.split{grid-template-columns:1fr}.split>.photo{border-left:0;border-top:var(--hairline)}}
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:0}
+.cols>*{padding:var(--space-4);border-left:var(--hairline)}
+.cols>*:first-child{border-left:0;padding-left:0}
+
+/* numbered circle: 01 02 03, outline only */
+.circle{display:inline-grid;place-items:center;width:56px;height:56px;border:1px solid var(--stone);border-radius:50%;font-family:var(--font-head);font-size:20px}
+.circle.big{width:min(220px,38vw);height:min(220px,38vw);font-size:clamp(56px,9vw,104px)}
+
+/* buttons: outline, square, no fill until hover */
+.btn{display:inline-flex;align-items:center;gap:var(--space-2);padding:12px 22px;border:1px solid var(--ink);background:transparent;color:var(--ink);font:600 12px/1 var(--font-head);letter-spacing:.1em;text-transform:uppercase;text-decoration:none;cursor:pointer;transition:background var(--t-ui) var(--ease),color var(--t-ui) var(--ease)}
+.btn:hover{background:var(--ink);color:var(--paper)}
+.btn svg{width:20px;height:20px}
+.btn:hover svg *{stroke:var(--paper)}
+
+/* hollow bullets, as in the deck */
+ul.o{list-style:none;padding:0;margin:0 0 var(--space-3)}
+ul.o li{position:relative;padding-left:26px;margin-bottom:var(--space-2)}
+ul.o li::before{content:"";position:absolute;left:2px;top:.5em;width:9px;height:9px;border:1px solid var(--ink);border-radius:50%}
+
+/* tables: hairline grid only */
+table{border-collapse:collapse;width:100%}
+th,td{border:var(--hairline);padding:10px 14px;text-align:left;font-size:14px}
+th{font-family:var(--font-head);font-size:11px;letter-spacing:.08em;text-transform:uppercase;font-weight:400}
+
+/* reveal on scroll: add .reveal, JS in starter.html adds .in */
+.reveal{opacity:0;transform:translateY(14px);transition:opacity var(--t-reveal) var(--ease),transform var(--t-reveal) var(--ease)}
+.reveal.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}*{animation:none!important}}

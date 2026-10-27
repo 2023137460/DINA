@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48" role="img" aria-label="Dinner schedule">
+<title>Dinner schedule</title>
+<g fill="none" stroke="#191919" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+<rect x="6" y="9" width="36" height="33" rx="3"/><path d="M6 18H42"/><path d="M15 5V12M33 5V12"/><path d="M13 26H16M22.5 26H25.5M32 26H35"/><path d="M13 34H16M22.5 34H25.5"/><g><circle stroke="#C0775B" cx="33.5" cy="34" r="3.6"/></g>
+</g>
+</svg>
