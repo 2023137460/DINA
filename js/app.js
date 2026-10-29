@@ -100,63 +100,10 @@ document.addEventListener("DOMContentLoaded", () => {
     return Math.round(formula.base + (formula.factor * grams));
   }
 
-  // Viewport Switcher for Live Demos (Auto / Phone / iPad / PC)
+  // Ensure automatic responsive layout across Phone, iPad/Tablet, and PC
   const appRoot = document.getElementById("appRoot");
-  const vpBtns = document.querySelectorAll(".vp-btn");
-  vpBtns.forEach(btn => {
-    btn.addEventListener("click", () => {
-      const mode = btn.getAttribute("data-vp") || "auto";
-      vpBtns.forEach(b => b.classList.remove("active"));
-      btn.classList.add("active");
-      if (appRoot) {
-        appRoot.setAttribute("data-viewport", mode);
-      }
-      const modeLabel = mode === "auto" ? "Automatic screen fit" : mode.toUpperCase();
-      showToast(`Previewing ${modeLabel} layout.`);
-    });
-  });
-
-  // Optional PWA Install Prompt & Banner
-  let deferredInstallPrompt = null;
-  const btnInstallApp = document.getElementById("btnInstallApp");
-  const pwaInstallBanner = document.getElementById("pwaInstallBanner");
-  const btnTriggerNativeInstall = document.getElementById("btnTriggerNativeInstall");
-  const btnCloseInstallBanner = document.getElementById("btnCloseInstallBanner");
-
-  window.addEventListener("beforeinstallprompt", (e) => {
-    e.preventDefault();
-    deferredInstallPrompt = e;
-    if (btnTriggerNativeInstall) {
-      btnTriggerNativeInstall.hidden = false;
-    }
-  });
-
-  if (btnInstallApp && pwaInstallBanner) {
-    btnInstallApp.addEventListener("click", () => {
-      const isHidden = pwaInstallBanner.hasAttribute("hidden");
-      if (isHidden) {
-        pwaInstallBanner.removeAttribute("hidden");
-      } else {
-        pwaInstallBanner.setAttribute("hidden", "");
-      }
-    });
-  }
-
-  if (btnCloseInstallBanner && pwaInstallBanner) {
-    btnCloseInstallBanner.addEventListener("click", () => {
-      pwaInstallBanner.setAttribute("hidden", "");
-    });
-  }
-
-  if (btnTriggerNativeInstall) {
-    btnTriggerNativeInstall.addEventListener("click", async () => {
-      if (!deferredInstallPrompt) return;
-      deferredInstallPrompt.prompt();
-      await deferredInstallPrompt.userChoice;
-      deferredInstallPrompt = null;
-      btnTriggerNativeInstall.hidden = true;
-      if (pwaInstallBanner) pwaInstallBanner.setAttribute("hidden", "");
-    });
+  if (appRoot) {
+    appRoot.setAttribute("data-viewport", "auto");
   }
 
   // Tab Navigation

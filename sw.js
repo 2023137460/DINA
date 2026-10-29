@@ -1,12 +1,12 @@
-const CACHE_NAME = "dina-pwa-v7.9";
+const CACHE_NAME = "dina-pwa-v8.0";
 const ASSETS = [
   "./app.html",
   "./index.html",
-  "./css/tokens.css?v=7.9",
-  "./css/app.css?v=7.9",
-  "./css/styles.css?v=7.9",
-  "./js/app.js?v=7.9",
-  "./js/main.js?v=7.9",
+  "./css/tokens.css?v=8.0",
+  "./css/app.css?v=8.0",
+  "./css/styles.css?v=8.0",
+  "./js/app.js?v=8.0",
+  "./js/main.js?v=8.0",
   "./manifest.json",
   "./assets/icons/pwa-logo.svg",
   "./assets/images/pwa-icon-192.png",

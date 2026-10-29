@@ -14,8 +14,8 @@
   <link rel="icon" type="image/svg+xml" href="assets/icons/pwa-logo.svg">
   <link rel="icon" type="image/png" sizes="192x192" href="assets/images/pwa-icon-192.png">
   <link rel="apple-touch-icon" sizes="180x180" href="assets/images/apple-touch-icon.png">
-  <link rel="stylesheet" href="css/tokens.css?v=7.9">
-  <link rel="stylesheet" href="css/app.css?v=7.9">
+  <link rel="stylesheet" href="css/tokens.css?v=8.0">
+  <link rel="stylesheet" href="css/app.css?v=8.0">
 </head>
 <body class="app-body">
 
@@ -112,19 +112,6 @@
       </div>
 
       <div class="app-header-actions">
-        <!-- Viewport / Device Mode Switcher for Live Demos on Tablet & PC -->
-        <div class="viewport-switcher" role="group" aria-label="Demo layout mode">
-          <button type="button" class="vp-btn active" data-vp="auto" title="Automatic responsive layout">Auto</button>
-          <button type="button" class="vp-btn" data-vp="mobile" title="Preview Phone layout">Phone</button>
-          <button type="button" class="vp-btn" data-vp="tablet" title="Preview iPad / Tablet layout">iPad</button>
-          <button type="button" class="vp-btn" data-vp="desktop" title="Preview Desktop widescreen layout">PC</button>
-        </div>
-
-        <!-- Optional Install / Web App Info Button (Works in browser without installing) -->
-        <button class="app-install-pill" id="btnInstallApp" type="button" title="Save to Home Screen or use right here in your browser">
-          <span>Add App</span>
-        </button>
-
         <button class="app-header-btn" id="btnRefresh" title="Check Kitchen Status" aria-label="Check Kitchen Status" type="button">
           <svg class="dina-icon" viewBox="0 0 48 48" width="22" height="22" style="filter:none;" aria-hidden="true">
             <g class="vb swing"><path class="d" style="--i:0" pathLength="1" d="M24 6C17 6 13 11 13 18V26L9 32H39L35 26V18C35 11 31 6 24 6Z"/><path class="d" style="--i:2" pathLength="1" d="M20 37a4 4 0 0 0 8 0"/></g><path class="d ac" style="--i:3" pathLength="1" d="M38 11a12 12 0 0 1 4 8M10 11a12 12 0 0 0 -4 8"/>
@@ -132,25 +119,6 @@
         </button>
       </div>
     </header>
-
-    <!-- Optional Dismissible Web App Install Guide Drawer -->
-    <div class="pwa-install-banner" id="pwaInstallBanner" hidden>
-      <div class="pwa-install-content">
-        <div class="pwa-banner-brand">
-          <img src="assets/icons/pwa-logo.svg" alt="DINA App Icon" class="pwa-banner-logo">
-          <div>
-            <span class="caption clay-text">Use in Browser or Add to Home Screen</span>
-            <p id="pwaInstallInstructions">
-              Everything works right here in your browser on Phone, iPad, or PC. Want the full-screen app icon on your phone? On <strong>iPhone / iPad (Safari)</strong> tap <strong>Share &rarr; Add to Home Screen</strong>; on <strong>Android / Chrome</strong> tap <strong>Install App</strong>.
-            </p>
-          </div>
-        </div>
-      </div>
-      <div class="pwa-install-actions">
-        <button type="button" class="btn-pwa-action primary" id="btnTriggerNativeInstall" hidden>Install App</button>
-        <button type="button" class="btn-pwa-action" id="btnCloseInstallBanner">Got It</button>
-      </div>
-    </div>
 
     <!-- Pill Tabs Navigation with Animated Deck Icons -->
     <nav class="pill-tabs-nav" aria-label="App Navigation">
@@ -850,6 +818,6 @@
 
   </div>
 
-  <script src="js/app.js?v=7.9"></script>
+  <script src="js/app.js?v=8.0"></script>
 </body>
 </html>

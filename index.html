@@ -10,8 +10,8 @@
   <link rel="icon" type="image/svg+xml" href="assets/icons/pwa-logo.svg">
   <link rel="icon" type="image/png" sizes="192x192" href="assets/images/pwa-icon-192.png">
   <link rel="apple-touch-icon" sizes="180x180" href="assets/images/apple-touch-icon.png">
-  <link rel="stylesheet" href="css/tokens.css?v=7.9">
-  <link rel="stylesheet" href="css/styles.css?v=7.9">
+  <link rel="stylesheet" href="css/tokens.css?v=8.0">
+  <link rel="stylesheet" href="css/styles.css?v=8.0">
   <style>
     /* Critical Mobile Nav & Header Shield (Prevents FOUC & Cache Overlap) */
     .mobile-header-actions { display: none; }
@@ -865,6 +865,9 @@
           <button type="button" class="btn" id="btnToggleInlineApp" aria-expanded="false">
             Preview App Right Here
           </button>
+          <button type="button" class="btn" id="btnSiteAddApp" aria-expanded="false">
+            Add App to Home Screen
+          </button>
         </div>
       </div>
 
@@ -888,6 +891,21 @@
         </div>
         <span class="caption" style="margin-top:12px; font-weight:700;">Interactive DINA App</span>
         <span style="font-size:11px; color:var(--ink-soft); margin-top:2px;">Works in any browser on Phone, iPad, or PC &mdash; or add to Home Screen</span>
+      </div>
+    </div>
+
+    <!-- Website-Only Dismissible Add-App Guide (Never shown inside app.html) -->
+    <div class="site-pwa-install-banner" id="sitePwaInstallBanner" hidden>
+      <div class="site-pwa-install-left">
+        <img src="assets/icons/pwa-logo.svg" alt="DINA App Icon" class="site-pwa-install-logo">
+        <div class="site-pwa-install-text">
+          <div class="caption">Use in Browser or Add to Home Screen</div>
+          <p>Everything works right here in your browser on Phone, iPad, or PC. Want the full-screen app icon on your phone? Open <strong>Try the Full-Screen App</strong>, then on <strong>iPhone / iPad (Safari)</strong> tap <strong>Share &rarr; Add to Home Screen</strong>, or on <strong>Android / Chrome</strong> tap <strong>Install App</strong>.</p>
+        </div>
+      </div>
+      <div class="site-pwa-install-actions">
+        <button type="button" class="btn btn-clay" id="btnSiteTriggerInstall" hidden style="padding: 10px 18px; font-size: 11px;">Install Web App Now</button>
+        <button type="button" class="btn" id="btnSiteCloseInstallBanner" style="padding: 10px 18px; font-size: 11px;">Got It</button>
       </div>
     </div>
 
@@ -1117,6 +1135,6 @@
     </div>
   </footer>
 
-  <script src="js/main.js?v=7.9"></script>
+  <script src="js/main.js?v=8.0"></script>
 </body>
 </html>

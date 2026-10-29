@@ -1031,7 +1031,8 @@ body.app-body {
   flex-wrap: wrap;
 }
 
-.pwa-install-Banner[hidden] {
+[hidden],
+.pwa-install-banner[hidden] {
   display: none !important;
 }
 

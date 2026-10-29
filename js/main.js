@@ -252,4 +252,70 @@ document.addEventListener("DOMContentLoaded", () => {
       btnToggleInlineApp.textContent = "Preview App Right Here";
     });
   }
+
+  // Website-Only "Add App to Home Screen" Guide Banner & Native PWA Prompt
+  const btnSiteAddApp = document.getElementById("btnSiteAddApp");
+  const sitePwaInstallBanner = document.getElementById("sitePwaInstallBanner");
+  const btnSiteTriggerInstall = document.getElementById("btnSiteTriggerInstall");
+  const btnSiteCloseInstallBanner = document.getElementById("btnSiteCloseInstallBanner");
+  let deferredSiteInstallPrompt = null;
+
+  window.addEventListener("beforeinstallprompt", (e) => {
+    e.preventDefault();
+    deferredSiteInstallPrompt = e;
+    if (btnSiteTriggerInstall) {
+      btnSiteTriggerInstall.hidden = false;
+      btnSiteTriggerInstall.removeAttribute("hidden");
+    }
+  });
+
+  function hideSiteInstallBanner() {
+    if (!sitePwaInstallBanner) return;
+    sitePwaInstallBanner.hidden = true;
+    sitePwaInstallBanner.setAttribute("hidden", "");
+    if (btnSiteAddApp) {
+      btnSiteAddApp.setAttribute("aria-expanded", "false");
+      btnSiteAddApp.textContent = "Add App to Home Screen";
+    }
+  }
+
+  function showSiteInstallBanner() {
+    if (!sitePwaInstallBanner) return;
+    sitePwaInstallBanner.hidden = false;
+    sitePwaInstallBanner.removeAttribute("hidden");
+    if (btnSiteAddApp) {
+      btnSiteAddApp.setAttribute("aria-expanded", "true");
+      btnSiteAddApp.textContent = "Hide Install Guide";
+    }
+    sitePwaInstallBanner.scrollIntoView({ behavior: "smooth", block: "nearest" });
+  }
+
+  if (btnSiteAddApp && sitePwaInstallBanner) {
+    btnSiteAddApp.addEventListener("click", () => {
+      const isHidden = sitePwaInstallBanner.hasAttribute("hidden") || sitePwaInstallBanner.hidden;
+      if (isHidden) {
+        showSiteInstallBanner();
+      } else {
+        hideSiteInstallBanner();
+      }
+    });
+  }
+
+  if (btnSiteCloseInstallBanner) {
+    btnSiteCloseInstallBanner.addEventListener("click", () => {
+      hideSiteInstallBanner();
+    });
+  }
+
+  if (btnSiteTriggerInstall) {
+    btnSiteTriggerInstall.addEventListener("click", async () => {
+      if (!deferredSiteInstallPrompt) return;
+      deferredSiteInstallPrompt.prompt();
+      await deferredSiteInstallPrompt.userChoice;
+      deferredSiteInstallPrompt = null;
+      btnSiteTriggerInstall.hidden = true;
+      btnSiteTriggerInstall.setAttribute("hidden", "");
+      hideSiteInstallBanner();
+    });
+  }
 });
