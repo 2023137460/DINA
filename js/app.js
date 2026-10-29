@@ -520,7 +520,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const headerStatusText = document.getElementById("headerStatusText");
 
   const mapCanvasWrap = document.getElementById("mapCanvasWrap");
+  const mapRouteFlowLine = document.getElementById("mapRouteFlowLine");
   const mapUserMarker = document.getElementById("mapUserMarker");
+  const mapUserBubbleGroup = document.getElementById("mapUserBubbleGroup");
   const mapUserBubbleText = document.getElementById("mapUserBubbleText");
   const mapHomeBadgeText = document.getElementById("mapHomeBadgeText");
   const mapHomeHaloRing = document.getElementById("mapHomeHaloRing");
@@ -537,8 +539,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const MAP_SCENES = {
     ontime: {
       key: "ontime",
-      startPos: { x: 185, y: 145 },
-      endPos: { x: 350, y: 112 },
+      startT: 0.14,
+      endT: 0.66,
+      bubbleOffsetX: 0,
       bubble: "YOU • ETA 19:20",
       homeBadge: "HOME • +10°C THAW",
       homeHalo: "amber",
@@ -551,8 +554,9 @@ document.addEventListener("DOMContentLoaded", () => {
     },
     traffic: {
       key: "traffic",
-      startPos: { x: 235, y: 120 },
-      endPos: { x: 268, y: 122 },
+      startT: 0.36,
+      endT: 0.54,
+      bubbleOffsetX: 0,
       bubble: "TRAFFIC • +30M DELAY",
       homeBadge: "HOME • +3°C HOLD",
       homeHalo: "green",
@@ -565,8 +569,9 @@ document.addEventListener("DOMContentLoaded", () => {
     },
     atwork: {
       key: "atwork",
-      startPos: { x: 78, y: 206 },
-      endPos: { x: 78, y: 206 },
+      startT: 0.0,
+      endT: 0.0,
+      bubbleOffsetX: 18,
       bubble: "STILL AT WORK • 19:15",
       homeBadge: "HOME • +3°C HOLD",
       homeHalo: "green",
@@ -579,8 +584,9 @@ document.addEventListener("DOMContentLoaded", () => {
     },
     arrived: {
       key: "arrived",
-      startPos: { x: 438, y: 78 },
-      endPos: { x: 482, y: 74 },
+      startT: 0.66,
+      endT: 0.85,
+      bubbleOffsetX: -14,
       bubble: "ARRIVED HOME!",
       homeBadge: "READY TO COOK!",
       homeHalo: "green",
@@ -595,15 +601,34 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let currentMapSceneIdx = 0;
   let mapAutoCycle = true;
-  let mapProgressMs = 0;
-  const MAP_SCENE_DURATION_MS = 5200;
-  let stepNudgeTimer = null;
+  const MAP_SCENE_DURATION_MS = 8500;
+  let sceneStartTimestamp = performance.now();
+
+  function easeInOutSine(x) {
+    return -(Math.cos(Math.PI * x) - 1) / 2;
+  }
+
+  function setMarkerAlongRoute(fractionT) {
+    if (!mapUserMarker) return;
+    const clampedT = Math.max(0, Math.min(1, fractionT));
+    if (mapRouteFlowLine && typeof mapRouteFlowLine.getTotalLength === "function") {
+      try {
+        const totalLen = mapRouteFlowLine.getTotalLength();
+        const pt = mapRouteFlowLine.getPointAtLength(clampedT * totalLen);
+        mapUserMarker.setAttribute("transform", `translate(${pt.x.toFixed(1)}, ${pt.y.toFixed(1)})`);
+        return;
+      } catch (e) {}
+    }
+    const fallbackX = 78 + clampedT * (482 - 78);
+    const fallbackY = 196 + clampedT * (88 - 196);
+    mapUserMarker.setAttribute("transform", `translate(${fallbackX.toFixed(1)}, ${fallbackY.toFixed(1)})`);
+  }
 
   function applyMapScene(sceneKey, announceToast = false) {
     const scene = MAP_SCENES[sceneKey] || MAP_SCENES.ontime;
     currentMapSceneIdx = MAP_SCENES_ORDER.indexOf(scene.key);
     if (currentMapSceneIdx < 0) currentMapSceneIdx = 0;
-    mapProgressMs = 0;
+    sceneStartTimestamp = performance.now();
 
     mapSceneBtns.forEach(btn => {
       btn.classList.toggle("active", btn.getAttribute("data-scene") === scene.key);
@@ -613,15 +638,11 @@ document.addEventListener("DOMContentLoaded", () => {
       mapCanvasWrap.setAttribute("data-scene-state", scene.key);
     }
 
-    if (mapUserMarker) {
-      mapUserMarker.setAttribute("transform", `translate(${scene.startPos.x}, ${scene.startPos.y})`);
-      clearTimeout(stepNudgeTimer);
-      stepNudgeTimer = setTimeout(() => {
-        if (mapUserMarker) {
-          mapUserMarker.setAttribute("transform", `translate(${scene.endPos.x}, ${scene.endPos.y})`);
-        }
-      }, 350);
+    if (mapUserBubbleGroup) {
+      mapUserBubbleGroup.setAttribute("transform", `translate(${scene.bubbleOffsetX || 0}, -30)`);
     }
+
+    setMarkerAlongRoute(scene.startT);
 
     if (mapUserBubbleText) mapUserBubbleText.textContent = scene.bubble;
     if (mapHomeBadgeText) mapHomeBadgeText.textContent = scene.homeBadge;
@@ -663,6 +684,7 @@ document.addEventListener("DOMContentLoaded", () => {
     btnToggleMapCycle.addEventListener("click", () => {
       triggerHaptic([10]);
       mapAutoCycle = !mapAutoCycle;
+      sceneStartTimestamp = performance.now();
       btnToggleMapCycle.classList.toggle("active", mapAutoCycle);
       if (mapCycleBtnLabel) {
         mapCycleBtnLabel.textContent = mapAutoCycle ? "Auto-Cycle: ON" : "Auto-Cycle: PAUSED";
@@ -670,21 +692,34 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Smooth Auto-Cycle Interval for the Map
-  setInterval(() => {
-    if (!mapAutoCycle) return;
-    mapProgressMs += 130;
-    if (mapCycleProgressBar) {
-      const pct = Math.min(100, (mapProgressMs / MAP_SCENE_DURATION_MS) * 100);
-      mapCycleProgressBar.style.width = `${pct}%`;
+  // Silky 60fps Continuous Path Glide & Auto-Cycle Loop
+  function tickMapAnimation(now) {
+    const sceneKey = MAP_SCENES_ORDER[currentMapSceneIdx] || "ontime";
+    const scene = MAP_SCENES[sceneKey];
+    const elapsed = Math.max(0, now - sceneStartTimestamp);
+    const rawProgress = Math.min(1, elapsed / MAP_SCENE_DURATION_MS);
+
+    // Move user marker smoothly along the Bezier curve over the first 78% of the scene duration
+    const moveProgress = Math.min(1, elapsed / (MAP_SCENE_DURATION_MS * 0.78));
+    const easedMove = easeInOutSine(moveProgress);
+    const currentT = scene.startT + (scene.endT - scene.startT) * easedMove;
+    setMarkerAlongRoute(currentT);
+
+    if (mapAutoCycle) {
+      if (mapCycleProgressBar) {
+        mapCycleProgressBar.style.width = `${(rawProgress * 100).toFixed(1)}%`;
+      }
+      if (elapsed >= MAP_SCENE_DURATION_MS) {
+        const nextIdx = (currentMapSceneIdx + 1) % MAP_SCENES_ORDER.length;
+        applyMapScene(MAP_SCENES_ORDER[nextIdx], false);
+      }
     }
-    if (mapProgressMs >= MAP_SCENE_DURATION_MS) {
-      const nextIdx = (currentMapSceneIdx + 1) % MAP_SCENES_ORDER.length;
-      applyMapScene(MAP_SCENES_ORDER[nextIdx], false);
-    }
-  }, 130);
+
+    requestAnimationFrame(tickMapAnimation);
+  }
 
   applyMapScene("ontime", false);
+  requestAnimationFrame(tickMapAnimation);
 
   if (btnToggleCommuteSync) {
     btnToggleCommuteSync.addEventListener("click", () => {

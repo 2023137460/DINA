@@ -14,8 +14,8 @@
   <link rel="icon" type="image/svg+xml" href="assets/icons/pwa-logo.svg">
   <link rel="icon" type="image/png" sizes="192x192" href="assets/images/pwa-icon-192.png">
   <link rel="apple-touch-icon" sizes="180x180" href="assets/images/apple-touch-icon.png">
-  <link rel="stylesheet" href="css/tokens.css?v=7.8">
-  <link rel="stylesheet" href="css/app.css?v=7.8">
+  <link rel="stylesheet" href="css/tokens.css?v=7.9">
+  <link rel="stylesheet" href="css/app.css?v=7.9">
 </head>
 <body class="app-body">
 
@@ -45,34 +45,34 @@
       svg.dina-icon .ac { stroke: var(--accent); }
       svg.dina-icon .fl { fill: var(--accent); stroke: none; }
       svg.dina-icon .d {
-        animation: dina-draw 0.95s cubic-bezier(0.22, 0.61, 0.36, 1) both;
-        animation-delay: calc(var(--i, 0) * 0.07s);
+        animation: dina-draw 1.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+        animation-delay: calc(var(--i, 0) * 0.1s);
       }
       @keyframes dina-draw {
         from { stroke-dasharray: 1; stroke-dashoffset: 1; }
         to   { stroke-dasharray: 1; stroke-dashoffset: 0; }
       }
       svg.dina-icon .vb { transform-box: view-box; }
-      svg.dina-icon .spin-drum { transform-origin: 24px 24px; animation: dina-rot 24s linear infinite; }
-      svg.dina-icon .spin-snow { transform-origin: 24px 24px; animation: dina-rot 40s linear infinite; }
-      svg.dina-icon .spin-fan  { transform-origin: 24px 24px; animation: dina-rot 6s linear infinite; }
-      svg.dina-icon .h1 { transform-origin: 24px 25px; animation: dina-rot 12s linear infinite; }
-      svg.dina-icon .h2 { transform-origin: 24px 25px; animation: dina-rot 144s linear infinite; }
+      svg.dina-icon .spin-drum { transform-origin: 24px 24px; animation: dina-rot 36s linear infinite; }
+      svg.dina-icon .spin-snow { transform-origin: 24px 24px; animation: dina-rot 52s linear infinite; }
+      svg.dina-icon .spin-fan  { transform-origin: 24px 24px; animation: dina-rot 11s linear infinite; }
+      svg.dina-icon .h1 { transform-origin: 24px 25px; animation: dina-rot 18s linear infinite; }
+      svg.dina-icon .h2 { transform-origin: 24px 25px; animation: dina-rot 180s linear infinite; }
       @keyframes dina-rot { to { transform: rotate(360deg); } }
-      svg.dina-icon .pulse-drawer { transform-origin: 24px 36px; animation: dina-halo 2.8s ease-in-out infinite; }
-      svg.dina-icon .pulse-cal    { transform-origin: 33.5px 34px; animation: dina-halo 2.8s ease-in-out infinite; }
-      @keyframes dina-halo { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.26); } }
-      svg.dina-icon .fall { animation: dina-fall 3.2s cubic-bezier(0.5, 0, 0.75, 0.5) infinite 1.2s; }
-      @keyframes dina-fall { 0% { transform: translateY(0); opacity: 1; } 60% { transform: translateY(22px); opacity: 1; } 75%, 100% { transform: translateY(22px); opacity: 0; } }
-      svg.dina-icon .steam { animation: dina-steam 3.2s ease-in-out infinite; }
-      @keyframes dina-steam { 0%, 100% { transform: translateY(0); opacity: 1; } 50% { transform: translateY(-2.5px); opacity: 0.35; } }
-      svg.dina-icon .bob { animation: dina-bob 3.4s ease-in-out infinite; }
+      svg.dina-icon .pulse-drawer { transform-origin: 24px 36px; animation: dina-halo 4.2s ease-in-out infinite; }
+      svg.dina-icon .pulse-cal    { transform-origin: 33.5px 34px; animation: dina-halo 4.2s ease-in-out infinite; }
+      @keyframes dina-halo { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.22); } }
+      svg.dina-icon .fall { animation: dina-fall 4.8s cubic-bezier(0.45, 0, 0.55, 1) infinite 1.4s; }
+      @keyframes dina-fall { 0% { transform: translateY(0); opacity: 1; } 65% { transform: translateY(22px); opacity: 1; } 82%, 100% { transform: translateY(22px); opacity: 0; } }
+      svg.dina-icon .steam { animation: dina-steam 4.6s ease-in-out infinite; }
+      @keyframes dina-steam { 0%, 100% { transform: translateY(0); opacity: 1; } 50% { transform: translateY(-2.5px); opacity: 0.4; } }
+      svg.dina-icon .bob { animation: dina-bob 4.8s ease-in-out infinite; }
       @keyframes dina-bob { 0%, 100% { transform: translateY(-1.5px); } 50% { transform: translateY(1.5px); } }
-      svg.dina-icon .swing { transform-origin: 24px 6px; animation: dina-ring 4.5s ease-in-out infinite 1.2s; }
-      @keyframes dina-ring { 0%, 20%, 100% { transform: rotate(0); } 4% { transform: rotate(9deg); } 8% { transform: rotate(-8deg); } 12% { transform: rotate(5deg); } 16% { transform: rotate(-3deg); } }
-      svg.dina-icon .chk path { animation: dina-chk 5s cubic-bezier(0.22, 0.61, 0.36, 1) infinite 1s; }
+      svg.dina-icon .swing { transform-origin: 24px 6px; animation: dina-ring 6s ease-in-out infinite 1.5s; }
+      @keyframes dina-ring { 0%, 20%, 100% { transform: rotate(0); } 4% { transform: rotate(7deg); } 8% { transform: rotate(-6deg); } 12% { transform: rotate(4deg); } 16% { transform: rotate(-2deg); } }
+      svg.dina-icon .chk path { animation: dina-chk 6.5s cubic-bezier(0.22, 1, 0.36, 1) infinite 1.2s; }
       @keyframes dina-chk { 0% { stroke-dasharray: 1; stroke-dashoffset: 1; } 25%, 100% { stroke-dasharray: 1; stroke-dashoffset: 0; } }
-      svg.dina-icon .a1, svg.dina-icon .a2, svg.dina-icon .a3, svg.dina-icon .blink { animation: dina-wave 2.8s ease-in-out infinite; }
+      svg.dina-icon .a1, svg.dina-icon .a2, svg.dina-icon .a3, svg.dina-icon .blink { animation: dina-wave 4.2s ease-in-out infinite; }
       svg.dina-icon .a2 { animation-delay: 0.25s; }
       svg.dina-icon .a3 { animation-delay: 0.5s; }
       @keyframes dina-wave { 0%, 100% { opacity: 1; } 50% { opacity: 0.22; } }
@@ -599,76 +599,76 @@
                 </button>
               </div>
 
-              <!-- Animated SVG City Route Map -->
+              <!-- Animated SVG City Route Map (Zero-Overlap Pin & Callout Geometry) -->
               <div class="map-canvas-wrap" data-scene-state="ontime" id="mapCanvasWrap">
-                <svg class="commute-map-svg" viewBox="0 0 560 270" role="img" aria-label="Animated map showing your mock location between Work and Home with live ETA and DINA defrost status">
+                <svg class="commute-map-svg" viewBox="0 0 560 280" role="img" aria-label="Animated map showing your mock location between Work and Home with live ETA and DINA defrost status">
                   <!-- City Map Background & Blocks -->
-                  <rect x="0" y="0" width="560" height="270" fill="#EAE6D9"/>
+                  <rect x="0" y="0" width="560" height="280" fill="#EAE6D9"/>
                   <!-- Soft River Curve -->
-                  <path d="M 190 0 C 215 95, 255 150, 310 270" fill="none" stroke="#D6D1C0" stroke-width="26"/>
+                  <path d="M 190 0 C 215 95, 255 155, 310 280" fill="none" stroke="#D6D1C0" stroke-width="26"/>
                   <!-- City Blocks / Parks -->
-                  <rect x="24" y="24" width="115" height="65" rx="8" fill="#E1DDD0"/>
-                  <rect x="24" y="105" width="95" height="55" rx="8" fill="#E1DDD0"/>
-                  <rect x="155" y="28" width="90" height="54" rx="8" fill="#E1DDD0"/>
-                  <rect x="310" y="22" width="105" height="56" rx="8" fill="#E1DDD0"/>
-                  <rect x="335" y="155" width="115" height="82" rx="8" fill="#E1DDD0"/>
-                  <rect x="462" y="150" width="76" height="90" rx="8" fill="#E1DDD0"/>
+                  <rect x="24" y="20" width="115" height="62" rx="8" fill="#E1DDD0"/>
+                  <rect x="24" y="100" width="95" height="52" rx="8" fill="#E1DDD0"/>
+                  <rect x="155" y="22" width="90" height="52" rx="8" fill="#E1DDD0"/>
+                  <rect x="310" y="20" width="102" height="52" rx="8" fill="#E1DDD0"/>
+                  <rect x="335" y="168" width="110" height="82" rx="8" fill="#E1DDD0"/>
+                  <rect x="462" y="168" width="76" height="82" rx="8" fill="#E1DDD0"/>
 
                   <!-- Secondary City Streets -->
-                  <path d="M 0 96 H 560 M 0 185 H 560 M 138 0 V 270 M 435 0 V 270" stroke="#F4F2EA" stroke-width="5"/>
+                  <path d="M 0 90 H 560 M 0 160 H 560 M 138 0 V 280 M 435 0 V 280" stroke="#F4F2EA" stroke-width="5"/>
 
                   <!-- Main Commute Highway Roadbed -->
-                  <path d="M 78 206 C 165 206, 195 112, 285 124 C 375 136, 405 74, 482 74" fill="none" stroke="#FFFFFF" stroke-width="14" stroke-linecap="round"/>
-                  <path d="M 78 206 C 165 206, 195 112, 285 124 C 375 136, 405 74, 482 74" fill="none" stroke="#C8C3B4" stroke-width="10" stroke-linecap="round"/>
+                  <path d="M 78 196 C 165 196, 195 126, 285 134 C 375 142, 405 88, 482 88" fill="none" stroke="#FFFFFF" stroke-width="14" stroke-linecap="round"/>
+                  <path d="M 78 196 C 165 196, 195 126, 285 134 C 375 142, 405 88, 482 88" fill="none" stroke="#C8C3B4" stroke-width="10" stroke-linecap="round"/>
 
                   <!-- Active Route Animated Dashed Line -->
-                  <path id="mapRouteFlowLine" class="map-route-flow" d="M 78 206 C 165 206, 195 112, 285 124 C 375 136, 405 74, 482 74" fill="none" stroke="#191919" stroke-width="3.5" stroke-linecap="round" stroke-dasharray="7 7"/>
+                  <path id="mapRouteFlowLine" class="map-route-flow" d="M 78 196 C 165 196, 195 126, 285 134 C 375 142, 405 88, 482 88" fill="none" stroke="#191919" stroke-width="3.5" stroke-linecap="round" stroke-dasharray="7 7"/>
 
-                  <!-- Traffic Jam Congestion Segment (Visible in Traffic Scene) -->
+                  <!-- Traffic Jam Congestion Segment (Visible in Traffic Scene; Label placed BELOW road so it never collides with user bubble above) -->
                   <g id="mapTrafficGroup" class="map-traffic-group">
-                    <path d="M 185 142 C 218 116, 255 118, 325 125" fill="none" stroke="#C0775B" stroke-width="11" stroke-linecap="round" opacity="0.45"/>
-                    <path class="traffic-pulse-line" d="M 185 142 C 218 116, 255 118, 325 125" fill="none" stroke="#C0775B" stroke-width="5" stroke-linecap="round"/>
-                    <!-- Traffic Jam Callout Pill -->
-                    <g transform="translate(252, 82)">
-                      <rect x="-72" y="-16" width="144" height="26" rx="6" fill="#C0775B"/>
-                      <text x="0" y="1" text-anchor="middle" fill="#FFFFFF" font-family="Archivo, sans-serif" font-size="10.5" font-weight="700">TRAFFIC JAM &bull; +30 MIN</text>
+                    <path d="M 188 148 C 222 128, 258 130, 326 136" fill="none" stroke="#C0775B" stroke-width="12" stroke-linecap="round" opacity="0.45"/>
+                    <path class="traffic-pulse-line" d="M 188 148 C 222 128, 258 130, 326 136" fill="none" stroke="#C0775B" stroke-width="5" stroke-linecap="round"/>
+                    <!-- Traffic Jam Callout Pill BELOW the bridge road -->
+                    <g transform="translate(258, 174)">
+                      <path d="M -6 -14 L 0 -22 L 6 -14 Z" fill="#C0775B"/>
+                      <rect x="-74" y="-14" width="148" height="24" rx="6" fill="#C0775B"/>
+                      <text x="0" y="2" text-anchor="middle" fill="#FFFFFF" font-family="Archivo, sans-serif" font-size="10" font-weight="700">A5 BRIDGE JAM &bull; +30 MIN</text>
                     </g>
                   </g>
 
-                  <!-- WORK / OFFICE PIN (Left: 78, 206) -->
-                  <g transform="translate(78, 206)">
+                  <!-- WORK / OFFICE PIN (Left: 78, 196; Label BELOW at y=+28) -->
+                  <g transform="translate(78, 196)">
                     <circle class="work-stay-pulse" id="workStayPulse" cx="0" cy="0" r="24" fill="rgba(192, 119, 91, 0.22)"/>
                     <circle cx="0" cy="0" r="16" fill="#F1EFE5" stroke="#191919" stroke-width="2"/>
-                    <!-- Office Briefcase / Building Icon -->
                     <rect x="-7" y="-5" width="14" height="11" rx="2" fill="none" stroke="#191919" stroke-width="1.7"/>
                     <path d="M -3 -5 V -8 H 3 V -5" fill="none" stroke="#191919" stroke-width="1.6"/>
-                    <rect x="-32" y="20" width="64" height="20" rx="5" fill="#191919"/>
-                    <text x="0" y="33" text-anchor="middle" fill="#F1EFE5" font-family="Archivo, sans-serif" font-size="10" font-weight="700">WORK</text>
+                    <rect x="-32" y="22" width="64" height="20" rx="5" fill="#191919"/>
+                    <text x="0" y="35" text-anchor="middle" fill="#F1EFE5" font-family="Archivo, sans-serif" font-size="10" font-weight="700">WORK</text>
                   </g>
 
-                  <!-- HOME / DINA KITCHEN PIN (Right: 482, 74) -->
-                  <g transform="translate(482, 74)">
+                  <!-- HOME / DINA KITCHEN PIN (Right: 482, 88; Status Badge BELOW at y=+34 so it never collides with user bubble above) -->
+                  <g transform="translate(482, 88)">
                     <circle id="mapHomeHaloRing" class="map-home-halo amber" cx="0" cy="0" r="26"/>
                     <circle cx="0" cy="0" r="18" fill="#F1EFE5" stroke="#191919" stroke-width="2"/>
-                    <!-- Home Roof + Freezer Icon -->
                     <path d="M -9 1 L 0 -8 L 9 1" fill="none" stroke="#191919" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
                     <path d="M -6 0 V 8 H 6 V 0" fill="none" stroke="#191919" stroke-width="1.8" stroke-linejoin="round"/>
                     <circle id="mapHomeDot" cx="0" cy="4" r="2.5" fill="#C0775B"/>
-                    <!-- Home Status Callout Badge -->
-                    <g transform="translate(-8, -36)">
-                      <rect x="-66" y="-14" width="132" height="24" rx="6" fill="#191919"/>
-                      <text id="mapHomeBadgeText" x="0" y="2" text-anchor="middle" fill="#F1EFE5" font-family="Archivo, sans-serif" font-size="10" font-weight="700">HOME &bull; +10&deg;C THAW</text>
+                    <!-- Home Status Callout Badge BELOW the Home Pin -->
+                    <g transform="translate(-8, 35)">
+                      <rect x="-66" y="-12" width="132" height="24" rx="6" fill="#191919"/>
+                      <text id="mapHomeBadgeText" x="0" y="4" text-anchor="middle" fill="#F1EFE5" font-family="Archivo, sans-serif" font-size="10" font-weight="700">HOME &bull; +10&deg;C THAW</text>
                     </g>
                   </g>
 
-                  <!-- ANIMATED MOCK USER LOCATION MARKER (Moves along the route) -->
-                  <g id="mapUserMarker" class="map-user-marker" transform="translate(215, 134)">
+                  <!-- ANIMATED MOCK USER LOCATION MARKER (Glides smoothly along route; Bubble ALWAYS ABOVE at y=-30) -->
+                  <g id="mapUserMarker" class="map-user-marker" transform="translate(185, 150)">
                     <circle class="user-gps-pulse" cx="0" cy="0" r="20"/>
-                    <circle cx="0" cy="0" r="11" fill="#C0775B" stroke="#FFFFFF" stroke-width="2.5"/>
+                    <circle cx="0" cy="0" r="10.5" fill="#C0775B" stroke="#FFFFFF" stroke-width="2.5"/>
                     <circle cx="0" cy="0" r="3.5" fill="#FFFFFF"/>
-                    <!-- Floating User ETA Bubble -->
-                    <g transform="translate(0, -28)">
-                      <rect x="-68" y="-14" width="136" height="24" rx="6" fill="#FFFFFF" stroke="#191919" stroke-width="1.5"/>
+                    <!-- Floating User ETA Bubble ABOVE marker -->
+                    <g id="mapUserBubbleGroup" transform="translate(0, -30)">
+                      <path d="M -5 10 L 0 16 L 5 10 Z" fill="#191919"/>
+                      <rect x="-70" y="-14" width="140" height="24" rx="6" fill="#FFFFFF" stroke="#191919" stroke-width="1.5"/>
                       <text id="mapUserBubbleText" x="0" y="2" text-anchor="middle" fill="#191919" font-family="Archivo, sans-serif" font-size="10.5" font-weight="700">YOU &bull; ETA 19:20</text>
                     </g>
                   </g>
@@ -850,6 +850,6 @@
 
   </div>
 
-  <script src="js/app.js?v=7.8"></script>
+  <script src="js/app.js?v=7.9"></script>
 </body>
 </html>

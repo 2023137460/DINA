@@ -10,8 +10,8 @@
   <link rel="icon" type="image/svg+xml" href="assets/icons/pwa-logo.svg">
   <link rel="icon" type="image/png" sizes="192x192" href="assets/images/pwa-icon-192.png">
   <link rel="apple-touch-icon" sizes="180x180" href="assets/images/apple-touch-icon.png">
-  <link rel="stylesheet" href="css/tokens.css?v=7.8">
-  <link rel="stylesheet" href="css/styles.css?v=7.8">
+  <link rel="stylesheet" href="css/tokens.css?v=7.9">
+  <link rel="stylesheet" href="css/styles.css?v=7.9">
   <style>
     /* Critical Mobile Nav & Header Shield (Prevents FOUC & Cache Overlap) */
     .mobile-header-actions { display: none; }
@@ -204,8 +204,8 @@
       svg.dina-icon .ac { stroke: var(--accent); }
       svg.dina-icon .fl { fill: var(--accent); stroke: none; }
       svg.dina-icon .d {
-        animation: dina-draw 1.1s cubic-bezier(0.22, 0.61, 0.36, 1) both;
-        animation-delay: calc(var(--i, 0) * 0.08s);
+        animation: dina-draw 1.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+        animation-delay: calc(var(--i, 0) * 0.1s);
       }
       /* Pause draw-in until section reveals into viewport */
       .reveal:not(.in) svg.dina-icon .d {
@@ -216,31 +216,31 @@
         to   { stroke-dasharray: 1; stroke-dashoffset: 0; }
       }
       svg.dina-icon .vb { transform-box: view-box; }
-      svg.dina-icon .spin-drum { transform-origin: 24px 24px; animation: dina-rot 24s linear infinite; }
-      svg.dina-icon .spin-snow { transform-origin: 24px 24px; animation: dina-rot 40s linear infinite; }
-      svg.dina-icon .spin-fan  { transform-origin: 24px 24px; animation: dina-rot 6s linear infinite; }
-      svg.dina-icon .h1 { transform-origin: 24px 25px; animation: dina-rot 12s linear infinite; }
-      svg.dina-icon .h2 { transform-origin: 24px 25px; animation: dina-rot 144s linear infinite; }
+      svg.dina-icon .spin-drum { transform-origin: 24px 24px; animation: dina-rot 36s linear infinite; }
+      svg.dina-icon .spin-snow { transform-origin: 24px 24px; animation: dina-rot 52s linear infinite; }
+      svg.dina-icon .spin-fan  { transform-origin: 24px 24px; animation: dina-rot 11s linear infinite; }
+      svg.dina-icon .h1 { transform-origin: 24px 25px; animation: dina-rot 18s linear infinite; }
+      svg.dina-icon .h2 { transform-origin: 24px 25px; animation: dina-rot 180s linear infinite; }
       @keyframes dina-rot { to { transform: rotate(360deg); } }
-      svg.dina-icon .pulse-drawer { transform-origin: 24px 36px; animation: dina-halo 2.8s ease-in-out infinite; }
-      svg.dina-icon .pulse-cal    { transform-origin: 33.5px 34px; animation: dina-halo 2.8s ease-in-out infinite; }
-      svg.dina-icon .pulse-tag    { transform-origin: 18px 18px; animation: dina-halo 3s ease-in-out infinite; }
-      @keyframes dina-halo { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.28); } }
-      svg.dina-icon .fall { animation: dina-fall 3.2s cubic-bezier(0.5, 0, 0.75, 0.5) infinite 1.4s; }
-      @keyframes dina-fall { 0% { transform: translateY(0); opacity: 1; } 60% { transform: translateY(22px); opacity: 1; } 75%, 100% { transform: translateY(22px); opacity: 0; } }
-      svg.dina-icon .steam { animation: dina-steam 3.2s ease-in-out infinite; }
-      @keyframes dina-steam { 0%, 100% { transform: translateY(0); opacity: 1; } 50% { transform: translateY(-2.5px); opacity: 0.35; } }
-      svg.dina-icon .bob { animation: dina-bob 3.4s ease-in-out infinite; }
+      svg.dina-icon .pulse-drawer { transform-origin: 24px 36px; animation: dina-halo 4.2s ease-in-out infinite; }
+      svg.dina-icon .pulse-cal    { transform-origin: 33.5px 34px; animation: dina-halo 4.2s ease-in-out infinite; }
+      svg.dina-icon .pulse-tag    { transform-origin: 18px 18px; animation: dina-halo 4.4s ease-in-out infinite; }
+      @keyframes dina-halo { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.22); } }
+      svg.dina-icon .fall { animation: dina-fall 4.8s cubic-bezier(0.45, 0, 0.55, 1) infinite 1.4s; }
+      @keyframes dina-fall { 0% { transform: translateY(0); opacity: 1; } 65% { transform: translateY(22px); opacity: 1; } 82%, 100% { transform: translateY(22px); opacity: 0; } }
+      svg.dina-icon .steam { animation: dina-steam 4.6s ease-in-out infinite; }
+      @keyframes dina-steam { 0%, 100% { transform: translateY(0); opacity: 1; } 50% { transform: translateY(-2.5px); opacity: 0.4; } }
+      svg.dina-icon .bob { animation: dina-bob 4.8s ease-in-out infinite; }
       @keyframes dina-bob { 0%, 100% { transform: translateY(-1.5px); } 50% { transform: translateY(1.5px); } }
-      svg.dina-icon .swing { transform-origin: 24px 6px; animation: dina-ring 4.5s ease-in-out infinite 1.5s; }
-      @keyframes dina-ring { 0%, 20%, 100% { transform: rotate(0); } 4% { transform: rotate(9deg); } 8% { transform: rotate(-8deg); } 12% { transform: rotate(5deg); } 16% { transform: rotate(-3deg); } }
-      svg.dina-icon .knob { transform-origin: 24px 27px; animation: dina-knob 4.5s ease-in-out infinite; }
+      svg.dina-icon .swing { transform-origin: 24px 6px; animation: dina-ring 6s ease-in-out infinite 1.5s; }
+      @keyframes dina-ring { 0%, 20%, 100% { transform: rotate(0); } 4% { transform: rotate(7deg); } 8% { transform: rotate(-6deg); } 12% { transform: rotate(4deg); } 16% { transform: rotate(-2deg); } }
+      svg.dina-icon .knob { transform-origin: 24px 27px; animation: dina-knob 6s ease-in-out infinite; }
       @keyframes dina-knob { 0%, 100% { transform: translateX(-5px); } 50% { transform: translateX(5px); } }
-      svg.dina-icon .merc path { stroke-dasharray: 1; animation: dina-merc 5s ease-in-out infinite 1.4s; }
+      svg.dina-icon .merc path { stroke-dasharray: 1; animation: dina-merc 6.5s ease-in-out infinite 1.4s; }
       @keyframes dina-merc { 0%, 100% { stroke-dashoffset: 0.55; } 50% { stroke-dashoffset: 0; } }
-      svg.dina-icon .chk path { animation: dina-chk 5s cubic-bezier(0.22, 0.61, 0.36, 1) infinite 1.2s; }
+      svg.dina-icon .chk path { animation: dina-chk 6.5s cubic-bezier(0.22, 1, 0.36, 1) infinite 1.2s; }
       @keyframes dina-chk { 0% { stroke-dasharray: 1; stroke-dashoffset: 1; } 25%, 100% { stroke-dasharray: 1; stroke-dashoffset: 0; } }
-      svg.dina-icon .a1, svg.dina-icon .a2, svg.dina-icon .a3, svg.dina-icon .blink { animation: dina-wave 2.8s ease-in-out infinite; }
+      svg.dina-icon .a1, svg.dina-icon .a2, svg.dina-icon .a3, svg.dina-icon .blink { animation: dina-wave 4.2s ease-in-out infinite; }
       svg.dina-icon .a2 { animation-delay: 0.25s; }
       svg.dina-icon .a3 { animation-delay: 0.5s; }
       @keyframes dina-wave { 0%, 100% { opacity: 1; } 50% { opacity: 0.22; } }
@@ -1117,6 +1117,6 @@
     </div>
   </footer>
 
-  <script src="js/main.js?v=7.8"></script>
+  <script src="js/main.js?v=7.9"></script>
 </body>
 </html>
