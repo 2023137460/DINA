@@ -1,6 +1,6 @@
 /**
  * DINA Main Website JavaScript
- * Reveal animations, mobile menu toggle, & navigation scrollspy
+ * Reveal animations, mobile menu toggle, navigation scrollspy, & launch sign-up counter
  * Strictly adheres to /dina-brand-identity. Zero emojis.
  */
 
@@ -122,11 +122,11 @@ document.addEventListener("DOMContentLoaded", () => {
         if (state === "ready") {
           haloRing.classList.remove("amber");
           haloRing.classList.add("green");
-          haloStatus.textContent = "Status: Thawed & Chilled at +3.0 °C (Ready)";
+          haloStatus.textContent = "Status: Thawed & Chilled at +3.0 °C (Ready, up to 24 h Safe-Hold)";
         } else {
           haloRing.classList.remove("green");
           haloRing.classList.add("amber");
-          haloStatus.textContent = "Status: Actively Thawing on Schedule";
+          haloStatus.textContent = "Status: Actively Thawing on Schedule (Surface <= +4.0 °C)";
         }
       });
     });
@@ -151,6 +151,105 @@ document.addEventListener("DOMContentLoaded", () => {
           }, 180);
         }
       });
+    });
+  }
+
+  // "Notify Me at Launch" Email Sign-Up & Demand Evidence Counter
+  const notifyForm = document.getElementById("notifyLaunchForm");
+  const notifyInput = document.getElementById("notifyEmailInput");
+  const notifyBtn = document.getElementById("notifySubmitBtn");
+  const notifyFeedback = document.getElementById("notifyFeedback");
+  const waitlistCountEl = document.getElementById("waitlistCountDisplay");
+
+  const BASE_WAITLIST_COUNT = 142;
+  const STORAGE_KEY_EMAILS = "dina_launch_waitlist_emails";
+
+  function getSavedEmails() {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY_EMAILS);
+      return raw ? JSON.parse(raw) : [];
+    } catch (e) {
+      return [];
+    }
+  }
+
+  function updateWaitlistCounter() {
+    if (!waitlistCountEl) return;
+    const saved = getSavedEmails();
+    waitlistCountEl.textContent = String(BASE_WAITLIST_COUNT + saved.length);
+  }
+
+  updateWaitlistCounter();
+
+  if (notifyForm && notifyInput && notifyFeedback) {
+    notifyForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const email = (notifyInput.value || "").trim().toLowerCase();
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+      notifyFeedback.classList.remove("error", "success");
+
+      if (!email || !emailRegex.test(email)) {
+        notifyFeedback.textContent = "Please enter a valid email address.";
+        notifyFeedback.classList.add("error");
+        notifyInput.focus();
+        return;
+      }
+
+      const saved = getSavedEmails();
+      if (saved.includes(email)) {
+        notifyFeedback.textContent = "You are already on the priority launch list for Q4 2027.";
+        notifyFeedback.classList.add("success");
+        return;
+      }
+
+      saved.push(email);
+      try {
+        localStorage.setItem(STORAGE_KEY_EMAILS, JSON.stringify(saved));
+      } catch (err) {}
+
+      updateWaitlistCounter();
+      notifyInput.value = "";
+      if (notifyBtn) {
+        notifyBtn.textContent = "Registered";
+      }
+      notifyFeedback.textContent = `Thank you. ${email} has been added to the Q4 2027 launch list.`;
+      notifyFeedback.classList.add("success");
+    });
+  }
+});
+
+// Inline Web App Toggle on Main Website (Allows using app.html directly inside index.html)
+document.addEventListener("DOMContentLoaded", () => {
+  const btnToggleInlineApp = document.getElementById("btnToggleInlineApp");
+  const btnCloseInlineApp = document.getElementById("btnCloseInlineApp");
+  const inlineAppContainer = document.getElementById("inlineAppContainer");
+  const inlineAppIframe = document.getElementById("inlineAppIframe");
+
+  if (btnToggleInlineApp && inlineAppContainer && inlineAppIframe) {
+    btnToggleInlineApp.addEventListener("click", () => {
+      const isHidden = inlineAppContainer.hasAttribute("hidden");
+      if (isHidden) {
+        if (!inlineAppIframe.getAttribute("src")) {
+          inlineAppIframe.setAttribute("src", "app.html");
+        }
+        inlineAppContainer.removeAttribute("hidden");
+        btnToggleInlineApp.setAttribute("aria-expanded", "true");
+        btnToggleInlineApp.textContent = "Hide Inline App";
+        inlineAppContainer.scrollIntoView({ behavior: "smooth", block: "nearest" });
+      } else {
+        inlineAppContainer.setAttribute("hidden", "");
+        btnToggleInlineApp.setAttribute("aria-expanded", "false");
+        btnToggleInlineApp.textContent = "Use App Inline on This Page";
+      }
+    });
+  }
+
+  if (btnCloseInlineApp && inlineAppContainer && btnToggleInlineApp) {
+    btnCloseInlineApp.addEventListener("click", () => {
+      inlineAppContainer.setAttribute("hidden", "");
+      btnToggleInlineApp.setAttribute("aria-expanded", "false");
+      btnToggleInlineApp.textContent = "Use App Inline on This Page";
     });
   }
 });

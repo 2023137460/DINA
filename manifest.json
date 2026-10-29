@@ -1,0 +1,19 @@
+{
+  "name": "DINA Mobile OS — Defrosting Is Now Automatic",
+  "short_name": "DINA",
+  "description": "Companion web app for the DINA upright smart freezer: 11-meal revolving drum inventory, one-tap dinner scheduling, commute sync, and safety telemetry.",
+  "start_url": "./app.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#F1EFE5",
+  "theme_color": "#F1EFE5",
+  "icons": [
+    {
+      "src": "assets/icons-static/app.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

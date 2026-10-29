@@ -955,3 +955,410 @@ body.app-body {
     transform: none !important;
   }
 }
+
+
+/* ==========================================================================
+   MULTI-DEVICE RESPONSIVE ENGINE (Mobile, iPad/Tablet, & PC Optimised)
+   + Viewport Switcher & Optional PWA Web App Controls
+   ========================================================================== */
+
+/* Header Actions & Viewport Switcher */
+.app-header-actions {
+  gap: 6px;
+}
+
+.viewport-switcher {
+  display: inline-flex;
+  align-items: center;
+  border: var(--hairline);
+  background: var(--sand);
+  padding: 2px;
+  gap: 2px;
+}
+
+.vp-btn {
+  background: transparent;
+  border: none;
+  font-family: var(--font-head);
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  padding: 5px 8px;
+  cursor: pointer;
+  touch-action: manipulation;
+  transition: background 140ms var(--ease-out), color 140ms var(--ease-out);
+}
+
+.vp-btn.active {
+  background: var(--paper);
+  color: var(--ink);
+  font-weight: 700;
+}
+
+.app-install-pill {
+  background: var(--sand);
+  border: 1px solid var(--ink);
+  color: var(--ink);
+  font-family: var(--font-head);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 6px 10px;
+  min-height: 32px;
+  cursor: pointer;
+  touch-action: manipulation;
+  transition: background 140ms var(--ease-out), color 140ms var(--ease-out);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .app-install-pill:hover {
+    background: var(--ink);
+    color: var(--paper);
+  }
+}
+
+/* Optional Dismissible Web App Install Guide */
+.pwa-install-banner {
+  background: var(--sand);
+  border-bottom: var(--hairline);
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.pwa-install-Banner[hidden] {
+  display: none !important;
+}
+
+.pwa-install-content {
+  flex: 1;
+  min-width: min(260px, 100%);
+}
+
+.pwa-install-content p {
+  font-size: 12.5px;
+  color: var(--ink);
+  margin: 4px 0 0;
+  max-width: 72ch;
+}
+
+.pwa-install-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.btn-pwa-action {
+  background: var(--paper);
+  border: 1px solid var(--ink);
+  color: var(--ink);
+  font-family: var(--font-head);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 8px 12px;
+  min-height: 36px;
+  cursor: pointer;
+}
+
+.btn-pwa-action.primary {
+  background: var(--clay);
+  border-color: var(--clay);
+  color: var(--white);
+}
+
+/* 15:00 One-Tap Confirmation Card (REQ-F-03) */
+.one-tap-prompt-card {
+  background: var(--sand);
+  border: var(--hairline);
+  border-left: 3px solid var(--clay);
+  padding: 12px 14px;
+  margin-bottom: 14px;
+}
+
+.one-tap-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.one-tap-badge {
+  font-family: var(--font-head);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--clay);
+}
+
+.one-tap-meta {
+  font-size: 11px;
+  color: var(--ink-soft);
+}
+
+.one-tap-question {
+  font-size: 13px;
+  color: var(--ink);
+  margin: 0 0 10px;
+}
+
+.one-tap-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.one-tap-btn {
+  flex: 1;
+  min-width: 85px;
+  min-height: 38px;
+  padding: 6px 10px;
+  font-family: var(--font-head);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border: 1px solid var(--ink);
+  background: var(--paper);
+  color: var(--ink);
+  cursor: pointer;
+  touch-action: manipulation;
+  transition: background 140ms var(--ease-out), color 140ms var(--ease-out);
+}
+
+.one-tap-btn.confirm {
+  background: var(--clay);
+  border-color: var(--clay);
+  color: var(--white);
+}
+
+/* Schedule Panel & Late-Rescue Summary Box */
+.schedule-panel-card {
+  background: var(--white);
+  border: var(--hairline);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+}
+
+.schedule-summary-box {
+  background: var(--paper);
+  border: var(--hairline);
+  padding: 10px 12px;
+  margin-bottom: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+  color: var(--ink-soft);
+  gap: 8px;
+}
+
+.summary-row strong {
+  color: var(--ink);
+  text-align: right;
+}
+
+.late-rescue-notice {
+  margin-top: 4px;
+  padding-top: 6px;
+  border-top: 1px dashed var(--clay);
+  font-size: 11.5px;
+  color: var(--clay);
+  line-height: 1.4;
+}
+
+/* Quick Dinner Time Presets */
+.quick-time-chips {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+.time-preset-chip {
+  background: var(--paper);
+  border: 1px solid var(--stone);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 500;
+  padding: 7px 8px;
+  min-height: 36px;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.time-preset-chip.active {
+  background: var(--ink);
+  color: var(--paper);
+  border-color: var(--ink);
+}
+
+/* Privacy Toggle & Demo Scenario Buttons */
+.toggle-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.privacy-toggle-btn {
+  min-width: 56px;
+  min-height: 36px;
+  padding: 6px 12px;
+  font-family: var(--font-head);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  border: 1px solid var(--ink);
+  background: var(--paper);
+  color: var(--ink);
+  cursor: pointer;
+}
+
+.privacy-toggle-btn.active {
+  background: var(--clay);
+  border-color: var(--clay);
+  color: var(--white);
+}
+
+.demo-scenarios-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.scenario-btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  width: 100%;
+  min-height: 42px;
+  padding: 8px 12px;
+  background: var(--paper);
+  border: 1px solid var(--stone);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 12px;
+  text-align: left;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.scenario-tag {
+  font-family: var(--font-head);
+  font-size: 9px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 2px 6px;
+  background: var(--sand);
+  border: 1px solid var(--stone);
+  color: var(--ink);
+  flex-shrink: 0;
+}
+
+/* Default Stack Layout for Phone / Narrow Screens */
+.tab-split-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Hide viewport switcher on small phone screens to keep top bar clean */
+@media (max-width: 680px) {
+  .viewport-switcher {
+    display: none;
+  }
+  .app-header {
+    padding-top: env(safe-area-inset-top, 0px);
+    height: calc(52px + env(safe-area-inset-top, 0px));
+  }
+  .tab-content {
+    padding-bottom: calc(28px + env(safe-area-inset-bottom, 0px));
+  }
+}
+
+/* ==========================================================================
+   TABLET / iPAD (768px - 1099px) & PC / DESKTOP (>= 1100px) ADAPTIVE LAYOUT
+   ========================================================================== */
+@media (min-width: 768px) {
+  body.app-body {
+    padding: 20px;
+    align-items: flex-start;
+  }
+
+  .web-app-shell[data-viewport="auto"],
+  .web-app-shell[data-viewport="tablet"] {
+    max-width: 960px;
+    min-height: calc(100dvh - 40px);
+    border: var(--hairline);
+  }
+
+  .web-app-shell[data-viewport="desktop"] {
+    max-width: 1160px;
+    min-height: calc(100dvh - 40px);
+    border: var(--hairline);
+  }
+
+  .web-app-shell[data-viewport="mobile"] {
+    max-width: 430px;
+    min-height: calc(100dvh - 40px);
+    border: var(--hairline);
+  }
+
+  /* Two-Column Dashboard Split when in Auto (on >=768px), Tablet, or Desktop mode */
+  .web-app-shell:not([data-viewport="mobile"]) .app-header {
+    height: 60px;
+    padding: 0 24px;
+  }
+
+  .web-app-shell:not([data-viewport="mobile"]) .pill-tabs-nav {
+    padding: 10px 24px;
+    gap: 12px;
+  }
+
+  .web-app-shell:not([data-viewport="mobile"]) .tab-content {
+    padding: 24px;
+  }
+
+  .web-app-shell:not([data-viewport="mobile"]) .tab-split-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.85fr);
+    gap: 24px;
+    align-items: start;
+  }
+
+  .web-app-shell:not([data-viewport="mobile"]) .meal-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin-bottom: 0;
+  }
+}
+
+@media (min-width: 1100px) {
+  .web-app-shell[data-viewport="auto"] {
+    max-width: 1140px;
+  }
+
+  .web-app-shell:not([data-viewport="mobile"]) .tab-split-layout {
+    grid-template-columns: minmax(0, 1.3fr) minmax(0, 0.8fr);
+    gap: 28px;
+  }
+}
