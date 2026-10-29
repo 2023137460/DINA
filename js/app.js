@@ -510,7 +510,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // TAB 3: RUNNING LATE (Traffic & Offline Peace of Mind)
+  // TAB 3: RUNNING LATE — Live Animated Mock Location Map & Auto-Cycling Scenarios
   const btnSimulateDelay = document.getElementById("btnSimulateDelay");
   const commuteStatusText = document.getElementById("commuteStatusText");
   const commuteArrivalText = document.getElementById("commuteArrivalText");
@@ -519,6 +519,173 @@ document.addEventListener("DOMContentLoaded", () => {
   const offlineStatusText = document.getElementById("offlineStatusText");
   const headerStatusText = document.getElementById("headerStatusText");
 
+  const mapCanvasWrap = document.getElementById("mapCanvasWrap");
+  const mapUserMarker = document.getElementById("mapUserMarker");
+  const mapUserBubbleText = document.getElementById("mapUserBubbleText");
+  const mapHomeBadgeText = document.getElementById("mapHomeBadgeText");
+  const mapHomeHaloRing = document.getElementById("mapHomeHaloRing");
+  const mapHomeDot = document.getElementById("mapHomeDot");
+  const mapMetricLocation = document.getElementById("mapMetricLocation");
+  const mapMetricEta = document.getElementById("mapMetricEta");
+  const mapMetricDefrost = document.getElementById("mapMetricDefrost");
+  const mapSceneBtns = document.querySelectorAll(".map-scene-btn");
+  const btnToggleMapCycle = document.getElementById("btnToggleMapCycle");
+  const mapCycleBtnLabel = document.getElementById("mapCycleBtnLabel");
+  const mapCycleProgressBar = document.getElementById("mapCycleProgressBar");
+
+  const MAP_SCENES_ORDER = ["ontime", "traffic", "atwork", "arrived"];
+  const MAP_SCENES = {
+    ontime: {
+      key: "ontime",
+      startPos: { x: 185, y: 145 },
+      endPos: { x: 350, y: 112 },
+      bubble: "YOU • ETA 19:20",
+      homeBadge: "HOME • +10°C THAW",
+      homeHalo: "amber",
+      locationLabel: "Driving Home (Clear Route)",
+      etaLabel: "19:20 (In 20 mins)",
+      defrostLabel: "Thawing (+10 °C) • 10m left",
+      statusText: "Route clear: Your meal is gently thawing (+10 °C) so it finishes right as you walk in at 19:30.",
+      arrivalText: "Target Dinner: 19:30 • ETA: 19:20 • Drawer: Gently Thawing",
+      statusColor: "var(--ink-soft)"
+    },
+    traffic: {
+      key: "traffic",
+      startPos: { x: 235, y: 120 },
+      endPos: { x: 268, y: 122 },
+      bubble: "TRAFFIC • +30M DELAY",
+      homeBadge: "HOME • +3°C HOLD",
+      homeHalo: "green",
+      locationLabel: "A5 Bridge (Traffic Jam)",
+      etaLabel: "19:55 (+30 min delay)",
+      defrostLabel: "Switched to +3.0 °C Fridge Hold",
+      statusText: "Traffic jam ahead (+30 mins): DINA automatically switched the lower drawer to a +3.0 °C fridge hold so dinner waits safely for you.",
+      arrivalText: "Target Dinner: 19:30 • New ETA: 19:55 • Held at +3.0 °C (Up to 24 h)",
+      statusColor: "var(--clay)"
+    },
+    atwork: {
+      key: "atwork",
+      startPos: { x: 78, y: 206 },
+      endPos: { x: 78, y: 206 },
+      bubble: "STILL AT WORK • 19:15",
+      homeBadge: "HOME • +3°C HOLD",
+      homeHalo: "green",
+      locationLabel: "Still at Office (Late Meeting)",
+      etaLabel: "~20:15 (Not left work yet)",
+      defrostLabel: "Chilled at +3.0 °C (Up to 24 h)",
+      statusText: "Still at work past 19:00? Because you haven't left the office yet, DINA keeps tonight's meal fridge-fresh at +3.0 °C until you get home.",
+      arrivalText: "Still at Office • Est. Arrival: 20:15 • Held at +3.0 °C (Up to 24 h)",
+      statusColor: "var(--clay)"
+    },
+    arrived: {
+      key: "arrived",
+      startPos: { x: 438, y: 78 },
+      endPos: { x: 482, y: 74 },
+      bubble: "ARRIVED HOME!",
+      homeBadge: "READY TO COOK!",
+      homeHalo: "green",
+      locationLabel: "Home Driveway",
+      etaLabel: "Arrived (Now)",
+      defrostLabel: "Green Handle • Ready for Pan!",
+      statusText: "Welcome home! The drawer handle is glowing soft green — slide it open and your meal is evenly thawed, chilled, and ready for a hot pan.",
+      arrivalText: "Arrived Home • Drawer: +3.0 °C • Ready to Cook!",
+      statusColor: "#4A8B63"
+    }
+  };
+
+  let currentMapSceneIdx = 0;
+  let mapAutoCycle = true;
+  let mapProgressMs = 0;
+  const MAP_SCENE_DURATION_MS = 5200;
+  let stepNudgeTimer = null;
+
+  function applyMapScene(sceneKey, announceToast = false) {
+    const scene = MAP_SCENES[sceneKey] || MAP_SCENES.ontime;
+    currentMapSceneIdx = MAP_SCENES_ORDER.indexOf(scene.key);
+    if (currentMapSceneIdx < 0) currentMapSceneIdx = 0;
+    mapProgressMs = 0;
+
+    mapSceneBtns.forEach(btn => {
+      btn.classList.toggle("active", btn.getAttribute("data-scene") === scene.key);
+    });
+
+    if (mapCanvasWrap) {
+      mapCanvasWrap.setAttribute("data-scene-state", scene.key);
+    }
+
+    if (mapUserMarker) {
+      mapUserMarker.setAttribute("transform", `translate(${scene.startPos.x}, ${scene.startPos.y})`);
+      clearTimeout(stepNudgeTimer);
+      stepNudgeTimer = setTimeout(() => {
+        if (mapUserMarker) {
+          mapUserMarker.setAttribute("transform", `translate(${scene.endPos.x}, ${scene.endPos.y})`);
+        }
+      }, 350);
+    }
+
+    if (mapUserBubbleText) mapUserBubbleText.textContent = scene.bubble;
+    if (mapHomeBadgeText) mapHomeBadgeText.textContent = scene.homeBadge;
+    if (mapHomeHaloRing) {
+      mapHomeHaloRing.setAttribute("class", `map-home-halo ${scene.homeHalo}`);
+    }
+    if (mapHomeDot) {
+      mapHomeDot.setAttribute("fill", scene.homeHalo === "green" ? "#4A8B63" : "#C0775B");
+    }
+
+    if (mapMetricLocation) mapMetricLocation.textContent = scene.locationLabel;
+    if (mapMetricEta) mapMetricEta.textContent = scene.etaLabel;
+    if (mapMetricDefrost) mapMetricDefrost.textContent = scene.defrostLabel;
+
+    if (commuteStatusText) {
+      commuteStatusText.textContent = scene.statusText;
+      commuteStatusText.style.color = scene.statusColor;
+    }
+    if (commuteArrivalText) {
+      commuteArrivalText.textContent = scene.arrivalText;
+    }
+
+    setHaloState(scene.homeHalo === "green" ? "green" : "amber");
+
+    if (announceToast) {
+      showToast(`${scene.locationLabel} • ${scene.defrostLabel}`);
+    }
+  }
+
+  mapSceneBtns.forEach(btn => {
+    btn.addEventListener("click", () => {
+      triggerHaptic([10]);
+      const sceneKey = btn.getAttribute("data-scene") || "ontime";
+      applyMapScene(sceneKey, true);
+    });
+  });
+
+  if (btnToggleMapCycle) {
+    btnToggleMapCycle.addEventListener("click", () => {
+      triggerHaptic([10]);
+      mapAutoCycle = !mapAutoCycle;
+      btnToggleMapCycle.classList.toggle("active", mapAutoCycle);
+      if (mapCycleBtnLabel) {
+        mapCycleBtnLabel.textContent = mapAutoCycle ? "Auto-Cycle: ON" : "Auto-Cycle: PAUSED";
+      }
+    });
+  }
+
+  // Smooth Auto-Cycle Interval for the Map
+  setInterval(() => {
+    if (!mapAutoCycle) return;
+    mapProgressMs += 130;
+    if (mapCycleProgressBar) {
+      const pct = Math.min(100, (mapProgressMs / MAP_SCENE_DURATION_MS) * 100);
+      mapCycleProgressBar.style.width = `${pct}%`;
+    }
+    if (mapProgressMs >= MAP_SCENE_DURATION_MS) {
+      const nextIdx = (currentMapSceneIdx + 1) % MAP_SCENES_ORDER.length;
+      applyMapScene(MAP_SCENES_ORDER[nextIdx], false);
+    }
+  }, 130);
+
+  applyMapScene("ontime", false);
+
   if (btnToggleCommuteSync) {
     btnToggleCommuteSync.addEventListener("click", () => {
       state.commuteSyncEnabled = !state.commuteSyncEnabled;
@@ -526,37 +693,16 @@ document.addEventListener("DOMContentLoaded", () => {
       btnToggleCommuteSync.setAttribute("aria-pressed", String(state.commuteSyncEnabled));
       btnToggleCommuteSync.textContent = state.commuteSyncEnabled ? "ON" : "OFF";
       showToast(state.commuteSyncEnabled
-        ? "Automatic Traffic Hold is ON (100% private on your phone)."
+        ? "On-Phone Location Privacy is ON (your map never leaves your phone)."
         : "Automatic Traffic Hold is OFF. Your scheduled dinner time still runs on its own.");
     });
   }
 
   if (btnSimulateDelay) {
     btnSimulateDelay.addEventListener("click", () => {
-      triggerHaptic([25]);
-      state.commuteDelayActive = !state.commuteDelayActive;
-      if (state.commuteDelayActive) {
-        btnSimulateDelay.textContent = "Back on Normal Time";
-        if (commuteStatusText) {
-          commuteStatusText.textContent = "No need to rush! Drawer switched to +3.0 °C fridge hold so dinner stays fresh for up to 24 hours.";
-          commuteStatusText.style.color = "var(--clay)";
-        }
-        if (commuteArrivalText) {
-          commuteArrivalText.textContent = "Running +30 mins late • Kept fridge-fresh at +3.0 °C (up to 24 h)";
-        }
-        showToast("Running late? DINA is keeping your dinner chilled at +3.0 °C until you get home.");
-        setHaloState("green");
-      } else {
-        btnSimulateDelay.textContent = "I'm Running 30 Mins Late (Try It)";
-        if (commuteStatusText) {
-          commuteStatusText.textContent = "Evening on track. Tonight's meal will be ready at 19:30.";
-          commuteStatusText.style.color = "var(--ink-soft)";
-        }
-        if (commuteArrivalText) {
-          commuteArrivalText.textContent = "On schedule for 19:30 • Kept fridge-fresh at +3.0 °C until you open the drawer";
-        }
-        showToast("Evening schedule back to normal.");
-      }
+      triggerHaptic([20]);
+      const nextIdx = (currentMapSceneIdx + 1) % MAP_SCENES_ORDER.length;
+      applyMapScene(MAP_SCENES_ORDER[nextIdx], true);
     });
   }
 

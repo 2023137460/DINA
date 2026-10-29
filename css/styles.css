@@ -32,7 +32,6 @@
 /* Global Reset — Absolute containment against horizontal scroll */
 *, *::before, *::after {
   box-sizing: border-box;
-  border-radius: 0;
   margin: 0;
   padding: 0;
   -webkit-tap-highlight-color: transparent;
@@ -2449,4 +2448,72 @@ p.lead {
     border-color: var(--ink);
   }
 }
+
+/* ==========================================================================
+   SOFT TACTILE CORNER RADII SYSTEM (Site-Wide Cards, Buttons, Badges & Boxes)
+   ========================================================================== */
+
+/* Small Tags, Badges & Status Pills (6px) */
+.pill-badge-outline,
+.dilemma-pill,
+.flow-time-pill,
+.zone-badge,
+.halo-chip-btn,
+.kitchen-view-btn,
+.inline-toolbar-close,
+.mobile-app-cta-pill,
+.mobile-menu-btn {
+  border-radius: 6px;
+}
+
+/* Buttons, Inputs, Chips & Inner Media Frames (8px) */
+.btn,
+.nav-app-btn,
+.footer-back-top,
+.hero-highlight-chip,
+.notify-email-input,
+.notify-counter-line,
+.dilemma-scheme-box,
+.routine-photo-box,
+.zone-visual,
+.drawer-halo-interactive,
+.door-display-preview,
+.door-display-img,
+.halo-states-img {
+  border-radius: 8px;
+}
+
+.routine-photo-box,
+.door-display-preview,
+.kitchen-product-photo {
+  overflow: hidden;
+}
+
+/* Cards, Form Panels & Table Containers (12px) */
+.dilemma-card,
+.routine-card,
+.cabinet-zone-card,
+.stat-card,
+.price-card,
+.faq-item,
+.resilience-card,
+.flow-step-item,
+.halo-states-panel,
+.notify-form,
+.app-showcase-visual,
+.table-scroll-container,
+.kitchen-product-photo,
+.inline-app-embed-wrap {
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+/* Feature Banners & Hero Showcase Panels (14px) */
+.survey-proof-banner,
+.dina-flow-banner,
+.app-showcase-card,
+.notify-signup-card {
+  border-radius: 14px;
+}
+
 

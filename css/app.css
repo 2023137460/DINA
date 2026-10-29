@@ -1527,3 +1527,281 @@ body.app-body {
   gap: 6px;
 }
 
+/* ==========================================================================
+   SOFT TACTILE CORNER RADII SYSTEM (App-Wide Cards, Buttons, Chips & Shell)
+   ========================================================================== */
+
+@media (min-width: 768px) {
+  .web-app-shell {
+    border-radius: 16px;
+    overflow: hidden;
+  }
+}
+
+/* Cards & Panels (12px) */
+.one-tap-prompt-card,
+.schedule-panel-card,
+.schedule-summary-box,
+.drum-wheel-visualizer,
+.drum-tier-card,
+.load-form-card,
+.commute-card,
+.telem-cell,
+.halo-simulator-card,
+.calc-result-box,
+.live-map-card {
+  border-radius: 12px;
+}
+
+/* Buttons, Slots, Chips & Controls (8px) */
+.drum-slot-btn,
+.cat-chip,
+.time-preset-chip,
+.scenario-btn,
+.halo-btn,
+.one-tap-btn,
+.privacy-toggle-btn,
+.btn-pwa-action,
+.app-install-pill,
+.viewport-switcher,
+.pwa-banner-logo,
+.stage-step {
+  border-radius: 8px;
+}
+
+.vp-btn,
+.scenario-tag,
+.map-scene-btn,
+.map-autocycle-btn {
+  border-radius: 6px;
+}
+
+/* Harmonise primary CTA button radius with card system (10px instead of 28px pill clash) */
+.btn-action-primary {
+  border-radius: 10px;
+}
+
+/* ==========================================================================
+   TAB 3: LIVE ANIMATED MOCK LOCATION, TRAFFIC JAM & ETA MAP
+   ========================================================================== */
+
+.live-map-card {
+  border: var(--hairline);
+  background: var(--white);
+  padding: 14px;
+  margin-bottom: 14px;
+}
+
+.map-card-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+
+.map-scenario-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.map-scene-btn {
+  background: var(--paper);
+  border: 1px solid var(--stone);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 600;
+  padding: 6px 10px;
+  min-height: 32px;
+  cursor: pointer;
+  touch-action: manipulation;
+  transition: background 150ms var(--ease-out), color 150ms var(--ease-out), border-color 150ms var(--ease-out);
+}
+
+.map-scene-btn.active {
+  background: var(--ink);
+  color: var(--paper);
+  border-color: var(--ink);
+}
+
+.map-autocycle-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--sand);
+  border: 1px solid var(--stone);
+  color: var(--ink);
+  font-family: var(--font-head);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 6px 10px;
+  min-height: 32px;
+  cursor: pointer;
+}
+
+.map-autocycle-btn.active {
+  border-color: var(--clay);
+}
+
+.cycle-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--stone);
+}
+
+.map-autocycle-btn.active .cycle-dot {
+  background: var(--clay);
+  animation: pulseAmber 1.5s infinite ease-in-out;
+}
+
+.map-canvas-wrap {
+  position: relative;
+  border: var(--hairline);
+  border-radius: 10px;
+  overflow: hidden;
+  background: #EAE6D9;
+  margin-bottom: 10px;
+}
+
+.commute-map-svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Animated Route Dash Flow */
+.map-route-flow {
+  animation: routeDashFlow 1.6s linear infinite;
+}
+
+.map-canvas-wrap[data-scene-state="traffic"] .map-route-flow {
+  animation-duration: 4.2s; /* Slows down visibly in traffic jam */
+}
+
+.map-canvas-wrap[data-scene-state="atwork"] .map-route-flow {
+  animation-play-state: paused;
+  opacity: 0.35;
+}
+
+@keyframes routeDashFlow {
+  from { stroke-dashoffset: 28; }
+  to   { stroke-dashoffset: 0; }
+}
+
+/* Traffic Jam Overlay Segment */
+.map-traffic-group {
+  opacity: 0;
+  transition: opacity 280ms var(--ease-out);
+  pointer-events: none;
+}
+
+.map-canvas-wrap[data-scene-state="traffic"] .map-traffic-group {
+  opacity: 1;
+}
+
+.traffic-pulse-line {
+  animation: pulseAmber 1.2s ease-in-out infinite;
+}
+
+/* Work Stay Radar Pulse (Visible when Still at Work) */
+.work-stay-pulse {
+  opacity: 0;
+  transform-origin: 0px 0px;
+}
+
+.map-canvas-wrap[data-scene-state="atwork"] .work-stay-pulse {
+  opacity: 1;
+  animation: gpsRadar 1.8s ease-out infinite;
+}
+
+/* Home Pin Halo Ring */
+.map-home-halo {
+  fill: rgba(192, 119, 91, 0.22);
+  stroke: #C0775B;
+  stroke-width: 1.5;
+  animation: pulseAmber 2s ease-in-out infinite;
+}
+
+.map-home-halo.green {
+  fill: rgba(74, 139, 99, 0.25);
+  stroke: #4A8B63;
+}
+
+/* Moving User Marker Along Route */
+.map-user-marker {
+  transition: transform 850ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.user-gps-pulse {
+  fill: rgba(192, 119, 91, 0.28);
+  animation: gpsRadar 2s ease-out infinite;
+}
+
+@keyframes gpsRadar {
+  0% { transform: scale(0.7); opacity: 0.9; }
+  100% { transform: scale(1.45); opacity: 0; }
+}
+
+/* Auto-Cycle Progress Bar */
+.map-cycle-progress-track {
+  height: 4px;
+  width: 100%;
+  background: rgba(25, 25, 25, 0.08);
+}
+
+.map-cycle-progress-bar {
+  height: 100%;
+  width: 0%;
+  background: var(--clay);
+  transition: width 120ms linear;
+}
+
+/* 3-Metric Telemetry Strip Below Map */
+.map-live-metrics-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+@media (max-width: 520px) {
+  .map-live-metrics-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+.map-metric-box {
+  background: var(--paper);
+  border: var(--hairline);
+  border-radius: 8px;
+  padding: 8px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.map-metric-box.highlight {
+  border-color: var(--clay);
+  background: rgba(192, 119, 91, 0.06);
+}
+
+.map-metric-label {
+  font-family: var(--font-head);
+  font-size: 9.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--ink-soft);
+}
+
+.map-metric-val {
+  font-size: 12px;
+  color: var(--ink);
+}
+
+

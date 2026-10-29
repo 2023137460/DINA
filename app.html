@@ -14,8 +14,8 @@
   <link rel="icon" type="image/svg+xml" href="assets/icons/pwa-logo.svg">
   <link rel="icon" type="image/png" sizes="192x192" href="assets/images/pwa-icon-192.png">
   <link rel="apple-touch-icon" sizes="180x180" href="assets/images/apple-touch-icon.png">
-  <link rel="stylesheet" href="css/tokens.css">
-  <link rel="stylesheet" href="css/app.css?v=7.7">
+  <link rel="stylesheet" href="css/tokens.css?v=7.8">
+  <link rel="stylesheet" href="css/app.css?v=7.8">
 </head>
 <body class="app-body">
 
@@ -567,7 +567,7 @@
         </div>
       </section>
 
-      <!-- TAB 3: RUNNING LATE (Traffic & Late-Work Protection) -->
+      <!-- TAB 3: RUNNING LATE (Live Animated Mock Location Map, Traffic Jam, Still at Work & ETA Sync) -->
       <section class="tab-content" id="tab-map">
         <div class="section-headline-block">
           <div class="headline-with-icon">
@@ -576,57 +576,133 @@
             </svg>
             <div>
               <h2>Running Late? Dinner Waits for You</h2>
-              <p>Stuck in traffic or working late? Your meal stays fridge-fresh at +3.0 &deg;C for up to 24 hours</p>
+              <p>Live mock commute map &bull; Cycles through On-Time Drive, Traffic Jam, Still at Work, and Arriving Home</p>
             </div>
           </div>
         </div>
 
         <div class="tab-split-layout">
           <div class="tab-col-primary">
-            <div class="commute-card">
-              <div class="commute-step-row">
-                <span class="step-circle">
-                  <svg class="dina-icon" viewBox="0 0 48 48" width="20" height="20" style="filter:none;" aria-hidden="true">
-                    <g class="bob"><path class="d" style="--i:0" pathLength="1" d="M24 42C24 42 12 30 12 20a12 12 0 0 1 24 0C36 30 24 42 24 42Z"/><circle class="d ac" style="--i:1" pathLength="1" cx="24" cy="20" r="4.5"/></g>
-                  </svg>
-                </span>
-                <div class="step-details">
-                  <h4>Knows When You&rsquo;re Delayed</h4>
-                  <p>If your evening commute takes longer than usual, DINA adjusts automatically so you never have to rush home.</p>
+
+            <!-- LIVE ANIMATED COMMUTE & DEFROST MAP CARD -->
+            <div class="live-map-card" id="liveMapCard">
+              <div class="map-card-topbar">
+                <div class="map-scenario-pills" role="tablist" aria-label="Commute simulation states">
+                  <button type="button" class="map-scene-btn active" data-scene="ontime">1. On Time</button>
+                  <button type="button" class="map-scene-btn" data-scene="traffic">2. Traffic Jam</button>
+                  <button type="button" class="map-scene-btn" data-scene="atwork">3. Still at Work</button>
+                  <button type="button" class="map-scene-btn" data-scene="arrived">4. Arriving Home</button>
+                </div>
+                <button type="button" class="map-autocycle-btn active" id="btnToggleMapCycle" title="Automatically cycle through commute scenarios">
+                  <span class="cycle-dot"></span>
+                  <span id="mapCycleBtnLabel">Auto-Cycle: ON</span>
+                </button>
+              </div>
+
+              <!-- Animated SVG City Route Map -->
+              <div class="map-canvas-wrap" data-scene-state="ontime" id="mapCanvasWrap">
+                <svg class="commute-map-svg" viewBox="0 0 560 270" role="img" aria-label="Animated map showing your mock location between Work and Home with live ETA and DINA defrost status">
+                  <!-- City Map Background & Blocks -->
+                  <rect x="0" y="0" width="560" height="270" fill="#EAE6D9"/>
+                  <!-- Soft River Curve -->
+                  <path d="M 190 0 C 215 95, 255 150, 310 270" fill="none" stroke="#D6D1C0" stroke-width="26"/>
+                  <!-- City Blocks / Parks -->
+                  <rect x="24" y="24" width="115" height="65" rx="8" fill="#E1DDD0"/>
+                  <rect x="24" y="105" width="95" height="55" rx="8" fill="#E1DDD0"/>
+                  <rect x="155" y="28" width="90" height="54" rx="8" fill="#E1DDD0"/>
+                  <rect x="310" y="22" width="105" height="56" rx="8" fill="#E1DDD0"/>
+                  <rect x="335" y="155" width="115" height="82" rx="8" fill="#E1DDD0"/>
+                  <rect x="462" y="150" width="76" height="90" rx="8" fill="#E1DDD0"/>
+
+                  <!-- Secondary City Streets -->
+                  <path d="M 0 96 H 560 M 0 185 H 560 M 138 0 V 270 M 435 0 V 270" stroke="#F4F2EA" stroke-width="5"/>
+
+                  <!-- Main Commute Highway Roadbed -->
+                  <path d="M 78 206 C 165 206, 195 112, 285 124 C 375 136, 405 74, 482 74" fill="none" stroke="#FFFFFF" stroke-width="14" stroke-linecap="round"/>
+                  <path d="M 78 206 C 165 206, 195 112, 285 124 C 375 136, 405 74, 482 74" fill="none" stroke="#C8C3B4" stroke-width="10" stroke-linecap="round"/>
+
+                  <!-- Active Route Animated Dashed Line -->
+                  <path id="mapRouteFlowLine" class="map-route-flow" d="M 78 206 C 165 206, 195 112, 285 124 C 375 136, 405 74, 482 74" fill="none" stroke="#191919" stroke-width="3.5" stroke-linecap="round" stroke-dasharray="7 7"/>
+
+                  <!-- Traffic Jam Congestion Segment (Visible in Traffic Scene) -->
+                  <g id="mapTrafficGroup" class="map-traffic-group">
+                    <path d="M 185 142 C 218 116, 255 118, 325 125" fill="none" stroke="#C0775B" stroke-width="11" stroke-linecap="round" opacity="0.45"/>
+                    <path class="traffic-pulse-line" d="M 185 142 C 218 116, 255 118, 325 125" fill="none" stroke="#C0775B" stroke-width="5" stroke-linecap="round"/>
+                    <!-- Traffic Jam Callout Pill -->
+                    <g transform="translate(252, 82)">
+                      <rect x="-72" y="-16" width="144" height="26" rx="6" fill="#C0775B"/>
+                      <text x="0" y="1" text-anchor="middle" fill="#FFFFFF" font-family="Archivo, sans-serif" font-size="10.5" font-weight="700">TRAFFIC JAM &bull; +30 MIN</text>
+                    </g>
+                  </g>
+
+                  <!-- WORK / OFFICE PIN (Left: 78, 206) -->
+                  <g transform="translate(78, 206)">
+                    <circle class="work-stay-pulse" id="workStayPulse" cx="0" cy="0" r="24" fill="rgba(192, 119, 91, 0.22)"/>
+                    <circle cx="0" cy="0" r="16" fill="#F1EFE5" stroke="#191919" stroke-width="2"/>
+                    <!-- Office Briefcase / Building Icon -->
+                    <rect x="-7" y="-5" width="14" height="11" rx="2" fill="none" stroke="#191919" stroke-width="1.7"/>
+                    <path d="M -3 -5 V -8 H 3 V -5" fill="none" stroke="#191919" stroke-width="1.6"/>
+                    <rect x="-32" y="20" width="64" height="20" rx="5" fill="#191919"/>
+                    <text x="0" y="33" text-anchor="middle" fill="#F1EFE5" font-family="Archivo, sans-serif" font-size="10" font-weight="700">WORK</text>
+                  </g>
+
+                  <!-- HOME / DINA KITCHEN PIN (Right: 482, 74) -->
+                  <g transform="translate(482, 74)">
+                    <circle id="mapHomeHaloRing" class="map-home-halo amber" cx="0" cy="0" r="26"/>
+                    <circle cx="0" cy="0" r="18" fill="#F1EFE5" stroke="#191919" stroke-width="2"/>
+                    <!-- Home Roof + Freezer Icon -->
+                    <path d="M -9 1 L 0 -8 L 9 1" fill="none" stroke="#191919" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M -6 0 V 8 H 6 V 0" fill="none" stroke="#191919" stroke-width="1.8" stroke-linejoin="round"/>
+                    <circle id="mapHomeDot" cx="0" cy="4" r="2.5" fill="#C0775B"/>
+                    <!-- Home Status Callout Badge -->
+                    <g transform="translate(-8, -36)">
+                      <rect x="-66" y="-14" width="132" height="24" rx="6" fill="#191919"/>
+                      <text id="mapHomeBadgeText" x="0" y="2" text-anchor="middle" fill="#F1EFE5" font-family="Archivo, sans-serif" font-size="10" font-weight="700">HOME &bull; +10&deg;C THAW</text>
+                    </g>
+                  </g>
+
+                  <!-- ANIMATED MOCK USER LOCATION MARKER (Moves along the route) -->
+                  <g id="mapUserMarker" class="map-user-marker" transform="translate(215, 134)">
+                    <circle class="user-gps-pulse" cx="0" cy="0" r="20"/>
+                    <circle cx="0" cy="0" r="11" fill="#C0775B" stroke="#FFFFFF" stroke-width="2.5"/>
+                    <circle cx="0" cy="0" r="3.5" fill="#FFFFFF"/>
+                    <!-- Floating User ETA Bubble -->
+                    <g transform="translate(0, -28)">
+                      <rect x="-68" y="-14" width="136" height="24" rx="6" fill="#FFFFFF" stroke="#191919" stroke-width="1.5"/>
+                      <text id="mapUserBubbleText" x="0" y="2" text-anchor="middle" fill="#191919" font-family="Archivo, sans-serif" font-size="10.5" font-weight="700">YOU &bull; ETA 19:20</text>
+                    </g>
+                  </g>
+                </svg>
+
+                <!-- Auto-Cycle Progress Bar at bottom of map -->
+                <div class="map-cycle-progress-track">
+                  <div class="map-cycle-progress-bar" id="mapCycleProgressBar"></div>
                 </div>
               </div>
 
-              <div class="commute-step-row">
-                <span class="step-circle">
-                  <svg class="dina-icon" viewBox="0 0 48 48" width="20" height="20" style="filter:none;" aria-hidden="true">
-                    <path class="d" style="--i:0" pathLength="1" d="M24 5L39 10V22C39 32 32 39 24 43C16 39 9 32 9 22V10Z"/><path class="d ac" style="--i:1" pathLength="1" d="M17 24L22 29L31 19"/>
-                  </svg>
-                </span>
-                <div class="step-details">
-                  <h4>100% Private on Your Phone</h4>
-                  <p>Your map and address never leave your phone &mdash; it simply tells your freezer at home to keep dinner chilled.</p>
+              <!-- Live 3-Metric Map Telemetry Strip (Location, ETA, Defrost Time & Drawer State) -->
+              <div class="map-live-metrics-row">
+                <div class="map-metric-box">
+                  <span class="map-metric-label">Mock Location</span>
+                  <strong class="map-metric-val" id="mapMetricLocation">Driving Home (Clear)</strong>
                 </div>
-              </div>
-
-              <div class="commute-step-row">
-                <span class="step-circle">
-                  <svg class="dina-icon" viewBox="0 0 48 48" width="20" height="20" style="filter:none;" aria-hidden="true">
-                    <circle class="d" style="--i:0" pathLength="1" cx="26" cy="28" r="11"/><path class="d" style="--i:1" pathLength="1" d="M9 8V40M40 8V40"/><g class="steam"><path class="d ac" style="--i:2" pathLength="1" d="M24 14c-2-2 2-4 0-6"/></g>
-                  </svg>
-                </span>
-                <div class="step-details">
-                  <h4>Tonight&rsquo;s Dinner Status</h4>
-                  <p id="commuteArrivalText">On schedule for 19:30 &bull; Kept fridge-fresh at +3.0 &deg;C until you open the drawer</p>
+                <div class="map-metric-box">
+                  <span class="map-metric-label">Arrival ETA</span>
+                  <strong class="map-metric-val" id="mapMetricEta">19:20 (In 20 mins)</strong>
+                </div>
+                <div class="map-metric-box highlight">
+                  <span class="map-metric-label">DINA Defrost &amp; Hold</span>
+                  <strong class="map-metric-val" id="mapMetricDefrost">Thawing (+10 &deg;C) &bull; 10m left</strong>
                 </div>
               </div>
             </div>
 
             <!-- Privacy Toggle Card -->
-            <div class="commute-card">
+            <div class="commute-card" style="margin-bottom:0;">
               <div class="toggle-row">
                 <div>
-                  <h4 style="font-size:13px; font-weight:600;">Automatic Traffic Hold</h4>
-                  <p style="font-size:12px; color:var(--ink-soft);">Turn off anytime &mdash; your scheduled dinner time still runs automatically</p>
+                  <h4 style="font-size:13px; font-weight:600;">100% On-Phone Location Privacy</h4>
+                  <p style="font-size:12px; color:var(--ink-soft);">Your map never leaves your phone &mdash; it only sends a delay hold signal to your freezer</p>
                 </div>
                 <button type="button" class="privacy-toggle-btn active" id="btnToggleCommuteSync" aria-pressed="true">ON</button>
               </div>
@@ -636,15 +712,18 @@
           <div class="tab-col-secondary">
             <div class="commute-card sand-card" style="background: var(--sand);">
               <div class="section-headline-block" style="border:none; padding:0; margin-bottom:8px;">
-                <h2 style="font-size: 15px;">Stuck in Traffic or Staying Late?</h2>
-                <p id="commuteStatusText">Evening on track. Tonight&rsquo;s meal will be ready at 19:30.</p>
+                <h2 style="font-size: 15px;">How DINA Reacts to Your Evening</h2>
+                <p id="commuteStatusText">Route clear: Beef Ribeye is gently thawing (+10 &deg;C) so it is ready right when you walk in at 19:30.</p>
               </div>
+              <p id="commuteArrivalText" style="font-size:12.5px; color:var(--ink); font-weight:600; margin-bottom:12px;">
+                Target Dinner: 19:30 &bull; ETA: 19:20 &bull; Drawer: Gently Thawing
+              </p>
               <button class="btn-action-primary" id="btnSimulateDelay" style="background:var(--ink); font-size:13px; padding:12px 16px;" type="button">
-                I&rsquo;m Running 30 Mins Late (Try It)
+                Jump to Next Map Scenario
               </button>
             </div>
 
-            <div class="commute-card">
+            <div class="commute-card" style="margin-bottom:0;">
               <div class="section-headline-block" style="border:none; padding:0; margin-bottom:8px;">
                 <h2 style="font-size: 15px;">Works Even If Your Wi-Fi Drops</h2>
                 <p id="offlineStatusText">Home Wi-Fi connected. Even if your internet goes down, DINA remembers your dinner plan on its own.</p>
@@ -771,6 +850,6 @@
 
   </div>
 
-  <script src="js/app.js?v=7.7"></script>
+  <script src="js/app.js?v=7.8"></script>
 </body>
 </html>
