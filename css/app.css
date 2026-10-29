@@ -1362,3 +1362,168 @@ body.app-body {
     gap: 28px;
   }
 }
+
+/* ==========================================================================
+   CONSUMER LIFESTYLE POLISH & ANIMATED DECK ICON COMPONENTS (v7.7)
+   ========================================================================== */
+
+.app-brand-title-row {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.app-header-emblem {
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+}
+
+.pwa-banner-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.pwa-banner-logo {
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+  border: 1px solid var(--stone);
+}
+
+.pill-tab {
+  gap: 6px;
+}
+
+.tab-nav-icon {
+  width: 17px;
+  height: 17px;
+  flex-shrink: 0;
+}
+
+@media (max-width: 420px) {
+  .tab-nav-icon {
+    display: none;
+  }
+}
+
+.one-tap-title-wrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.sub-section-label-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+/* 3-Stage Evening Plan Pipeline in Tab 1 */
+.thaw-stage-pipeline {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+.stage-step {
+  background: var(--paper);
+  border: var(--hairline);
+  padding: 8px 6px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 3px;
+  transition: transform 180ms var(--ease-out), border-color 180ms var(--ease-out);
+}
+
+.stage-step.active {
+  border-color: var(--clay);
+  background: rgba(192, 119, 91, 0.06);
+}
+
+.stage-label {
+  font-family: var(--font-head);
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--ink);
+}
+
+.stage-sub {
+  font-size: 10.5px;
+  color: var(--ink-soft);
+}
+
+/* Section Headline with Animated Deck Icon */
+.headline-with-icon {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.headline-with-icon svg.dina-icon {
+  flex-shrink: 0;
+}
+
+/* Interactive Rotating Carousel Visualizer in Tab 2 */
+.drum-wheel-visualizer {
+  background: var(--white);
+  border: var(--hairline);
+  padding: 14px;
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.drum-wheel-svg-box {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.drum-rotor-group {
+  transform-origin: 60px 60px;
+  transition: transform 650ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.drum-wheel-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.drum-wheel-copy strong {
+  font-size: 13px;
+  color: var(--ink);
+}
+
+.drum-wheel-copy p {
+  font-size: 12px;
+  color: var(--ink-soft);
+  margin: 0;
+  line-height: 1.4;
+}
+
+@media (max-width: 460px) {
+  .drum-wheel-visualizer {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
+/* Telemetry Cell Top Row */
+.telem-cell-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+}
+

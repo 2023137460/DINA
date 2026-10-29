@@ -2281,3 +2281,172 @@ p.lead {
     height: 680px;
   }
 }
+
+/* Brand Header Icon & Text Stack */
+.brand-logo-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: var(--ink);
+}
+
+.brand-header-icon {
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+}
+
+.brand-text-stack {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Hero Highlight Chips with Animated Deck Icons */
+.hero-icon-highlights {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 22px 0 6px;
+}
+
+.hero-highlight-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--sand);
+  border: var(--hairline);
+  padding: 8px 14px 8px 10px;
+  font-size: 13px;
+  color: var(--ink);
+  transition: transform 200ms var(--ease-out), border-color 200ms var(--ease-out);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .hero-highlight-chip:hover {
+    transform: translateY(-2px);
+    border-color: var(--clay);
+  }
+}
+
+/* Survey Header Row & Source Note */
+.survey-header-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  margin-bottom: 10px;
+}
+
+.survey-header-row svg.dina-icon {
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.survey-source-note {
+  font-size: 12px !important;
+  color: var(--ink-soft) !important;
+  margin-top: 10px !important;
+  border-top: 1px dashed var(--stone);
+  padding-top: 8px;
+}
+
+/* Card Top Bars with Animated Deck Icons */
+.zone-card-top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.zone-card-top-bar .zone-badge {
+  margin-bottom: 0;
+}
+
+.stat-card-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+
+.stat-card-top .stat-num,
+.stat-card-top .price-val {
+  margin-bottom: 0;
+}
+
+.faq-item-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 6px;
+}
+
+.app-visual-icons-pair {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  margin-top: 8px;
+}
+
+.app-visual-icons-pair .app-hero-svg {
+  width: 48px;
+  height: 48px;
+}
+
+/* Staggered Card Reveal & Hover Lift (Emil Kowalski / animate skill) */
+.dilemma-cards-grid > .reveal:nth-child(1),
+.routine-cards-grid > .reveal:nth-child(1),
+.pricing-cards-grid > .reveal:nth-child(1),
+.lifestyle-stats-grid > .reveal:nth-child(1),
+.faq-grid > .reveal:nth-child(1) {
+  transition-delay: 0ms;
+}
+
+.dilemma-cards-grid > .reveal:nth-child(2),
+.routine-cards-grid > .reveal:nth-child(2),
+.pricing-cards-grid > .reveal:nth-child(2),
+.lifestyle-stats-grid > .reveal:nth-child(2),
+.faq-grid > .reveal:nth-child(2) {
+  transition-delay: 65ms;
+}
+
+.dilemma-cards-grid > .reveal:nth-child(3),
+.routine-cards-grid > .reveal:nth-child(3),
+.pricing-cards-grid > .reveal:nth-child(3),
+.lifestyle-stats-grid > .reveal:nth-child(3),
+.faq-grid > .reveal:nth-child(3) {
+  transition-delay: 130ms;
+}
+
+.lifestyle-stats-grid > .reveal:nth-child(4),
+.faq-grid > .reveal:nth-child(4) {
+  transition-delay: 195ms;
+}
+
+.dilemma-card,
+.routine-card,
+.cabinet-zone-card,
+.stat-card,
+.price-card,
+.faq-item,
+.resilience-card {
+  transition: opacity var(--t-reveal) var(--ease-out), transform 220ms var(--ease-out), border-color 220ms var(--ease-out);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .dilemma-card:hover,
+  .routine-card:hover,
+  .cabinet-zone-card:hover,
+  .stat-card:hover,
+  .price-card:hover,
+  .faq-item:hover,
+  .resilience-card:hover {
+    transform: translateY(-3px);
+    border-color: var(--ink);
+  }
+}
+

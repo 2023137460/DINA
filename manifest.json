@@ -1,7 +1,7 @@
 {
-  "name": "DINA Mobile OS — Defrosting Is Now Automatic",
+  "name": "DINA — Dinner, Scheduled",
   "short_name": "DINA",
-  "description": "Companion web app for the DINA upright smart freezer: 11-meal revolving drum inventory, one-tap dinner scheduling, commute sync, and safety telemetry.",
+  "description": "Companion app for the DINA smart freezer: schedule tonight's dinner in one tap, browse your 11 freezer meals, and keep dinner fridge-fresh at +3 °C if you're running late.",
   "start_url": "./app.html",
   "scope": "./",
   "display": "standalone",
@@ -10,10 +10,22 @@
   "theme_color": "#F1EFE5",
   "icons": [
     {
-      "src": "assets/icons-static/app.svg",
+      "src": "assets/images/pwa-icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "assets/images/pwa-icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "assets/icons/pwa-logo.svg",
       "sizes": "any",
       "type": "image/svg+xml",
-      "purpose": "any maskable"
+      "purpose": "any"
     }
   ]
 }

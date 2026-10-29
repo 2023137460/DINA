@@ -1,13 +1,17 @@
-const CACHE_NAME = "dina-os-v7.5";
+const CACHE_NAME = "dina-pwa-v7.7";
 const ASSETS = [
   "./app.html",
   "./index.html",
   "./css/tokens.css",
-  "./css/app.css?v=7.5",
-  "./css/styles.css?v=7.5",
-  "./js/app.js?v=7.5",
-  "./js/main.js?v=7.5",
-  "./manifest.json"
+  "./css/app.css?v=7.7",
+  "./css/styles.css?v=7.7",
+  "./js/app.js?v=7.7",
+  "./js/main.js?v=7.7",
+  "./manifest.json",
+  "./assets/icons/pwa-logo.svg",
+  "./assets/images/pwa-icon-192.png",
+  "./assets/images/pwa-icon-512.png",
+  "./assets/images/apple-touch-icon.png"
 ];
 
 self.addEventListener("install", (event) => {

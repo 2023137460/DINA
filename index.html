@@ -4,11 +4,14 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>DINA — Defrosting Is Now Automatic | Dinner, Scheduled</title>
-  <meta name="description" content="Meet DINA: Defrosting Is Now Automatic. The upright 60 cm width smart freezer that stores 11 meals at -18 °C, thaws tonight's dinner gently while you work, and holds it safely chilled at +3.0 °C until you arrive home.">
+  <meta name="description" content="Meet DINA: Defrosting Is Now Automatic. The 60 cm width smart freezer that stores 11 ready-to-schedule meals at -18 °C, gently thaws tonight's dinner while you work, and keeps it fridge-fresh at +3.0 °C until you walk in.">
+  <meta name="theme-color" content="#F1EFE5">
   <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/svg+xml" href="assets/icons/pwa-logo.svg">
+  <link rel="icon" type="image/png" sizes="192x192" href="assets/images/pwa-icon-192.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/images/apple-touch-icon.png">
   <link rel="stylesheet" href="css/tokens.css">
-  <link rel="stylesheet" href="css/styles.css?v=7.5">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' stroke='%23C0775B' fill='none' stroke-width='2'><circle cx='12' cy='12' r='9'/><path d='M12 7v5l3 3'/></svg>">
+  <link rel="stylesheet" href="css/styles.css?v=7.7">
   <style>
     /* Critical Mobile Nav & Header Shield (Prevents FOUC & Cache Overlap) */
     .mobile-header-actions { display: none; }
@@ -36,9 +39,9 @@
       }
       .brand-cell a {
         display: flex !important;
-        flex-direction: column !important;
-        align-items: flex-start !important;
-        gap: 1px !important;
+        flex-direction: row !important;
+        align-items: center !important;
+        gap: 10px !important;
       }
       .brand-cell .brand-tag {
         font-size: 8.5px !important;
@@ -102,7 +105,7 @@
         width: 100% !important;
         height: 1.5px !important;
         background: var(--ink, #191919) !important;
-        transition: transform 200ms ease, opacity 200ms ease !important;
+        transition: transform 200ms cubic-bezier(0.23, 1, 0.32, 1), opacity 200ms ease !important;
       }
       .mobile-menu-btn.active .bar-1 {
         transform: translateY(4.25px) rotate(45deg) !important;
@@ -118,7 +121,6 @@
         width: 100% !important;
         background: var(--sand, #DAD8CB) !important;
         border-bottom: 2px solid var(--ink, #191919) !important;
-        box-shadow: 0 14px 30px rgba(25, 25, 25, 0.15) !important;
         z-index: 99 !important;
       }
       .mobile-nav-menu.open {
@@ -174,28 +176,116 @@
 </head>
 <body>
 
+  <!-- Global DINA Animated Icon Style Definition (Shared by all inline deck icons) -->
+  <svg width="0" height="0" style="position:absolute; width:0; height:0; overflow:hidden;" aria-hidden="true">
+    <style>
+      svg.dina-icon {
+        --ink: #191919;
+        --accent: #C0775B;
+        filter: drop-shadow(2.2px 2.2px 0 var(--sand, #DAD8CB));
+        overflow: visible;
+      }
+      .sand-bg svg.dina-icon,
+      .survey-proof-banner svg.dina-icon,
+      .resilience-card svg.dina-icon,
+      .notify-signup-card svg.dina-icon {
+        filter: drop-shadow(2.2px 2.2px 0 var(--paper, #F1EFE5));
+      }
+      svg.dina-icon * {
+        fill: none;
+        stroke: var(--ink);
+        stroke-width: 1.65;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        transition: stroke-width 0.35s cubic-bezier(0.22, 0.61, 0.36, 1);
+      }
+      svg.dina-icon .ac { stroke: var(--accent); }
+      svg.dina-icon .fl { fill: var(--accent); stroke: none; }
+      svg.dina-icon .d {
+        animation: dina-draw 1.1s cubic-bezier(0.22, 0.61, 0.36, 1) both;
+        animation-delay: calc(var(--i, 0) * 0.08s);
+      }
+      /* Pause draw-in until section reveals into viewport */
+      .reveal:not(.in) svg.dina-icon .d {
+        animation-play-state: paused;
+      }
+      @keyframes dina-draw {
+        from { stroke-dasharray: 1; stroke-dashoffset: 1; }
+        to   { stroke-dasharray: 1; stroke-dashoffset: 0; }
+      }
+      svg.dina-icon .vb { transform-box: view-box; }
+      svg.dina-icon .spin-drum { transform-origin: 24px 24px; animation: dina-rot 24s linear infinite; }
+      svg.dina-icon .spin-snow { transform-origin: 24px 24px; animation: dina-rot 40s linear infinite; }
+      svg.dina-icon .spin-fan  { transform-origin: 24px 24px; animation: dina-rot 6s linear infinite; }
+      svg.dina-icon .h1 { transform-origin: 24px 25px; animation: dina-rot 12s linear infinite; }
+      svg.dina-icon .h2 { transform-origin: 24px 25px; animation: dina-rot 144s linear infinite; }
+      @keyframes dina-rot { to { transform: rotate(360deg); } }
+      svg.dina-icon .pulse-drawer { transform-origin: 24px 36px; animation: dina-halo 2.8s ease-in-out infinite; }
+      svg.dina-icon .pulse-cal    { transform-origin: 33.5px 34px; animation: dina-halo 2.8s ease-in-out infinite; }
+      svg.dina-icon .pulse-tag    { transform-origin: 18px 18px; animation: dina-halo 3s ease-in-out infinite; }
+      @keyframes dina-halo { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.28); } }
+      svg.dina-icon .fall { animation: dina-fall 3.2s cubic-bezier(0.5, 0, 0.75, 0.5) infinite 1.4s; }
+      @keyframes dina-fall { 0% { transform: translateY(0); opacity: 1; } 60% { transform: translateY(22px); opacity: 1; } 75%, 100% { transform: translateY(22px); opacity: 0; } }
+      svg.dina-icon .steam { animation: dina-steam 3.2s ease-in-out infinite; }
+      @keyframes dina-steam { 0%, 100% { transform: translateY(0); opacity: 1; } 50% { transform: translateY(-2.5px); opacity: 0.35; } }
+      svg.dina-icon .bob { animation: dina-bob 3.4s ease-in-out infinite; }
+      @keyframes dina-bob { 0%, 100% { transform: translateY(-1.5px); } 50% { transform: translateY(1.5px); } }
+      svg.dina-icon .swing { transform-origin: 24px 6px; animation: dina-ring 4.5s ease-in-out infinite 1.5s; }
+      @keyframes dina-ring { 0%, 20%, 100% { transform: rotate(0); } 4% { transform: rotate(9deg); } 8% { transform: rotate(-8deg); } 12% { transform: rotate(5deg); } 16% { transform: rotate(-3deg); } }
+      svg.dina-icon .knob { transform-origin: 24px 27px; animation: dina-knob 4.5s ease-in-out infinite; }
+      @keyframes dina-knob { 0%, 100% { transform: translateX(-5px); } 50% { transform: translateX(5px); } }
+      svg.dina-icon .merc path { stroke-dasharray: 1; animation: dina-merc 5s ease-in-out infinite 1.4s; }
+      @keyframes dina-merc { 0%, 100% { stroke-dashoffset: 0.55; } 50% { stroke-dashoffset: 0; } }
+      svg.dina-icon .chk path { animation: dina-chk 5s cubic-bezier(0.22, 0.61, 0.36, 1) infinite 1.2s; }
+      @keyframes dina-chk { 0% { stroke-dasharray: 1; stroke-dashoffset: 1; } 25%, 100% { stroke-dasharray: 1; stroke-dashoffset: 0; } }
+      svg.dina-icon .a1, svg.dina-icon .a2, svg.dina-icon .a3, svg.dina-icon .blink { animation: dina-wave 2.8s ease-in-out infinite; }
+      svg.dina-icon .a2 { animation-delay: 0.25s; }
+      svg.dina-icon .a3 { animation-delay: 0.5s; }
+      @keyframes dina-wave { 0%, 100% { opacity: 1; } 50% { opacity: 0.22; } }
+      @media (hover: hover) and (pointer: fine) {
+        article:hover svg.dina-icon .ac,
+        .btn:hover svg.dina-icon * {
+          stroke-width: 2.15;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        svg.dina-icon * { animation: none !important; }
+      }
+    </style>
+  </svg>
+
   <!-- Site Header: Sand Nav Strip on Desktop, Accessible Drawer on Mobile -->
   <header class="site-header" role="banner">
     <div class="header-inner">
       <div class="brand-cell">
-        <a href="#home">
-          <span class="brand-name">DINA</span>
-          <span class="brand-tag">Defrosting Is Now Automatic</span>
+        <a href="#home" class="brand-logo-link">
+          <!-- Animated DINA Upright Freezer Emblem from Deck -->
+          <svg class="dina-icon brand-header-icon" viewBox="0 0 48 48" width="32" height="32" aria-hidden="true">
+            <rect class="d" style="--i:0" pathLength="1" x="10" y="5" width="28" height="38" rx="2"/>
+            <path class="d" style="--i:1" pathLength="1" d="M10 28H38"/>
+            <path class="d" style="--i:2" pathLength="1" d="M32 12V21"/>
+            <g class="vb pulse-drawer"><circle class="d ac" style="--i:3" pathLength="1" cx="24" cy="36" r="3.2"/></g>
+            <path class="d" style="--i:3" pathLength="1" d="M18 36H15M33 36H30"/>
+          </svg>
+          <span class="brand-text-stack">
+            <span class="brand-name">DINA</span>
+            <span class="brand-tag">Defrosting Is Now Automatic</span>
+          </span>
         </a>
       </div>
 
-      <!-- Desktop Navigation Strip (Sand background starting at 25%) -->
+      <!-- Desktop Navigation Strip -->
       <nav class="nav-strip desktop-nav" aria-label="Desktop Navigation">
         <a href="#home" aria-current="page">Overview</a>
-        <a href="#dilemma">The Dilemma</a>
-        <a href="#experience">The Routine</a>
-        <a href="#drawer">Defrost Drawer</a>
-        <a href="#kitchen">Kitchen Fit</a>
-        <a href="#app">Smart Home &amp; Safety</a>
+        <a href="#dilemma">Why DINA</a>
+        <a href="#experience">How It Works</a>
+        <a href="#drawer">The Drawer</a>
+        <a href="#kitchen">In Your Kitchen</a>
+        <a href="#app">App &amp; Smart Home</a>
         <a href="#faq">FAQ</a>
-        <a href="#pricing">Launch &amp; Pricing</a>
-        <a href="app.html" class="nav-app-btn" title="Launch Interactive Mobile Web App">
-          <span>Try App Demo</span>
+        <a href="#pricing">Pricing &amp; Reserve</a>
+        <a href="app.html" class="nav-app-btn" title="Try the Interactive DINA App">
+          <span>Try the App</span>
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
         </a>
       </nav>
@@ -213,7 +303,7 @@
       </div>
     </div>
 
-    <!-- Mobile Navigation Drawer (All 8 destinations clearly visible and discoverable) -->
+    <!-- Mobile Navigation Drawer -->
     <nav class="mobile-nav-menu" id="mobileNavMenu" aria-label="Mobile Navigation Menu" style="display: none;">
       <div class="mobile-nav-list">
         <a href="#home" class="mobile-nav-link" aria-current="page">
@@ -222,27 +312,27 @@
         </a>
         <a href="#dilemma" class="mobile-nav-link">
           <span class="mobile-nav-num">02</span>
-          <span class="mobile-nav-title">The Dilemma &amp; Comparison</span>
+          <span class="mobile-nav-title">Why Weeknights Are Hard</span>
         </a>
         <a href="#experience" class="mobile-nav-link">
           <span class="mobile-nav-num">03</span>
-          <span class="mobile-nav-title">The Routine</span>
+          <span class="mobile-nav-title">How Your Week Works</span>
         </a>
         <a href="#drawer" class="mobile-nav-link">
           <span class="mobile-nav-num">04</span>
-          <span class="mobile-nav-title">Defrost Drawer &amp; Halo</span>
+          <span class="mobile-nav-title">The Defrost Drawer</span>
         </a>
         <a href="#kitchen" class="mobile-nav-link">
           <span class="mobile-nav-num">05</span>
-          <span class="mobile-nav-title">Kitchen Fit (60 cm width)</span>
+          <span class="mobile-nav-title">Fits Your Kitchen (60 cm)</span>
         </a>
         <a href="#app" class="mobile-nav-link">
           <span class="mobile-nav-num">06</span>
-          <span class="mobile-nav-title">Smart Home &amp; Outage Safety</span>
+          <span class="mobile-nav-title">App, Smart Home &amp; Safety</span>
         </a>
         <a href="#faq" class="mobile-nav-link">
           <span class="mobile-nav-num">07</span>
-          <span class="mobile-nav-title">FAQ</span>
+          <span class="mobile-nav-title">Questions &amp; Answers</span>
         </a>
         <a href="#pricing" class="mobile-nav-link">
           <span class="mobile-nav-num">08</span>
@@ -251,42 +341,64 @@
       </div>
       <div class="mobile-nav-footer">
         <a href="app.html" class="btn btn-clay mobile-drawer-btn">
-          Launch Mobile App Demo
+          Try the Interactive App
           <svg viewBox="0 0 48 48" class="dina-icon" style="width:16px;height:16px;margin-left:6px;"><path d="M8 24H38M28 14L38 24L28 34" stroke="currentColor" stroke-width="3" fill="none"/></svg>
         </a>
       </div>
     </nav>
   </header>
 
-  <!-- Hero Section: The Promise (Matches the Editorial Poster & Deck Wording) -->
+  <!-- Hero Section: The 7:00 PM Relief for Busy Households -->
   <main id="home" class="split">
     <section class="hero-editorial">
       <div>
         <p class="caption muted">Defrosting Is Now Automatic &bull; 60 cm width &bull; 11 meals</p>
         <h1>Dinner, <em>scheduled</em>.</h1>
-        <p class="subhead">Meet DINA, the upright smart freezer.</p>
+        <p class="subhead">Come home at 7:00 PM to a dinner that is ready for the pan.</p>
         
         <p class="lead">
-          Never come home to a rock-solid frozen steak again. DINA stores 11 meals in a motorized drum at &minus;18 &deg;C, drops tonight&rsquo;s portion into an active defrost drawer at the right moment, and holds it safely chilled at +3.0 &deg;C until you walk into the kitchen.
+          No more rock-solid chicken at dinnertime, rubbery microwave edges, or expensive last-minute delivery. DINA keeps 11 meals deep-frozen at &minus;18 &deg;C, gently thaws tonight&rsquo;s dish while you finish work, and holds it fridge-fresh at +3.0 &deg;C until you walk into the kitchen.
         </p>
+
+        <!-- Key Customer Benefits Strip with Animated Icons -->
+        <div class="hero-icon-highlights">
+          <div class="hero-highlight-chip">
+            <svg class="dina-icon" viewBox="0 0 48 48" width="28" height="28" aria-hidden="true">
+              <circle class="d" style="--i:0" pathLength="1" cx="24" cy="24" r="19"/><circle class="d" style="--i:1" pathLength="1" cx="24" cy="24" r="4"/><g class="vb spin-drum"><path class="d" style="--i:2" pathLength="1" d="M24 20L24 5M27.46 22L40.45 14.5M27.46 26L40.45 33.5M24 28L24 43M20.54 26L7.55 33.5M20.54 22L7.55 14.5"/><circle class="d ac" style="--i:3" pathLength="1" cx="36" cy="24" r="2.6"/><circle class="d" style="--i:3" pathLength="1" cx="30" cy="34.39" r="2.6"/><circle class="d" style="--i:3" pathLength="1" cx="18" cy="34.39" r="2.6"/><circle class="d" style="--i:3" pathLength="1" cx="12" cy="24" r="2.6"/><circle class="d" style="--i:3" pathLength="1" cx="18" cy="13.61" r="2.6"/></g>
+            </svg>
+            <span><strong>11 Ready Meals</strong> + Family Shelves</span>
+          </div>
+          <div class="hero-highlight-chip">
+            <svg class="dina-icon" viewBox="0 0 48 48" width="28" height="28" aria-hidden="true">
+              <circle class="d" style="--i:0" pathLength="1" cx="24" cy="25" r="17"/><path class="d" style="--i:1" pathLength="1" d="M20 5H28M24 5V8"/><path class="d" style="--i:2" pathLength="1" d="M24 11.5V9.5M37.5 25H39.5M24 38.5V40.5M10.5 25H8.5"/><g class="vb h1"><path class="d ac" style="--i:3" pathLength="1" d="M24 25V14"/></g><g class="vb h2"><path class="d" style="--i:3" pathLength="1" d="M24 25H30"/></g><circle class="fl" cx="24" cy="25" r="1.6"/>
+            </svg>
+            <span><strong>Thaws Automatically</strong> While You Work</span>
+          </div>
+          <div class="hero-highlight-chip">
+            <svg class="dina-icon" viewBox="0 0 48 48" width="28" height="28" aria-hidden="true">
+              <path class="d" style="--i:0" pathLength="1" d="M24 5L39 10V22C39 32 32 39 24 43C16 39 9 32 9 22V10Z"/><g class="chk"><path class="d ac" style="--i:2" pathLength="1" d="M16.5 24L22 29.5L32 18.5"/></g>
+            </svg>
+            <span><strong>Stays Chilled</strong> If You&rsquo;re Late</span>
+          </div>
+        </div>
 
         <div class="hero-actions-row">
           <a class="btn btn-clay" href="#notify-signup">
             Notify Me at Launch
-            <svg viewBox="0 0 48 48" class="dina-icon" style="width:16px;height:16px;margin-left:4px;"><path d="M8 24H38M28 14L38 24L28 34" stroke="currentColor" stroke-width="3" fill="none"/></svg>
+            <svg viewBox="0 0 48 48" class="dina-icon" style="width:16px;height:16px;margin-left:4px;filter:none;"><path d="M8 24H38M28 14L38 24L28 34" stroke="currentColor" stroke-width="3" fill="none"/></svg>
           </a>
           <a class="btn" href="app.html">
-            Try Mobile App Demo
-            <svg viewBox="0 0 48 48" class="dina-icon" style="width:16px;height:16px;margin-left:4px;"><path d="M8 24H38M28 14L38 24L28 34" stroke="currentColor" stroke-width="3" fill="none"/></svg>
+            Experience the App
+            <svg viewBox="0 0 48 48" class="dina-icon" style="width:16px;height:16px;margin-left:4px;filter:none;"><path d="M8 24H38M28 14L38 24L28 34" stroke="currentColor" stroke-width="3" fill="none"/></svg>
           </a>
         </div>
       </div>
 
       <div class="hero-footer-bar">
-        <span class="pill-badge-outline">Target 799 to 849 &euro; &bull; Target Q4 2027</span>
+        <span class="pill-badge-outline">799 to 849 &euro; &bull; Target Q4 2027 &bull; No Subscription</span>
         <a href="app.html" class="hero-app-cta-line">
           <span class="dot-clay"></span>
-          Try the Interactive DINA App Demo
+          Schedule Tonight&rsquo;s Dinner in the Live App
         </a>
       </div>
     </section>
@@ -297,22 +409,36 @@
     </aside>
   </main>
 
-  <!-- SECTION 1: The Dilemma (57% Survey Proof, 3 Compromise Cards & Comparison Table) -->
+  <!-- SECTION 1: The Weeknight Dilemma (57% Survey Proof, 3 Everyday Compromises & Comparison Table) -->
   <section id="dilemma" class="row">
-    <p class="caption muted">The Dilemma</p>
+    <p class="caption muted">The Weeknight Problem</p>
     <h2>&ldquo;S**t. I forgot to defrost <em>dinner&hellip;&rdquo;</em></h2>
     <p class="lead">
-      Safely thawing meat, poultry, fish, or prepared dishes in a refrigerator requires 12 to 24 hours of advance notice. When you forget the night before, dinner collapses before you even leave your desk.
+      Thawing steak, chicken, fish, or homemade meals safely in the fridge takes 12 to 24 hours. If you didn&rsquo;t think of tonight&rsquo;s dinner yesterday, your evening unravels before you even leave work.
     </p>
 
-    <!-- 57% Survey Figure from the Deck -->
+    <!-- 57% & 55% Survey Figure from the Presentation Deck (Consumer Storytelling + Clear Sources) -->
     <div class="survey-proof-banner reveal">
       <div class="circle big">57%</div>
       <div class="survey-proof-copy">
-        <span class="caption clay-text">Deck Survey Finding &bull; Problem Validation</span>
-        <h3>57% of surveyed households forget to take dinner out to thaw in time.</h3>
+        <div class="survey-header-row">
+          <!-- Animated Household People Icon from Deck -->
+          <svg class="dina-icon" viewBox="0 0 48 48" width="40" height="40" role="img" aria-label="Busy households">
+            <circle class="d" style="--i:0" pathLength="1" cx="18" cy="15" r="6"/>
+            <path class="d" style="--i:1" pathLength="1" d="M6 39C6 30 11 25 18 25C25 25 30 30 30 39"/>
+            <g class="vb pulse-tag"><circle class="d ac" style="--i:2" pathLength="1" cx="33" cy="18" r="4.5"/></g>
+            <path class="d" style="--i:3" pathLength="1" d="M29 27C35 27 40 31 40 39"/>
+          </svg>
+          <div>
+            <span class="caption clay-text">You Are Not Alone &bull; Every Weeknight in Millions of Homes</span>
+            <h3>Dinner is the hardest meal to decide for 57% of households, and 55% feel pressure planning weekday meals.</h3>
+          </div>
+        </div>
         <p>
-          More than half of respondents report forgetting the 12 to 24 hour refrigerator transfer the night before &mdash; leaving them stuck between three last-minute compromises:
+          You buy good ingredients and want to eat well at home—without having to plan every evening 24 hours in advance. When you forget to take food out the night before, you are left with three frustrating choices.
+        </p>
+        <p class="survey-source-note">
+          Sources: Dolmio/OnePoll 2024 (UK, n = 2,000); Gousto/Am&aacute;rach 2026 (Ireland), both brand-sponsored. Europe&rsquo;s upright freezer market was about USD 5.6 bn in 2025 and is forecast to grow 3.7% a year to 2032 (IndustryARC).
         </p>
       </div>
     </div>
@@ -320,69 +446,70 @@
     <!-- 3 Animated Dilemma Cards with Visual Vector Schemes -->
     <div class="dilemma-cards-grid">
       <!-- Option 01: Microwave -->
-      <article class="dilemma-card">
+      <article class="dilemma-card reveal">
         <div class="dilemma-card-header">
-          <span class="dilemma-tag">Option 01 &bull; Microwave</span>
-          <span class="dilemma-pill alert">Gray Crust</span>
+          <span class="dilemma-tag">Compromise 01 &bull; The Microwave</span>
+          <span class="dilemma-pill alert">Cooked Edges</span>
         </div>
         <div class="dilemma-scheme-box">
-          <svg class="scheme-svg" viewBox="0 0 120 70" fill="none" stroke="currentColor" role="img" aria-label="Microwave gray crust scheme">
-            <rect x="10" y="8" width="100" height="54" rx="4" stroke="var(--ink)" stroke-width="1.75" fill="var(--paper)"/>
-            <rect x="18" y="15" width="62" height="40" rx="2" stroke="var(--stone)" stroke-width="1.25"/>
-            <path d="M30 35c4-7 14-8 24-4s12 8 8 13-14 6-22 1-14-3-10-10z" stroke="var(--stone)" stroke-width="2" fill="none"/>
-            <path d="M36 35c2-3 8-4 12-2s5 4 3 6-7 3-10 1-7-2-5-5z" stroke="var(--clay)" stroke-width="1.5" stroke-dasharray="2.5 2.5" fill="none"/>
-            <circle cx="95" cy="24" r="5" stroke="var(--ink)" stroke-width="1.5"/>
-            <line x1="88" y1="42" x2="102" y2="42" stroke="var(--stone)" stroke-width="1.5"/>
-            <line x1="88" y1="48" x2="102" y2="48" stroke="var(--stone)" stroke-width="1.5"/>
+          <svg class="scheme-svg dina-icon" viewBox="0 0 120 70" role="img" aria-label="Microwave gray crust scheme">
+            <rect class="d" style="--i:0" pathLength="1" x="10" y="8" width="100" height="54" rx="4"/>
+            <rect class="d" style="--i:1" pathLength="1" x="18" y="15" width="62" height="40" rx="2"/>
+            <path class="d" style="--i:2" pathLength="1" d="M30 35c4-7 14-8 24-4s12 8 8 13-14 6-22 1-14-3-10-10z"/>
+            <path class="d ac" style="--i:3" pathLength="1" d="M36 35c2-3 8-4 12-2s5 4 3 6-7 3-10 1-7-2-5-5z"/>
+            <circle class="d" style="--i:3" pathLength="1" cx="95" cy="24" r="5"/>
+            <line class="d" style="--i:4" pathLength="1" x1="88" y1="42" x2="102" y2="42"/>
+            <line class="d" style="--i:4" pathLength="1" x1="88" y1="48" x2="102" y2="48"/>
           </svg>
         </div>
-        <h3 class="dilemma-title">The Gray Rubber Boot</h3>
+        <h3 class="dilemma-title">Rubbery Edges, Icy Center</h3>
         <ul class="dilemma-bullet-list">
-          <li>Microwave radiation par-cooks thin borders while leaving the core frozen solid.</li>
-          <li>Destroys cellular texture, natural juices, and flavor.</li>
+          <li>Microwaves overheat thin edges until they turn gray and tough while the middle stays frozen solid.</li>
+          <li>Ruins the tenderness and juices of good meat, fish, or poultry before it even hits the pan.</li>
         </ul>
       </article>
 
       <!-- Option 02: Countertop Sink -->
-      <article class="dilemma-card">
+      <article class="dilemma-card reveal">
         <div class="dilemma-card-header">
-          <span class="dilemma-tag">Option 02 &bull; Countertop</span>
-          <span class="dilemma-pill alert">Danger Zone</span>
+          <span class="dilemma-tag">Compromise 02 &bull; The Countertop</span>
+          <span class="dilemma-pill alert">Food Safety Risk</span>
         </div>
         <div class="dilemma-scheme-box">
-          <svg class="scheme-svg" viewBox="0 0 120 70" fill="none" stroke="currentColor" role="img" aria-label="Warm water sink danger zone scheme">
-            <path d="M18 18h84c-4 32-18 44-42 44s-38-12-42-44z" stroke="var(--ink)" stroke-width="1.75" fill="var(--paper)"/>
-            <path d="M26 28c12 2 20-2 34 0s20-2 34 0" stroke="var(--stone)" stroke-width="1.25"/>
-            <rect x="42" y="24" width="36" height="22" rx="3" stroke="var(--clay)" stroke-width="1.5"/>
-            <path d="M60 30v7m0 4v.01" stroke="var(--clay)" stroke-width="2" stroke-linecap="round"/>
+          <!-- Animated Warning Triangle & Water Bath Scheme from Deck -->
+          <svg class="scheme-svg dina-icon" viewBox="0 0 120 70" role="img" aria-label="Warm water sink danger zone scheme">
+            <path class="d" style="--i:0" pathLength="1" d="M18 22h84c-4 28-18 40-42 40s-38-12-42-40z"/>
+            <path class="d" style="--i:1" pathLength="1" d="M60 12L80 48H40L60 12Z"/>
+            <path class="d ac" style="--i:2" pathLength="1" d="M60 25V36"/>
+            <circle class="fl" cx="60" cy="42" r="2"/>
           </svg>
         </div>
-        <h3 class="dilemma-title">The Bacterial Danger Zone</h3>
+        <h3 class="dilemma-title">Hours in a Warm Kitchen</h3>
         <ul class="dilemma-bullet-list">
-          <li>Leaving food at ambient room temperature (+20 to +25 &deg;C) or in lukewarm water exposes the outer surface to rapid bacterial growth.</li>
-          <li>Sits inside the +5 to +60 &deg;C microbial danger zone while the center is still frozen.</li>
+          <li>Leaving food out on the counter or in warm water warms the outside into the +5 to +60 &deg;C bacterial danger zone.</li>
+          <li>The surface sits warm for hours while you wait for the center to soften.</li>
         </ul>
       </article>
 
       <!-- Option 03: Delivery Apps -->
-      <article class="dilemma-card">
+      <article class="dilemma-card reveal">
         <div class="dilemma-card-header">
-          <span class="dilemma-tag">Option 03 &bull; Delivery App</span>
-          <span class="dilemma-pill alert">Typical Order</span>
+          <span class="dilemma-tag">Compromise 03 &bull; Takeaway Apps</span>
+          <span class="dilemma-pill alert">Extra Expense</span>
         </div>
         <div class="dilemma-scheme-box">
-          <svg class="scheme-svg" viewBox="0 0 120 70" fill="none" stroke="currentColor" role="img" aria-label="Delivery receipt takeout scheme">
-            <path d="M36 10h48v48l-6-3-6 3-6-3-6 3-6-3-6 3-6-3-6 3V10z" stroke="var(--ink)" stroke-width="1.75" fill="var(--paper)"/>
-            <line x1="46" y1="20" x2="74" y2="20" stroke="var(--stone)" stroke-width="1.5"/>
-            <line x1="46" y1="26" x2="68" y2="26" stroke="var(--stone)" stroke-width="1.5"/>
-            <line x1="46" y1="32" x2="74" y2="32" stroke="var(--stone)" stroke-width="1.5"/>
-            <line x1="46" y1="42" x2="74" y2="42" stroke="var(--clay)" stroke-width="2"/>
+          <svg class="scheme-svg dina-icon" viewBox="0 0 120 70" role="img" aria-label="Delivery receipt takeout scheme">
+            <path class="d" style="--i:0" pathLength="1" d="M36 10h48v48l-6-3-6 3-6-3-6 3-6-3-6 3-6-3-6 3V10z"/>
+            <line class="d" style="--i:1" pathLength="1" x1="46" y1="20" x2="74" y2="20"/>
+            <line class="d" style="--i:2" pathLength="1" x1="46" y1="26" x2="68" y2="26"/>
+            <line class="d" style="--i:3" pathLength="1" x1="46" y1="32" x2="74" y2="32"/>
+            <line class="d ac" style="--i:4" pathLength="1" x1="46" y1="42" x2="74" y2="42"/>
           </svg>
         </div>
-        <h3 class="dilemma-title">Unplanned Takeaway</h3>
+        <h3 class="dilemma-title">Another Unplanned Takeaway</h3>
         <ul class="dilemma-bullet-list">
-          <li>Paying for a typical delivery order plus delivery fees because dinner is still frozen solid.</li>
-          <li>Quality groceries you bought and portioned sit frozen and forgotten at home.</li>
+          <li>Paying for a typical delivery order plus service fees just because dinner is still frozen solid in the freezer.</li>
+          <li>You wait 45 minutes for lukewarm takeout while the groceries you already paid for stay unused.</li>
         </ul>
       </article>
     </div>
@@ -390,418 +517,482 @@
     <!-- Side-by-Side Comparison Table (Microwave vs Counter Thaw vs Delivery vs DINA) -->
     <div class="comparison-table-wrap reveal">
       <div class="comparison-header">
-        <span class="caption muted">Method Comparison</span>
-        <h3>DINA vs. microwave, counter thaw, and <em>delivery</em></h3>
+        <span class="caption muted">At a Glance</span>
+        <h3>How DINA compares to microwave, counter thaw, and <em>delivery</em></h3>
       </div>
       <div class="table-scroll-container">
         <table class="comparison-table">
           <thead>
             <tr>
-              <th>Criterion</th>
+              <th>What Matters at 7 PM</th>
               <th>Microwave Defrost</th>
-              <th>Countertop Thaw</th>
-              <th>Delivery Takeout</th>
-              <th class="col-dina">DINA Scheduled Thaw</th>
+              <th>Kitchen Counter</th>
+              <th>Delivery App</th>
+              <th class="col-dina">With DINA at Home</th>
             </tr>
           </thead>
           <tbody>
             <tr>
+              <td><strong>Taste &amp; Texture</strong></td>
+              <td>Dry, gray cooked edges with an icy center</td>
+              <td>Waterlogged texture and lost juices</td>
+              <td>Often arrives lukewarm in plastic boxes</td>
+              <td class="col-dina"><strong>Evenly thawed, tender, and ready for a hot pan</strong></td>
+            </tr>
+            <tr>
               <td><strong>Food Safety</strong></td>
-              <td>Hot spots next to frozen pockets</td>
-              <td>Enters +5 to +60 &deg;C bacterial danger zone</td>
-              <td>Depends on courier transit time</td>
-              <td class="col-dina"><strong>Surface never exceeds +4.0 &deg;C; +3.0 &deg;C Safe-Hold (up to 24 h)</strong></td>
+              <td>Uneven hot spots next to frozen pockets</td>
+              <td>Sits in the +5 to +60 &deg;C danger zone</td>
+              <td>Depends on courier wait and transit time</td>
+              <td class="col-dina"><strong>Surface never exceeds +4.0 &deg;C; held at +3.0 &deg;C fridge temp (up to 24 h)</strong></td>
             </tr>
             <tr>
-              <td><strong>Texture &amp; Quality</strong></td>
-              <td>Par-cooked gray edges, dry fibers</td>
-              <td>Drip loss and uneven softening</td>
-              <td>Often lukewarm, high sodium &amp; packaging waste</td>
-              <td class="col-dina"><strong>Gentle +10 &deg;C convective thaw; core ready at &ge; &minus;1 &deg;C</strong></td>
+              <td><strong>Your Effort</strong></td>
+              <td>Standing over the microwave flipping food</td>
+              <td>Hours of waiting and checking by hand</td>
+              <td>Scrolling menus and waiting 40+ mins</td>
+              <td class="col-dina"><strong>One tap at 3:00 PM &mdash; or runs automatically on your schedule</strong></td>
             </tr>
             <tr>
-              <td><strong>Planning Effort</strong></td>
-              <td>Manual flipping and guesswork</td>
-              <td>Hours of unmonitored waiting</td>
-              <td>30 to 50 min wait after ordering</td>
-              <td class="col-dina"><strong>Default dinner time + 15:00 one-tap confirm (&le; 2 taps)</strong></td>
-            </tr>
-            <tr>
-              <td><strong>Cost Impact</strong></td>
-              <td>Spoiled cuts of meat or fish</td>
-              <td>Food waste if forgotten on counter</td>
-              <td>Cost of a typical delivery order + fees</td>
-              <td class="col-dina"><strong>Home grocery cost &bull; Core app free with no subscription</strong></td>
+              <td><strong>Cost to You</strong></td>
+              <td>Ruined cuts of meat, fish, or poultry</td>
+              <td>Wasted food if forgotten on the counter</td>
+              <td>Price of a typical delivery order + fees</td>
+              <td class="col-dina"><strong>Your own groceries &bull; Core app free with no subscription</strong></td>
             </tr>
           </tbody>
         </table>
       </div>
     </div>
 
-    <!-- The DINA Resolution Flow Banner -->
-    <div class="dina-flow-banner">
+    <!-- The DINA Resolution Flow Banner with Official Animated Deck Icons -->
+    <div class="dina-flow-banner reveal">
       <div class="flow-banner-header">
-        <span class="caption clay-text">Designed for Households That Forget &bull; Default Schedule + One-Tap Confirm</span>
-        <h3 class="flow-banner-heading">Confirm in one tap &mdash; or let your weekly plan run.</h3>
-        <p class="flow-banner-subhead">A product for people who forget does not depend on remembering to schedule. At 15:00, DINA asks: &ldquo;Dinner tonight: Salmon? [Yes / Swap / Skip]&rdquo;. With no reply, your planned meal proceeds automatically.</p>
+        <span class="caption clay-text">Built for Busy Days &bull; Even When You Forget to Plan</span>
+        <h3 class="flow-banner-heading">One tap at 3:00 PM &mdash; or let your weekly plan run itself.</h3>
+        <p class="flow-banner-subhead">You don&rsquo;t even have to remember to open the app. At 3:00 PM, DINA sends a quick check-in: &ldquo;Dinner tonight: Salmon at 19:30? [Yes / Swap / Skip]&rdquo;. If you&rsquo;re busy in a meeting and don&rsquo;t reply, your usual dinner plan happens automatically.</p>
       </div>
 
       <div class="flow-steps-grid">
-        <!-- Step 1 -->
+        <!-- Step 1: schedule.svg from Deck -->
         <div class="flow-step-item">
           <div class="flow-step-icon">
-            <svg class="dina-icon" viewBox="0 0 48 48" style="width:26px;height:26px;"><rect x="14" y="6" width="20" height="36" rx="3" stroke="currentColor" stroke-width="2" fill="none"/><line x1="21" y1="11" x2="27" y2="11" stroke="currentColor" stroke-width="2"/><circle cx="24" cy="36" r="2" fill="#C0775B"/></svg>
+            <svg class="dina-icon" viewBox="0 0 48 48" width="38" height="38" role="img" aria-label="Afternoon check-in">
+              <rect class="d" style="--i:0" pathLength="1" x="6" y="9" width="36" height="33" rx="3"/><path class="d" style="--i:1" pathLength="1" d="M6 18H42"/><path class="d" style="--i:1" pathLength="1" d="M15 5V12M33 5V12"/><path class="d" style="--i:2" pathLength="1" d="M13 26H16M22.5 26H25.5M32 26H35M13 34H16M22.5 34H25.5"/><g class="vb pulse-cal"><circle class="d ac" style="--i:3" pathLength="1" cx="33.5" cy="34" r="3.6"/></g>
+            </svg>
           </div>
           <div class="flow-step-header-mobile">
-            <strong class="flow-step-title">15:00 Confirmation</strong>
-            <span class="flow-time-pill clay">&le; 2 Taps or Auto</span>
+            <strong class="flow-step-title">3:00 PM Check-In</strong>
+            <span class="flow-time-pill clay">1 Tap or Auto</span>
           </div>
-          <p class="flow-step-desc">Confirm, swap meals, or let your default dinner time run automatically.</p>
+          <p class="flow-step-desc">Confirm tonight&rsquo;s dish, swap to another meal in the carousel, or let your default time run.</p>
         </div>
 
-        <!-- Step 2 -->
+        <!-- Step 2: gravity-drop.svg from Deck -->
         <div class="flow-step-item">
           <div class="flow-step-icon">
-            <svg class="dina-icon" viewBox="0 0 48 48" style="width:26px;height:26px;"><path d="M12 14v16m24-16v16" stroke="currentColor" stroke-width="2" fill="none"/><path d="M8 30h32" stroke="currentColor" stroke-width="2"/><rect x="18" y="18" width="12" height="8" rx="1.5" stroke="#C0775B" stroke-width="2" fill="none"/></svg>
+            <svg class="dina-icon" viewBox="0 0 48 48" width="38" height="38" role="img" aria-label="Automatic meal drop">
+              <path class="d" style="--i:0" pathLength="1" d="M10 29H19M29 29H38"/><path class="d" style="--i:1" pathLength="1" d="M14 12V25M34 12V25"/><rect class="d" style="--i:2" pathLength="1" x="11" y="36" width="26" height="8" rx="1.5"/><g class="vb fall"><rect class="d ac" style="--i:3" pathLength="1" x="19" y="8" width="10" height="8" rx="1.5"/></g>
+            </svg>
           </div>
           <div class="flow-step-header-mobile">
-            <strong class="flow-step-title">Airlock Transfer</strong>
-            <span class="flow-time-pill">2.5 s Hatch Drop</span>
+            <strong class="flow-step-title">Automatic Drop</strong>
+            <span class="flow-time-pill">While You Work</span>
           </div>
-          <p class="flow-step-desc">Carousel indexes and drops the portion through the insulated hatch into the drawer.</p>
+          <p class="flow-step-desc">At the right time, the carousel turns and lowers tonight&rsquo;s container into the defrost drawer.</p>
         </div>
 
-        <!-- Step 3 -->
+        <!-- Step 3: convection.svg from Deck -->
         <div class="flow-step-item">
           <div class="flow-step-icon">
-            <svg class="dina-icon" viewBox="0 0 48 48" style="width:26px;height:26px;"><circle cx="24" cy="24" r="16" stroke="currentColor" stroke-width="2" fill="none"/><path d="M24 16c0 4 5 8 8 8s-4 5-8 8" stroke="#C0775B" stroke-width="2" fill="none"/></svg>
+            <svg class="dina-icon" viewBox="0 0 48 48" width="38" height="38" role="img" aria-label="Gentle air thawing">
+              <circle class="d" style="--i:0" pathLength="1" cx="24" cy="24" r="19"/><g class="vb spin-fan"><g transform="rotate(0 24 24)"><path class="d" style="--i:1" pathLength="1" d="M24 21C23 13 27 8 33 9C34.5 15 30 20 24 21Z"/></g><g transform="rotate(120 24 24)"><path class="d" style="--i:1" pathLength="1" d="M24 21C23 13 27 8 33 9C34.5 15 30 20 24 21Z"/></g><g transform="rotate(240 24 24)"><path class="d" style="--i:1" pathLength="1" d="M24 21C23 13 27 8 33 9C34.5 15 30 20 24 21Z"/></g></g><circle class="d ac" style="--i:2" pathLength="1" cx="24" cy="24" r="3"/>
+            </svg>
           </div>
           <div class="flow-step-header-mobile">
-            <strong class="flow-step-title">Gentle +10 &deg;C Thaw</strong>
-            <span class="flow-time-pill">Surface &le; +4.0 &deg;C</span>
+            <strong class="flow-step-title">Gentle Air Thaw</strong>
+            <span class="flow-time-pill">Never Overheated</span>
           </div>
-          <p class="flow-step-desc">Convective air warms gently; heating stops the moment the surface reaches +4.0 &deg;C.</p>
+          <p class="flow-step-desc">Soft circulating air thaws your meal evenly without ever letting the outside warm above +4.0 &deg;C.</p>
         </div>
 
-        <!-- Step 4 -->
+        <!-- Step 4: dinner.svg from Deck -->
         <div class="flow-step-item">
           <div class="flow-step-icon">
-            <svg class="dina-icon" viewBox="0 0 48 48" style="width:26px;height:26px;"><circle cx="24" cy="26" r="14" stroke="currentColor" stroke-width="2" fill="none"/><path d="M21 15c-2-2 2-4 0-6m6 6c-2-2 2-4 0-6" stroke="#C0775B" stroke-width="2" fill="none"/></svg>
+            <svg class="dina-icon" viewBox="0 0 48 48" width="38" height="38" role="img" aria-label="Dinner ready and chilled">
+              <circle class="d" style="--i:0" pathLength="1" cx="26" cy="28" r="11"/><circle class="d" style="--i:1" pathLength="1" cx="26" cy="28" r="6.5"/><path class="d" style="--i:2" pathLength="1" d="M6 8V16a3 3 0 0 0 6 0V8M9 8V19M9 19V43"/><path class="d" style="--i:2" pathLength="1" d="M42 8C38 10 37 16 37 23H42M42 8V43"/><g class="steam"><path class="d ac" style="--i:4" pathLength="1" d="M22 15c-2-2 2-4 0-7"/><path class="d ac" style="--i:4" pathLength="1" d="M29 15c-2-2 2-4 0-7"/></g>
+            </svg>
           </div>
           <div class="flow-step-header-mobile">
-            <strong class="flow-step-title">Chilled at +3 &deg;C</strong>
-            <span class="flow-time-pill clay">Up to 24 h Hold</span>
+            <strong class="flow-step-title">Fridge-Fresh Hold</strong>
+            <span class="flow-time-pill clay">+3 &deg;C up to 24 h</span>
           </div>
-          <p class="flow-step-desc">Ready when core is &ge; &minus;1 &deg;C, then held safely chilled at +3.0 &deg;C for up to 24 h.</p>
+          <p class="flow-step-desc">Once ready, the drawer turns into a +3.0 &deg;C mini-fridge for up to 24 hours until you open it.</p>
         </div>
       </div>
 
       <div class="flow-banner-footer">
         <div class="flow-punchline-text">
           <strong>You walk in. You cook. You eat.</strong>
-          <span>Scheduling late? Late-rescue mode shows the earliest safe ready time instead of starting an unsafe fast thaw.</span>
+          <span>Decided late in the afternoon? DINA tells you the earliest safe time your meal will be ready instead of rushing an uneven thaw.</span>
         </div>
         <a href="app.html" class="btn btn-clay">
-          Try Mobile App Demo
-          <svg viewBox="0 0 48 48" class="dina-icon" style="width:16px;height:16px;margin-left:4px;"><path d="M8 24H38M28 14L38 24L28 34" stroke="currentColor" stroke-width="3" fill="none"/></svg>
+          Try the Interactive App
+          <svg viewBox="0 0 48 48" class="dina-icon" style="width:16px;height:16px;margin-left:4px;filter:none;"><path d="M8 24H38M28 14L38 24L28 34" stroke="currentColor" stroke-width="3" fill="none"/></svg>
         </a>
       </div>
     </div>
   </section>
 
-  <!-- SECTION 2: The Routine (3 Clean Steps with Animated SVGs) -->
+  <!-- SECTION 2: The Routine (3 Simple Steps for Your Week) -->
   <section id="experience" class="row sand-bg">
-    <p class="caption muted">The Routine</p>
-    <h2>A new kind of <em>kitchen routine</em></h2>
-    <p class="lead">From Sunday meal prep to a freshly thawed dinner, orchestrated in three calm steps.</p>
+    <p class="caption muted">How It Works</p>
+    <h2>A calmer <em>weeknight routine</em></h2>
+    <p class="lead">Prep once on the weekend, and enjoy effortless home-cooked dinners all week long.</p>
 
     <div class="routine-cards-grid">
       <!-- Step 01: Load on Sunday -->
       <article class="routine-card reveal">
         <div class="routine-icon-wrap">
           <span class="circle">01</span>
-          <!-- Inline Animated drum.svg -->
-          <svg xmlns="http://www.w3.org/2000/svg" class="dina-icon routine-svg" viewBox="0 0 48 48" role="img" aria-label="Two-tier revolving meal drum">
-            <style>svg.dina-icon{--ink:#191919;--accent:#C0775B}.dina-icon *{fill:none;stroke:var(--ink);stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}.dina-icon .ac{stroke:var(--accent)}.dina-icon .d{animation:dina-draw 1.1s cubic-bezier(.22,.61,.36,1) both;animation-delay:calc(var(--i,0)*.08s)}@keyframes dina-draw{from{stroke-dasharray:1;stroke-dashoffset:1}to{stroke-dasharray:1;stroke-dashoffset:0}}.dina-icon .vb{transform-box:view-box}@media (prefers-reduced-motion:reduce){.dina-icon *{animation:none!important}}.dina-icon .spin{transform-origin:24px 24px;animation:dina-drum 24s linear infinite}@keyframes dina-drum{to{transform:rotate(360deg)}}</style>
-            <circle class="d" style="--i:0" pathLength="1" cx="24" cy="24" r="19"/><circle class="d" style="--i:1" pathLength="1" cx="24" cy="24" r="4"/><g class="vb spin"><path class="d" style="--i:2" pathLength="1" d="M24 20L24 5"/><path class="d" style="--i:2" pathLength="1" d="M27.46 22L40.45 14.5"/><path class="d" style="--i:2" pathLength="1" d="M27.46 26L40.45 33.5"/><path class="d" style="--i:2" pathLength="1" d="M24 28L24 43"/><path class="d" style="--i:2" pathLength="1" d="M20.54 26L7.55 33.5"/><path class="d" style="--i:2" pathLength="1" d="M20.54 22L7.55 14.5"/><circle class="d" style="--i:3" pathLength="1" cx="36" cy="24" r="2.6"/><circle class="d" style="--i:3" pathLength="1" cx="30" cy="34.39" r="2.6"/><circle class="d" style="--i:3" pathLength="1" cx="18" cy="34.39" r="2.6"/><circle class="d" style="--i:3" pathLength="1" cx="12" cy="24" r="2.6"/><circle class="d" style="--i:3" pathLength="1" cx="18" cy="13.61" r="2.6"/></g>
+          <svg class="dina-icon routine-svg" viewBox="0 0 48 48" role="img" aria-label="Revolving meal carousel">
+            <circle class="d" style="--i:0" pathLength="1" cx="24" cy="24" r="19"/><circle class="d" style="--i:1" pathLength="1" cx="24" cy="24" r="4"/><g class="vb spin-drum"><path class="d" style="--i:2" pathLength="1" d="M24 20L24 5M27.46 22L40.45 14.5M27.46 26L40.45 33.5M24 28L24 43M20.54 26L7.55 33.5M20.54 22L7.55 14.5"/><circle class="d ac" style="--i:3" pathLength="1" cx="36" cy="24" r="2.6"/><circle class="d" style="--i:3" pathLength="1" cx="30" cy="34.39" r="2.6"/><circle class="d" style="--i:3" pathLength="1" cx="18" cy="34.39" r="2.6"/><circle class="d" style="--i:3" pathLength="1" cx="12" cy="24" r="2.6"/><circle class="d" style="--i:3" pathLength="1" cx="18" cy="13.61" r="2.6"/></g>
           </svg>
         </div>
         <div class="routine-photo-box">
-          <img src="assets/images/dina_carousel_drum.png" alt="DINA 2-tier revolving carousel loaded with meal containers" class="routine-photo-thumb">
+          <img src="assets/images/dina_carousel_drum.png" alt="DINA revolving carousel loaded with meal containers" class="routine-photo-thumb">
         </div>
-        <h3 class="routine-title">Load 11 Meals on Sunday</h3>
-        <p class="routine-desc">Slide reusable 750 ml containers into the motorized carousel. DINA stores 11 meals (8.25 L net container capacity) deep-frozen at &minus;18 &deg;C beneath 110 L of bulk freezer shelves.</p>
+        <h3 class="routine-title">Stock 11 Meals on Sunday</h3>
+        <p class="routine-desc">Place your favorite steaks, fish fillets, chicken, or homemade portions into 11 reusable dishwasher-safe containers in the revolving carousel—while keeping 110 L of classic freezer shelves above for everyday family groceries.</p>
       </article>
 
-      <!-- Step 02: Tap From the Office -->
+      <!-- Step 02: Confirm or Auto-Schedule -->
       <article class="routine-card reveal">
         <div class="routine-icon-wrap">
           <span class="circle">02</span>
-          <!-- Inline Animated gravity-drop.svg -->
-          <svg xmlns="http://www.w3.org/2000/svg" class="dina-icon routine-svg" viewBox="0 0 48 48" role="img" aria-label="Gravity drop through the airlock">
-            <style>svg.dina-icon{--ink:#191919;--accent:#C0775B}.dina-icon *{fill:none;stroke:var(--ink);stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}.dina-icon .ac{stroke:var(--accent)}.dina-icon .d{animation:dina-draw 1.1s cubic-bezier(.22,.61,.36,1) both;animation-delay:calc(var(--i,0)*.08s)}@keyframes dina-draw{from{stroke-dasharray:1;stroke-dashoffset:1}to{stroke-dasharray:1;stroke-dashoffset:0}}.dina-icon .vb{transform-box:view-box}@media (prefers-reduced-motion:reduce){.dina-icon *{animation:none!important}}.dina-icon .fall{animation:dina-fall 3s cubic-bezier(.5,0,.75,.5) infinite 1.4s}@keyframes dina-fall{0%{transform:translateY(0);opacity:1}60%{transform:translateY(22px);opacity:1}75%,100%{transform:translateY(22px);opacity:0}}</style>
+          <svg class="dina-icon routine-svg" viewBox="0 0 48 48" role="img" aria-label="Automatic transfer to drawer">
             <path class="d" style="--i:0" pathLength="1" d="M10 29H19M29 29H38"/><path class="d" style="--i:1" pathLength="1" d="M14 12V25M34 12V25"/><rect class="d" style="--i:2" pathLength="1" x="11" y="36" width="26" height="8" rx="1.5"/><g class="vb fall"><rect class="d ac" style="--i:3" pathLength="1" x="19" y="8" width="10" height="8" rx="1.5"/></g>
           </svg>
         </div>
-        <h3 class="routine-title">Confirm or Auto-Schedule</h3>
-        <p class="routine-desc">Confirm tonight&rsquo;s dish in two taps or let your default schedule run. The carousel indexes silently and dispenses your meal through the thermal airlock into the defrost drawer.</p>
+        <div class="routine-photo-box">
+          <img src="assets/images/dina_door_display.png" alt="DINA smart door display and app scheduling" class="routine-photo-thumb">
+        </div>
+        <h3 class="routine-title">Pick Your Time (or Let It Run)</h3>
+        <p class="routine-desc">Tell DINA when you want to eat—or simply confirm the 3:00 PM check-in on your phone. While you&rsquo;re still at work, the carousel turns and lowers tonight&rsquo;s meal into the lower drawer.</p>
       </article>
 
       <!-- Step 03: Ready to Sear -->
       <article class="routine-card reveal">
         <div class="routine-icon-wrap">
           <span class="circle">03</span>
-          <!-- Inline Animated dinner.svg with rising steam -->
-          <svg xmlns="http://www.w3.org/2000/svg" class="dina-icon routine-svg" viewBox="0 0 48 48" role="img" aria-label="Dinner ready to cook">
-            <style>svg.dina-icon{--ink:#191919;--accent:#C0775B}.dina-icon *{fill:none;stroke:var(--ink);stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}.dina-icon .ac{stroke:var(--accent)}.dina-icon .d{animation:dina-draw 1.1s cubic-bezier(.22,.61,.36,1) both;animation-delay:calc(var(--i,0)*.08s)}@keyframes dina-draw{from{stroke-dasharray:1;stroke-dashoffset:1}to{stroke-dasharray:1;stroke-dashoffset:0}}.dina-icon .vb{transform-box:view-box}@media (prefers-reduced-motion:reduce){.dina-icon *{animation:none!important}}.dina-icon .steam{animation:dina-steam 3.2s ease-in-out infinite}@keyframes dina-steam{0%,100%{transform:translateY(0);opacity:1}50%{transform:translateY(-2px);opacity:.35}}</style>
+          <svg class="dina-icon routine-svg" viewBox="0 0 48 48" role="img" aria-label="Dinner ready to cook">
             <circle class="d" style="--i:0" pathLength="1" cx="26" cy="28" r="11"/><circle class="d" style="--i:1" pathLength="1" cx="26" cy="28" r="6.5"/><path class="d" style="--i:2" pathLength="1" d="M6 8V16a3 3 0 0 0 6 0V8M9 8V19M9 19V43"/><path class="d" style="--i:2" pathLength="1" d="M42 8C38 10 37 16 37 23H42M42 8V43"/><g class="steam"><path class="d ac" style="--i:4" pathLength="1" d="M22 15c-2-2 2-4 0-7"/><path class="d ac" style="--i:4" pathLength="1" d="M29 15c-2-2 2-4 0-7"/></g>
           </svg>
         </div>
         <div class="routine-photo-box">
           <img src="assets/images/dina_drawer_close.png" alt="Tonight's dinner resting thawed and chilled in the illuminated defrost drawer" class="routine-photo-thumb">
         </div>
-        <h3 class="routine-title">Ready to Sear</h3>
-        <p class="routine-desc">Gentle circulating air warms the drawer to +10 &deg;C until the food surface reaches +4.0 &deg;C, then holds your meal chilled at +3.0 &deg;C (for up to 24 h) so it is ready for the pan.</p>
+        <h3 class="routine-title">Open the Drawer &amp; Cook</h3>
+        <p class="routine-desc">When you walk through the door, the handle glows soft green. Slide open the lower drawer and take out a portion that is evenly thawed, chilled at +3.0 &deg;C, and ready to sear.</p>
       </article>
     </div>
   </section>
 
-  <!-- SECTION 3: The Defrost Drawer (Visual Scheme & Interactive Halo) -->
+  <!-- SECTION 3: The Defrost Drawer (Two-Zone Design & Interactive Handle Light) -->
   <section id="drawer" class="row">
-    <p class="caption muted">The Defrost Drawer</p>
+    <p class="caption muted">Two Zones, One Appliance</p>
     <h2>The independent <em>defrost drawer</em></h2>
-    <p class="lead">Retrieve tonight&rsquo;s thawed dinner without opening the main freezer door &mdash; zero cold air spillage from the &minus;18 &deg;C storage zones.</p>
+    <p class="lead">Grab tonight&rsquo;s thawed dinner from the lower drawer without ever opening the main freezer door &mdash; keeping all your frozen groceries locked at &minus;18 &deg;C.</p>
 
     <!-- Cabinet Cutaway Architecture & Real Hardware Showcase -->
     <div class="cabinet-architecture-grid">
       <!-- Upper Cabinet Zone -->
       <div class="cabinet-zone-card reveal">
-        <span class="zone-badge">Upper Freezer Zone &bull; &minus;18 &deg;C</span>
+        <div class="zone-card-top-bar">
+          <span class="zone-badge">Upper Freezer &bull; &minus;18 &deg;C Deep Freeze</span>
+          <!-- Animated snowflake.svg from Deck -->
+          <svg class="dina-icon" viewBox="0 0 48 48" width="38" height="38" role="img" aria-label="Deep freeze -18 °C">
+            <g class="vb spin-snow"><g transform="rotate(0 24 24)"><path class="d" style="--i:1" pathLength="1" d="M24 7V41M20.5 11L24 14.5L27.5 11M20.5 37L24 33.5L27.5 37"/></g><g transform="rotate(60 24 24)"><path class="d" style="--i:1" pathLength="1" d="M24 7V41M20.5 11L24 14.5L27.5 11M20.5 37L24 33.5L27.5 37"/></g><g transform="rotate(120 24 24)"><path class="d" style="--i:1" pathLength="1" d="M24 7V41M20.5 11L24 14.5L27.5 11M20.5 37L24 33.5L27.5 37"/></g></g><circle class="d ac" style="--i:3" pathLength="1" cx="24" cy="24" r="2.4"/>
+          </svg>
+        </div>
         <div class="routine-photo-box" style="height: 180px; margin-bottom: 14px;">
           <img src="assets/images/dina_carousel_drum.png" alt="DINA 2-tier motorized revolving drum carousel" class="routine-photo-thumb">
         </div>
-        <h3 class="zone-title">11 Meals + 110 L Bulk Shelves</h3>
-        <p class="zone-desc">Stores 11 meals (11 &times; 0.75 L containers = 8.25 L automated meal capacity) in the 2-tier drum below 110 L of family grocery shelves.</p>
+        <h3 class="zone-title">11 Carousel Meals + 110 L Family Shelves</h3>
+        <p class="zone-desc">Your everyday freezer on top (110 L of shelves for bags of vegetables, bread, and ice cream) plus the 11-meal revolving carousel right below it.</p>
       </div>
 
       <!-- Airlock Transfer Bridge -->
       <div class="cabinet-airlock-bridge">
-        <svg viewBox="0 0 48 48" class="dina-icon" style="width:28px;height:28px;"><path d="M24 8v32m-8-8l8 8l8-8" stroke="currentColor" stroke-width="2.5" fill="none"/></svg>
-        <span class="bridge-label">Airlock Gate</span>
+        <svg viewBox="0 0 48 48" class="dina-icon" style="width:36px;height:36px;">
+          <path class="d" style="--i:0" pathLength="1" d="M10 29H19M29 29H38"/><path class="d" style="--i:1" pathLength="1" d="M14 12V25M34 12V25"/><rect class="d" style="--i:2" pathLength="1" x="11" y="36" width="26" height="8" rx="1.5"/><g class="vb fall"><rect class="d ac" style="--i:3" pathLength="1" x="19" y="8" width="10" height="8" rx="1.5"/></g>
+        </svg>
+        <span class="bridge-label">Sealed Drop Hatch</span>
       </div>
 
       <!-- Lower Defrost Drawer Zone with Real Hardware & Interactive Halo -->
       <div class="cabinet-zone-card highlight reveal">
-        <span class="zone-badge clay">Independent Defrost Drawer (15 L)</span>
+        <div class="zone-card-top-bar">
+          <span class="zone-badge clay">Lower Drawer &bull; Gentle Thaw &amp; +3 &deg;C Fridge Hold</span>
+          <!-- Animated drawer.svg from Deck -->
+          <svg class="dina-icon" viewBox="0 0 48 48" width="38" height="38" role="img" aria-label="Defrost drawer with halo ring">
+            <rect class="d" style="--i:0" pathLength="1" x="10" y="5" width="28" height="38" rx="2"/><path class="d" style="--i:1" pathLength="1" d="M10 28H38"/><path class="d" style="--i:2" pathLength="1" d="M32 12V21"/><g class="vb pulse-drawer"><circle class="d ac" style="--i:3" pathLength="1" cx="24" cy="36" r="3"/></g><path class="d" style="--i:3" pathLength="1" d="M18 36H15M33 36H30"/>
+          </svg>
+        </div>
         <div class="routine-photo-box" style="height: 180px; margin-bottom: 14px;">
           <img src="assets/images/dina_drawer_close.png" alt="Independent defrost drawer with warm LED lighting and meal container" class="routine-photo-thumb">
         </div>
-        <h3 class="zone-title">Gentle Air Thawing &amp; Safe-Hold</h3>
-        <p class="zone-desc">Convective air thaws dinner evenly without par-cooking edges, then locks into +3.0 &deg;C Safe-Hold (up to 24 h) if you are delayed. Thawed food is never re-frozen.</p>
+        <h3 class="zone-title">Thaws Gently, Then Waits Like a Fridge</h3>
+        <p class="zone-desc">Thaws tonight&rsquo;s meal with gentle +10 &deg;C circulating air (keeping the surface at or below +4.0 &deg;C), then switches to a +3.0 &deg;C fridge hold for up to 24 hours. Never refreezes thawed food.</p>
       </div>
     </div>
 
     <!-- Halo Handle Hardware Showcase -->
     <div class="halo-states-panel reveal">
-      <span class="caption muted" style="display:block; margin-bottom:8px;">Drawer Handle Halo Ring &bull; Visual Status At A Glance</span>
+      <span class="caption muted" style="display:block; margin-bottom:8px;">Know Dinner Is Ready From Across the Kitchen &bull; Handle Light Ring</span>
       <img src="assets/images/dina_halo_states.png" alt="DINA handle halo light in 3 states: cyan standby, amber thawing, green ready" class="halo-states-img">
       <div class="halo-legend-row">
-        <span>Cyan: Freezing Standby</span>
-        <span style="color:var(--clay);">Amber: Actively Thawing</span>
-        <span style="color:#4A8B63;">Green: Ready &amp; Chilled (+3 &deg;C)</span>
-        <span>Red: Safety Alert</span>
+        <span>Soft Blue: Deep Freeze Standby</span>
+        <span style="color:var(--clay);">Warm Amber: Gently Thawing Tonight&rsquo;s Meal</span>
+        <span style="color:#4A8B63;">Fresh Green: Ready to Cook (+3 &deg;C Fridge Hold)</span>
+        <span>Red Pulse: Check App Alert</span>
       </div>
       
       <div class="drawer-halo-interactive" style="margin-top:14px; background:var(--white);">
         <div class="halo-glow-ring amber" id="webHaloRing"></div>
-        <div class="halo-status-text" id="webHaloStatus">Status: Actively Thawing on Schedule</div>
+        <div class="halo-status-text" id="webHaloStatus">Handle Glow: Warm Amber &mdash; Gently Thawing Tonight&rsquo;s Dinner</div>
         <div class="halo-toggle-chips">
-          <button class="halo-chip-btn active" data-state="thawing" type="button">Thawing (Amber)</button>
-          <button class="halo-chip-btn" data-state="ready" type="button">Ready (Green)</button>
+          <button class="halo-chip-btn active" data-state="thawing" type="button">Preview: Thawing (Amber)</button>
+          <button class="halo-chip-btn" data-state="ready" type="button">Preview: Ready to Cook (Green)</button>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- SECTION 4: Kitchen Integration (60 cm width, 11 meals, net/gross volume, hygienic dish) -->
+  <!-- SECTION 4: Kitchen Integration (60 cm width, 11 meals, quiet < 32 dBA, zero plumbing) -->
   <section id="kitchen" class="row sand-bg">
-    <p class="caption muted">Kitchen Integration</p>
-    <h2>Designed for <em>your kitchen</em></h2>
-    <p class="lead">Built to slide flush into a standard 60 cm width European kitchen cabinet run (600 W &times; 650 D &times; 1450 H mm) with zero plumbing required.</p>
+    <p class="caption muted">Made for Your Home</p>
+    <h2>Fits seamlessly into <em>your kitchen</em></h2>
+    <p class="lead">Designed around the standard 60 cm width European kitchen footprint (60 cm wide &times; 65 cm deep &times; 145 cm high)—just plug it into a standard wall socket.</p>
 
     <div class="kitchen-split-grid">
       <div class="kitchen-product-photo reveal">
         <div class="kitchen-view-toggle" role="tablist" aria-label="Appliance view switch">
-          <button class="kitchen-view-btn active" data-img="assets/images/dina_exterior_angle.png" type="button">Perspective</button>
-          <button class="kitchen-view-btn" data-img="assets/images/dina_front_closed.png" type="button">Front View</button>
+          <button class="kitchen-view-btn active" data-img="assets/images/dina_exterior_angle.png" type="button">3/4 Kitchen View</button>
+          <button class="kitchen-view-btn" data-img="assets/images/dina_front_closed.png" type="button">Front Elevation</button>
         </div>
         <img id="kitchenMainImg" src="assets/images/dina_exterior_angle.png" alt="DINA freestanding upright smart freezer in warm kitchen tone">
       </div>
 
       <div class="lifestyle-stats-grid">
         <div class="stat-card reveal">
-          <div class="stat-num">60 <span class="stat-unit">cm</span></div>
-          <div class="stat-label">60 cm Width Fit</div>
-          <p class="stat-sub">Standard 600 mm width &times; 650 mm depth &times; 1450 mm ergonomic mid-height cabinet.</p>
+          <div class="stat-card-top">
+            <div class="stat-num">60 <span class="stat-unit">cm</span></div>
+            <svg class="dina-icon" viewBox="0 0 48 48" width="38" height="38" aria-hidden="true">
+              <rect class="d" style="--i:0" pathLength="1" x="10" y="5" width="28" height="38" rx="2"/><path class="d" style="--i:1" pathLength="1" d="M10 28H38"/><path class="d" style="--i:2" pathLength="1" d="M32 12V21"/><g class="vb pulse-drawer"><circle class="d ac" style="--i:3" pathLength="1" cx="24" cy="36" r="3"/></g><path class="d" style="--i:3" pathLength="1" d="M18 36H15M33 36H30"/>
+            </svg>
+          </div>
+          <div class="stat-label">Standard 60 cm Width</div>
+          <p class="stat-sub">Slides neatly into any standard 60 cm kitchen space at a comfortable 145 cm eye-level height.</p>
         </div>
 
         <div class="stat-card reveal">
-          <div class="stat-num">11 <span class="stat-unit">Meals</span></div>
-          <div class="stat-label">8.25 L Net Drum + 110 L Shelves</div>
-          <p class="stat-sub">11 &times; 0.75 L meal containers (8.25 L net automated capacity) plus 110 L bulk shelves (185 L gross).</p>
+          <div class="stat-card-top">
+            <div class="stat-num">11 <span class="stat-unit">Meals</span></div>
+            <svg class="dina-icon" viewBox="0 0 48 48" width="38" height="38" aria-hidden="true">
+              <circle class="d" style="--i:0" pathLength="1" cx="24" cy="24" r="19"/><circle class="d" style="--i:1" pathLength="1" cx="24" cy="24" r="4"/><g class="vb spin-drum"><path class="d" style="--i:2" pathLength="1" d="M24 20L24 5M27.46 22L40.45 14.5M27.46 26L40.45 33.5M24 28L24 43M20.54 26L7.55 33.5M20.54 22L7.55 14.5"/><circle class="d ac" style="--i:3" pathLength="1" cx="36" cy="24" r="2.6"/><circle class="d" style="--i:3" pathLength="1" cx="30" cy="34.39" r="2.6"/><circle class="d" style="--i:3" pathLength="1" cx="18" cy="34.39" r="2.6"/><circle class="d" style="--i:3" pathLength="1" cx="12" cy="24" r="2.6"/><circle class="d" style="--i:3" pathLength="1" cx="18" cy="13.61" r="2.6"/></g>
+            </svg>
+          </div>
+          <div class="stat-label">+ 110 L Freezer Shelves</div>
+          <p class="stat-sub">11 reusable 750 ml meal containers in the carousel, plus 110 L of classic freezer shelves above.</p>
         </div>
 
         <div class="stat-card reveal">
-          <div class="stat-num">&lt; 32 <span class="stat-unit">dBA</span></div>
-          <div class="stat-label">Whisper Quiet</div>
-          <p class="stat-sub">Quiet inverter compressor operation engineered for open-concept kitchen and dining spaces.</p>
+          <div class="stat-card-top">
+            <div class="stat-num">&lt; 32 <span class="stat-unit">dBA</span></div>
+            <svg class="dina-icon" viewBox="0 0 48 48" width="38" height="38" aria-hidden="true">
+              <circle class="d" style="--i:0" pathLength="1" cx="24" cy="24" r="19"/><g class="vb spin-fan"><g transform="rotate(0 24 24)"><path class="d" style="--i:1" pathLength="1" d="M24 21C23 13 27 8 33 9C34.5 15 30 20 24 21Z"/></g><g transform="rotate(120 24 24)"><path class="d" style="--i:1" pathLength="1" d="M24 21C23 13 27 8 33 9C34.5 15 30 20 24 21Z"/></g><g transform="rotate(240 24 24)"><path class="d" style="--i:1" pathLength="1" d="M24 21C23 13 27 8 33 9C34.5 15 30 20 24 21Z"/></g></g><circle class="d ac" style="--i:2" pathLength="1" cx="24" cy="24" r="3"/>
+            </svg>
+          </div>
+          <div class="stat-label">Open-Kitchen Quiet</div>
+          <p class="stat-sub">Whisper-quiet operation designed for modern open-plan kitchens and dining spaces.</p>
         </div>
 
         <div class="stat-card reveal">
-          <div class="stat-num">0 <span class="stat-unit">Plumbing</span></div>
-          <div class="stat-label">Passive Evaporation</div>
-          <p class="stat-sub">Condensate evaporates passively over compressor heat into a removable, dishwasher-safe dish with app cleaning reminders.</p>
+          <div class="stat-card-top">
+            <div class="stat-num">0 <span class="stat-unit">Plumbing</span></div>
+            <svg class="dina-icon" viewBox="0 0 48 48" width="38" height="38" aria-hidden="true">
+              <g class="bob"><path class="d" style="--i:0" pathLength="1" d="M24 6C24 6 12 19.5 12 28.5a12 12 0 0 0 24 0C36 19.5 24 6 24 6Z"/><path class="d ac" style="--i:2" pathLength="1" d="M18 29a6 6 0 0 0 5 6"/></g><path class="d" style="--i:3" pathLength="1" d="M10 44H38"/>
+            </svg>
+          </div>
+          <div class="stat-label">Plug In Anywhere</div>
+          <p class="stat-sub">No water line or drain needed. Defrost moisture evaporates automatically into an easy-rinse, dishwasher-safe tray.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- SECTION 5: Smart Home Ecosystems, Privacy & Power-Outage Behaviour -->
+  <!-- SECTION 5: Companion App, Smart Home & Everyday Peace of Mind -->
   <section id="app" class="row">
-    <p class="caption muted">Connected Living &amp; Resilience</p>
-    <h2>Dinner, handled <em>before you leave</em></h2>
-    <p class="lead">Full scheduling in the DINA Mobile App, standard status across your smart home, and autonomous safety if Wi-Fi or power drops.</p>
+    <p class="caption muted">App, Smart Home &amp; Peace of Mind</p>
+    <h2>Adapts to <em>your evening</em></h2>
+    <p class="lead">Change dinner plans from the train, check status in your favorite smart-home app, and count on built-in food safety if the power or Wi-Fi ever drops.</p>
 
     <div class="app-showcase-card reveal">
       <div>
         <div class="app-badge-row">
-          <span class="zone-badge">Matter over Wi-Fi</span>
           <span class="zone-badge">Apple Home</span>
           <span class="zone-badge">Google Home</span>
           <span class="zone-badge">Samsung SmartThings</span>
           <span class="zone-badge">Home Assistant</span>
+          <span class="zone-badge">Matter over Wi-Fi</span>
           <span class="zone-badge clay">Core App Free &bull; No Subscription</span>
         </div>
-        <h3 class="app-showcase-heading">DINA Mobile App + Matter Smart Home.</h3>
+        <h3 class="app-showcase-heading">Your Kitchen in Your Pocket &mdash; With Zero Monthly Fees.</h3>
         <p class="app-showcase-desc">
-          In <strong>Apple Home, Google Home, Samsung SmartThings, and Home Assistant</strong>, DINA appears with standard refrigerator functions (live temperatures, status, and safety alerts). Meal tagging, inventory, thaw-time estimates, and scheduling live in the native <strong>DINA Mobile App</strong> &mdash; with core features free and no subscription.
+          Use the <strong>DINA App</strong> to see what meals are in your freezer, confirm the 3:00 PM check-in, or push dinner back if you&rsquo;re staying late. And because DINA supports <strong>Matter over Wi-Fi</strong>, live temperatures and alerts also show up right inside <strong>Apple Home, Google Home, Samsung SmartThings, and Home Assistant</strong>.
         </p>
         <p class="app-showcase-desc" style="margin-bottom: 18px;">
-          <strong>On-Device Commute Privacy:</strong> Optional commute sync processes location strictly on your phone and sends only a delay signal to the freezer &mdash; zero location data is ever sent to the cloud.
+          <strong>Running Late? Privacy-First Commute Sync:</strong> If you get stuck in traffic on the way home, your phone can automatically tell DINA to keep dinner chilled at +3.0 &deg;C &mdash; without ever sending your map or location to the cloud.
         </p>
         <div class="hero-actions-row" style="margin: 16px 0 0;">
           <a href="app.html" class="btn btn-clay">
-            Open Full-Screen Web App
-            <svg viewBox="0 0 48 48" class="dina-icon" style="width:16px;height:16px;margin-left:4px;"><path d="M8 24H38M28 14L38 24L28 34" stroke="currentColor" stroke-width="3" fill="none"/></svg>
+            Try the Full-Screen App
+            <svg viewBox="0 0 48 48" class="dina-icon" style="width:16px;height:16px;margin-left:4px;filter:none;"><path d="M8 24H38M28 14L38 24L28 34" stroke="currentColor" stroke-width="3" fill="none"/></svg>
           </a>
           <button type="button" class="btn" id="btnToggleInlineApp" aria-expanded="false">
-            Use App Inline on This Page
+            Preview App Right Here
           </button>
         </div>
       </div>
 
       <div class="app-showcase-visual">
         <div class="door-display-preview">
-          <img src="assets/images/dina_door_display.png" alt="DINA smart OLED door display showing -18 °C freezer and +10 °C defrosting status" class="door-display-img">
+          <img src="assets/images/dina_door_display.png" alt="DINA smart door display showing -18 °C freezer and +10 °C defrosting status" class="door-display-img">
         </div>
-        <!-- Inline Animated app.svg with animated slider knob -->
-        <svg xmlns="http://www.w3.org/2000/svg" class="dina-icon app-hero-svg" viewBox="0 0 48 48" role="img" aria-label="Companion mobile app">
-          <style>svg.dina-icon{--ink:#191919;--accent:#C0775B}.dina-icon *{fill:none;stroke:var(--ink);stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}.dina-icon .ac{stroke:var(--accent)}.dina-icon .fl{fill:var(--accent);stroke:none}
-          .dina-icon .d{animation:dina-draw 1.1s cubic-bezier(.22,.61,.36,1) both;animation-delay:calc(var(--i,0)*.08s)}@keyframes dina-draw{from{stroke-dasharray:1;stroke-dashoffset:1}to{stroke-dasharray:1;stroke-dashoffset:0}}.dina-icon .vb{transform-box:view-box}@media (prefers-reduced-motion:reduce){.dina-icon *{animation:none!important}}.dina-icon .knob{transform-origin:24px 27px;animation:dina-knob 4.5s ease-in-out infinite}@keyframes dina-knob{0%,100%{transform:translateX(-5px)}50%{transform:translateX(5px)}}</style>
-          <rect class="d" style="--i:0" pathLength="1" x="13" y="4" width="22" height="40" rx="4"/><path class="d" style="--i:1" pathLength="1" d="M21 8H27"/><rect class="d" style="--i:2" pathLength="1" x="17" y="14" width="6" height="3.5" rx="1.7"/><rect class="d" style="--i:2" pathLength="1" x="25" y="14" width="6" height="3.5" rx="1.7"/><path class="d" style="--i:3" pathLength="1" d="M17 27H31"/><g class="vb knob"><circle class="d ac" style="--i:4" pathLength="1" cx="24" cy="27" r="2.4"/></g><path class="d" style="--i:4" pathLength="1" d="M21 39H27"/>
-        </svg>
-        <span class="caption" style="margin-top:12px; font-weight:700;">DINA Mobile OS</span>
-        <span style="font-size:11px; color:var(--ink-soft); margin-top:2px;">Use directly in browser or install as Web App</span>
+        <div class="app-visual-icons-pair">
+          <!-- Animated app.svg from Deck -->
+          <svg class="dina-icon app-hero-svg" viewBox="0 0 48 48" role="img" aria-label="Companion mobile app">
+            <rect class="d" style="--i:0" pathLength="1" x="13" y="4" width="22" height="40" rx="4"/><path class="d" style="--i:1" pathLength="1" d="M21 8H27"/><rect class="d" style="--i:2" pathLength="1" x="17" y="14" width="6" height="3.5" rx="1.7"/><rect class="d" style="--i:2" pathLength="1" x="25" y="14" width="6" height="3.5" rx="1.7"/><path class="d" style="--i:3" pathLength="1" d="M17 27H31"/><g class="vb knob"><circle class="d ac" style="--i:4" pathLength="1" cx="24" cy="27" r="2.4"/></g><path class="d" style="--i:4" pathLength="1" d="M21 39H27"/>
+          </svg>
+          <!-- Animated connected.svg from Deck -->
+          <svg class="dina-icon app-hero-svg" viewBox="0 0 48 48" role="img" aria-label="Smart home connectivity">
+            <g class="a3"><path class="d" style="--i:0" pathLength="1" d="M7 19a24 24 0 0 1 34 0"/></g><g class="a2"><path class="d" style="--i:1" pathLength="1" d="M12 25a16.5 16.5 0 0 1 24 0"/></g><g class="a1"><path class="d" style="--i:2" pathLength="1" d="M17.5 31a8.5 8.5 0 0 1 13 0"/></g><circle class="fl" cx="24" cy="37" r="2.2"/>
+          </svg>
+          <!-- Animated commute.svg from Deck -->
+          <svg class="dina-icon app-hero-svg" viewBox="0 0 48 48" role="img" aria-label="Commute delay protection">
+            <g class="bob"><path class="d" style="--i:0" pathLength="1" d="M24 43C24 43 11 30.5 11 20a13 13 0 0 1 26 0C37 30.5 24 43 24 43Z"/><circle class="d ac" style="--i:2" pathLength="1" cx="24" cy="20" r="5"/></g><path class="d" style="--i:3" pathLength="1" d="M16 45H32"/>
+          </svg>
+        </div>
+        <span class="caption" style="margin-top:12px; font-weight:700;">Interactive DINA App</span>
+        <span style="font-size:11px; color:var(--ink-soft); margin-top:2px;">Works in any browser on Phone, iPad, or PC &mdash; or add to Home Screen</span>
       </div>
     </div>
 
     <!-- Inline Embedded Web App Container (Use directly inside index.html without installing) -->
     <div class="inline-app-embed-wrap" id="inlineAppContainer" hidden>
       <div class="inline-app-toolbar">
-        <span class="caption">Interactive DINA Mobile OS &bull; Live Browser Embed</span>
+        <span class="caption">Interactive DINA App &bull; Live Preview</span>
         <div class="inline-app-toolbar-actions">
           <a href="app.html" class="inline-toolbar-link">Open Full-Screen</a>
-          <button type="button" class="inline-toolbar-close" id="btnCloseInlineApp">Hide Inline App</button>
+          <button type="button" class="inline-toolbar-close" id="btnCloseInlineApp">Close Preview</button>
         </div>
       </div>
       <iframe
         id="inlineAppIframe"
-        title="DINA Mobile OS Interactive Demo"
+        title="DINA Interactive Companion App Demo"
         class="inline-app-iframe"
         loading="lazy"
       ></iframe>
     </div>
 
-    <!-- Power-Outage & Wi-Fi Offline Behaviour Panel -->
+    <!-- Power-Outage & Wi-Fi Offline Behaviour Panel (Written for Household Buyers) -->
     <div class="resilience-grid reveal">
       <article class="resilience-card">
         <div class="resilience-icon-row">
-          <!-- Inline Animated outage.svg -->
-          <svg xmlns="http://www.w3.org/2000/svg" class="dina-icon" viewBox="0 0 48 48" width="44" height="44" role="img" aria-label="Power outage resilience">
-            <style>svg.dina-icon{--ink:#191919;--accent:#C0775B}.dina-icon *{fill:none;stroke:var(--ink);stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}.dina-icon .ac{stroke:var(--accent)}.dina-icon .d{animation:dina-draw 1.1s cubic-bezier(.22,.61,.36,1) both;animation-delay:calc(var(--i,0)*.08s)}@keyframes dina-draw{from{stroke-dasharray:1;stroke-dashoffset:1}to{stroke-dasharray:1;stroke-dashoffset:0}}.dina-icon .vb{transform-box:view-box}@media (prefers-reduced-motion:reduce){.dina-icon *{animation:none!important}}.dina-icon .blink{animation:dina-wave 3s ease-in-out infinite}@keyframes dina-wave{0%,100%{opacity:1}50%{opacity:.2}}</style>
-            <path class="d" style="--i:0" pathLength="1" d="M27 5L11 27H23L21 43L37 21H25Z"/><g class="blink"><path class="d ac" style="--i:2" pathLength="1" d="M6 40a30 30 0 0 1 0 -32"/><path class="d ac" style="--i:2" pathLength="1" d="M42 8a30 30 0 0 1 0 32"/></g>
+          <svg class="dina-icon" viewBox="0 0 48 48" width="44" height="44" role="img" aria-label="Power outage protection">
+            <path class="d" style="--i:0" pathLength="1" d="M27 5L11 27H23L21 43L37 21H25Z"/><g class="blink"><path class="d ac" style="--i:2" pathLength="1" d="M6 40a30 30 0 0 1 0 -32M42 8a30 30 0 0 1 0 32"/></g>
           </svg>
-          <span class="zone-badge clay">Power-Outage Behaviour</span>
+          <span class="zone-badge clay">Power-Outage Protection</span>
         </div>
-        <h3>Blackout Telemetry &amp; 2-Hour Safety Rule</h3>
+        <h3>What Happens If the Power Goes Out While You&rsquo;re Away?</h3>
         <p>
-          When power returns after an outage, DINA checks elapsed blackout time and surface temperature logs stored in non-volatile memory. If the meal stayed safely chilled, thawing resumes automatically. If the food surface exceeded <strong>+5.0 &deg;C for more than 2 hours cumulatively</strong>, heating is locked out, the handle halo flashes red, and the app alerts you to discard the meal.
+          You never have to guess if your food is still safe. When power comes back on, DINA checks how long the outage lasted and how cold the drawer stayed. If the interruption was brief and your dinner stayed safely chilled, thawing finishes normally. If the food surface ever warmed above <strong>+5.0 &deg;C for more than 2 hours</strong>, DINA stops thawing, glows red on the handle, and sends a clear alert to your phone to discard that meal.
         </p>
       </article>
 
       <article class="resilience-card">
         <div class="resilience-icon-row">
-          <!-- Inline Animated safe-hold / offline icon -->
-          <svg xmlns="http://www.w3.org/2000/svg" class="dina-icon" viewBox="0 0 48 48" width="44" height="44" role="img" aria-label="Offline schedule execution">
-            <circle class="d" style="--i:0" pathLength="1" cx="24" cy="24" r="18" stroke="var(--ink)" stroke-width="1.5" fill="none"/>
-            <path class="d ac" style="--i:1" pathLength="1" d="M24 14v10l7 4" stroke="var(--clay)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+          <svg class="dina-icon" viewBox="0 0 48 48" width="44" height="44" role="img" aria-label="Offline reliability">
+            <path class="d" style="--i:0" pathLength="1" d="M24 5L39 10V22C39 32 32 39 24 43C16 39 9 32 9 22V10Z"/><g class="chk"><path class="d ac" style="--i:2" pathLength="1" d="M16.5 24L22 29.5L32 18.5"/></g>
           </svg>
-          <span class="zone-badge">Wi-Fi Offline Autonomy</span>
+          <span class="zone-badge">Works Without Wi-Fi</span>
         </div>
-        <h3>Onboard Schedule Execution &amp; Interlocks</h3>
+        <h3>What If Your Home Internet Drops or a Dish Is in the Drawer?</h3>
         <p>
-          All scheduled drop times and thaw parameters are cached locally on the appliance controller. If home Wi-Fi or your phone goes offline, DINA executes your scheduled drop on time and transitions automatically into <strong>+3.0 &deg;C Safe-Hold (up to 24 h)</strong>. If the lower drawer is open or already holds a container at drop time, the thermal airlock stays sealed and notifies you.
+          Your dinner never depends on your Wi-Fi router. DINA remembers your weekly schedule right on the appliance—dropping tonight&rsquo;s meal on time and holding it at <strong>+3.0 &deg;C (up to 24 h)</strong> even if your internet is offline. And if the lower drawer is left open or still has yesterday&rsquo;s container inside, the drop hatch stays safely closed and sends a reminder to your phone.
         </p>
       </article>
     </div>
   </section>
 
-  <!-- SECTION 6: Short FAQ (Cleaning, Noise, Energy Use, Warranty) -->
+  <!-- SECTION 6: Short FAQ (Cleaning, Noise, Energy Use, Warranty) Written for Buyers -->
   <section id="faq" class="row sand-bg">
-    <p class="caption muted">Frequently Asked Questions</p>
-    <h2>Practical <em>questions</em>, answered</h2>
-    <p class="lead">Everything you need to know about day-to-day cleaning, kitchen acoustics, energy efficiency, and warranty support.</p>
+    <p class="caption muted">Questions &amp; Answers</p>
+    <h2>Living with <em>DINA</em></h2>
+    <p class="lead">Straightforward answers on everyday cleaning, kitchen quietness, energy efficiency, and warranty coverage.</p>
 
     <div class="faq-grid reveal">
       <article class="faq-item">
-        <span class="caption clay-text">01 &bull; Cleaning &amp; Hygiene</span>
-        <h3>How do I clean the containers, drum, and condensate dish?</h3>
+        <div class="faq-item-top">
+          <span class="caption clay-text">01 &bull; Easy Cleaning</span>
+          <svg class="dina-icon" viewBox="0 0 48 48" width="36" height="36" aria-hidden="true">
+            <g class="bob"><path class="d" style="--i:0" pathLength="1" d="M24 6C24 6 12 19.5 12 28.5a12 12 0 0 0 24 0C36 19.5 24 6 24 6Z"/><path class="d ac" style="--i:2" pathLength="1" d="M18 29a6 6 0 0 0 5 6"/></g><path class="d" style="--i:3" pathLength="1" d="M10 44H38"/>
+          </svg>
+        </div>
+        <h3>How easy is it to keep clean?</h3>
         <p>
-          Meals sit inside sealed 750 ml BPA-free polypropylene containers that go straight into the dishwasher. The revolving POM-C drum and sanitary HIPS interior liners wipe clean easily. Defrost moisture drains into a warm evaporation dish above the compressor that evaporates water passively; because raw-food drip can occur, the dish is <strong>removable, dishwasher-safe, and easy to wipe</strong>, with periodic cleaning reminders in the app.
+          Your food stays inside sealed, BPA-free 750 ml containers that go straight into the dishwasher after dinner. The smooth interior and carousel wipe clean with a damp cloth. Any moisture from defrosting collects in a self-evaporating drip tray that slides out easily and is <strong>100% dishwasher-safe</strong>, with gentle app reminders when it&rsquo;s time for a quick rinse.
         </p>
       </article>
 
       <article class="faq-item">
-        <span class="caption clay-text">02 &bull; Noise Level</span>
-        <h3>How quiet is DINA in an open-plan kitchen?</h3>
+        <div class="faq-item-top">
+          <span class="caption clay-text">02 &bull; Kitchen Quietness</span>
+          <svg class="dina-icon" viewBox="0 0 48 48" width="36" height="36" aria-hidden="true">
+            <circle class="d" style="--i:0" pathLength="1" cx="24" cy="24" r="19"/><g class="vb spin-fan"><g transform="rotate(0 24 24)"><path class="d" style="--i:1" pathLength="1" d="M24 21C23 13 27 8 33 9C34.5 15 30 20 24 21Z"/></g><g transform="rotate(120 24 24)"><path class="d" style="--i:1" pathLength="1" d="M24 21C23 13 27 8 33 9C34.5 15 30 20 24 21Z"/></g><g transform="rotate(240 24 24)"><path class="d" style="--i:1" pathLength="1" d="M24 21C23 13 27 8 33 9C34.5 15 30 20 24 21Z"/></g></g><circle class="d ac" style="--i:2" pathLength="1" cx="24" cy="24" r="3"/>
+          </svg>
+        </div>
+        <h3>Will I hear it in an open-plan kitchen?</h3>
         <p>
-          DINA operates at <strong>under 32 dBA</strong> thanks to a variable-speed inverter compressor and brushless micro-convection fan. The motorized carousel turns briefly for a few seconds only when you load a container or when a scheduled drop is triggered.
+          Barely a whisper. At <strong>under 32 dBA</strong>, DINA is quieter than a soft conversation or a library room. The inner meal carousel turns for just a few seconds when you load groceries or when tonight&rsquo;s meal drops into the drawer while you&rsquo;re at work.
         </p>
       </article>
 
       <article class="faq-item">
-        <span class="caption clay-text">03 &bull; Energy Use &amp; Insulation</span>
-        <h3>Does thawing in the lower drawer warm up the freezer above?</h3>
+        <div class="faq-item-top">
+          <span class="caption clay-text">03 &bull; Energy &amp; Cold Protection</span>
+          <!-- Animated thermometer.svg from Deck -->
+          <svg class="dina-icon" viewBox="0 0 48 48" width="36" height="36" aria-hidden="true">
+            <path class="d" style="--i:0" pathLength="1" d="M20 29V12a4 4 0 0 1 8 0V29a8 8 0 1 1 -8 0Z"/><path class="d" style="--i:2" pathLength="1" d="M32 14H36M32 20H36M32 26H36"/><g class="merc"><path class="d ac" style="--i:3" pathLength="1" d="M24 33V17"/></g><circle class="fl" cx="24" cy="36" r="3.2"/>
+          </svg>
+        </div>
+        <h3>Does thawing dinner warm up the rest of the freezer?</h3>
         <p>
-          No. The &minus;18 &deg;C drum chamber and the lower defrost drawer are separated by a <strong>48 mm hybrid Vacuum Insulation Panel (VIP) and polyurethane barrier</strong>, paired with a motorized dual-seal silicone airlock hatch that opens for only 2.5 seconds during a drop. Because the lower drawer slides out independently, you never open the main freezer door to retrieve dinner.
+          Not at all. A thick vacuum-insulated barrier separates the &minus;18 &deg;C freezer above from the lower defrost drawer, and the internal drop hatch opens for just 2.5 seconds. Even better, because you only slide open the small lower drawer at dinnertime, you don&rsquo;t let cold air spill out of the main freezer door every evening.
         </p>
       </article>
 
       <article class="faq-item">
-        <span class="caption clay-text">04 &bull; Warranty &amp; Subscriptions</span>
+        <div class="faq-item-top">
+          <span class="caption clay-text">04 &bull; Warranty &amp; Zero Subscriptions</span>
+          <svg class="dina-icon" viewBox="0 0 48 48" width="36" height="36" aria-hidden="true">
+            <path class="d" style="--i:0" pathLength="1" d="M24 5L39 10V22C39 32 32 39 24 43C16 39 9 32 9 22V10Z"/><g class="chk"><path class="d ac" style="--i:2" pathLength="1" d="M16.5 24L22 29.5L32 18.5"/></g>
+          </svg>
+        </div>
         <h3>What warranty is included, and is there a monthly fee?</h3>
         <p>
-          DINA is designed to include a full <strong>2-year European consumer hardware warranty</strong> backed by modular, serviceable subassemblies. Core companion app features (meal tagging, scheduling, commute sync, safety alerts) and Matter smart-home integration are <strong>free with no subscription</strong>.
+          DINA comes with a full <strong>2-year European consumer warranty</strong> and is built with easy-to-service modular parts. Most importantly, your kitchen appliance doesn&rsquo;t come with a bill: core app features (scheduling, afternoon check-ins, commute sync, and smart-home alerts) are <strong>free with no subscription</strong>.
         </p>
       </article>
     </div>
@@ -809,27 +1000,46 @@
 
   <!-- SECTION 7: Target Price, Availability & "Notify Me at Launch" Sign-Up -->
   <section id="pricing" class="row">
-    <p class="caption muted">Pricing &amp; Availability</p>
-    <h2>Simple pricing. <em>No subscription</em>.</h2>
-    <p class="lead">Target commercial launch in Q4 2027, aligned with the DINA product deck.</p>
+    <p class="caption muted">Pricing &amp; Early Access</p>
+    <h2>One honest price. <em>No subscription</em>.</h2>
+    <p class="lead">Everything you need for stress-free weeknight dinners, launching in Q4 2027.</p>
 
     <div class="pricing-cards-grid">
       <div class="price-card reveal">
-        <div class="price-val">799 to 849 &euro;</div>
+        <div class="stat-card-top">
+          <div class="price-val">799 to 849 &euro;</div>
+          <!-- Animated Price Tag Icon from Presentation Deck -->
+          <svg class="dina-icon" viewBox="0 0 48 48" width="38" height="38" aria-hidden="true">
+            <path class="d" style="--i:0" pathLength="1" d="M8 8H24L41 25L25 41L8 24V8Z"/>
+            <g class="vb pulse-tag"><circle class="d ac" style="--i:2" pathLength="1" cx="18" cy="18" r="4"/></g>
+          </svg>
+        </div>
         <div class="price-caption">Target Retail Price (incl. VAT)</div>
-        <p class="price-sub">60 cm width upright freezer with 11 meals automated carousel (8.25 L net), 110 L top shelves, independent defrost drawer, and starter container pack.</p>
+        <p class="price-sub">Includes the 60 cm width upright freezer, 11-meal revolving carousel, 110 L top freezer shelves, independent defrost drawer, and reusable container set.</p>
       </div>
 
       <div class="price-card highlight reveal">
-        <div class="price-val">0 &euro; <span class="price-unit">/ month</span></div>
+        <div class="stat-card-top">
+          <div class="price-val">0 &euro; <span class="price-unit">/ month</span></div>
+          <!-- Animated App Icon from Presentation Deck -->
+          <svg class="dina-icon" viewBox="0 0 48 48" width="38" height="38" aria-hidden="true">
+            <rect class="d" style="--i:0" pathLength="1" x="13" y="4" width="22" height="40" rx="4"/><path class="d" style="--i:1" pathLength="1" d="M21 8H27"/><rect class="d" style="--i:2" pathLength="1" x="17" y="14" width="6" height="3.5" rx="1.7"/><rect class="d" style="--i:2" pathLength="1" x="25" y="14" width="6" height="3.5" rx="1.7"/><path class="d" style="--i:3" pathLength="1" d="M17 27H31"/><g class="vb knob"><circle class="d ac" style="--i:4" pathLength="1" cx="24" cy="27" r="2.4"/></g><path class="d" style="--i:4" pathLength="1" d="M21 39H27"/>
+          </svg>
+        </div>
         <div class="price-caption">Core Features Free &bull; No Subscription</div>
-        <p class="price-sub">Core companion app features &mdash; meal scheduling, 15:00 one-tap confirm, commute sync, and Matter status integration &mdash; are free with no subscription.</p>
+        <p class="price-sub">No paywalls on your kitchen. Meal scheduling, 3:00 PM one-tap confirmation, traffic delay hold, and smart-home connection are included free with no subscription.</p>
       </div>
 
       <div class="price-card reveal">
-        <div class="price-val">Target Q4 2027</div>
-        <div class="price-caption">Planned Release</div>
-        <p class="price-sub">Currently in alpha bench testing for thaw curve and safety verification ahead of European and international rollout.</p>
+        <div class="stat-card-top">
+          <div class="price-val">Target Q4 2027</div>
+          <!-- Animated Schedule Calendar Icon from Presentation Deck -->
+          <svg class="dina-icon" viewBox="0 0 48 48" width="38" height="38" aria-hidden="true">
+            <rect class="d" style="--i:0" pathLength="1" x="6" y="9" width="36" height="33" rx="3"/><path class="d" style="--i:1" pathLength="1" d="M6 18H42"/><path class="d" style="--i:1" pathLength="1" d="M15 5V12M33 5V12"/><path class="d" style="--i:2" pathLength="1" d="M13 26H16M22.5 26H25.5M32 26H35M13 34H16M22.5 34H25.5"/><g class="vb pulse-cal"><circle class="d ac" style="--i:3" pathLength="1" cx="33.5" cy="34" r="3.6"/></g>
+          </svg>
+        </div>
+        <div class="price-caption">First Kitchen Deliveries</div>
+        <p class="price-sub">Join the early-access list below to be first in line when preorders and pilot home invitations open ahead of our Q4 2027 launch.</p>
       </div>
     </div>
 
@@ -837,27 +1047,26 @@
     <div id="notify-signup" class="notify-signup-card reveal">
       <div class="notify-signup-copy">
         <div class="notify-icon-title">
-          <!-- Inline Animated notify.svg -->
-          <svg xmlns="http://www.w3.org/2000/svg" class="dina-icon" viewBox="0 0 48 48" width="40" height="40" role="img" aria-label="Launch notification">
-            <style>svg.dina-icon{--ink:#191919;--accent:#C0775B}.dina-icon *{fill:none;stroke:var(--ink);stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}.dina-icon .ac{stroke:var(--accent)}.dina-icon .d{animation:dina-draw 1.1s cubic-bezier(.22,.61,.36,1) both;animation-delay:calc(var(--i,0)*.08s)}@keyframes dina-draw{from{stroke-dasharray:1;stroke-dashoffset:1}to{stroke-dasharray:1;stroke-dashoffset:0}}.dina-icon .vb{transform-box:view-box}@media (prefers-reduced-motion:reduce){.dina-icon *{animation:none!important}}.dina-icon .swing{transform-origin:24px 6px;animation:dina-ring 4.5s ease-in-out infinite 1.5s}@keyframes dina-ring{0%,20%,100%{transform:rotate(0)}4%{transform:rotate(9deg)}8%{transform:rotate(-8deg)}12%{transform:rotate(5deg)}16%{transform:rotate(-3deg)}}</style>
-            <g class="vb swing"><path class="d" style="--i:0" pathLength="1" d="M24 6C17 6 13 11 13 18V26L9 32H39L35 26V18C35 11 31 6 24 6Z"/><path class="d" style="--i:2" pathLength="1" d="M20 37a4 4 0 0 0 8 0"/></g><path class="d ac" style="--i:3" pathLength="1" d="M38 11a12 12 0 0 1 4 8"/><path class="d ac" style="--i:3" pathLength="1" d="M10 11a12 12 0 0 0 -4 8"/>
+          <!-- Animated notify.svg from Deck -->
+          <svg class="dina-icon" viewBox="0 0 48 48" width="44" height="44" role="img" aria-label="Launch notification">
+            <g class="vb swing"><path class="d" style="--i:0" pathLength="1" d="M24 6C17 6 13 11 13 18V26L9 32H39L35 26V18C35 11 31 6 24 6Z"/><path class="d" style="--i:2" pathLength="1" d="M20 37a4 4 0 0 0 8 0"/></g><path class="d ac" style="--i:3" pathLength="1" d="M38 11a12 12 0 0 1 4 8M10 11a12 12 0 0 0 -4 8"/>
           </svg>
           <div>
-            <span class="caption clay-text">Early Access Waitlist &bull; Target Q4 2027</span>
-            <h3>Get notified at <em>launch</em></h3>
+            <span class="caption clay-text">Priority Waitlist &bull; Target Q4 2027</span>
+            <h3>Be first when <em>DINA launches</em></h3>
           </div>
         </div>
         <p class="notify-desc">
-          Join the priority list for pilot household invitations and launch availability (target 799 to 849 &euro;, target Q4 2027). No spam &mdash; only key milestone and preorder updates.
+          Leave your email to get early access to preorders and home pilot invitations (799 to 849 &euro;, target Q4 2027). Zero spam &mdash; we only write when there is real news.
         </p>
         <div class="notify-counter-line">
           <span class="dot-clay"></span>
-          <span><strong id="waitlistCountDisplay">142</strong> households registered for launch updates</span>
+          <span><strong id="waitlistCountDisplay">142</strong> households waiting for launch</span>
         </div>
       </div>
 
       <form class="notify-form" id="notifyLaunchForm" novalidate>
-        <label for="notifyEmailInput" class="caption muted" style="display:block; margin-bottom:6px;">Email Address</label>
+        <label for="notifyEmailInput" class="caption muted" style="display:block; margin-bottom:6px;">Your Email Address</label>
         <div class="notify-input-row">
           <input
             type="email"
@@ -884,7 +1093,7 @@
       <div class="footer-brand-col">
         <span class="brand-name" style="font-size:20px; font-weight:700;">DINA</span>
         <p style="font-size:13px; color:var(--ink-soft); margin:6px 0 0; max-width:48ch; line-height:1.45;">
-          Defrosting Is Now Automatic. Upright 60 cm width smart freezer storing 11 meals at &minus;18 &deg;C with scheduled gentle thawing and +3.0 &deg;C Safe-Hold. Target 799 to 849 &euro; &bull; Target Q4 2027.
+          Defrosting Is Now Automatic. The 60 cm width smart freezer that holds 11 meals at &minus;18 &deg;C, thaws tonight&rsquo;s dinner while you work, and keeps it fridge-fresh at +3.0 &deg;C. Target 799 to 849 &euro; &bull; Target Q4 2027.
         </p>
       </div>
 
@@ -893,8 +1102,8 @@
           Notify Me at Launch
         </a>
         <a href="app.html" class="btn" style="font-size:11px; padding:10px 16px;">
-          Try Mobile App Demo
-          <svg viewBox="0 0 48 48" class="dina-icon" style="width:14px;height:14px;margin-left:4px;"><path d="M8 24H38M28 14L38 24L28 34" stroke="currentColor" stroke-width="3" fill="none"/></svg>
+          Try the Interactive App
+          <svg viewBox="0 0 48 48" class="dina-icon" style="width:14px;height:14px;margin-left:4px;filter:none;"><path d="M8 24H38M28 14L38 24L28 34" stroke="currentColor" stroke-width="3" fill="none"/></svg>
         </a>
         <a href="#home" class="footer-back-top">&uarr; Back to Top</a>
       </div>
@@ -906,6 +1115,6 @@
     </div>
   </footer>
 
-  <script src="js/main.js?v=7.5"></script>
+  <script src="js/main.js?v=7.7"></script>
 </body>
 </html>

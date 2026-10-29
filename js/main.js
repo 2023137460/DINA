@@ -122,11 +122,11 @@ document.addEventListener("DOMContentLoaded", () => {
         if (state === "ready") {
           haloRing.classList.remove("amber");
           haloRing.classList.add("green");
-          haloStatus.textContent = "Status: Thawed & Chilled at +3.0 °C (Ready, up to 24 h Safe-Hold)";
+          haloStatus.textContent = "Handle Glow: Fresh Green — Dinner Is Ready to Cook (Chilled at +3 °C up to 24 h)";
         } else {
           haloRing.classList.remove("green");
           haloRing.classList.add("amber");
-          haloStatus.textContent = "Status: Actively Thawing on Schedule (Surface <= +4.0 °C)";
+          haloStatus.textContent = "Handle Glow: Warm Amber — Gently Thawing Tonight's Dinner";
         }
       });
     });
@@ -240,7 +240,7 @@ document.addEventListener("DOMContentLoaded", () => {
       } else {
         inlineAppContainer.setAttribute("hidden", "");
         btnToggleInlineApp.setAttribute("aria-expanded", "false");
-        btnToggleInlineApp.textContent = "Use App Inline on This Page";
+        btnToggleInlineApp.textContent = "Preview App Right Here";
       }
     });
   }
@@ -249,7 +249,7 @@ document.addEventListener("DOMContentLoaded", () => {
     btnCloseInlineApp.addEventListener("click", () => {
       inlineAppContainer.setAttribute("hidden", "");
       btnToggleInlineApp.setAttribute("aria-expanded", "false");
-      btnToggleInlineApp.textContent = "Use App Inline on This Page";
+      btnToggleInlineApp.textContent = "Preview App Right Here";
     });
   }
 });
