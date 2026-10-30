@@ -21,14 +21,14 @@ document.addEventListener("DOMContentLoaded", () => {
   // Upper Ring: Containers 01 - 06 (6 meal containers)
   // Lower Ring: Containers 07 - 11 (5 meal containers) + Slot 12 (Auto-Drop Path)
   const drumInventory = {
-    "01": { id: "01", name: "Chicken Breast", category: "chicken", weight: 500, tier: 2, slot: "01", thawTime: 95 },
-    "02": { id: "02", name: "Beef Ribeye", category: "beef", weight: 450, tier: 2, slot: "02", thawTime: 85 },
-    "03": { id: "03", name: "Atlantic Salmon", category: "fish", weight: 320, tier: 2, slot: "03", thawTime: 65 },
-    "04": { id: "04", name: "Tiger Prawns", category: "shrimp", weight: 250, tier: 2, slot: "04", thawTime: 40 },
-    "05": { id: "05", name: "Homemade Lasagna", category: "lasagna", weight: 600, tier: 2, slot: "05", thawTime: 104 },
-    "06": { id: "06", name: "Pork Tenderloin", category: "pork", weight: 350, tier: 2, slot: "06", thawTime: 74 },
-    "07": { id: "07", name: "Codfish Loins", category: "fish", weight: 400, tier: 1, slot: "07", thawTime: 76 },
-    "08": { id: "08", name: "Steak Mignon", category: "beef", weight: 300, tier: 1, slot: "08", thawTime: 64 },
+    "01": { id: "01", name: "Chicken Breast", category: "chicken", weight: 500, tier: 2, slot: "01", thawTime: 95, photo: "assets/images/meal_chicken_breast.jpg" },
+    "02": { id: "02", name: "Beef Ribeye", category: "beef", weight: 450, tier: 2, slot: "02", thawTime: 85, photo: "assets/images/meal_beef_ribeye.jpg" },
+    "03": { id: "03", name: "Atlantic Salmon", category: "fish", weight: 320, tier: 2, slot: "03", thawTime: 65, photo: "assets/images/meal_salmon_fillet.jpg" },
+    "04": { id: "04", name: "Tiger Prawns", category: "shrimp", weight: 250, tier: 2, slot: "04", thawTime: 40, photo: "assets/images/meal_tiger_prawns.jpg" },
+    "05": { id: "05", name: "Homemade Lasagna", category: "lasagna", weight: 600, tier: 2, slot: "05", thawTime: 104, photo: "assets/images/meal_lasagna.jpg" },
+    "06": { id: "06", name: "Pork Tenderloin", category: "pork", weight: 350, tier: 2, slot: "06", thawTime: 74, photo: "assets/images/meal_pork_tenderloin.jpg" },
+    "07": { id: "07", name: "Codfish Loins", category: "fish", weight: 400, tier: 1, slot: "07", thawTime: 76, photo: "assets/images/meal_salmon_fillet.jpg" },
+    "08": { id: "08", name: "Steak Mignon", category: "beef", weight: 300, tier: 1, slot: "08", thawTime: 64, photo: "assets/images/meal_beef_ribeye.jpg" },
     "09": null,
     "10": null,
     "11": null,
@@ -45,6 +45,19 @@ document.addEventListener("DOMContentLoaded", () => {
     lasagna: { name: "Lasagna & Batch Dish", base: 35, factor: 0.115 },
     pork: { name: "Pork & Medallions", base: 28, factor: 0.13 }
   };
+
+  function getCategoryPhoto(cat) {
+    const photos = {
+      beef: "assets/images/meal_beef_ribeye.jpg",
+      chicken: "assets/images/meal_chicken_breast.jpg",
+      fish: "assets/images/meal_salmon_fillet.jpg",
+      shrimp: "assets/images/meal_tiger_prawns.jpg",
+      lasagna: "assets/images/meal_lasagna.jpg",
+      pork: "assets/images/meal_pork_tenderloin.jpg",
+      vegetables: "assets/images/meal_vegetables.jpg"
+    };
+    return photos[cat] || "assets/images/meal_custom_dish.jpg";
+  }
 
   // Simulated current afternoon time (17:20) so visitors can test both usual and early dinner times
   const DEMO_NOW_MINS = 17 * 60 + 20;
@@ -384,6 +397,114 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
+  const loadMealNameInput = document.getElementById("loadMealNameInput");
+  const btnToggleCustomType = document.getElementById("btnToggleCustomType");
+  const chipAddCustomType = document.getElementById("chipAddCustomType");
+  const customTypePanel = document.getElementById("customTypePanel");
+  const customTypeNameInput = document.getElementById("customTypeNameInput");
+  const btnSaveCustomType = document.getElementById("btnSaveCustomType");
+  const btnCancelCustomType = document.getElementById("btnCancelCustomType");
+  const categoryChipsGrid = document.getElementById("categoryChipsGrid");
+
+  function openCustomTypePanel() {
+    if (customTypePanel) {
+      customTypePanel.removeAttribute("hidden");
+      if (customTypeNameInput) {
+        customTypeNameInput.focus();
+      }
+    }
+  }
+
+  function closeCustomTypePanel() {
+    if (customTypePanel) {
+      customTypePanel.setAttribute("hidden", "");
+      if (customTypeNameInput) customTypeNameInput.value = "";
+    }
+  }
+
+  if (btnToggleCustomType) {
+    btnToggleCustomType.addEventListener("click", () => {
+      triggerHaptic([10]);
+      openCustomTypePanel();
+    });
+  }
+
+  if (chipAddCustomType) {
+    chipAddCustomType.addEventListener("click", () => {
+      triggerHaptic([10]);
+      openCustomTypePanel();
+    });
+  }
+
+  if (btnCancelCustomType) {
+    btnCancelCustomType.addEventListener("click", () => {
+      triggerHaptic([10]);
+      closeCustomTypePanel();
+    });
+  }
+
+  if (btnSaveCustomType) {
+    btnSaveCustomType.addEventListener("click", () => {
+      const typeName = customTypeNameInput ? customTypeNameInput.value.trim() : "";
+      if (!typeName) {
+        showToast("Please enter a name for the new food type.");
+        if (customTypeNameInput) customTypeNameInput.focus();
+        return;
+      }
+
+      // Check selected thaw density
+      const densityRadio = document.querySelector('input[name="customThawDensity"]:checked');
+      const density = densityRadio ? densityRadio.value : "medium";
+      let base = 26;
+      let factor = 0.125;
+      if (density === "light") {
+        base = 18;
+        factor = 0.10;
+      } else if (density === "dense") {
+        base = 32;
+        factor = 0.135;
+      }
+
+      const catKey = "custom_" + Date.now().toString(36);
+      CATEGORY_FORMULAS[catKey] = {
+        name: typeName,
+        base: base,
+        factor: factor
+      };
+
+      // Create new category chip button in the grid
+      const newChip = document.createElement("button");
+      newChip.className = "cat-chip selected";
+      newChip.dataset.cat = catKey;
+      newChip.type = "button";
+      newChip.textContent = typeName;
+
+      // Deselect all existing category chips
+      document.querySelectorAll(".cat-chip").forEach(c => c.classList.remove("selected"));
+
+      // Attach selection handler to new chip
+      newChip.addEventListener("click", () => {
+        document.querySelectorAll(".cat-chip").forEach(c => c.classList.remove("selected"));
+        newChip.classList.add("selected");
+        state.loadingCategory = catKey;
+        updateLoadingThawDisplay();
+        triggerHaptic([10]);
+      });
+
+      if (categoryChipsGrid && chipAddCustomType) {
+        categoryChipsGrid.insertBefore(newChip, chipAddCustomType);
+      } else if (categoryChipsGrid) {
+        categoryChipsGrid.appendChild(newChip);
+      }
+
+      state.loadingCategory = catKey;
+      updateLoadingThawDisplay();
+      closeCustomTypePanel();
+      triggerHaptic([20]);
+      showToast(`Added new food type: "${typeName}".`);
+    });
+  }
+
   drumSlotButtons.forEach(btn => {
     btn.addEventListener("click", () => {
       const slot = btn.dataset.slot;
@@ -404,7 +525,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   loadCategoryChips.forEach(chip => {
     chip.addEventListener("click", () => {
-      loadCategoryChips.forEach(c => c.classList.remove("selected"));
+      if (chip.id === "chipAddCustomType") return;
+      document.querySelectorAll(".cat-chip").forEach(c => c.classList.remove("selected"));
       chip.classList.add("selected");
       state.loadingCategory = chip.dataset.cat;
       updateLoadingThawDisplay();
@@ -433,27 +555,172 @@ document.addEventListener("DOMContentLoaded", () => {
       triggerHaptic([20, 60]);
       const slot = state.loadingTargetSlot;
       const mins = calculateThaw(state.loadingCategory, state.loadingWeight);
-      const catName = CATEGORY_FORMULAS[state.loadingCategory].name.split("&")[0].trim();
+      const catFormula = CATEGORY_FORMULAS[state.loadingCategory] || CATEGORY_FORMULAS.beef;
+      const customMealName = loadMealNameInput ? loadMealNameInput.value.trim() : "";
+      const finalMealName = customMealName || catFormula.name.split("&")[0].trim();
+      const photoPath = getCategoryPhoto(state.loadingCategory);
 
       drumInventory[slot] = {
         id: slot,
-        name: `${catName}`,
+        name: finalMealName,
         category: state.loadingCategory,
         weight: state.loadingWeight,
         tier: parseInt(slot, 10) <= 6 ? 2 : 1,
         slot: slot,
-        thawTime: mins
+        thawTime: mins,
+        photo: photoPath
       };
 
       const slotBtn = document.querySelector(`.drum-slot-btn[data-slot="${slot}"]`);
       if (slotBtn) {
         slotBtn.classList.remove("empty");
         const nameEl = slotBtn.querySelector(".slot-name");
-        if (nameEl) nameEl.textContent = `${catName} (${state.loadingWeight}g)`;
+        if (nameEl) nameEl.textContent = `${finalMealName} (${state.loadingWeight}g)`;
       }
 
+      // Update or add meal card to Tab 1: Tonight's Dinner grid
+      const existingMealCard = document.querySelector(`.meal-card[data-slot="${slot}"]`);
+      if (existingMealCard) {
+        const thumbImg = existingMealCard.querySelector(".meal-thumb-wrap img");
+        if (thumbImg) thumbImg.src = photoPath;
+        const badge = existingMealCard.querySelector(".badge-tagged");
+        if (badge) badge.textContent = `~${mins} min`;
+        const label = existingMealCard.querySelector(".meal-label");
+        if (label) label.textContent = finalMealName;
+        const sublabel = existingMealCard.querySelector(".meal-sublabel");
+        if (sublabel) sublabel.textContent = `${state.loadingWeight} g`;
+      } else {
+        const mealGrid = document.getElementById("mealGrid");
+        if (mealGrid) {
+          const newCard = document.createElement("article");
+          newCard.className = "meal-card";
+          newCard.dataset.slot = slot;
+          newCard.tabIndex = 0;
+          newCard.innerHTML = `
+            <span class="badge-tagged">~${mins} min</span>
+            <div class="meal-thumb-wrap">
+              <img src="${photoPath}" alt="${finalMealName}" loading="lazy">
+            </div>
+            <div class="meal-label">${finalMealName}</div>
+            <div class="meal-sublabel">Container ${slot} (${state.loadingWeight} g)</div>
+          `;
+          newCard.addEventListener("click", () => {
+            triggerHaptic([10]);
+            document.querySelectorAll(".meal-card").forEach(c => c.classList.remove("selected"));
+            newCard.classList.add("selected");
+            state.selectedSlot = slot;
+            state.selectedMeal = drumInventory[slot];
+            updateDialUI();
+            showToast(`${finalMealName} selected for tonight (~${mins} min gentle thaw).`);
+          });
+          mealGrid.appendChild(newCard);
+        }
+      }
+
+      if (loadMealNameInput) loadMealNameInput.value = "";
       rotateCarouselToSlot(slot);
-      showToast(`Container ${slot} rotated to the door and stocked with ${catName} (${state.loadingWeight} g).`);
+      showToast(`Container ${slot} rotated to the door and stocked with ${finalMealName} (${state.loadingWeight} g).`);
+    });
+  }
+
+  // TAB 4: KITCHEN & CARE (Initialized before map scenes to avoid TDZ)
+  const haloVisual = document.getElementById("haloRingVisual");
+  const haloStateLabel = document.getElementById("haloStateLabel");
+  const haloBtns = document.querySelectorAll(".halo-btn");
+  const telemDrawerTemp = document.getElementById("telemDrawerTemp");
+  const telemBlackoutVal = document.getElementById("telemBlackoutVal");
+  const btnSimPowerCut = document.getElementById("btnSimPowerCut");
+  const btnSimDrawerOpen = document.getElementById("btnSimDrawerOpen");
+  const btnSimDishClean = document.getElementById("btnSimDishClean");
+  const scenarioBtns = document.querySelectorAll(".scenario-btn");
+  const scenarioFeedbackBox = document.getElementById("scenarioFeedbackBox");
+  const scenarioFeedbackText = document.getElementById("scenarioFeedbackText");
+
+  function setHaloState(mode, isUserManual = false) {
+    if (isUserManual) {
+      state.userManualHalo = true;
+    }
+    if (haloVisual) {
+      haloVisual.className = "halo-ring-visual " + mode;
+    }
+    state.haloState = mode;
+
+    haloBtns.forEach(btn => {
+      btn.classList.toggle("active", btn.dataset.mode === mode);
+    });
+
+    let desc = "Warm Amber — Gently Thawing Tonight's Dinner";
+    if (mode === "cyan") {
+      desc = "Soft Blue — All Meals Deep-Frozen (-18.0 °C)";
+      if (telemDrawerTemp) telemDrawerTemp.textContent = "-18.0 °C";
+      if (telemBlackoutVal) telemBlackoutVal.textContent = "All Good";
+    } else if (mode === "amber") {
+      desc = "Warm Amber — Gently Thawing Tonight's Dinner";
+      if (telemDrawerTemp) telemDrawerTemp.textContent = "+10.0 °C";
+      if (telemBlackoutVal) telemBlackoutVal.textContent = "All Good";
+    } else if (mode === "green") {
+      desc = "Fresh Green — Dinner Is Ready to Cook (+3.0 °C Fridge Hold)";
+      if (telemDrawerTemp) telemDrawerTemp.textContent = "+3.0 °C";
+      if (telemBlackoutVal) telemBlackoutVal.textContent = "All Good";
+    } else if (mode === "red") {
+      desc = "Red Pulse — Food Safety Alert (Check Phone)";
+      if (telemDrawerTemp) telemDrawerTemp.textContent = "+5.8 °C";
+      if (telemBlackoutVal) telemBlackoutVal.textContent = "Alert: Discard Meal";
+    }
+
+    if (haloStateLabel) haloStateLabel.textContent = desc;
+  }
+
+  haloBtns.forEach(btn => {
+    btn.addEventListener("click", () => {
+      const mode = btn.dataset.mode;
+      setHaloState(mode, true);
+      triggerHaptic([10]);
+      if (scenarioFeedbackBox) scenarioFeedbackBox.setAttribute("hidden", "");
+      scenarioBtns.forEach(b => b.classList.remove("active"));
+      showToast(`Handle Light: ${mode.toUpperCase()} mode preview`);
+    });
+  });
+
+  // Customer-Friendly Peace-of-Mind Scenarios
+  if (btnSimPowerCut) {
+    btnSimPowerCut.addEventListener("click", () => {
+      triggerHaptic([30, 40, 30]);
+      scenarioBtns.forEach(b => b.classList.remove("active"));
+      btnSimPowerCut.classList.add("active");
+      setHaloState("red", true);
+      if (telemBlackoutVal) telemBlackoutVal.textContent = "Alert: Discard Meal";
+      if (scenarioFeedbackBox) scenarioFeedbackBox.removeAttribute("hidden");
+      if (scenarioFeedbackText) {
+        scenarioFeedbackText.innerHTML = "<strong>Power-Cut Guard:</strong> Power was out for over 2 hours and food rose above +5.0 °C. Thawing was paused immediately, handle is pulsing red, and an alert was sent to your phone to discard the dish safely.";
+      }
+      showToast("Power-Cut Protection: Drawer warmed above +5 °C for >2h. Thawing stopped & safety alert triggered.");
+    });
+  }
+
+  if (btnSimDrawerOpen) {
+    btnSimDrawerOpen.addEventListener("click", () => {
+      triggerHaptic([20]);
+      scenarioBtns.forEach(b => b.classList.remove("active"));
+      btnSimDrawerOpen.classList.add("active");
+      if (scenarioFeedbackBox) scenarioFeedbackBox.removeAttribute("hidden");
+      if (scenarioFeedbackText) {
+        scenarioFeedbackText.innerHTML = "<strong>Smart Pause Active:</strong> A dish is still in the lower drawer (or the drawer is slightly open). DINA keeps the upper drop hatch securely closed to prevent any collisions until you slide the drawer shut.";
+      }
+      showToast("Smart Pause: Lower drawer is occupied or open. Drop hatch kept sealed safely.");
+    });
+  }
+
+  if (btnSimDishClean) {
+    btnSimDishClean.addEventListener("click", () => {
+      triggerHaptic([15]);
+      scenarioBtns.forEach(b => b.classList.remove("active"));
+      btnSimDishClean.classList.add("active");
+      if (scenarioFeedbackBox) scenarioFeedbackBox.removeAttribute("hidden");
+      if (scenarioFeedbackText) {
+        scenarioFeedbackText.innerHTML = "<strong>Easy Care:</strong> Any moisture from gentle convection defrosting drains into the self-evaporating drip tray. It slides out effortlessly and is 100% dishwasher-safe.";
+      }
+      showToast("Easy Care: Removable drip tray is dishwasher-safe and ready for a quick rinse.");
     });
   }
 
@@ -612,7 +879,9 @@ document.addEventListener("DOMContentLoaded", () => {
       commuteArrivalText.textContent = scene.arrivalText;
     }
 
-    setHaloState(scene.homeHalo === "green" ? "green" : "amber");
+    if (!state.userManualHalo || state.activeTab === "tab-map") {
+      setHaloState(scene.homeHalo === "green" ? "green" : "amber", false);
+    }
 
     if (announceToast) {
       showToast(`${scene.locationLabel} • ${scene.defrostLabel}`);
@@ -709,75 +978,6 @@ document.addEventListener("DOMContentLoaded", () => {
         if (headerStatusText) headerStatusText.textContent = "My Kitchen • Connected";
         showToast("Home Wi-Fi reconnected.");
       }
-    });
-  }
-
-  // TAB 4: KITCHEN & CARE
-  const haloVisual = document.getElementById("haloRingVisual");
-  const haloStateLabel = document.getElementById("haloStateLabel");
-  const haloBtns = document.querySelectorAll(".halo-btn");
-  const telemDrawerTemp = document.getElementById("telemDrawerTemp");
-  const telemBlackoutVal = document.getElementById("telemBlackoutVal");
-
-  function setHaloState(mode) {
-    if (!haloVisual) return;
-    haloVisual.className = "halo-ring-visual " + mode;
-    state.haloState = mode;
-
-    let desc = "Warm Amber — Gently Thawing Tonight's Dinner";
-    if (mode === "cyan") {
-      desc = "Soft Blue — All Meals Deep-Frozen (-18.0 °C)";
-      if (telemDrawerTemp) telemDrawerTemp.textContent = "+3.0 °C";
-    } else if (mode === "amber") {
-      if (telemDrawerTemp) telemDrawerTemp.textContent = "+10.0 °C";
-      if (telemBlackoutVal) telemBlackoutVal.textContent = "All Good";
-    } else if (mode === "green") {
-      desc = "Fresh Green — Dinner Is Ready to Cook (+3.0 °C Fridge Hold)";
-      if (telemDrawerTemp) telemDrawerTemp.textContent = "+3.0 °C";
-      if (telemBlackoutVal) telemBlackoutVal.textContent = "All Good";
-    } else if (mode === "red") {
-      desc = "Red Pulse — Food Safety Alert (Check Phone)";
-    }
-
-    if (haloStateLabel) haloStateLabel.textContent = desc;
-  }
-
-  haloBtns.forEach(btn => {
-    btn.addEventListener("click", () => {
-      const mode = btn.dataset.mode;
-      setHaloState(mode);
-      triggerHaptic([10]);
-    });
-  });
-
-  // Customer-Friendly Peace-of-Mind Scenarios
-  const btnSimPowerCut = document.getElementById("btnSimPowerCut");
-  const btnSimDrawerOpen = document.getElementById("btnSimDrawerOpen");
-  const btnSimDishClean = document.getElementById("btnSimDishClean");
-
-  if (btnSimPowerCut) {
-    btnSimPowerCut.addEventListener("click", () => {
-      triggerHaptic([30, 40, 30]);
-      setHaloState("red");
-      if (telemBlackoutVal) telemBlackoutVal.textContent = "Do Not Cook";
-      if (haloStateLabel) {
-        haloStateLabel.textContent = "Red Pulse — Power Was Out Over 2 Hours (Above +5 °C): Please Discard Meal";
-      }
-      showToast("Power-Cut Protection: The drawer warmed above +5 °C for over 2 hours. DINA paused thawing and alerted your phone.");
-    });
-  }
-
-  if (btnSimDrawerOpen) {
-    btnSimDrawerOpen.addEventListener("click", () => {
-      triggerHaptic([20]);
-      showToast("Smart Pause: A dish is still in the drawer (or the drawer is open), so DINA kept the upper hatch closed and sent you a reminder.");
-    });
-  }
-
-  if (btnSimDishClean) {
-    btnSimDishClean.addEventListener("click", () => {
-      triggerHaptic([15]);
-      showToast("Easy Care Reminder: Time to pop the removable drip tray into the dishwasher for a quick rinse.");
     });
   }
 

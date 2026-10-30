@@ -1,17 +1,25 @@
-const CACHE_NAME = "dina-pwa-v8.0";
+const CACHE_NAME = "dina-pwa-v8.2";
 const ASSETS = [
   "./app.html",
   "./index.html",
-  "./css/tokens.css?v=8.0",
-  "./css/app.css?v=8.0",
-  "./css/styles.css?v=8.0",
-  "./js/app.js?v=8.0",
-  "./js/main.js?v=8.0",
+  "./css/tokens.css?v=8.2",
+  "./css/app.css?v=8.2",
+  "./css/styles.css?v=8.2",
+  "./js/app.js?v=8.2",
+  "./js/main.js?v=8.2",
   "./manifest.json",
   "./assets/icons/pwa-logo.svg",
   "./assets/images/pwa-icon-192.png",
   "./assets/images/pwa-icon-512.png",
-  "./assets/images/apple-touch-icon.png"
+  "./assets/images/apple-touch-icon.png",
+  "./assets/images/meal_beef_ribeye.jpg",
+  "./assets/images/meal_salmon_fillet.jpg",
+  "./assets/images/meal_chicken_breast.jpg",
+  "./assets/images/meal_tiger_prawns.jpg",
+  "./assets/images/meal_lasagna.jpg",
+  "./assets/images/meal_pork_tenderloin.jpg",
+  "./assets/images/meal_vegetables.jpg",
+  "./assets/images/meal_custom_dish.jpg"
 ];
 
 self.addEventListener("install", (event) => {

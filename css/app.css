@@ -361,6 +361,18 @@ body.app-body {
   border: 1px solid rgba(158, 150, 150, 0.35);
 }
 
+.meal-thumb-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 260ms var(--ease-out);
+}
+
+.meal-card:hover .meal-thumb-wrap img {
+  transform: scale(1.05);
+}
+
 .meal-thumb-wrap svg {
   width: 100%;
   height: 100%;
@@ -889,11 +901,18 @@ body.app-body {
   touch-action: manipulation;
   display: inline-flex;
   align-items: center;
-  transition: transform 140ms var(--ease-out), background 140ms var(--ease-out), color 140ms var(--ease-out);
+  transition: transform 140ms var(--ease-out), background 140ms var(--ease-out), color 140ms var(--ease-out), border-color 140ms var(--ease-out);
 }
 
 .halo-btn:active {
   transform: scale(0.96);
+}
+
+.halo-btn.active {
+  background: var(--ink);
+  color: var(--paper);
+  border-color: var(--ink);
+  box-shadow: 0 2px 8px rgba(25, 25, 25, 0.2);
 }
 
 @media (hover: hover) and (pointer: fine) {
@@ -903,12 +922,14 @@ body.app-body {
   }
 }
 
-/* Toast Notification (Emil Asymmetric Enter/Exit) */
+/* Toast Notification (Emil Asymmetric Enter/Exit - Fixed in Viewport) */
 .toast-msg {
-  position: absolute;
+  position: fixed;
   bottom: 24px;
-  left: 18px;
-  right: 18px;
+  left: 50%;
+  transform: translateX(-50%) translateY(14px) scale(0.96);
+  width: auto;
+  max-width: min(520px, calc(100vw - 32px));
   background: var(--ink);
   color: var(--paper);
   padding: 13px 18px;
@@ -917,17 +938,16 @@ body.app-body {
   align-items: center;
   gap: 10px;
   border-radius: 8px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.32);
   opacity: 0;
-  transform: translateY(14px) scale(0.96);
   pointer-events: none;
   transition: opacity 140ms var(--ease-out), transform 140ms var(--ease-out);
-  z-index: 100;
+  z-index: 9999;
 }
 
 .toast-msg.visible {
   opacity: 1;
-  transform: translateY(0) scale(1);
+  transform: translateX(-50%) translateY(0) scale(1);
   transition: opacity 220ms var(--ease-out), transform 220ms var(--ease-out);
 }
 
@@ -1260,6 +1280,86 @@ body.app-body {
   text-align: left;
   cursor: pointer;
   touch-action: manipulation;
+  transition: transform 140ms var(--ease-out), background 140ms var(--ease-out), border-color 140ms var(--ease-out), box-shadow 140ms var(--ease-out);
+}
+
+.scenario-btn:active {
+  transform: scale(0.98);
+}
+
+.scenario-btn.active {
+  background: #EAE6DB;
+  border-color: var(--clay);
+  box-shadow: 0 0 0 1px var(--clay);
+}
+
+.scenario-feedback-card {
+  margin-top: 12px;
+  padding: 12px 14px;
+  background: var(--paper);
+  border: 1px solid var(--stone);
+  border-left: 3px solid var(--clay);
+  font-size: 12.5px;
+  line-height: 1.45;
+  color: var(--ink);
+  border-radius: 6px;
+  animation: fadeIn 180ms ease-out;
+}
+
+/* App text input for custom meal & food type */
+.app-text-input {
+  width: 100%;
+  background: var(--paper);
+  border: 1px solid var(--stone);
+  padding: 9px 12px;
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: var(--ink);
+  border-radius: 6px;
+  box-sizing: border-box;
+  transition: border-color 140ms var(--ease-out), box-shadow 140ms var(--ease-out);
+}
+
+.app-text-input:focus {
+  outline: none;
+  border-color: var(--clay);
+  box-shadow: 0 0 0 2px rgba(192, 119, 91, 0.18);
+}
+
+.cat-chip.cat-chip-add {
+  border-style: dashed;
+  color: var(--clay);
+  font-weight: 600;
+  border-color: var(--clay);
+}
+
+.cat-chip.cat-chip-add:hover {
+  background: rgba(192, 119, 91, 0.08);
+}
+
+.custom-type-form {
+  background: var(--paper);
+  border: 1px solid var(--stone);
+  border-radius: 8px;
+  padding: 12px;
+  margin-top: 8px;
+  margin-bottom: 12px;
+  animation: fadeIn 160ms ease-out;
+}
+
+.btn-action-secondary {
+  background: var(--paper);
+  border: 1px solid var(--stone);
+  color: var(--ink);
+  cursor: pointer;
+  font-family: var(--font-body);
+  border-radius: 6px;
+  touch-action: manipulation;
+  transition: background 140ms, color 140ms;
+}
+
+.btn-action-secondary:hover {
+  background: var(--sand);
 }
 
 .scenario-tag {
