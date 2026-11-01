@@ -10,8 +10,8 @@
   <link rel="icon" type="image/svg+xml" href="assets/icons/pwa-logo.svg">
   <link rel="icon" type="image/png" sizes="192x192" href="assets/images/pwa-icon-192.png">
   <link rel="apple-touch-icon" sizes="180x180" href="assets/images/apple-touch-icon.png">
-  <link rel="stylesheet" href="css/tokens.css?v=9.0">
-  <link rel="stylesheet" href="css/site.css?v=9.0">
+  <link rel="stylesheet" href="css/tokens.css?v=9.1">
+  <link rel="stylesheet" href="css/site.css?v=9.1">
 </head>
 <body>
 
@@ -129,37 +129,46 @@
       </picture>
 
       <!-- Scene 2: 2-Tier Revolving Drum Carousel -->
-      <img
-        id="stageSceneDrum"
-        class="stage-scene-layer"
-        src="assets/images/dina_carousel_drum.png"
-        alt="Two-tier motorized revolving meal carousel holding 11 meals"
-        loading="lazy"
-        width="1144"
-        height="848"
-      >
+      <picture>
+        <source srcset="assets/images/dina_carousel_drum.webp" type="image/webp">
+        <img
+          id="stageSceneDrum"
+          class="stage-scene-layer"
+          src="assets/images/dina_carousel_drum.png"
+          alt="Two-tier motorized revolving meal carousel holding 11 meals"
+          loading="lazy"
+          width="1200"
+          height="896"
+        >
+      </picture>
 
       <!-- Scene 3: Defrost Drawer Close-Up -->
-      <img
-        id="stageSceneDrawer"
-        class="stage-scene-layer"
-        src="assets/images/dina_drawer_close.png"
-        alt="Illuminated independent defrost drawer holding tonight's dinner safely chilled at plus 3 degrees"
-        loading="lazy"
-        width="1040"
-        height="780"
-      >
+      <picture>
+        <source srcset="assets/images/dina_drawer_close.webp" type="image/webp">
+        <img
+          id="stageSceneDrawer"
+          class="stage-scene-layer"
+          src="assets/images/dina_drawer_close.png"
+          alt="Illuminated independent defrost drawer holding tonight's dinner safely chilled at plus 3 degrees"
+          loading="lazy"
+          width="1200"
+          height="896"
+        >
+      </picture>
 
       <!-- Scene 4: Smart Door Display & Telemetry -->
-      <img
-        id="stageSceneDisplay"
-        class="stage-scene-layer"
-        src="assets/images/dina_door_display.png"
-        alt="Smart door telemetry display showing minus 18 degrees freezer and gentle defrost status"
-        loading="lazy"
-        width="800"
-        height="1200"
-      >
+      <picture>
+        <source srcset="assets/images/dina_door_display.webp" type="image/webp">
+        <img
+          id="stageSceneDisplay"
+          class="stage-scene-layer"
+          src="assets/images/dina_door_display.png"
+          alt="Smart door telemetry display showing minus 18 degrees freezer and gentle defrost status"
+          loading="lazy"
+          width="1200"
+          height="896"
+        >
+      </picture>
     </aside>
 
     <!-- Right Column: Scrolling Editorial Content -->
@@ -487,7 +496,7 @@
     </div>
   </footer>
 
-  <script src="js/main.js?v=9.0"></script>
-  <script src="js/calculator.js?v=9.0"></script>
+  <script src="js/main.js?v=9.1"></script>
+  <script src="js/calculator.js?v=9.1"></script>
 </body>
 </html>

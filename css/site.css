@@ -353,6 +353,14 @@ img {
   justify-content: center;
 }
 
+.stage-visual-col picture {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
 .stage-scene-layer {
   position: absolute;
   inset: 0;
