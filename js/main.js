@@ -1,95 +1,106 @@
 /**
- * DINA Main Website JavaScript
- * Reveal animations, mobile menu toggle, navigation scrollspy, & launch sign-up counter
+ * DINA Main Website JavaScript (v9.0)
+ * Clean, quiet editorial interaction: split-stage crossfade, mobile drawer, email waitlist
  * Strictly adheres to /dina-brand-identity. Zero emojis.
  */
 
 document.addEventListener("DOMContentLoaded", () => {
   // Mobile Navigation Drawer Toggle
   const mobileMenuBtn = document.getElementById("mobileMenuBtn");
-  const mobileNavMenu = document.getElementById("mobileNavMenu");
+  const mobileNavDrawer = document.getElementById("mobileNavDrawer");
 
-  if (mobileMenuBtn && mobileNavMenu) {
-    // Ensure hidden by default on mobile load
-    if (!mobileNavMenu.classList.contains("open")) {
-      mobileNavMenu.style.display = "none";
+  if (mobileMenuBtn && mobileNavDrawer) {
+    function openMenu() {
+      mobileNavDrawer.classList.add("open");
+      mobileMenuBtn.classList.add("active");
+      mobileMenuBtn.setAttribute("aria-expanded", "true");
+      document.body.style.overflow = "hidden";
+      const label = mobileMenuBtn.querySelector(".menu-btn-label");
+      if (label) label.textContent = "Close";
     }
 
-    function toggleMobileMenu() {
-      const isOpen = mobileNavMenu.classList.contains("open");
-      if (isOpen) {
-        closeMobileMenu();
-      } else {
-        openMobileMenu();
-      }
-    }
-
-    function openMobileMenu() {
-      mobileNavMenu.style.display = "block";
-      requestAnimationFrame(() => {
-        mobileNavMenu.classList.add("open");
-        mobileMenuBtn.classList.add("active");
-        mobileMenuBtn.setAttribute("aria-expanded", "true");
-        const label = mobileMenuBtn.querySelector(".menu-btn-label");
-        if (label) label.textContent = "Close";
-      });
-    }
-
-    function closeMobileMenu() {
-      mobileNavMenu.classList.remove("open");
+    function closeMenu() {
+      mobileNavDrawer.classList.remove("open");
       mobileMenuBtn.classList.remove("active");
       mobileMenuBtn.setAttribute("aria-expanded", "false");
+      document.body.style.overflow = "";
       const label = mobileMenuBtn.querySelector(".menu-btn-label");
       if (label) label.textContent = "Menu";
-      setTimeout(() => {
-        if (!mobileNavMenu.classList.contains("open")) {
-          mobileNavMenu.style.display = "none";
-        }
-      }, 250);
     }
 
-    mobileMenuBtn.addEventListener("click", toggleMobileMenu);
-
-    // Close menu when tapping any navigation link
-    mobileNavMenu.querySelectorAll("a").forEach(link => {
-      link.addEventListener("click", () => {
-        closeMobileMenu();
-      });
+    mobileMenuBtn.addEventListener("click", () => {
+      const isOpen = mobileNavDrawer.classList.contains("open");
+      if (isOpen) {
+        closeMenu();
+      } else {
+        openMenu();
+      }
     });
 
-    // Close on click outside
-    document.addEventListener("click", (e) => {
-      if (mobileNavMenu.classList.contains("open")) {
-        if (!mobileNavMenu.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
-          closeMobileMenu();
-        }
+    // Close on navigation link click
+    mobileNavDrawer.querySelectorAll("a").forEach(link => {
+      link.addEventListener("click", closeMenu);
+    });
+
+    // Close on Escape key
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && mobileNavDrawer.classList.contains("open")) {
+        closeMenu();
       }
     });
   }
 
-  // Reveal on scroll (Safe with prefers-reduced-motion)
-  const revealElements = document.querySelectorAll(".reveal");
-  
-  if (!("IntersectionObserver" in window) || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-    revealElements.forEach(el => el.classList.add("in"));
-  } else {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("in");
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.12 });
+  // Split-Stage Dynamic Visual Transition
+  // Crossfades the sticky stage picture depending on which editorial section is in view
+  const stageLayers = {
+    kitchen: document.getElementById("stageSceneKitchen"),
+    drum: document.getElementById("stageSceneDrum"),
+    drawer: document.getElementById("stageSceneDrawer"),
+    display: document.getElementById("stageSceneDisplay")
+  };
 
-    revealElements.forEach(el => observer.observe(el));
+  const sectionStageMap = {
+    hero: "kitchen",
+    intro: "kitchen",
+    "how-it-works": "drum",
+    calculator: "drum",
+    drawer: "drawer",
+    kitchen: "drawer",
+    app: "display",
+    faq: "display",
+    pricing: "kitchen"
+  };
+
+  function setStageScene(sceneKey) {
+    Object.keys(stageLayers).forEach(key => {
+      const el = stageLayers[key];
+      if (!el) return;
+      if (key === sceneKey) {
+        el.classList.add("active");
+      } else {
+        el.classList.remove("active");
+      }
+    });
   }
 
-  // Active navigation tracking for both desktop & mobile links
-  const sections = document.querySelectorAll("section[id], main[id]");
-  const allNavLinks = document.querySelectorAll(".nav-strip a[href^='#'], .mobile-nav-link[href^='#']");
+  const observedSections = document.querySelectorAll("section[id]");
+  if ("IntersectionObserver" in window && observedSections.length) {
+    const stageObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const sectionId = entry.target.getAttribute("id");
+          const targetScene = sectionStageMap[sectionId] || "kitchen";
+          setStageScene(targetScene);
+        }
+      });
+    }, { rootMargin: "-25% 0px -45% 0px" });
 
-  if ("IntersectionObserver" in window && sections.length && allNavLinks.length) {
+    observedSections.forEach(sec => stageObserver.observe(sec));
+  }
+
+  // Active navigation tracking for desktop & mobile
+  const allNavLinks = document.querySelectorAll(".desktop-nav a[href^='#'], .mobile-nav-links a[href^='#']");
+  if ("IntersectionObserver" in window && observedSections.length && allNavLinks.length) {
     const navObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -105,63 +116,31 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     }, { rootMargin: "-30% 0px -60% 0px" });
 
-    sections.forEach(sec => navObserver.observe(sec));
+    observedSections.forEach(sec => navObserver.observe(sec));
   }
 
-  // Interactive Defrost Drawer Halo Handle Simulator
-  const haloRing = document.getElementById("webHaloRing");
-  const haloStatus = document.getElementById("webHaloStatus");
-  const haloBtns = document.querySelectorAll(".halo-chip-btn");
-
-  if (haloRing && haloStatus && haloBtns.length) {
-    haloBtns.forEach(btn => {
-      btn.addEventListener("click", () => {
-        haloBtns.forEach(b => b.classList.remove("active"));
-        btn.classList.add("active");
-        const state = btn.getAttribute("data-state");
-        if (state === "ready") {
-          haloRing.classList.remove("amber");
-          haloRing.classList.add("green");
-          haloStatus.textContent = "Handle Glow: Fresh Green — Dinner Is Ready to Cook (Chilled at +3 °C up to 24 h)";
-        } else {
-          haloRing.classList.remove("green");
-          haloRing.classList.add("amber");
-          haloStatus.textContent = "Handle Glow: Warm Amber — Gently Thawing Tonight's Dinner";
+  // Reveal on scroll (Safe with prefers-reduced-motion)
+  const revealElements = document.querySelectorAll(".reveal");
+  if (!("IntersectionObserver" in window) || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    revealElements.forEach(el => el.classList.add("in"));
+  } else {
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("in");
+          revealObserver.unobserve(entry.target);
         }
       });
-    });
+    }, { threshold: 0.1 });
+
+    revealElements.forEach(el => revealObserver.observe(el));
   }
 
-  // Kitchen Appliance View Toggle (3/4 Perspective vs Front View)
-  const kitchenImg = document.getElementById("kitchenMainImg");
-  const kitchenBtns = document.querySelectorAll(".kitchen-view-btn");
-
-  if (kitchenImg && kitchenBtns.length) {
-    kitchenBtns.forEach(btn => {
-      btn.addEventListener("click", () => {
-        const newSrc = btn.getAttribute("data-img");
-        if (newSrc && kitchenImg.getAttribute("src") !== newSrc) {
-          kitchenBtns.forEach(b => b.classList.remove("active"));
-          btn.classList.add("active");
-          kitchenImg.style.transition = "opacity 0.18s ease";
-          kitchenImg.style.opacity = "0.3";
-          setTimeout(() => {
-            kitchenImg.src = newSrc;
-            kitchenImg.style.opacity = "1";
-          }, 180);
-        }
-      });
-    });
-  }
-
-  // "Notify Me at Launch" Email Sign-Up & Demand Evidence Counter
+  // "Notify Me at Launch" Priority Waitlist Form
   const notifyForm = document.getElementById("notifyLaunchForm");
   const notifyInput = document.getElementById("notifyEmailInput");
   const notifyBtn = document.getElementById("notifySubmitBtn");
   const notifyFeedback = document.getElementById("notifyFeedback");
-  const waitlistCountEl = document.getElementById("waitlistCountDisplay");
-
-  const BASE_WAITLIST_COUNT = 142;
   const STORAGE_KEY_EMAILS = "dina_launch_waitlist_emails";
 
   function getSavedEmails() {
@@ -172,14 +151,6 @@ document.addEventListener("DOMContentLoaded", () => {
       return [];
     }
   }
-
-  function updateWaitlistCounter() {
-    if (!waitlistCountEl) return;
-    const saved = getSavedEmails();
-    waitlistCountEl.textContent = String(BASE_WAITLIST_COUNT + saved.length);
-  }
-
-  updateWaitlistCounter();
 
   if (notifyForm && notifyInput && notifyFeedback) {
     notifyForm.addEventListener("submit", (e) => {
@@ -208,114 +179,12 @@ document.addEventListener("DOMContentLoaded", () => {
         localStorage.setItem(STORAGE_KEY_EMAILS, JSON.stringify(saved));
       } catch (err) {}
 
-      updateWaitlistCounter();
       notifyInput.value = "";
       if (notifyBtn) {
         notifyBtn.textContent = "Registered";
       }
       notifyFeedback.textContent = `Thank you. ${email} has been added to the Q4 2027 launch list.`;
       notifyFeedback.classList.add("success");
-    });
-  }
-});
-
-// Inline Web App Toggle on Main Website (Allows using app.html directly inside index.html)
-document.addEventListener("DOMContentLoaded", () => {
-  const btnToggleInlineApp = document.getElementById("btnToggleInlineApp");
-  const btnCloseInlineApp = document.getElementById("btnCloseInlineApp");
-  const inlineAppContainer = document.getElementById("inlineAppContainer");
-  const inlineAppIframe = document.getElementById("inlineAppIframe");
-
-  if (btnToggleInlineApp && inlineAppContainer && inlineAppIframe) {
-    btnToggleInlineApp.addEventListener("click", () => {
-      const isHidden = inlineAppContainer.hasAttribute("hidden");
-      if (isHidden) {
-        if (!inlineAppIframe.getAttribute("src")) {
-          inlineAppIframe.setAttribute("src", "app.html");
-        }
-        inlineAppContainer.removeAttribute("hidden");
-        btnToggleInlineApp.setAttribute("aria-expanded", "true");
-        btnToggleInlineApp.textContent = "Hide Inline App";
-        inlineAppContainer.scrollIntoView({ behavior: "smooth", block: "nearest" });
-      } else {
-        inlineAppContainer.setAttribute("hidden", "");
-        btnToggleInlineApp.setAttribute("aria-expanded", "false");
-        btnToggleInlineApp.textContent = "Preview App Right Here";
-      }
-    });
-  }
-
-  if (btnCloseInlineApp && inlineAppContainer && btnToggleInlineApp) {
-    btnCloseInlineApp.addEventListener("click", () => {
-      inlineAppContainer.setAttribute("hidden", "");
-      btnToggleInlineApp.setAttribute("aria-expanded", "false");
-      btnToggleInlineApp.textContent = "Preview App Right Here";
-    });
-  }
-
-  // Website-Only "Add App to Home Screen" Guide Banner & Native PWA Prompt
-  const btnSiteAddApp = document.getElementById("btnSiteAddApp");
-  const sitePwaInstallBanner = document.getElementById("sitePwaInstallBanner");
-  const btnSiteTriggerInstall = document.getElementById("btnSiteTriggerInstall");
-  const btnSiteCloseInstallBanner = document.getElementById("btnSiteCloseInstallBanner");
-  let deferredSiteInstallPrompt = null;
-
-  window.addEventListener("beforeinstallprompt", (e) => {
-    e.preventDefault();
-    deferredSiteInstallPrompt = e;
-    if (btnSiteTriggerInstall) {
-      btnSiteTriggerInstall.hidden = false;
-      btnSiteTriggerInstall.removeAttribute("hidden");
-    }
-  });
-
-  function hideSiteInstallBanner() {
-    if (!sitePwaInstallBanner) return;
-    sitePwaInstallBanner.hidden = true;
-    sitePwaInstallBanner.setAttribute("hidden", "");
-    if (btnSiteAddApp) {
-      btnSiteAddApp.setAttribute("aria-expanded", "false");
-      btnSiteAddApp.textContent = "Add App to Home Screen";
-    }
-  }
-
-  function showSiteInstallBanner() {
-    if (!sitePwaInstallBanner) return;
-    sitePwaInstallBanner.hidden = false;
-    sitePwaInstallBanner.removeAttribute("hidden");
-    if (btnSiteAddApp) {
-      btnSiteAddApp.setAttribute("aria-expanded", "true");
-      btnSiteAddApp.textContent = "Hide Install Guide";
-    }
-    sitePwaInstallBanner.scrollIntoView({ behavior: "smooth", block: "nearest" });
-  }
-
-  if (btnSiteAddApp && sitePwaInstallBanner) {
-    btnSiteAddApp.addEventListener("click", () => {
-      const isHidden = sitePwaInstallBanner.hasAttribute("hidden") || sitePwaInstallBanner.hidden;
-      if (isHidden) {
-        showSiteInstallBanner();
-      } else {
-        hideSiteInstallBanner();
-      }
-    });
-  }
-
-  if (btnSiteCloseInstallBanner) {
-    btnSiteCloseInstallBanner.addEventListener("click", () => {
-      hideSiteInstallBanner();
-    });
-  }
-
-  if (btnSiteTriggerInstall) {
-    btnSiteTriggerInstall.addEventListener("click", async () => {
-      if (!deferredSiteInstallPrompt) return;
-      deferredSiteInstallPrompt.prompt();
-      await deferredSiteInstallPrompt.userChoice;
-      deferredSiteInstallPrompt = null;
-      btnSiteTriggerInstall.hidden = true;
-      btnSiteTriggerInstall.setAttribute("hidden", "");
-      hideSiteInstallBanner();
     });
   }
 });

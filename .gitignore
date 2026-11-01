@@ -11,3 +11,7 @@ desktop.ini
 
 # Logs
 *.log
+
+# Design Taste Skill inspection outputs
+.taste-skill/
+

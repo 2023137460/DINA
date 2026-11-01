@@ -1,127 +1,132 @@
 /**
- * DINA Customer Taste & Thaw Calculator
- * Customer-centric, appetizing, and based strictly on PRD 3.0.0 Section 4.1 formulas
+ * DINA "When's Dinner?" Interactive Calculator (v9.0)
+ * Customer-centric, appetizing, and based strictly on PRD Section 4.1 thermodynamic formulas
  * Zero emojis, calm editorial voice
  */
 
 document.addEventListener("DOMContentLoaded", () => {
-  // PRD 4.1 Thermodynamic Formulas
+  // PRD 4.1 Thermodynamic Formulas: Base Time + (Factor * Weight in grams)
   const CATEGORIES = {
-    beef: { 
-      name: "Prime Angus Ribeye", 
-      base: 25, 
-      factor: 0.13, 
-      defaultGrams: 450,
-      benefit: "Gentle convective thaw tailored for beef &bull; Marbling and juices preserved"
-    },
-    chicken: { 
-      name: "Organic Chicken Breast", 
-      base: 30, 
-      factor: 0.13, 
-      defaultGrams: 500,
-      benefit: "Even circulating warmth &bull; Zero rubbery par-cooked borders"
-    },
-    fish: { 
-      name: "Atlantic Salmon Fillet", 
-      base: 20, 
-      factor: 0.14, 
+    salmon: {
+      name: "Atlantic Salmon Fillet",
+      base: 20,
+      factor: 0.14,
       defaultGrams: 320,
-      benefit: "Delicate low-temperature thaw &bull; Flaky, moist, restaurant-grade texture"
+      benefit: "Delicate low-temperature thaw preserves tender, flaky restaurant texture"
     },
-    shrimp: { 
-      name: "Wild Tiger Prawns", 
-      base: 15, 
-      factor: 0.10, 
+    chicken: {
+      name: "Organic Chicken Breast",
+      base: 30,
+      factor: 0.13,
+      defaultGrams: 500,
+      benefit: "Even circulating warmth with zero dry or rubbery microwave borders"
+    },
+    ribeye: {
+      name: "Prime Angus Ribeye",
+      base: 25,
+      factor: 0.13,
+      defaultGrams: 450,
+      benefit: "Gentle convective thaw locks in marbling, tenderness, and natural savory juices"
+    },
+    prawns: {
+      name: "Wild Tiger Prawns",
+      base: 15,
+      factor: 0.10,
       defaultGrams: 250,
-      benefit: "Quick, crisp defrost &bull; Sweet flavor and natural snap preserved"
+      benefit: "Quick, crisp defrost preserving natural sweetness and firm bite"
     },
-    vegetables: { 
-      name: "Steamed Fresh Vegetables", 
-      base: 15, 
-      factor: 0.08, 
+    vegetables: {
+      name: "Fresh Garden Vegetables",
+      base: 15,
+      factor: 0.08,
       defaultGrams: 350,
-      benefit: "Gentle warming &bull; Cell structure and fresh garden crispness intact"
+      benefit: "Gentle warming keeps cellular structure and fresh crispness intact"
     },
-    lasagna: { 
-      name: "Artisanal Lasagna Prep", 
-      base: 35, 
-      factor: 0.115, 
+    lasagna: {
+      name: "Artisanal Lasagna Prep",
+      base: 35,
+      factor: 0.115,
       defaultGrams: 600,
       benefit: "Even heat distribution through every savory, cheesy layer"
     }
   };
 
-  let currentCategory = "beef";
-  let currentWeight = 450;
+  let currentCategory = "salmon";
+  let currentWeight = 320;
   let targetDinnerMinutes = 19 * 60 + 30; // 19:30
 
-  // Elements
-  const chipButtons = document.querySelectorAll(".calc-chip-btn");
-  const weightSlider = document.getElementById("calcWeightSlider");
-  const weightValDisplay = document.getElementById("calcWeightDisplay");
-  const timeSlider = document.getElementById("calcTimeSlider");
-  const timeValDisplay = document.getElementById("calcTimeDisplay");
+  const mealChips = document.querySelectorAll(".calc-meal-chip");
+  const timeInput = document.getElementById("calcTimeInput");
+  const weightSelect = document.getElementById("calcWeightSelect");
 
-  const thawDurationDisplay = document.getElementById("calcThawDuration");
-  const dropTriggerDisplay = document.getElementById("calcDropTrigger");
-  const formulaCaption = document.getElementById("calcFormulaCaption");
+  const resultSentence = document.getElementById("calcResultSentence");
+  const resultMeta = document.getElementById("calcResultMeta");
 
-  function formatMinutes(totalMins) {
+  function formatTime(totalMins) {
     let normalized = totalMins;
-    if (normalized < 0) normalized += 24 * 60;
-    const h = Math.floor(normalized / 60) % 24;
+    while (normalized < 0) normalized += 24 * 60;
+    while (normalized >= 24 * 60) normalized -= 24 * 60;
+    const h = Math.floor(normalized / 60);
     const m = Math.floor(normalized % 60);
     return `${String(h).padStart(2, "0")}:${String(m).padStart(2, "0")}`;
   }
 
-  function recalculate() {
-    const config = CATEGORIES[currentCategory] || CATEGORIES.beef;
-    // PRD formula: Base Time + (Factor * Weight)
-    const thawMins = Math.round(config.base + (config.factor * currentWeight));
-    const triggerMins = targetDinnerMinutes - thawMins;
+  function updateOutput() {
+    const config = CATEGORIES[currentCategory] || CATEGORIES.salmon;
+    const thawMinutes = Math.round(config.base + (config.factor * currentWeight));
+    const dropMinutes = targetDinnerMinutes - thawMinutes;
 
-    if (thawDurationDisplay) {
-      thawDurationDisplay.textContent = `${thawMins} min`;
+    const dropTimeStr = formatTime(dropMinutes);
+    const dinnerTimeStr = formatTime(targetDinnerMinutes);
+
+    if (resultSentence) {
+      resultSentence.textContent = `Tonight's ${config.name} (${currentWeight} g): DINA drops it into the drawer at ${dropTimeStr} and holds it fridge-fresh at +3.0 °C at ${dinnerTimeStr}.`;
     }
-    if (dropTriggerDisplay) {
-      dropTriggerDisplay.textContent = formatMinutes(triggerMins);
-    }
-    if (formulaCaption) {
-      formulaCaption.innerHTML = `${config.benefit} (${thawMins} min thaw)`;
+
+    if (resultMeta) {
+      resultMeta.textContent = `${config.benefit} · ${thawMinutes} min gentle thaw.`;
     }
   }
 
-  chipButtons.forEach(btn => {
-    btn.addEventListener("click", () => {
-      chipButtons.forEach(b => b.classList.remove("active"));
-      btn.classList.add("active");
-      currentCategory = btn.dataset.cat;
-      const catData = CATEGORIES[currentCategory];
-      if (catData && weightSlider) {
-        currentWeight = catData.defaultGrams;
-        weightSlider.value = currentWeight;
-        if (weightValDisplay) weightValDisplay.textContent = `${currentWeight} g`;
+  mealChips.forEach(chip => {
+    chip.addEventListener("click", () => {
+      mealChips.forEach(c => c.classList.remove("active"));
+      chip.classList.add("active");
+      currentCategory = chip.dataset.cat;
+      const config = CATEGORIES[currentCategory];
+      if (config) {
+        currentWeight = config.defaultGrams;
+        if (weightSelect) {
+          weightSelect.value = String(currentWeight);
+        }
       }
-      recalculate();
+      updateOutput();
     });
   });
 
-  if (weightSlider) {
-    weightSlider.addEventListener("input", (e) => {
-      currentWeight = parseInt(e.target.value, 10);
-      if (weightValDisplay) weightValDisplay.textContent = `${currentWeight} g`;
-      recalculate();
+  if (timeInput) {
+    timeInput.addEventListener("change", (e) => {
+      const val = e.target.value;
+      if (val && val.includes(":")) {
+        const [h, m] = val.split(":").map(Number);
+        if (!isNaN(h) && !isNaN(m)) {
+          targetDinnerMinutes = (h * 60) + m;
+          updateOutput();
+        }
+      }
     });
   }
 
-  if (timeSlider) {
-    timeSlider.addEventListener("input", (e) => {
-      targetDinnerMinutes = parseInt(e.target.value, 10);
-      if (timeValDisplay) timeValDisplay.textContent = formatMinutes(targetDinnerMinutes);
-      recalculate();
+  if (weightSelect) {
+    weightSelect.addEventListener("change", (e) => {
+      const val = parseInt(e.target.value, 10);
+      if (!isNaN(val)) {
+        currentWeight = val;
+        updateOutput();
+      }
     });
   }
 
   // Initial calculation
-  recalculate();
+  updateOutput();
 });
