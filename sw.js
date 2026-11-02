@@ -1,4 +1,4 @@
-const CACHE_NAME = "dina-pwa-v10.1";
+const CACHE_NAME = "dina-pwa-v10.2";
 const ASSETS = [
   "./app.html",
   "./index.html",

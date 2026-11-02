@@ -1373,7 +1373,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (deltaY > 0) {
           // Direct 1:1 downward follow
-          sheetEl.style.transform = `translate(-50%, ${deltaY}px)`;
+          sheetEl.style.transform = `translateY(${deltaY}px)`;
           if (sheetBackdrop) {
             const opacity = Math.max(0, 1 - (deltaY / 320));
             sheetBackdrop.style.opacity = opacity.toString();
@@ -1381,7 +1381,7 @@ document.addEventListener("DOMContentLoaded", () => {
         } else {
           // Rubber-band resistance if dragged up
           const resisted = deltaY * 0.2;
-          sheetEl.style.transform = `translate(-50%, ${resisted}px)`;
+          sheetEl.style.transform = `translateY(${resisted}px)`;
         }
       }
     }
@@ -1402,7 +1402,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       if (shouldDismiss) {
         sheetEl.style.transition = "transform 240ms cubic-bezier(0.32, 0.72, 0, 1)";
-        sheetEl.style.transform = "translate(-50%, 100%)";
+        sheetEl.style.transform = "translateY(100%)";
         if (sheetBackdrop) {
           sheetBackdrop.style.transition = "opacity 240ms ease";
           sheetBackdrop.style.opacity = "0";
@@ -1414,7 +1414,7 @@ document.addEventListener("DOMContentLoaded", () => {
       } else {
         // Snap back to open position
         sheetEl.style.transition = "transform 260ms cubic-bezier(0.16, 1, 0.3, 1)";
-        sheetEl.style.transform = "translate(-50%, 0)";
+        sheetEl.style.transform = "translateY(0)";
         if (sheetBackdrop) {
           sheetBackdrop.style.transition = "opacity 260ms ease";
           sheetBackdrop.style.opacity = "1";

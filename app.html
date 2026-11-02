@@ -14,8 +14,8 @@
   <link rel="icon" type="image/svg+xml" href="assets/icons/pwa-logo.svg">
   <link rel="icon" type="image/png" sizes="192x192" href="assets/images/pwa-icon-192.png">
   <link rel="apple-touch-icon" sizes="180x180" href="assets/images/apple-touch-icon.png">
-  <link rel="stylesheet" href="css/tokens.css?v=10.1">
-  <link rel="stylesheet" href="css/app.css?v=10.1">
+  <link rel="stylesheet" href="css/tokens.css?v=10.2">
+  <link rel="stylesheet" href="css/app.css?v=10.2">
 </head>
 <body class="app-body">
 
@@ -829,91 +829,6 @@
         </div>
       </div>
 
-    </main><!-- /.web-app-shell -->
-
-    <!-- ====================================================================
-         DESKTOP DIRECTOR PANEL (Side Column on Screens >= 900px)
-         ==================================================================== -->
-    <aside class="director-panel desktop-only" id="directorPanelDesktop" aria-label="Simulation Director Controls">
-      <div class="director-header">
-        <span class="director-title">Concept Director</span>
-        <span class="spec-status-tag logic">Demo Controls</span>
-      </div>
-
-      <!-- Clock Controls -->
-      <div class="director-section">
-        <div class="director-sec-title">Simulated Afternoon Clock</div>
-        <div class="director-clock-row">
-          <div class="director-clock-time" id="directorClockVal">15:00</div>
-          <div class="director-speed-buttons">
-            <button type="button" class="btn-speed active" data-speed="1" id="btnSpeed1">1x</button>
-            <button type="button" class="btn-speed" data-speed="5" id="btnSpeed5">5x</button>
-            <button type="button" class="btn-speed" data-speed="20" id="btnSpeed20">20x</button>
-            <button type="button" class="btn-speed" id="btnDirectorPlayPause">Pause</button>
-          </div>
-        </div>
-
-        <label for="simScrubber" class="form-label" style="margin:4px 0 2px; font-size:11px;">Scrub Simulated Evening (15:00 to 21:30):</label>
-        <input type="range" min="900" max="1290" step="1" value="900" class="range-slider" id="simScrubber" aria-label="Simulated time scrubber">
-
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-top:2px;">
-          <span style="font-size:10.5px; color:var(--ink-soft);">15:00 Check-in &bull; 17:50 Drop &bull; 19:30 Ready</span>
-          <button type="button" id="btnDirectorReset" style="background:none; border:none; color:var(--clay); font-size:11px; font-weight:700; cursor:pointer; text-decoration:underline;">Reset Evening</button>
-        </div>
-      </div>
-
-      <!-- Commute Scenarios -->
-      <div class="director-section">
-        <div class="director-sec-title">Commute Disruption Scenario</div>
-        <div class="director-pills-grid">
-          <button type="button" class="btn-scenario-pill active" data-commute="ontime" id="pillCommuteOntime">1. On Time (19:20)</button>
-          <button type="button" class="btn-scenario-pill" data-commute="traffic" id="pillCommuteTraffic">2. Traffic Jam (+30m)</button>
-          <button type="button" class="btn-scenario-pill" data-commute="atwork" id="pillCommuteAtwork">3. Still at Work</button>
-          <button type="button" class="btn-scenario-pill" data-commute="arrived" id="pillCommuteArrived">4. Arrived Home</button>
-        </div>
-      </div>
-
-      <!-- Safety Scenarios -->
-      <div class="director-section">
-        <div class="director-sec-title">Safety Scenarios</div>
-        <div class="director-pills-grid">
-          <button type="button" class="btn-scenario-pill active" data-pcut="0" id="pillPcut0">Power Normal</button>
-          <button type="button" class="btn-scenario-pill" data-pcut="20" id="pillPcut20">Cut 20m (Safe)</button>
-          <button type="button" class="btn-scenario-pill" data-pcut="45" id="pillPcut45">Cut 45m (Warning)</button>
-          <button type="button" class="btn-scenario-pill" data-pcut="130" id="pillPcut130">Cut 130m (Lockout)</button>
-        </div>
-        <button type="button" class="btn-scenario-pill" id="btnToggleDrawerOccupied" style="margin-top:4px;">
-          <span>Dish in Drawer: <strong>Empty (Normal)</strong></span>
-        </button>
-      </div>
-
-      <!-- Connectivity Toggle -->
-      <div class="director-section">
-        <div class="director-sec-title">Connectivity</div>
-        <button type="button" class="btn-scenario-pill" id="btnToggleWifiDesktop">
-          <span>Home Wi-Fi: <strong>Connected</strong></span>
-        </button>
-      </div>
-
-      <!-- Guided Tour Launcher -->
-      <div class="director-section" style="margin-top:auto; padding-top:12px; border-top:var(--hairline);">
-        <button type="button" class="btn-tour-launch" id="btnLaunchTourDesktop">
-          Start Guided Tour (~90s)
-        </button>
-        <span style="font-size:10px; color:var(--ink-soft); text-align:center; display:block; margin-top:4px;">
-          Automatically guides through check-in, airlock drop, thaw cutoff, and traffic delay.
-        </span>
-      </div>
-    </aside>
-
-  </div><!-- /.app-layout-wrapper -->
-
-  <!-- Floating Demo Button on Mobile Screens (< 900px) -->
-  <button type="button" class="floating-demo-btn" id="btnOpenDemoSheet" aria-label="Open Simulation Director Controls">
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
-    <span>Director</span>
-  </button>
-
   <!-- ====================================================================
        BOTTOM SHEETS (Emil 280ms ease-drawer, focus-trapped, backdrop)
        ==================================================================== -->
@@ -1212,7 +1127,93 @@
     </svg>
     <span class="toast-text">Dinner scheduled</span>
   </div>
+        </main><!-- /.web-app-shell -->
 
-  <script src="js/app.js?v=10.1"></script>
+    <!-- ====================================================================
+         DESKTOP DIRECTOR PANEL (Side Column on Screens >= 900px)
+         ==================================================================== -->
+    <aside class="director-panel desktop-only" id="directorPanelDesktop" aria-label="Simulation Director Controls">
+      <div class="director-header">
+        <span class="director-title">Concept Director</span>
+        <span class="spec-status-tag logic">Demo Controls</span>
+      </div>
+
+      <!-- Clock Controls -->
+      <div class="director-section">
+        <div class="director-sec-title">Simulated Afternoon Clock</div>
+        <div class="director-clock-row">
+          <div class="director-clock-time" id="directorClockVal">15:00</div>
+          <div class="director-speed-buttons">
+            <button type="button" class="btn-speed active" data-speed="1" id="btnSpeed1">1x</button>
+            <button type="button" class="btn-speed" data-speed="5" id="btnSpeed5">5x</button>
+            <button type="button" class="btn-speed" data-speed="20" id="btnSpeed20">20x</button>
+            <button type="button" class="btn-speed" id="btnDirectorPlayPause">Pause</button>
+          </div>
+        </div>
+
+        <label for="simScrubber" class="form-label" style="margin:4px 0 2px; font-size:11px;">Scrub Simulated Evening (15:00 to 21:30):</label>
+        <input type="range" min="900" max="1290" step="1" value="900" class="range-slider" id="simScrubber" aria-label="Simulated time scrubber">
+
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-top:2px;">
+          <span style="font-size:10.5px; color:var(--ink-soft);">15:00 Check-in &bull; 17:50 Drop &bull; 19:30 Ready</span>
+          <button type="button" id="btnDirectorReset" style="background:none; border:none; color:var(--clay); font-size:11px; font-weight:700; cursor:pointer; text-decoration:underline;">Reset Evening</button>
+        </div>
+      </div>
+
+      <!-- Commute Scenarios -->
+      <div class="director-section">
+        <div class="director-sec-title">Commute Disruption Scenario</div>
+        <div class="director-pills-grid">
+          <button type="button" class="btn-scenario-pill active" data-commute="ontime" id="pillCommuteOntime">1. On Time (19:20)</button>
+          <button type="button" class="btn-scenario-pill" data-commute="traffic" id="pillCommuteTraffic">2. Traffic Jam (+30m)</button>
+          <button type="button" class="btn-scenario-pill" data-commute="atwork" id="pillCommuteAtwork">3. Still at Work</button>
+          <button type="button" class="btn-scenario-pill" data-commute="arrived" id="pillCommuteArrived">4. Arrived Home</button>
+        </div>
+      </div>
+
+      <!-- Safety Scenarios -->
+      <div class="director-section">
+        <div class="director-sec-title">Safety Scenarios</div>
+        <div class="director-pills-grid">
+          <button type="button" class="btn-scenario-pill active" data-pcut="0" id="pillPcut0">Power Normal</button>
+          <button type="button" class="btn-scenario-pill" data-pcut="20" id="pillPcut20">Cut 20m (Safe)</button>
+          <button type="button" class="btn-scenario-pill" data-pcut="45" id="pillPcut45">Cut 45m (Warning)</button>
+          <button type="button" class="btn-scenario-pill" data-pcut="130" id="pillPcut130">Cut 130m (Lockout)</button>
+        </div>
+        <button type="button" class="btn-scenario-pill" id="btnToggleDrawerOccupied" style="margin-top:4px;">
+          <span>Dish in Drawer: <strong>Empty (Normal)</strong></span>
+        </button>
+      </div>
+
+      <!-- Connectivity Toggle -->
+      <div class="director-section">
+        <div class="director-sec-title">Connectivity</div>
+        <button type="button" class="btn-scenario-pill" id="btnToggleWifiDesktop">
+          <span>Home Wi-Fi: <strong>Connected</strong></span>
+        </button>
+      </div>
+
+      <!-- Guided Tour Launcher -->
+      <div class="director-section" style="margin-top:auto; padding-top:12px; border-top:var(--hairline);">
+        <button type="button" class="btn-tour-launch" id="btnLaunchTourDesktop">
+          Start Guided Tour (~90s)
+        </button>
+        <span style="font-size:10px; color:var(--ink-soft); text-align:center; display:block; margin-top:4px;">
+          Automatically guides through check-in, airlock drop, thaw cutoff, and traffic delay.
+        </span>
+      </div>
+    </aside>
+
+  </div><!-- /.app-layout-wrapper -->
+
+  <!-- Floating Demo Button on Mobile Screens (< 900px) -->
+  <button type="button" class="floating-demo-btn" id="btnOpenDemoSheet" aria-label="Open Simulation Director Controls">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+    <span>Director</span>
+  </button>
+
+
+
+  <script src="js/app.js?v=10.2"></script>
 </body>
 </html>
