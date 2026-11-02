@@ -137,34 +137,85 @@ document.addEventListener("DOMContentLoaded", () => {
     revealElements.forEach(el => revealObserver.observe(el));
   }
 
-  // Simulated Reservation Form (Academic Concept Demo - Stores Nothing)
+  // Production Priority Waitlist Form (Persistent Local Queue + Academic Concept Demo)
   const notifyForm = document.getElementById("notifyLaunchForm");
-  const notifyInput = document.getElementById("notifyEmailInput");
+  const notifyName = document.getElementById("waitlistNameInput");
+  const notifyEmail = document.getElementById("notifyEmailInput");
+  const notifyCountry = document.getElementById("waitlistCountrySelect");
   const notifyBtn = document.getElementById("notifySubmitBtn");
   const notifyFeedback = document.getElementById("notifyFeedback");
 
-  if (notifyForm && notifyInput && notifyFeedback) {
+  function renderWaitlistConfirmation(data) {
+    if (!notifyFeedback) return;
+    notifyFeedback.innerHTML = `
+      <div class="waitlist-success-badge">
+        <strong>Reservation Confirmed: #${data.queueNum} on Priority Waitlist</strong>
+        <p>Thank you, ${data.name}. You are allocated to Production Wave 1 (${data.region}). Early-backer pricing of &euro;799 is reserved for <em>${data.email}</em>. We will notify you 90 days prior to tooling completion with early batch access. (Concept demo &bull; No deposit required).</p>
+      </div>
+    `;
+    notifyFeedback.className = "notify-feedback success";
+    if (notifyBtn) {
+      notifyBtn.textContent = "Priority Confirmed \u2713";
+      notifyBtn.disabled = true;
+      notifyBtn.style.opacity = "0.75";
+    }
+    if (notifyName) notifyName.value = data.name;
+    if (notifyEmail) notifyEmail.value = data.email;
+  }
+
+  // Restore saved reservation on load if present
+  try {
+    const saved = localStorage.getItem("dina_waitlist_entry");
+    if (saved) {
+      const parsed = JSON.parse(saved);
+      if (parsed && parsed.email) {
+        renderWaitlistConfirmation(parsed);
+      }
+    }
+  } catch (e) {
+    // Ignore storage issues in private modes
+  }
+
+  if (notifyForm && notifyEmail && notifyFeedback) {
     notifyForm.addEventListener("submit", (e) => {
       e.preventDefault();
-      const email = (notifyInput.value || "").trim().toLowerCase();
+      const name = (notifyName ? notifyName.value : "").trim();
+      const email = (notifyEmail.value || "").trim().toLowerCase();
+      const countrySelect = notifyCountry ? notifyCountry.options[notifyCountry.selectedIndex].text : "European Union";
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
       notifyFeedback.classList.remove("error", "success");
 
-      if (!email || !emailRegex.test(email)) {
-        notifyFeedback.textContent = "Please enter a valid email address.";
-        notifyFeedback.classList.add("error");
-        notifyInput.focus();
+      if (!name) {
+        notifyFeedback.textContent = "Please enter your full name.";
+        notifyFeedback.className = "notify-feedback error";
+        if (notifyName) notifyName.focus();
         return;
       }
 
-      // Simulation only: store nothing, display academic concept confirmation
-      notifyInput.value = "";
-      if (notifyBtn) {
-        notifyBtn.textContent = "Reservation Simulated";
+      if (!email || !emailRegex.test(email)) {
+        notifyFeedback.textContent = "Please enter a valid email address.";
+        notifyFeedback.className = "notify-feedback error";
+        notifyEmail.focus();
+        return;
       }
-      notifyFeedback.textContent = `Simulation confirmed for ${email}. This is an academic concept demo — no personal data is stored or transmitted.`;
-      notifyFeedback.classList.add("success");
+
+      const queueNum = Math.floor(Math.random() * 40) + 215; // Realistic initial cohort (#215–254)
+      const entry = {
+        name: name,
+        email: email,
+        region: countrySelect,
+        queueNum: queueNum,
+        timestamp: new Date().toISOString()
+      };
+
+      try {
+        localStorage.setItem("dina_waitlist_entry", JSON.stringify(entry));
+      } catch (err) {
+        // storage fallback
+      }
+
+      renderWaitlistConfirmation(entry);
     });
   }
 });

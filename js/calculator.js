@@ -31,7 +31,7 @@ document.addEventListener("DOMContentLoaded", () => {
       base: 26,
       factor: 0.131, // 450g => 85 min active thaw
       defaultGrams: 450,
-      holdMinutes: 20,
+      holdMinutes: 15,
       benefit: "Convective thaw preserves marbling, tenderness, and natural juices"
     },
     prawns: {
@@ -60,8 +60,8 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   };
 
-  let currentCategory = "salmon";
-  let currentWeight = 320;
+  let currentCategory = "ribeye";
+  let currentWeight = 450;
   let targetDinnerMinutes = 19 * 60 + 30; // 19:30
 
   const mealChips = document.querySelectorAll(".calc-meal-chip");

@@ -535,11 +535,19 @@ document.addEventListener("DOMContentLoaded", () => {
   const btnNotifSwap = document.getElementById("btnNotifSwap");
   const btnNotifSkip = document.getElementById("btnNotifSkip");
 
+  const heroFoodImg = document.getElementById("heroFoodImg");
+  const heroFoodSlotLabel = document.getElementById("heroFoodSlotLabel");
+  const heroStatusPill = document.getElementById("heroStatusPill");
+  const heroTargetDinnerTime = document.getElementById("heroTargetDinnerTime");
   const heroPhaseTag = document.getElementById("heroPhaseTag");
   const heroCountdownVal = document.getElementById("heroCountdownVal");
   const heroHeading = document.getElementById("heroHeading");
   const heroSubtext = document.getElementById("heroSubtext");
   const btnHeroAction = document.getElementById("btnHeroAction");
+  const thawConsumerPhaseLabel = document.getElementById("thawConsumerPhaseLabel");
+  const thawConsumerReadyTime = document.getElementById("thawConsumerReadyTime");
+  const techTelemetryDisclosure = document.getElementById("techTelemetryDisclosure");
+  const btnToggleDemoMode = document.getElementById("btnToggleDemoMode");
 
   // Cutaway SVG Elements
   const cutawayRotor = document.getElementById("cutawayRotor");
@@ -853,7 +861,34 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     }
 
-    // Status Hero Card
+    // Status Hero Food Card
+    if (heroFoodImg && state.plan.meal) {
+      const targetPhoto = state.plan.meal.photo || "assets/images/meal_beef_ribeye.jpg";
+      if (heroFoodImg.getAttribute("src") !== targetPhoto) {
+        heroFoodImg.setAttribute("src", targetPhoto);
+      }
+    }
+    if (heroFoodSlotLabel && state.plan.meal) {
+      heroFoodSlotLabel.textContent = `Container ${state.plan.slot} \u2022 ${state.plan.meal.weight} g`;
+    }
+    if (heroTargetDinnerTime) {
+      heroTargetDinnerTime.textContent = minsToTimeStr(state.plan.readyMins);
+    }
+    if (heroStatusPill) {
+      const pillMap = {
+        scheduled: { text: "On Schedule", cls: "pill-scheduled" },
+        drop: { text: "Airlock Drop", cls: "pill-thaw" },
+        thaw: { text: "Gentle Thaw (+10\u00B0C)", cls: "pill-thaw" },
+        equalize: { text: "Equalizing Core", cls: "pill-equalize" },
+        ready: { text: "Ready to Cook", cls: "pill-ready" },
+        held: { text: "Chilled Hold (+3.0\u00B0C)", cls: "pill-ready" },
+        skipped: { text: "Paused", cls: "pill-scheduled" },
+        emergency: { text: "Safety Lockout", cls: "pill-thaw" }
+      };
+      const pillInfo = pillMap[computed.phase] || { text: "On Schedule", cls: "pill-scheduled" };
+      heroStatusPill.className = `hero-food-status-pill ${pillInfo.cls}`;
+      heroStatusPill.textContent = pillInfo.text;
+    }
     if (heroPhaseTag) {
       heroPhaseTag.textContent = computed.phase.toUpperCase();
     }
@@ -869,13 +904,29 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     }
     if (heroHeading) {
-      heroHeading.textContent = computed.headline;
+      heroHeading.textContent = (computed.phase === "scheduled" && state.plan.meal)
+        ? state.plan.meal.name
+        : computed.headline;
     }
     if (heroSubtext) {
       heroSubtext.textContent = computed.subtext;
     }
     if (btnHeroAction) {
       btnHeroAction.textContent = computed.action;
+    }
+
+    // Live Thaw Consumer Status
+    if (thawConsumerPhaseLabel) {
+      if (computed.phase === "thaw") {
+        thawConsumerPhaseLabel.textContent = "Gentle Convection Air (+10 \u00B0C)";
+      } else if (computed.phase === "equalize") {
+        thawConsumerPhaseLabel.textContent = "Conduction Equalization (+3.0 \u00B0C)";
+      } else {
+        thawConsumerPhaseLabel.textContent = "Standby (+3.0 \u00B0C)";
+      }
+    }
+    if (thawConsumerReadyTime) {
+      thawConsumerReadyTime.textContent = minsToTimeStr(state.plan.readyMins);
     }
 
     // Cutaway Mechanical Section Updates
@@ -1199,12 +1250,12 @@ document.addEventListener("DOMContentLoaded", () => {
         if (tourStepBadge) tourStepBadge.textContent = `Step ${state.tour.step} of 6`;
         if (tourCaptionText) {
           const captions = {
-            1: "15:00 Check-In: At 15:00, DINA checks in with tonight's dinner suggestion (Beef Ribeye). Tap 'Sounds Good' or 'Next'.",
-            2: "Scheduled: The meal remains deep-frozen at -18 °C. DINA schedules the drop at 17:50 for an 85 min thaw + 15 min soak.",
-            3: "Airlock Drop: The insulated hatch opens for 2.5 s. The container drops into the +3 °C defrost drawer without exposing the main freezer to room air.",
-            4: "Thaw & +4 °C Limit: Convection air at +10 °C warms the surface. At +4.0 °C, heating cuts off to prevent edge-cooking, stepping into equalization.",
-            5: "Traffic Jam (+30 min): A highway delay is detected. DINA automatically finishes equalization and holds the drawer chilled at +3.0 °C.",
-            6: "Arrived Home: Green light! Dinner is evenly thawed through to the core at +3.0 °C. (Once thawed, do not refreeze; consume within 24 h)."
+            1: "Afternoon Check-In: At 15:00, DINA checks if you still want tonight's scheduled meal (Beef Ribeye). Tap 'Sounds Good' or swap with one tap.",
+            2: "Safe Frozen Storage: Your meal stays locked at -18 °C until the exact calculated drop time at 17:50 — zero morning thawing chores.",
+            3: "Airlock Transfer: At 17:50, your dinner drops into the preparation drawer while your main freezer stays sealed and deep-frozen.",
+            4: "Gentle Controlled Thaw: Low-temperature convection air brings food to +4.0 °C, keeping meats juicy and tender without microwave rubber.",
+            5: "Commute Delay Protection: Delayed in traffic? DINA senses your late commute and keeps dinner safely chilled at +3.0 °C until you walk in.",
+            6: "Dinner, Ready to Cook: Green halo on the handle! Open the drawer to a tender, evenly thawed cut ready for the pan."
           };
           tourCaptionText.textContent = captions[state.tour.step] || "";
         }
@@ -2095,6 +2146,22 @@ document.addEventListener("DOMContentLoaded", () => {
   }
   if (btnToggleWifiDesktop) btnToggleWifiDesktop.addEventListener("click", toggleWifi);
   if (btnMobileToggleWifi) btnMobileToggleWifi.addEventListener("click", toggleWifi);
+
+  // Toggle Concept Director Demo Panel
+  if (btnToggleDemoMode) {
+    btnToggleDemoMode.addEventListener("click", () => {
+      const appWrapper = document.querySelector(".app-layout-wrapper");
+      if (appWrapper) {
+        const isHidden = appWrapper.classList.toggle("demo-controls-hidden");
+        triggerHaptic([12]);
+        const label = btnToggleDemoMode.querySelector(".demo-toggle-label");
+        if (label) {
+          label.textContent = isHidden ? "Demo: Off" : "Demo Controls";
+        }
+        showToast(isHidden ? "Demo panel collapsed. Focused app view active." : "Demo controls panel visible.");
+      }
+    });
+  }
 
   // Tour Prompt Persistence
   if (sessionStorage.getItem("dina_tour_dismissed") === "true") {

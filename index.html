@@ -10,8 +10,8 @@
   <link rel="icon" type="image/svg+xml" href="assets/icons/pwa-logo.svg">
   <link rel="icon" type="image/png" sizes="192x192" href="assets/images/pwa-icon-192.png">
   <link rel="apple-touch-icon" sizes="180x180" href="assets/images/apple-touch-icon.png">
-  <link rel="stylesheet" href="css/tokens.css?v=9.2">
-  <link rel="stylesheet" href="css/site.css?v=9.2">
+  <link rel="stylesheet" href="css/tokens.css?v=10.5">
+  <link rel="stylesheet" href="css/site.css?v=10.5">
 </head>
 <body>
 
@@ -65,11 +65,13 @@
         </div>
       </a>
 
-      <!-- Desktop Navigation (4 clear items, no competing CTA) -->
+      <!-- Desktop Navigation (Clear items + Try App) -->
       <nav class="desktop-nav" aria-label="Main navigation">
+        <a href="#who-is-it-for">Who It's For</a>
         <a href="#experience">Architecture</a>
         <a href="#calculator">When's Dinner</a>
-        <a href="#kitchen">Specs &amp; Validation</a>
+        <a href="#value-comparison">Why DINA</a>
+        <a href="#kitchen">Validation</a>
         <a href="app.html">Try App Simulator &rarr;</a>
       </nav>
 
@@ -89,9 +91,11 @@
     <!-- Mobile Navigation Drawer -->
     <nav class="mobile-nav-drawer" id="mobileNavDrawer" aria-label="Mobile navigation drawer">
       <div class="mobile-nav-links">
+        <a href="#who-is-it-for">Who It's For</a>
         <a href="#experience">Architecture</a>
         <a href="#calculator">When's Dinner</a>
-        <a href="#kitchen">Specs &amp; Validation</a>
+        <a href="#value-comparison">Why DINA</a>
+        <a href="#kitchen">Validation</a>
         <a href="app.html">Try App Simulator</a>
       </div>
       <div class="mobile-nav-bottom">
@@ -169,20 +173,82 @@
       <section id="hero" class="content-section hero-editorial reveal in">
         <div class="hero-concept-badge">Academic Product Concept &bull; Mechanical Engineering Coursework</div>
         <h1>Dinner, <em>scheduled</em>.</h1>
+        <p class="hero-tagline" style="font-family:var(--font-head); font-size:18px; font-weight:600; color:var(--clay); margin-top:-8px; margin-bottom:14px; letter-spacing:0.02em;">Never remember to defrost again.</p>
         <p class="lead">
-          Come home at 19:00 to a dinner that is tender, evenly thawed, and ready for the pan.
+          Come home at 19:30 to a dinner that is tender, evenly thawed, and ready for the pan.
         </p>
         <p>
-          DINA is an upright 60 cm companion freezer concept with an independent defrost drawer and motorized carousel. Load meals on Sunday; DINA lowers tonight&rsquo;s portion through a thermal airlock and gently thaws it for dinner.
+          DINA is an upright 60 cm companion freezer with an independent defrost drawer and motorized carousel. Load meals on Sunday; DINA lowers tonight&rsquo;s portion through a thermal airlock and gently thaws it for dinner — keeping 110 L of frozen food locked at &minus;18 &deg;C with zero mandatory subscriptions.
         </p>
 
         <div class="hero-actions-row">
-          <a href="app.html" class="btn btn-clay">Experience the App</a>
-          <a href="#experience" class="btn">Explore the Architecture</a>
+          <a href="app.html" class="btn btn-clay">Experience the App Simulator &rarr;</a>
+          <a href="#who-is-it-for" class="btn">Is DINA for You?</a>
         </div>
       </section>
 
-      <!-- Section 2: Architecture & Flow (Moved directly below Hero) -->
+      <!-- Section 2: Intro Problem -->
+      <section id="intro" class="content-section reveal">
+        <h2>Forgot to defrost dinner?</h2>
+        <div class="intro-text-block">
+          <p>
+            Dinner is the most challenging meal to make a decision on for 57% of households (Dolmio / OnePoll 2024 survey of 2,000 UK adults, which found people spend an average of 43 minutes a week deliberating, with dinnertime stress starting as early as 15:10). When you forget to take food out of the freezer the night before, weeknight options fail.
+          </p>
+          <p>
+            Microwaves overheat thin outer edges into gray rubber while the center stays frozen solid. Leaving meat on the kitchen counter sits for hours in the bacterial danger zone (+5 &deg;C to +60 &deg;C). Takeaway delivery costs 35 &euro; while wholesome groceries already paid for sit frozen.
+          </p>
+          <div class="intro-highlight-box">
+            <p>
+              DINA eliminates the weeknight compromise: stock 11 prepped meals on Sunday, confirm dinner from your phone, and return home to food thawed evenly under closed-loop surface temperature control.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 3: Who DINA is For -->
+      <section id="who-is-it-for" class="content-section reveal">
+        <h2>Is DINA for you?</h2>
+        <p class="lead">
+          Engineered for anyone who values wholesome food, calm evenings, and zero daily defrost chores.
+        </p>
+
+        <div class="target-audience-grid">
+          <div class="audience-card">
+            <span class="audience-badge">For Busy Professionals</span>
+            <h3>Running late? Dinner waits safely.</h3>
+            <p>
+              When evening meetings run long or highway delays disrupt your commute, you shouldn&rsquo;t have to settle for another 35 &euro; takeaway. DINA&rsquo;s on-phone commute sync keeps your portion chilled at a safe +3.0 &deg;C until you unlock your front door.
+            </p>
+            <div class="audience-perk">
+              <strong>The Benefit:</strong> Arrive home with zero dinner planning stress and fresh food ready to cook immediately.
+            </div>
+          </div>
+
+          <div class="audience-card">
+            <span class="audience-badge">For Weekend Meal-Preppers</span>
+            <h3>Cook once on Sunday. Eat effortlessly all week.</h3>
+            <p>
+              Prepare your favorite curries, salmon fillets, or seasoned ribeyes in advance. Load up to 11 dishwasher-safe 750 ml containers into the motorized drum, keeping your week organized with zero daily defrosting chores.
+            </p>
+            <div class="audience-perk">
+              <strong>The Benefit:</strong> Whole-week meal variety with no forgotten Tupperware thawing on the kitchen counter.
+            </div>
+          </div>
+
+          <div class="audience-card">
+            <span class="audience-badge">For Active Couples &amp; Families</span>
+            <h3>End the 15:00 &ldquo;What&rsquo;s for dinner?&rdquo; debate.</h3>
+            <p>
+              57% of households find weeknight dinner the most stressful decision of their day. DINA sends a calm 15:00 afternoon check-in to confirm or swap tonight&rsquo;s selection with one tap, eliminating dinnertime friction before you leave work.
+            </p>
+            <div class="audience-perk">
+              <strong>The Benefit:</strong> Predictable, wholesome home-cooked dinners that fit everyone&rsquo;s schedule.
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 4: Architecture & Flow -->
       <section id="experience" class="content-section reveal">
         <span id="drawer" aria-hidden="true" style="position:relative;top:-80px;"></span>
         <h2>Freezer above. Drawer below.</h2>
@@ -225,24 +291,6 @@
         </div>
       </section>
 
-      <!-- Section 3: Intro Problem -->
-      <section id="intro" class="content-section reveal">
-        <h2>Forgot to defrost dinner?</h2>
-        <div class="intro-text-block">
-          <p>
-            Dinner is the most challenging meal to make a decision on for 57% of households (Dolmio / OnePoll 2024 survey of 2,000 UK adults, which found people spend an average of 43 minutes a week deliberating, with dinnertime stress starting as early as 15:10). When you forget to take food out of the freezer the night before, weeknight options fail.
-          </p>
-          <p>
-            Microwaves overheat thin outer edges into gray rubber while the center stays frozen solid. Leaving meat on the kitchen counter sits for hours in the bacterial danger zone (+5 &deg;C to +60 &deg;C). Takeaway delivery costs 35 &euro; while wholesome groceries already paid for sit frozen.
-          </p>
-          <div class="intro-highlight-box">
-            <p>
-              DINA eliminates the weeknight compromise: stock 11 prepped meals on Sunday, confirm dinner from your phone, and return home to food thawed evenly under closed-loop surface temperature control.
-            </p>
-          </div>
-        </div>
-      </section>
-
       <!-- Section 4: How It Works Itinerary -->
       <section id="how-it-works" class="content-section reveal">
         <h2>A calmer weeknight routine</h2>
@@ -271,7 +319,7 @@
 
           <div class="itinerary-step">
             <div class="itinerary-step-top">
-              <span class="itinerary-step-label">17:30 Drop</span>
+              <span class="itinerary-step-label">17:50 Drop</span>
               <span class="itinerary-step-time">Airlock</span>
             </div>
             <p class="itinerary-step-desc">The carousel indexes to tonight&rsquo;s container and drops it through the empty pass-through sector and 2.5-second airlock hatch into the lower drawer.</p>
@@ -279,28 +327,28 @@
 
           <div class="itinerary-step">
             <div class="itinerary-step-top">
-              <span class="itinerary-step-label">17:30 &ndash; 18:55 Active Thaw</span>
+              <span class="itinerary-step-label">17:50 &ndash; 19:15 Active Thaw</span>
               <span class="itinerary-step-time">Convection</span>
             </div>
-            <p class="itinerary-step-desc">Forced-air convection at +10 &deg;C warms the dish until surface telemetry reads +4.0 &deg;C (~85 min for 320 g salmon), then steps down to a +3.0 &deg;C hold while conduction equalizes the core.</p>
+            <p class="itinerary-step-desc">Forced-air convection at +10 &deg;C warms the dish until surface telemetry reads +4.0 &deg;C (~85 min for 450 g beef ribeye), then steps down to a +3.0 &deg;C hold while conduction equalizes the core.</p>
           </div>
 
           <div class="itinerary-step">
             <div class="itinerary-step-top">
-              <span class="itinerary-step-label">19:00 Dinnertime</span>
+              <span class="itinerary-step-label">19:30 Dinnertime</span>
               <span class="itinerary-step-time">Ready</span>
             </div>
             <p class="itinerary-step-desc">Tender, evenly thawed food chilled at +3.0 &deg;C, held safely for up to 24 hours (preventing the +5 &deg;C to +60 &deg;C bacterial danger zone).</p>
           </div>
 
           <div class="itinerary-slip-result">
-            <strong>Tonight at 19:00</strong>
+            <strong>Tonight at 19:30</strong>
             <span>Ready for the Pan</span>
           </div>
         </div>
       </section>
 
-      <!-- Section 5: Live Interactive "When's dinner?" Calculator -->
+      <!-- Section 6: Live Interactive "When's dinner?" Calculator -->
       <section id="calculator" class="content-section reveal">
         <h2>When's dinner?</h2>
         <p>
@@ -309,9 +357,9 @@
 
         <div class="calc-interactive-card">
           <div class="calc-chips-grid">
-            <button class="calc-meal-chip active" data-cat="salmon" type="button">Salmon Fillet</button>
+            <button class="calc-meal-chip" data-cat="salmon" type="button">Salmon Fillet</button>
             <button class="calc-meal-chip" data-cat="chicken" type="button">Chicken Breast</button>
-            <button class="calc-meal-chip" data-cat="ribeye" type="button">Beef Ribeye</button>
+            <button class="calc-meal-chip active" data-cat="ribeye" type="button">Beef Ribeye</button>
             <button class="calc-meal-chip" data-cat="prawns" type="button">Tiger Prawns</button>
             <button class="calc-meal-chip" data-cat="vegetables" type="button">Fresh Vegetables</button>
             <button class="calc-meal-chip" data-cat="lasagna" type="button">Homemade Lasagna</button>
@@ -327,8 +375,8 @@
               <label for="calcWeightSelect">Portion Weight</label>
               <select id="calcWeightSelect" class="calc-input">
                 <option value="250">250 grams (Light cut)</option>
-                <option value="320" selected>320 grams (Standard cut)</option>
-                <option value="450">450 grams (Generous cut)</option>
+                <option value="320">320 grams (Standard cut)</option>
+                <option value="450" selected>450 grams (Generous cut)</option>
                 <option value="600">600 grams (Family portion)</option>
               </select>
             </div>
@@ -336,19 +384,19 @@
 
           <div class="calc-result-box">
             <p class="calc-result-sentence" id="calcResultSentence">
-              Tonight's Atlantic Salmon Fillet (320 g): DINA drops the container at 18:10, runs active thaw (+10 °C air) for 65 min until surface reaches +4.0 °C (19:15), then holds at +3.0 °C until 19:30.
+              Tonight's Beef Ribeye (450 g): DINA drops the container at 17:50, runs active thaw (+10 °C air) for 85 min until surface reaches +4.0 °C (19:15), then holds at +3.0 °C until 19:30.
             </p>
 
             <div class="calc-timeline">
               <div class="calc-timeline-step">
-                <span class="calc-step-time" id="calcDropTime">18:10</span>
+                <span class="calc-step-time" id="calcDropTime">17:50</span>
                 <span class="calc-step-label">Airlock Drop</span>
                 <span class="calc-step-desc">Sealed hatch opens for 2.5 s into defrost drawer</span>
               </div>
               <div class="calc-timeline-step">
-                <span class="calc-step-time" id="calcActiveTime">18:10 &ndash; 19:15</span>
+                <span class="calc-step-time" id="calcActiveTime">17:50 &ndash; 19:15</span>
                 <span class="calc-step-label">Active Thaw</span>
-                <span class="calc-step-desc">+10 &deg;C forced air until surface reads +4.0 &deg;C (<span id="calcThawDuration">65</span> min)</span>
+                <span class="calc-step-desc">+10 &deg;C forced air until surface reads +4.0 &deg;C (<span id="calcThawDuration">85</span> min)</span>
               </div>
               <div class="calc-timeline-step">
                 <span class="calc-step-time" id="calcHoldTime">19:15 &ndash; 19:30</span>
@@ -363,13 +411,67 @@
             </div>
 
             <p class="calc-result-meta" id="calcResultMeta">
-              Gentle low-temperature thaw preserves tender, flaky restaurant texture &bull; 65 min active thaw (+10 &deg;C air until +4.0 &deg;C surface cutoff), followed by 15 min conduction equalization at +3.0 &deg;C.
+              Convective thaw preserves marbling, tenderness, and natural juices &bull; 85 min active thaw (+10 &deg;C air until +4.0 &deg;C surface cutoff), followed by 15 min conduction equalization at +3.0 &deg;C.
             </p>
           </div>
         </div>
       </section>
 
-      <!-- Section 6: Kitchen Stats Lines & Engineering Validation Table -->
+      <!-- Section 7: Why DINA is Worth €799–849 -->
+      <section id="value-comparison" class="content-section reveal">
+        <h2>Why DINA is worth &euro;799&ndash;849</h2>
+        <p class="lead">
+          At a target retail estimate of &euro;799&ndash;849 (incl. VAT), DINA is a long-term investment in your kitchen routine. Here is how it compares to the alternatives you rely on today.
+        </p>
+
+        <div class="value-comparison-grid">
+          <div class="comp-card">
+            <span class="comp-badge">Conventional</span>
+            <h3>Microwave Defrost</h3>
+            <div class="comp-cost">0 &euro; extra</div>
+            <ul class="comp-list">
+              <li class="comp-neg">&times; Overcooks outer borders into gray rubber while the center stays frozen solid</li>
+              <li class="comp-neg">&times; Daily manual chore standing over the appliance adjusting power levels</li>
+              <li class="comp-neg">&times; Destroys delicate juices and texture of steaks, fish, and poultry</li>
+            </ul>
+          </div>
+
+          <div class="comp-card">
+            <span class="comp-badge">Emergency Habit</span>
+            <h3>Takeaway Delivery</h3>
+            <div class="comp-cost">&approx; 3,640 &euro; / year</div>
+            <ul class="comp-list">
+              <li class="comp-neg">&times; Ordered out of exhaustion when dinner was forgotten in the freezer</li>
+              <li class="comp-neg">&times; 35 &euro; &times; 2 weeknights = 3,640 &euro; spent on fast food every single year</li>
+              <li class="comp-neg">&times; Wholesome groceries already paid for sit locked in the ice and go to waste</li>
+            </ul>
+          </div>
+
+          <div class="comp-card">
+            <span class="comp-badge">Subscription</span>
+            <h3>Weekly Meal Kits</h3>
+            <div class="comp-cost">&approx; 3,500 &euro; / year</div>
+            <ul class="comp-list">
+              <li class="comp-neg">&times; 65&ndash;80 &euro; recurring charge billed every single week, indefinitely</li>
+              <li class="comp-neg">&times; Fresh produce spoils in the fridge if evening work plans change</li>
+              <li class="comp-neg">&times; Still requires 35&ndash;45 min of prep, chopping, and cooking after work</li>
+            </ul>
+          </div>
+
+          <div class="comp-card featured">
+            <span class="comp-badge highlight">The DINA Solution</span>
+            <h3>DINA Smart Freezer</h3>
+            <div class="comp-cost">799&ndash;849 &euro; <span class="comp-onetime">one-off</span></div>
+            <ul class="comp-list positive">
+              <li class="comp-pos">&check; Gentle closed-loop convection (+10 &deg;C) preserves restaurant texture</li>
+              <li class="comp-pos">&check; Autonomous schedule with on-device commute delay protection</li>
+              <li class="comp-pos">&check; <strong>Zero monthly subscriptions</strong> &bull; Pays for itself in avoided takeaways in 6&ndash;8 months</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 8: Kitchen Stats Lines & Engineering Validation Table -->
       <section id="kitchen" class="content-section reveal">
         <h2>Fits your kitchen</h2>
         <p>
@@ -403,82 +505,97 @@
           </div>
         </div>
 
-        <!-- Compact Engineering & Validation Table -->
+        <!-- Engineering Validation Table with 3 Standardized Tiers -->
         <div class="validation-table-section">
           <h3>Engineering &amp; Validation</h3>
           <p class="muted">
-            Verification status across mechanical, thermal, food-safety, and smart-home subsystems.
+            To maintain rigorous engineering honesty, we distinguish between CAD-verified spatial architecture, thermodynamically modelled simulations, and unvalidated design targets.
           </p>
+
+          <div class="validation-legend-grid">
+            <div class="legend-card cad">
+              <span class="status-tag cad">[CAD Verified Architecture]</span>
+              <p>Confirmed through 3D CAD physical assembly, kinematics, and spatial packaging.</p>
+            </div>
+            <div class="legend-card model">
+              <span class="status-tag calc">[Modelled / Thermal Simulation]</span>
+              <p>Supported by thermodynamic heat-transfer calculations and transient conduction FEA.</p>
+            </div>
+            <div class="legend-card target">
+              <span class="status-tag target">[Design Target / Regulatory Benchmark]</span>
+              <p>Intended engineering benchmark; subject to final physical prototype verification.</p>
+            </div>
+          </div>
 
           <div class="validation-table-wrap">
             <table class="validation-table">
               <thead>
                 <tr>
-                  <th scope="col" style="width: 26%;">Parameter</th>
-                  <th scope="col" style="width: 50%;">Engineering Specification &amp; Evidence</th>
-                  <th scope="col" style="width: 24%;">Status</th>
+                  <th scope="col" style="width: 25%;">Subsystem</th>
+                  <th scope="col" style="width: 47%;">Engineering Specification &amp; Evidence</th>
+                  <th scope="col" style="width: 28%;">Status Category</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
                   <td class="col-param">External Dimensions</td>
-                  <td class="col-val">600 x 650 x 1450 mm upright column. Fits standard 60 cm European cabinetry aperture.</td>
-                  <td class="col-tag"><span class="status-tag cad">[CAD Verified]</span></td>
+                  <td class="col-val">600 x 650 x 1450 mm upright column. Fits standard 60 cm European cabinetry aperture with 25 mm rear ventilation gap.</td>
+                  <td class="col-tag"><span class="status-tag cad">[CAD Verified Architecture]</span></td>
                 </tr>
                 <tr>
                   <td class="col-param">Usable Volume Split</td>
                   <td class="col-val">185 L total: 110 L upper shelving (&minus;18 &deg;C vault) + 60 L motorized carousel drum + 15 L defrost drawer.</td>
-                  <td class="col-tag"><span class="status-tag cad">[CAD Verified]</span></td>
+                  <td class="col-tag"><span class="status-tag cad">[CAD Verified Architecture]</span></td>
                 </tr>
                 <tr>
                   <td class="col-param">Carousel Geometry</td>
                   <td class="col-val">11 x 750 ml BPA-free containers: two stacked discs (6 upper + 5 lower) + 1 empty pass-through drop chimney.</td>
-                  <td class="col-tag"><span class="status-tag cad">[CAD Verified]</span></td>
+                  <td class="col-tag"><span class="status-tag cad">[CAD Verified Architecture]</span></td>
                 </tr>
                 <tr>
                   <td class="col-param">Thermal Barrier</td>
                   <td class="col-val">25 mm Vacuum Insulation Panel (VIP) separating &minus;18 &deg;C vault from drawer; 2.5 s motorized airlock hatch.</td>
-                  <td class="col-tag"><span class="status-tag calc">[Calculated Model]</span></td>
+                  <td class="col-tag"><span class="status-tag calc">[Modelled / Thermal Simulation]</span></td>
                 </tr>
                 <tr>
                   <td class="col-param">Thaw Convection Duration</td>
-                  <td class="col-val">65–85 min active thaw for single-portion meals (+10 &deg;C forced air, convective h &approx; 24 W/(m&sup2;&middot;K), shallow 750 ml container) + 15–20 min conduction equalization hold.</td>
-                  <td class="col-tag"><span class="status-tag calc">[Calculated Model]</span></td>
+                  <td class="col-val">65–85 min active thaw for single portions (+10 &deg;C forced air crossflow, h &approx; 24 W/(m&sup2;&middot;K)) + 15–20 min conduction equalization hold.</td>
+                  <td class="col-tag"><span class="status-tag calc">[Modelled / Thermal Simulation]</span></td>
                 </tr>
                 <tr>
                   <td class="col-param">Closed-Loop Thaw Logic</td>
-                  <td class="col-val">+10 &deg;C forced air until lid-contact NTC probe &amp; IR sensors read +4.0 &deg;C (&plusmn;0.5 &deg;C hysteresis band), stepping down to +3.0 &deg;C hold for up to 24 h (DIN 10508 / EFSA principle).</td>
-                  <td class="col-tag"><span class="status-tag logic">[Design Logic]</span></td>
+                  <td class="col-val">+10 &deg;C forced air until lid NTC probe &amp; IR sensors read +4.0 &deg;C (&plusmn;0.5 &deg;C deadband), stepping down to +3.0 &deg;C hold for up to 24 h (DIN 10508 principle).</td>
+                  <td class="col-tag"><span class="status-tag calc">[Modelled / Thermal Simulation]</span></td>
                 </tr>
                 <tr>
                   <td class="col-param">Food Contact Materials</td>
                   <td class="col-val">Reusable BPA-free polypropylene containers compliant with EU Regulation 10/2011 overall migration limits (&le; 10 mg/dm&sup2;).</td>
-                  <td class="col-tag"><span class="status-tag logic">[Design Logic]</span></td>
+                  <td class="col-tag"><span class="status-tag target">[Design Target / Regulatory Benchmark]</span></td>
                 </tr>
                 <tr>
                   <td class="col-param">Temperature Abuse Cutoff</td>
-                  <td class="col-val">Two-tier autonomous logging: Tier 1 advisory warning at &gt;30 min above +5.0 &deg;C (conservative thermal lag margin); Tier 2 discard lockout if food temperature exceeds +5.0 &deg;C for more than 2 hours (USDA/EFSA microbial danger zone guideline).</td>
-                  <td class="col-tag"><span class="status-tag logic">[Design Logic]</span></td>
+                  <td class="col-val">Tier 1 advisory warning at &gt;30 min above +5.0 &deg;C; Tier 2 discard lockout if food temperature exceeds +5.0 &deg;C for &gt;2 hours (USDA/EFSA microbial guidelines).</td>
+                  <td class="col-tag"><span class="status-tag calc">[Modelled / Thermal Simulation]</span></td>
                 </tr>
                 <tr>
                   <td class="col-param">Acoustic Emissions</td>
                   <td class="col-val">Under 32 dBA steady-state target; 2.5 s actuation cycle for drum indexing and airlock transfer.</td>
-                  <td class="col-tag"><span class="status-tag target">[Design Target, Unvalidated]</span></td>
+                  <td class="col-tag"><span class="status-tag target">[Design Target / Regulatory Benchmark]</span></td>
                 </tr>
                 <tr>
                   <td class="col-param">Energy Consumption</td>
                   <td class="col-val">Under 0.85 kWh/day target (variable-speed R600a compressor + secondary Peltier thermoelectric circuit).</td>
-                  <td class="col-tag"><span class="status-tag target">[Design Target, Unvalidated]</span></td>
+                  <td class="col-tag"><span class="status-tag target">[Design Target / Regulatory Benchmark]</span></td>
                 </tr>
                 <tr>
                   <td class="col-param">Smart Home Connectivity</td>
                   <td class="col-val">Matter-over-Wi-Fi local telemetry (Apple Home, Google Home, Samsung SmartThings, Home Assistant).</td>
-                  <td class="col-tag"><span class="status-tag target">[Design Target, Unvalidated]</span></td>
+                  <td class="col-tag"><span class="status-tag target">[Design Target / Regulatory Benchmark]</span></td>
                 </tr>
                 <tr>
                   <td class="col-param">Retail Price &amp; Timeline</td>
-                  <td class="col-val">Target retail estimate (concept): 799 to 849 &euro; (incl. VAT); Q4 2027 planned delivery and 2-year warranty are illustrative assumptions.</td>
-                  <td class="col-tag"><span class="status-tag concept">[Concept Assumption]</span></td>
+                  <td class="col-val">Target retail estimate: 799 to 849 &euro; (incl. VAT); Q4 2027 planned delivery is an illustrative concept target.</td>
+                  <td class="col-tag"><span class="status-tag target">[Design Target / Regulatory Benchmark]</span></td>
                 </tr>
               </tbody>
             </table>
@@ -547,39 +664,67 @@
         </div>
       </section>
 
-      <!-- Section 9: Pricing & Simulated Reservation -->
+      <!-- Section 10: Pricing & Production Priority Waitlist -->
       <section id="pricing" class="content-section reveal">
-        <h2>Target retail estimate (concept): 799 to 849 &euro;</h2>
-        <p>
-          Target retail estimate including VAT for the 60 cm upright freezer, 11-meal revolving carousel, 110 L upper freezer shelves, independent defrost drawer, and reusable container kit. Q4 2027 planned delivery is an illustrative coursework assumption. Core app features are free forever with no subscription.
+        <h2>Target retail estimate: 799 to 849 &euro;</h2>
+        <p class="lead">
+          Includes the standard 60 cm upright freezer, 110 L upper freezer vault, 11-meal motorized revolving carousel, independent +3.0 &deg;C defrost drawer, and a starter kit of 11 reusable 750 ml BPA-free containers. Zero mandatory monthly subscriptions.
         </p>
 
-        <div class="pricing-block" id="notify-signup">
-          <h3>Simulated Reservation</h3>
-          <p class="muted">
-            Test how reservations and delivery onboarding would function in production. This is an academic concept demo &mdash; no email addresses or personal data are collected, stored, or transmitted.
-          </p>
+        <div class="pricing-block waitlist-block" id="notify-signup">
+          <div class="waitlist-header">
+            <span class="waitlist-tag">Production Wave 1 Allocation</span>
+            <h3>Join the Production Priority Waitlist</h3>
+            <p class="muted">
+              Lock in your priority queue number for initial European production (target Q4 2027 delivery). <strong>No deposit or payment required today.</strong> Early waitlist members receive guaranteed early-backer pricing at 799 &euro; (incl. VAT) and 90-day advance notice before tooling finalization.
+            </p>
+          </div>
 
-          <form class="notify-form" id="notifyLaunchForm" novalidate>
-            <div class="notify-form-inner">
-              <label for="notifyEmailInput" class="muted" style="font-size:14px; font-weight:600;">Simulated Email Address</label>
-              <div class="notify-form-row">
+          <form class="waitlist-form" id="notifyLaunchForm" novalidate>
+            <div class="waitlist-fields-grid">
+              <div class="waitlist-field">
+                <label for="waitlistNameInput" class="waitlist-label">Full Name</label>
+                <input
+                  type="text"
+                  id="waitlistNameInput"
+                  name="name"
+                  class="notify-input"
+                  placeholder="e.g. Alex Morgan"
+                  required
+                  autocomplete="name"
+                >
+              </div>
+              <div class="waitlist-field">
+                <label for="notifyEmailInput" class="waitlist-label">Email Address</label>
                 <input
                   type="email"
                   id="notifyEmailInput"
                   name="email"
                   class="notify-input"
-                  placeholder="student@example.com"
+                  placeholder="alex.morgan@example.com"
                   required
                   autocomplete="email"
-                  aria-label="Email address for simulated reservation"
                 >
-                <button type="submit" class="btn btn-clay" id="notifySubmitBtn">
-                  Simulate Reservation
-                </button>
               </div>
-              <p class="notify-feedback" id="notifyFeedback" role="status" aria-live="polite"></p>
+              <div class="waitlist-field">
+                <label for="waitlistCountrySelect" class="waitlist-label">Delivery Region</label>
+                <select id="waitlistCountrySelect" class="notify-input">
+                  <option value="EU" selected>European Union (230V Standard)</option>
+                  <option value="UK">United Kingdom (230V BS 1363)</option>
+                  <option value="NA">North America (120V NEMA)</option>
+                  <option value="Other">Other International Markets</option>
+                </select>
+              </div>
             </div>
+
+            <div class="waitlist-action-row">
+              <button type="submit" class="btn btn-clay" id="notifySubmitBtn">
+                Join Priority Waitlist &rarr;
+              </button>
+              <span class="waitlist-disclaimer">Zero spam &bull; Academic Concept Demo &bull; Instant Confirmation</span>
+            </div>
+
+            <div class="notify-feedback" id="notifyFeedback" role="status" aria-live="polite"></div>
           </form>
         </div>
       </section>
@@ -613,7 +758,7 @@
     </div>
   </footer>
 
-  <script src="js/main.js?v=9.2"></script>
-  <script src="js/calculator.js?v=9.2"></script>
+  <script src="js/main.js?v=10.5"></script>
+  <script src="js/calculator.js?v=10.5"></script>
 </body>
 </html>

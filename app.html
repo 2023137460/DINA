@@ -14,8 +14,8 @@
   <link rel="icon" type="image/svg+xml" href="assets/icons/pwa-logo.svg">
   <link rel="icon" type="image/png" sizes="192x192" href="assets/images/pwa-icon-192.png">
   <link rel="apple-touch-icon" sizes="180x180" href="assets/images/apple-touch-icon.png">
-  <link rel="stylesheet" href="css/tokens.css?v=10.4">
-  <link rel="stylesheet" href="css/app.css?v=10.4">
+  <link rel="stylesheet" href="css/tokens.css?v=10.5">
+  <link rel="stylesheet" href="css/app.css?v=10.5">
 </head>
 <body class="app-body">
 
@@ -125,6 +125,10 @@
         </div>
 
         <div class="app-header-actions">
+          <button class="header-demo-toggle-btn" id="btnToggleDemoMode" title="Toggle Concept Director Controls Panel" aria-label="Toggle Demo Controls" type="button">
+            <span class="demo-toggle-dot"></span>
+            <span class="demo-toggle-label">Demo Controls</span>
+          </button>
           <button class="app-header-btn" id="btnHeaderBell" title="Appliance Status Notification" aria-label="Appliance Status" type="button">
             <svg class="dina-icon" viewBox="0 0 48 48" width="20" height="20" style="filter:none;" aria-hidden="true">
               <g class="vb swing"><path class="d" style="--i:0" pathLength="1" d="M24 6C17 6 13 11 13 18V26L9 32H39L35 26V18C35 11 31 6 24 6Z"/><path class="d" style="--i:2" pathLength="1" d="M20 37a4 4 0 0 0 8 0"/></g><path class="d ac" style="--i:3" pathLength="1" d="M38 11a12 12 0 0 1 4 8M10 11a12 12 0 0 0 -4 8"/>
@@ -177,16 +181,33 @@
             </div>
           </div>
 
-          <!-- 1. Status Hero Card (Single sentence of state + number + primary action) -->
-          <div class="status-hero-card" id="statusHeroCard" aria-live="polite">
-            <div class="status-hero-meta">
-              <span class="status-hero-tag" id="heroPhaseTag">SCHEDULED</span>
-              <span class="status-hero-countdown" id="heroCountdownVal">Drops in 170 min</span>
+          <!-- 1. Hero Food Card (Consumer-first appetizing visual + calm status + primary action) -->
+          <div class="status-hero-card hero-food-card" id="statusHeroCard" aria-live="polite">
+            <div class="hero-food-media">
+              <img id="heroFoodImg" src="assets/images/meal_beef_ribeye.jpg" alt="Tonight's dinner" class="hero-food-img" loading="eager">
+              <div class="hero-food-overlay-badge">
+                <span class="status-hero-tag" id="heroPhaseTag">SCHEDULED</span>
+                <span class="status-hero-countdown" id="heroCountdownVal">Drops in 170 min</span>
+              </div>
             </div>
-            <h2 class="status-hero-heading" id="heroHeading">Dinner is scheduled. Beef Ribeye drops at 17:50.</h2>
-            <p class="status-hero-sub" id="heroSubtext">Drawer starts empty in standby (+3.0 &deg;C zone). At 17:50, container drops for an 85 min gentle thaw + 15 min equalization.</p>
-            <div class="status-hero-actions" id="heroActions">
-              <button type="button" class="btn-hero-primary" id="btnHeroAction">Change Dinner</button>
+            <div class="hero-food-body">
+              <div class="hero-food-dish-row">
+                <div class="hero-food-title-col">
+                  <span class="hero-food-slot-label" id="heroFoodSlotLabel">Container 02 &bull; 450 g</span>
+                  <h2 class="status-hero-heading" id="heroHeading">Beef Ribeye</h2>
+                </div>
+                <span class="hero-food-status-pill pill-scheduled" id="heroStatusPill">On Schedule</span>
+              </div>
+              <p class="status-hero-sub" id="heroSubtext">Drawer starts empty in standby (+3.0 &deg;C zone). At 17:50, container drops for an 85 min gentle thaw + 15 min equalization.</p>
+              <div class="hero-food-footer">
+                <div class="hero-timing-chip">
+                  <span class="hero-timing-label">Target Ready:</span>
+                  <strong class="hero-timing-time" id="heroTargetDinnerTime">19:30</strong>
+                </div>
+                <div class="status-hero-actions" id="heroActions">
+                  <button type="button" class="btn-hero-primary" id="btnHeroAction">Change Dinner</button>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -362,10 +383,11 @@
 
           <!-- 4. Live Thaw Card (Visible during thaw and equalize phases) -->
           <div class="live-thaw-card" id="liveThawCard" hidden>
-            <div style="display:flex; justify-content:space-between; align-items:center;">
-              <span class="form-label" style="margin:0;">Live Defrost Telemetry</span>
-              <span class="spec-status-tag thermal">[Thermal Model &bull; Design Logic]</span>
+            <div class="live-thaw-header" style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+              <span class="live-thaw-title" style="font-family:var(--font-head); font-size:13px; font-weight:700; text-transform:uppercase; letter-spacing:0.04em;">Gentle Defrost In Progress</span>
+              <span class="spec-status-tag thermal">[Closed-Loop Active Thaw]</span>
             </div>
+            
             <div class="thaw-metrics-split">
               <!-- Radial Progress Ring -->
               <div class="thaw-ring-box">
@@ -378,44 +400,73 @@
                   <span class="thaw-ring-unit">Thawed</span>
                 </div>
               </div>
-              <div class="thaw-readings-col">
-                <div class="thaw-reading-line">
-                  <span>Convection Air:</span>
-                  <strong id="thawLiveAirC">+10.0 &deg;C</strong>
+              <div class="thaw-consumer-status-col">
+                <div class="consumer-status-line">
+                  <span class="consumer-status-label">Phase:</span>
+                  <strong id="thawConsumerPhaseLabel">Gentle Convection Air</strong>
                 </div>
-                <div class="thaw-reading-line">
-                  <span>Food Surface:</span>
-                  <strong id="thawLiveSurfaceC">&minus;18.0 &deg;C</strong>
+                <div class="consumer-status-line">
+                  <span class="consumer-status-label">Target Ready:</span>
+                  <strong id="thawConsumerReadyTime">19:30</strong>
                 </div>
-                <div class="thaw-reading-line">
-                  <span>Surface Cutoff Limit:</span>
-                  <span>&le; +4.0 &deg;C</span>
-                </div>
+                <p class="consumer-status-reassurance">
+                  Closed-loop thermal protection active. Convection steps down to +3.0 &deg;C once food surface reaches +4.0 &deg;C safe limit.
+                </p>
               </div>
             </div>
 
-            <!-- Mini SVG Temperature vs Time Chart (Surface vs Core with Needle) -->
-            <div class="thaw-chart-wrap">
-              <svg class="thaw-chart-svg" viewBox="0 0 320 80" aria-label="Surface and Core temperature curves over time">
-                <!-- Zero Degree Line -->
-                <line x1="20" y1="46" x2="305" y2="46" stroke="#9E9696" stroke-width="0.8" stroke-dasharray="3 2"/>
-                <text x="22" y="44" fill="#9E9696" font-family="Archivo, sans-serif" font-size="8">0 &deg;C</text>
-                <!-- +4 °C Cutoff Line -->
-                <line x1="20" y1="28" x2="305" y2="28" stroke="#C0775B" stroke-width="0.8" stroke-dasharray="2 2" opacity="0.6"/>
-                <text x="22" y="26" fill="#C0775B" font-family="Archivo, sans-serif" font-size="8">+4 &deg;C Cutoff</text>
-                <!-- Surface Temperature Curve (Clay) -->
-                <path d="M 30 72 Q 70 50, 110 48 T 200 44 Q 240 38, 270 28 T 300 32" fill="none" stroke="#C0775B" stroke-width="2"/>
-                <!-- Core Temperature Curve (Ink Soft) -->
-                <path d="M 30 72 Q 90 70, 150 62 T 240 52 Q 280 44, 300 32" fill="none" stroke="#5A5753" stroke-width="2"/>
-                <!-- Scrubber Needle Indicator -->
-                <line id="thawChartScrubberLine" x1="30" y1="10" x2="30" y2="76" stroke="#191919" stroke-width="1.8"/>
-              </svg>
-            </div>
-            <div class="thaw-chart-legend">
-              <span style="color:var(--clay); font-weight:600;">&bull; Surface (Cutoff &le; +4.0 &deg;C)</span>
-              <span style="color:var(--ink-soft); font-weight:600;">&bull; Core (Soak to +3.0 &deg;C)</span>
-              <span style="font-size:9.5px;">Modelled estimates</span>
-            </div>
+            <!-- Expandable Engineering Telemetry Disclosure -->
+            <details class="tech-telemetry-disclosure" id="techTelemetryDisclosure">
+              <summary class="tech-telemetry-summary">
+                <span class="disclosure-summary-text">
+                  <svg class="dina-icon" viewBox="0 0 48 48" width="15" height="15" aria-hidden="true" style="margin-right:6px; vertical-align:-2px;">
+                    <polyline class="d" points="6 38 16 26 26 32 42 12"/>
+                    <circle class="d ac" cx="42" cy="12" r="3"/>
+                  </svg>
+                  View Live Engineering Telemetry &amp; Curves
+                </span>
+                <span class="disclosure-chevron" aria-hidden="true">&#9662;</span>
+              </summary>
+              <div class="tech-telemetry-body">
+                <div class="thaw-readings-col">
+                  <div class="thaw-reading-line">
+                    <span>Convection Air Temp:</span>
+                    <strong id="thawLiveAirC">+10.0 &deg;C</strong>
+                  </div>
+                  <div class="thaw-reading-line">
+                    <span>Food Surface Sensor:</span>
+                    <strong id="thawLiveSurfaceC">&minus;18.0 &deg;C</strong>
+                  </div>
+                  <div class="thaw-reading-line">
+                    <span>Microbial Cutoff Limit:</span>
+                    <span>&le; +4.0 &deg;C</span>
+                  </div>
+                </div>
+
+                <!-- Mini SVG Temperature vs Time Chart (Surface vs Core with Needle) -->
+                <div class="thaw-chart-wrap">
+                  <svg class="thaw-chart-svg" viewBox="0 0 320 80" aria-label="Surface and Core temperature curves over time">
+                    <!-- Zero Degree Line -->
+                    <line x1="20" y1="46" x2="305" y2="46" stroke="#9E9696" stroke-width="0.8" stroke-dasharray="3 2"/>
+                    <text x="22" y="44" fill="#9E9696" font-family="Archivo, sans-serif" font-size="8">0 &deg;C</text>
+                    <!-- +4 °C Cutoff Line -->
+                    <line x1="20" y1="28" x2="305" y2="28" stroke="#C0775B" stroke-width="0.8" stroke-dasharray="2 2" opacity="0.6"/>
+                    <text x="22" y="26" fill="#C0775B" font-family="Archivo, sans-serif" font-size="8">+4 &deg;C Cutoff</text>
+                    <!-- Surface Temperature Curve (Clay) -->
+                    <path d="M 30 72 Q 70 50, 110 48 T 200 44 Q 240 38, 270 28 T 300 32" fill="none" stroke="#C0775B" stroke-width="2"/>
+                    <!-- Core Temperature Curve (Ink Soft) -->
+                    <path d="M 30 72 Q 90 70, 150 62 T 240 52 Q 280 44, 300 32" fill="none" stroke="#5A5753" stroke-width="2"/>
+                    <!-- Scrubber Needle Indicator -->
+                    <line id="thawChartScrubberLine" x1="30" y1="10" x2="30" y2="76" stroke="#191919" stroke-width="1.8"/>
+                  </svg>
+                </div>
+                <div class="thaw-chart-legend">
+                  <span style="color:var(--clay); font-weight:600;">&bull; Surface (Cutoff &le; +4.0 &deg;C)</span>
+                  <span style="color:var(--ink-soft); font-weight:600;">&bull; Core (Soak to +3.0 &deg;C)</span>
+                  <span style="font-size:9.5px;">CAD &amp; Thermal Model Data</span>
+                </div>
+              </div>
+            </details>
           </div>
 
           <!-- 5. Evening Commute Card (Replaces old Running Late tab on main screen) -->
@@ -1214,6 +1265,6 @@
 
 
 
-  <script src="js/app.js?v=10.4"></script>
+  <script src="js/app.js?v=10.5"></script>
 </body>
 </html>

@@ -3855,6 +3855,334 @@ a.app-status-badge.simulator-badge:focus-visible {
   color: var(--white);
 }
 
+/* ==========================================================================
+   HERO FOOD CARD (Appetizing Consumer-First Active Meal Presentation)
+   ========================================================================== */
+.hero-food-card {
+  background: var(--paper);
+  border: var(--hairline);
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 4px 18px rgba(25, 25, 25, 0.04);
+  display: flex;
+  flex-direction: column;
+  transition: transform 200ms var(--ease-out), box-shadow 200ms var(--ease-out);
+}
+
+.hero-food-media {
+  position: relative;
+  width: 100%;
+  height: 148px;
+  background: var(--sand);
+  overflow: hidden;
+}
+
+.hero-food-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 40%;
+  transition: transform 400ms var(--ease-out), opacity 240ms ease;
+  display: block;
+}
+
+.hero-food-media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(25, 25, 25, 0.15) 0%, rgba(25, 25, 25, 0) 35%, rgba(25, 25, 25, 0.6) 100%);
+  pointer-events: none;
+}
+
+.hero-food-overlay-badge {
+  position: absolute;
+  bottom: 10px;
+  left: 12px;
+  right: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 2;
+}
+
+.hero-food-overlay-badge .status-hero-tag {
+  background: rgba(25, 25, 25, 0.78);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  color: #F1EFE5;
+  border: 1px solid rgba(241, 239, 229, 0.25);
+  font-family: var(--font-head);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  padding: 3px 8px;
+  border-radius: 4px;
+  text-transform: uppercase;
+}
+
+.hero-food-overlay-badge .status-hero-countdown {
+  background: rgba(192, 119, 91, 0.9);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  color: #FFFFFF;
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 9px;
+  border-radius: 12px;
+  letter-spacing: 0.02em;
+}
+
+.hero-food-body {
+  padding: 14px 16px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.hero-food-dish-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.hero-food-title-col {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.hero-food-slot-label {
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--ink-soft);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.hero-food-dish-row .status-hero-heading {
+  font-family: var(--font-head);
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1.15;
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+.hero-food-status-pill {
+  flex-shrink: 0;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  background: #EFECE1;
+  color: var(--ink);
+  border: var(--hairline);
+}
+
+.hero-food-status-pill.pill-scheduled {
+  background: #EAF0EC;
+  color: #2F6141;
+  border-color: rgba(47, 97, 65, 0.2);
+}
+
+.hero-food-status-pill.pill-thaw {
+  background: #FDF4EB;
+  color: var(--clay);
+  border-color: rgba(192, 119, 91, 0.3);
+}
+
+.hero-food-status-pill.pill-equalize {
+  background: #F5EFEB;
+  color: #92533B;
+  border-color: rgba(146, 83, 59, 0.3);
+}
+
+.hero-food-status-pill.pill-ready {
+  background: #E7F0EB;
+  color: #1F5F38;
+  border-color: rgba(31, 95, 56, 0.3);
+}
+
+.hero-food-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 6px;
+  padding-top: 10px;
+  border-top: var(--hairline);
+  gap: 12px;
+}
+
+.hero-timing-chip {
+  display: flex;
+  align-items: baseline;
+  gap: 5px;
+  font-size: 12px;
+  color: var(--ink-soft);
+}
+
+.hero-timing-time {
+  font-family: var(--font-head);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+/* ==========================================================================
+   CONSUMER THAW STATUS & EXPANDABLE TELEMETRY DISCLOSURE
+   ========================================================================== */
+.thaw-consumer-status-col {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  justify-content: center;
+}
+
+.consumer-status-line {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+  color: var(--ink-soft);
+}
+
+.consumer-status-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--ink-soft);
+}
+
+.consumer-status-line strong {
+  color: var(--ink);
+  font-weight: 700;
+}
+
+.consumer-status-reassurance {
+  font-size: 11px;
+  line-height: 1.35;
+  color: var(--ink-soft);
+  margin: 2px 0 0;
+}
+
+.tech-telemetry-disclosure {
+  margin-top: 14px;
+  border-top: var(--hairline);
+  padding-top: 10px;
+}
+
+.tech-telemetry-summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  list-style: none;
+  font-family: var(--font-head);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  padding: 4px 0;
+  user-select: none;
+  transition: color 140ms ease;
+}
+
+.tech-telemetry-summary::-webkit-details-marker {
+  display: none;
+}
+
+.tech-telemetry-summary:hover {
+  color: var(--ink);
+}
+
+.disclosure-summary-text {
+  display: inline-flex;
+  align-items: center;
+}
+
+.disclosure-chevron {
+  font-size: 13px;
+  transition: transform 200ms var(--ease-out);
+}
+
+.tech-telemetry-disclosure[open] .disclosure-chevron {
+  transform: rotate(180deg);
+}
+
+.tech-telemetry-body {
+  padding-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  animation: dina-fade-in 200ms var(--ease-out);
+}
+
+@keyframes dina-fade-in {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ==========================================================================
+   HEADER DEMO CONTROLS TOGGLE BUTTON
+   ========================================================================== */
+.header-demo-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 32px;
+  padding: 0 10px;
+  background: var(--sand);
+  border: var(--hairline);
+  border-radius: 16px;
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--ink);
+  cursor: pointer;
+  transition: background 140ms ease, transform 140ms ease;
+  white-space: nowrap;
+}
+
+.header-demo-toggle-btn:hover {
+  background: #E5E1D4;
+}
+
+.header-demo-toggle-btn:active {
+  transform: scale(0.96);
+}
+
+.demo-toggle-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #C0775B;
+  transition: background 140ms ease;
+}
+
+.demo-controls-hidden .demo-toggle-dot {
+  background: var(--ink-soft);
+}
+
+/* Toggle Behavior across screen sizes */
+@media (min-width: 960px) {
+  .app-layout-wrapper.demo-controls-hidden .director-panel {
+    display: none !important;
+  }
+  .app-layout-wrapper.demo-controls-hidden .web-app-shell {
+    max-width: 920px;
+    margin: 0 auto;
+    flex: 1 1 920px;
+  }
+}
+
 /* Reduced Motion Mode (Apple HIG & Emil guidelines) */
 @media (prefers-reduced-motion: reduce) {
   .tab-content,
