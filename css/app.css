@@ -334,6 +334,13 @@ body.app-body {
   margin-bottom: 16px;
 }
 
+@media (min-width: 640px) {
+  .meal-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+  }
+}
+
 .meal-card {
   position: relative;
   background: var(--paper);
@@ -2286,11 +2293,11 @@ a.app-status-badge.simulator-badge:focus-visible {
 
 
 /* ==========================================================================
-   DINA App Redesign — Connected Appliance Simulator (v10.0)
+   DINA App Adaptive Layout Engine (Mobile Phone, iPad/Tablet & Desktop)
    Strictly follows /dina-brand-identity, /mobile-design, /emil-design-eng
    ========================================================================== */
 
-/* Layout Container for Desktop Side-by-Side and Mobile Centering */
+/* Outer Layout Canvas */
 .app-layout-wrapper {
   display: flex;
   justify-content: center;
@@ -2299,38 +2306,14 @@ a.app-status-badge.simulator-badge:focus-visible {
   min-height: 100dvh;
   width: 100%;
   padding: 0;
-  gap: 36px;
+  gap: 24px;
   background-color: #E8E5DA;
   box-sizing: border-box;
 }
 
-@media (min-width: 900px) {
-  .app-layout-wrapper {
-    padding: 24px 20px;
-    align-items: center;
-  }
-}
-
-@media (min-width: 600px) and (max-width: 899px) {
-  .app-layout-wrapper {
-    padding: 24px 16px;
-    flex-direction: column;
-    align-items: center;
-  }
-}
-
-@media (max-width: 599px) {
-  .app-layout-wrapper {
-    padding: 0;
-    background-color: var(--paper);
-    align-items: stretch;
-  }
-}
-
-/* Phone Shell Constraints */
+/* Base Web App Shell */
 .web-app-shell {
   width: 100%;
-  max-width: 430px;
   background: var(--paper);
   display: flex;
   flex-direction: column;
@@ -2338,124 +2321,390 @@ a.app-status-badge.simulator-badge:focus-visible {
   box-sizing: border-box;
 }
 
-/* Desktop & iPad Landscape: Framed Phone Mockup with Internal Smooth Scrolling */
-@media (min-width: 900px) {
+/* ==========================================================================
+   DESKTOP (>= 960px) & iPAD LANDSCAPE: Spacious 2-Column App Canvas + Director Panel
+   ========================================================================== */
+@media (min-width: 960px) {
+  .app-layout-wrapper {
+    padding: 20px 24px;
+    align-items: stretch;
+    height: 100vh;
+    height: 100dvh;
+    overflow: hidden;
+  }
+
   .web-app-shell {
-    width: 430px;
-    max-width: 430px;
-    height: min(880px, calc(100vh - 48px));
-    height: min(880px, calc(100dvh - 48px));
-    border-radius: 28px;
-    border: 2px solid var(--ink);
-    box-shadow: 0 20px 60px rgba(25, 25, 25, 0.12), 0 2px 8px rgba(25, 25, 25, 0.06);
+    flex: 1 1 720px;
+    max-width: 820px;
+    height: 100%;
+    border-radius: 16px;
+    border: var(--hairline);
+    box-shadow: 0 16px 44px rgba(25, 25, 25, 0.08);
     overflow: hidden;
     padding-bottom: 0;
-    flex-shrink: 0;
   }
 
   .web-app-shell .app-header {
+    order: 1;
     flex-shrink: 0;
+    height: 56px;
+    padding: 0 24px;
+    border-bottom: var(--hairline);
     border-top: none;
     border-left: none;
     border-right: none;
-    border-bottom: var(--hairline);
     z-index: 30;
   }
 
-  .web-app-shell .app-main-content {
-    flex: 1;
-    overflow-y: auto;
-    overflow-x: hidden;
-    -webkit-overflow-scrolling: touch;
-    overscroll-behavior-y: contain;
-    padding: 16px 14px 24px 14px;
-  }
-
+  /* Segmented Navigation Bar right under Header */
   .web-app-shell .bottom-tab-bar {
+    order: 2;
     position: relative;
     bottom: auto;
     left: auto;
     right: auto;
     transform: none;
     width: 100%;
-    max-width: 100%;
-    height: 58px;
-    padding-bottom: 0;
+    height: 48px;
+    padding: 6px 20px;
     flex-shrink: 0;
-    border-top: var(--hairline);
+    border-top: none;
+    border-bottom: var(--hairline);
     border-left: none;
     border-right: none;
-    border-bottom: none;
-    background: var(--paper);
+    background: #EFECE1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
     z-index: 30;
   }
 
+  .web-app-shell .bottom-tab-item {
+    flex: 0 1 auto;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 6px 22px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--ink-soft);
+    min-height: 36px;
+    background: transparent;
+    transition: background 160ms var(--ease-out), color 160ms var(--ease-out);
+  }
+
+  .web-app-shell .bottom-tab-item.active {
+    background: var(--paper);
+    color: var(--ink);
+    box-shadow: 0 2px 6px rgba(25, 25, 25, 0.06);
+    border: var(--hairline);
+  }
+
+  .web-app-shell .bottom-tab-item .tab-bar-indicator {
+    display: none;
+  }
+
+  .web-app-shell .bottom-tab-item .bottom-tab-icon svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  .web-app-shell .app-main-content {
+    order: 3;
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-y: contain;
+    padding: 20px 24px 32px;
+  }
+
   .web-app-shell .tour-caption-bar {
-    position: absolute;
-    bottom: 58px;
-    left: 0;
-    right: 0;
+    order: 4;
+    position: relative;
+    bottom: auto;
+    left: auto;
+    right: auto;
     transform: none;
     width: 100%;
-    max-width: 100%;
+    border-top: var(--hairline);
     border-left: none;
     border-right: none;
     z-index: 35;
+    flex-shrink: 0;
+  }
+
+  /* Two-Column Responsive Split on Tonight Tab */
+  #tab-tonight {
+    display: grid;
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+    column-gap: 22px;
+    row-gap: 16px;
+    align-items: start;
+  }
+
+  #tourPromptCard {
+    grid-column: 1 / -1;
+  }
+
+  #statusHeroCard {
+    grid-column: 1;
+    margin-bottom: 0;
+  }
+
+  .thaw-stage-pipeline,
+  .pipeline-progress-track {
+    grid-column: 1;
+  }
+
+  #eveningCard {
+    grid-column: 1;
+    margin-bottom: 0;
+  }
+
+  .quick-actions-strip {
+    grid-column: 1;
+    margin-bottom: 0;
+  }
+
+  .do-not-refreeze-notice {
+    grid-column: 1;
+    margin-top: 0;
+  }
+
+  /* Right Column: Appliance Cutaway Cross-Section & Live Thaw Telemetry */
+  #cutawayCard,
+  .cutaway-card {
+    grid-column: 2;
+    grid-row: 2 / span 4;
+    margin-bottom: 0;
+  }
+
+  #liveThawCard {
+    grid-column: 2;
+    margin-bottom: 0;
+  }
+
+  /* Two-Column Responsive Split on Freezer Tab */
+  #tab-freezer {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+    column-gap: 22px;
+    row-gap: 16px;
+    align-items: start;
+  }
+
+  #tab-freezer .section-headline-block {
+    grid-column: 1 / -1;
+  }
+
+  #drumGraphic {
+    grid-column: 1;
+    margin-bottom: 0;
+  }
+
+  .drum-tier-card {
+    grid-column: 2;
+    margin-bottom: 0;
+  }
+
+  #slotDetailCard {
+    grid-column: 2;
+    margin-top: 0;
+  }
+
+  /* Two-Column Responsive Split on Kitchen Tab */
+  #tab-kitchen {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    column-gap: 22px;
+    row-gap: 16px;
+    align-items: start;
+  }
+
+  #tab-kitchen .section-headline-block {
+    grid-column: 1 / -1;
+  }
+
+  .telemetry-grid {
+    grid-column: 1;
+    margin-bottom: 0;
+  }
+
+  .closed-loop-card {
+    grid-column: 1;
+    margin-top: 0;
+  }
+
+  #tab-kitchen .load-form-card {
+    grid-column: 2;
+    margin-top: 0;
+  }
+
+  .halo-simulator-card {
+    grid-column: 2;
+    margin-top: 0;
+  }
+
+  #tab-kitchen .load-form-card:last-of-type {
+    grid-column: 1 / -1;
+    margin-top: 0;
   }
 }
 
-/* Tablet Portrait (600px - 899px) */
-@media (min-width: 600px) and (max-width: 899px) {
+/* ==========================================================================
+   iPAD / TABLET PORTRAIT (640px - 959px)
+   ========================================================================== */
+@media (min-width: 640px) and (max-width: 959px) {
+  .app-layout-wrapper {
+    padding: 20px 16px;
+    align-items: stretch;
+    height: 100vh;
+    height: 100dvh;
+    overflow: hidden;
+  }
+
   .web-app-shell {
     width: 100%;
-    max-width: 480px;
-    height: min(880px, calc(100vh - 48px));
-    height: min(880px, calc(100dvh - 48px));
-    border-radius: 28px;
-    border: 2px solid var(--ink);
-    box-shadow: 0 20px 60px rgba(25, 25, 25, 0.12);
+    max-width: 760px;
+    height: 100%;
+    border-radius: 16px;
+    border: var(--hairline);
+    box-shadow: 0 16px 44px rgba(25, 25, 25, 0.08);
     overflow: hidden;
-    padding-bottom: 0;
     margin: 0 auto;
   }
 
   .web-app-shell .app-header {
+    order: 1;
     flex-shrink: 0;
+    height: 56px;
+    padding: 0 20px;
     border-bottom: var(--hairline);
-  }
-
-  .web-app-shell .app-main-content {
-    flex: 1;
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
-    overscroll-behavior-y: contain;
-    padding: 16px 14px 24px 14px;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    z-index: 30;
   }
 
   .web-app-shell .bottom-tab-bar {
+    order: 2;
     position: relative;
-    bottom: auto;
-    left: auto;
-    transform: none;
     width: 100%;
-    height: 58px;
-    flex-shrink: 0;
-    border-top: var(--hairline);
+    height: 48px;
+    padding: 6px 16px;
+    border-top: none;
+    border-bottom: var(--hairline);
     border-left: none;
     border-right: none;
-    border-bottom: none;
+    background: #EFECE1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    z-index: 30;
+    flex-shrink: 0;
+  }
+
+  .web-app-shell .bottom-tab-item {
+    flex: 0 1 auto;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 6px 18px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--ink-soft);
+    min-height: 36px;
+    background: transparent;
+  }
+
+  .web-app-shell .bottom-tab-item.active {
+    background: var(--paper);
+    color: var(--ink);
+    box-shadow: 0 2px 6px rgba(25, 25, 25, 0.06);
+    border: var(--hairline);
+  }
+
+  .web-app-shell .bottom-tab-item .tab-bar-indicator {
+    display: none;
+  }
+
+  .web-app-shell .bottom-tab-item .bottom-tab-icon svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  .web-app-shell .app-main-content {
+    order: 3;
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-y: contain;
+    padding: 18px 20px 28px;
   }
 
   .web-app-shell .tour-caption-bar {
-    position: absolute;
-    bottom: 58px;
-    left: 0;
+    order: 4;
+    position: relative;
     width: 100%;
+    border-top: var(--hairline);
+    border-left: none;
+    border-right: none;
+    flex-shrink: 0;
+  }
+
+  /* Two-column layout in Tablet Portrait */
+  #tab-tonight {
+    display: grid;
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+    column-gap: 18px;
+    row-gap: 14px;
+    align-items: start;
+  }
+
+  #tourPromptCard {
+    grid-column: 1 / -1;
+  }
+
+  #statusHeroCard,
+  .thaw-stage-pipeline,
+  .pipeline-progress-track,
+  #eveningCard,
+  .quick-actions-strip,
+  .do-not-refreeze-notice {
+    grid-column: 1;
+  }
+
+  #cutawayCard,
+  .cutaway-card {
+    grid-column: 2;
+    grid-row: 2 / span 4;
+    margin-bottom: 0;
+  }
+
+  #liveThawCard {
+    grid-column: 2;
+    margin-bottom: 0;
   }
 }
 
-/* Mobile Screens (< 600px) */
-@media (max-width: 599px) {
+/* ==========================================================================
+   MOBILE PHONES (< 640px)
+   ========================================================================== */
+@media (max-width: 639px) {
+  .app-layout-wrapper {
+    padding: 0;
+    background-color: var(--paper);
+    align-items: stretch;
+  }
+
   .web-app-shell {
     max-width: 100%;
     min-height: 100vh;
@@ -2474,8 +2723,13 @@ a.app-status-badge.simulator-badge:focus-visible {
     width: 100%;
     height: calc(58px + env(safe-area-inset-bottom, 0px));
     padding-bottom: env(safe-area-inset-bottom, 0px);
+    border-top: var(--hairline);
     border-left: none;
     border-right: none;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    background: var(--paper);
+    z-index: 50;
   }
 
   .web-app-shell .tour-caption-bar {
@@ -2484,6 +2738,7 @@ a.app-status-badge.simulator-badge:focus-visible {
     left: 0;
     right: 0;
     width: 100%;
+    z-index: 48;
   }
 }
 
@@ -3257,27 +3512,26 @@ a.app-status-badge.simulator-badge:focus-visible {
 
 /* Director Panel (Desktop Sidebar & Mobile Bottom Sheet) */
 .director-panel {
-  width: 390px;
-  max-width: 400px;
+  width: 320px;
+  max-width: 340px;
   background: var(--sand);
   border: var(--hairline);
-  border-radius: 20px;
-  padding: 20px;
+  border-radius: 16px;
+  padding: 18px;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 14px;
   position: sticky;
-  top: 24px;
-  height: min(880px, calc(100vh - 48px));
-  height: min(880px, calc(100dvh - 48px));
-  max-height: calc(100vh - 48px);
+  top: 20px;
+  height: 100%;
+  max-height: calc(100vh - 40px);
   overflow-y: auto;
-  box-shadow: 0 4px 20px rgba(25, 25, 25, 0.06);
+  box-shadow: 0 16px 44px rgba(25, 25, 25, 0.08);
   box-sizing: border-box;
   flex-shrink: 0;
 }
 
-@media (max-width: 899px) {
+@media (max-width: 959px) {
   .director-panel.desktop-only {
     display: none !important;
   }
@@ -3414,7 +3668,7 @@ a.app-status-badge.simulator-badge:focus-visible {
   display: none;
 }
 
-@media (max-width: 899px) {
+@media (max-width: 959px) {
   .floating-demo-btn {
     display: inline-flex;
     align-items: center;
@@ -3440,7 +3694,7 @@ a.app-status-badge.simulator-badge:focus-visible {
   }
 }
 
-@media (min-width: 600px) and (max-width: 899px) {
+@media (min-width: 640px) and (max-width: 959px) {
   .floating-demo-btn {
     bottom: 24px;
     right: 24px;
