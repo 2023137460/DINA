@@ -2771,12 +2771,12 @@ a.app-status-badge.simulator-badge:focus-visible {
 
 /* Cutaway Animations: Hatch swing, container drop, airflow */
 #cutawayHatchFlap {
-  transform-origin: 165px 160px;
+  transform-origin: 173px 234px;
   transition: transform 400ms cubic-bezier(0.32, 0.72, 0, 1);
 }
 
 #cutawayHatchFlap.open {
-  transform: rotate(-75deg);
+  transform: rotate(-70deg);
 }
 
 #cutawayDropContainer {
@@ -3056,28 +3056,57 @@ a.app-status-badge.simulator-badge:focus-visible {
   flex-direction: column;
   box-shadow: 0 -8px 32px rgba(25, 25, 25, 0.15);
   transition: transform 280ms var(--ease-drawer);
+  touch-action: pan-y;
+  will-change: transform;
 }
 
 .bottom-sheet.open {
   transform: translate(-50%, 0);
 }
 
-.sheet-handle-bar {
-  width: 36px;
-  height: 4px;
-  background: var(--stone);
-  border-radius: 2px;
-  margin: 10px auto 4px auto;
+.sheet-handle-zone {
+  width: 100%;
+  padding: 12px 0 6px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
   flex-shrink: 0;
+}
+
+.sheet-handle-zone:active {
+  cursor: grabbing;
+}
+
+.sheet-handle-bar {
+  width: 40px;
+  height: 5px;
+  background: var(--stone);
+  border-radius: 3px;
+  margin: 0;
+  flex-shrink: 0;
+  pointer-events: none;
+  transition: background-color 150ms ease;
+}
+
+.sheet-handle-zone:hover .sheet-handle-bar,
+.sheet-handle-zone:active .sheet-handle-bar {
+  background: var(--ink-soft);
 }
 
 .sheet-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 10px 18px 12px 18px;
+  padding: 8px 18px 12px 18px;
   border-bottom: var(--hairline);
   flex-shrink: 0;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
 }
 
 .sheet-title {

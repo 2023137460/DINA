@@ -14,8 +14,8 @@
   <link rel="icon" type="image/svg+xml" href="assets/icons/pwa-logo.svg">
   <link rel="icon" type="image/png" sizes="192x192" href="assets/images/pwa-icon-192.png">
   <link rel="apple-touch-icon" sizes="180x180" href="assets/images/apple-touch-icon.png">
-  <link rel="stylesheet" href="css/tokens.css?v=10.0">
-  <link rel="stylesheet" href="css/app.css?v=10.0">
+  <link rel="stylesheet" href="css/tokens.css?v=10.1">
+  <link rel="stylesheet" href="css/app.css?v=10.1">
 </head>
 <body class="app-body">
 
@@ -142,17 +142,17 @@
         <section class="tab-content active" id="tab-tonight" role="tabpanel" aria-label="Tonight's Dinner">
 
           <!-- First-Run Guided Tour Prompt Card -->
-          <div class="lock-notification-card sand-card" id="tourPromptCard" role="region" aria-label="Guided Tour Prompt" style="background:var(--sand); margin-bottom:12px;">
-            <div class="lock-notif-header">
+          <div class="lock-notification-card sand-card" id="tourPromptCard" role="region" aria-label="Guided Tour Prompt" style="background:var(--sand); margin-bottom:12px; padding:10px 14px;">
+            <div class="lock-notif-header" style="margin-bottom:4px;">
               <span class="lock-notif-badge">Evaluation Walkthrough</span>
-              <button type="button" id="btnTourPromptSkip" style="background:none; border:none; color:var(--ink-soft); font-size:11px; cursor:pointer; font-weight:600;">Skip</button>
+              <button type="button" id="btnTourPromptSkip" style="background:none; border:none; color:var(--ink-soft); font-size:11px; cursor:pointer; font-weight:600;">Dismiss</button>
             </div>
-            <p class="lock-notif-text">
+            <p class="lock-notif-text" style="font-size:12px; line-height:1.4; margin-bottom:8px;">
               Follow tonight&rsquo;s dinner in about 90 seconds.
             </p>
-            <div style="display:flex; gap:8px; margin-top:4px;">
-              <button type="button" class="btn-hero-primary" id="btnTourPromptStart" style="font-size:11px; padding:7px 12px;">Start</button>
-              <button type="button" class="btn-hero-secondary" id="btnTourPromptDismiss" style="font-size:11px; padding:7px 10px;">Skip</button>
+            <div style="display:flex; gap:8px;">
+              <button type="button" class="btn-hero-primary" id="btnTourPromptStart" style="font-size:11px; padding:6px 12px;">Start Tour</button>
+              <button type="button" class="btn-hero-secondary" id="btnTourPromptDismiss" style="font-size:11px; padding:6px 10px;">Skip</button>
             </div>
           </div>
 
@@ -197,78 +197,128 @@
               <span class="spec-status-tag cad">[CAD Verified Architecture]</span>
             </div>
             <div class="cutaway-svg-wrap">
-              <svg class="cutaway-svg" viewBox="0 0 380 230" aria-label="DINA upright freezer cutaway cross-section diagram">
+              <svg class="cutaway-svg" viewBox="0 0 380 340" aria-label="DINA upright freezer cutaway cross-section diagram">
                 <!-- Outer Insulated Cabinet Frame (60cm upright chassis) -->
-                <rect x="25" y="10" width="330" height="210" rx="4" fill="#F1EFE5" stroke="#191919" stroke-width="2"/>
+                <rect x="20" y="10" width="340" height="320" rx="4" fill="#F7F5EE" stroke="#191919" stroke-width="2"/>
+                <rect x="26" y="16" width="328" height="308" rx="3" fill="#EAE6D9" stroke="#9E9696" stroke-width="1"/>
                 
-                <!-- Zone 1 Divider: Upper Manual Storage Shelves (110 L Vault at -18 °C) -->
-                <rect x="35" y="18" width="310" height="42" fill="#EAE6D9" stroke="#9E9696" stroke-width="1.2"/>
-                <line x1="35" y1="38" x2="345" y2="38" stroke="#9E9696" stroke-width="1" stroke-dasharray="3 2"/>
-                <text x="45" y="32" fill="#5A5753" font-family="Archivo, sans-serif" font-size="9.5" font-weight="700">110 L FREEZER VAULT &bull; &minus;18.0 &deg;C</text>
-                <text x="250" y="32" fill="#5A5753" font-family="Archivo, sans-serif" font-size="9" font-weight="600">Manual Shelves</text>
+                <!-- ZONE 1: Upper Manual Storage Shelves (110 L Vault at -18 °C) -->
+                <rect x="32" y="22" width="316" height="58" rx="2" fill="#F1EFE5" stroke="#9E9696" stroke-width="1.2"/>
+                <!-- Zone 1 Header Bar -->
+                <rect x="32" y="22" width="316" height="17" fill="#EAE6D9"/>
+                <text x="40" y="34" fill="#191919" font-family="Archivo, sans-serif" font-size="8.5" font-weight="700">110 L FREEZER VAULT</text>
+                <text x="338" y="34" text-anchor="end" fill="#5A5753" font-family="Archivo, sans-serif" font-size="8" font-weight="600">&minus;18.0 &deg;C &bull; Manual Shelves</text>
+                
+                <!-- Fixed wire storage shelf & stored frozen goods -->
+                <line x1="32" y1="56" x2="348" y2="56" stroke="#9E9696" stroke-width="1" stroke-dasharray="3 2"/>
+                <rect x="46" y="44" width="36" height="12" rx="1.5" fill="#DAD8CB" stroke="#9E9696" stroke-width="1"/>
+                <rect x="88" y="42" width="30" height="14" rx="1.5" fill="#D6D2C4" stroke="#9E9696" stroke-width="1"/>
+                <rect x="238" y="44" width="32" height="12" rx="1.5" fill="#DAD8CB" stroke="#9E9696" stroke-width="1"/>
+                <rect x="276" y="40" width="42" height="16" rx="1.5" fill="#D6D2C4" stroke="#9E9696" stroke-width="1"/>
 
-                <!-- Zone 2: Middle Revolving Carousel Chamber (-18 °C) -->
-                <rect x="35" y="66" width="310" height="84" fill="#F1EFE5" stroke="#9E9696" stroke-width="1.2"/>
-                <circle cx="190" cy="108" r="38" fill="#EAE6D9" stroke="#191919" stroke-width="1.5"/>
-                
-                <!-- Revolving Rotor Structure -->
-                <g id="cutawayRotor" transform="rotate(0 190 108)">
-                  <line x1="190" y1="72" x2="190" y2="144" stroke="#9E9696" stroke-width="1.2"/>
-                  <line x1="154" y1="90" x2="226" y2="126" stroke="#9E9696" stroke-width="1.2"/>
-                  <line x1="154" y1="126" x2="226" y2="90" stroke="#9E9696" stroke-width="1.2"/>
-                  <!-- Tonight's Container in Slot -->
-                  <rect id="cutawaySlotContainer" x="175" y="72" width="30" height="10" rx="2" fill="#C0775B" stroke="#191919" stroke-width="1"/>
-                  <rect x="210" y="92" width="10" height="16" rx="2" fill="#DAD8CB" stroke="#191919" stroke-width="1"/>
-                  <rect x="210" y="114" width="10" height="16" rx="2" fill="#DAD8CB" stroke="#191919" stroke-width="1"/>
-                  <rect x="175" y="128" width="30" height="10" rx="2" fill="#FFFFFF" stroke="#9E9696" stroke-width="1" stroke-dasharray="2 1"/>
-                  <rect x="156" y="114" width="10" height="16" rx="2" fill="#DAD8CB" stroke="#191919" stroke-width="1"/>
-                  <rect x="156" y="92" width="10" height="16" rx="2" fill="#DAD8CB" stroke="#191919" stroke-width="1"/>
+                <!-- ZONE 2: Middle Revolving Carousel Chamber (-18 °C) -->
+                <rect x="32" y="86" width="316" height="144" rx="2" fill="#F1EFE5" stroke="#9E9696" stroke-width="1.2"/>
+                <!-- Zone 2 Header Bar (Safely above the drum circle) -->
+                <rect x="32" y="86" width="316" height="17" fill="#EAE6D9"/>
+                <text x="40" y="98" fill="#191919" font-family="Archivo, sans-serif" font-size="8.5" font-weight="700">REVOLVING CAROUSEL DRUM</text>
+                <text x="338" y="98" text-anchor="end" fill="#5A5753" font-family="Archivo, sans-serif" font-size="8" font-weight="600">11 Meal Slots &bull; &minus;18.0 &deg;C</text>
+
+                <!-- Left-side engineering callout -->
+                <rect x="40" y="134" width="82" height="42" rx="3" fill="#FFFFFF" stroke="#DAD8CB" stroke-width="1"/>
+                <text x="46" y="147" fill="#191919" font-family="Archivo, sans-serif" font-size="7.5" font-weight="700">MEAL DRUM</text>
+                <text x="46" y="158" fill="#5A5753" font-family="Archivo, sans-serif" font-size="7" font-weight="500">11 Sealed slots</text>
+                <text x="46" y="168" fill="#5A5753" font-family="Archivo, sans-serif" font-size="7" font-weight="500">Indexed rotation</text>
+                <line x1="122" y1="155" x2="140" y2="158" stroke="#9E9696" stroke-width="1" stroke-dasharray="2 2"/>
+
+                <!-- Right-side engineering callout -->
+                <rect x="258" y="134" width="82" height="42" rx="3" fill="#FFFFFF" stroke="#DAD8CB" stroke-width="1"/>
+                <text x="264" y="147" fill="#191919" font-family="Archivo, sans-serif" font-size="7.5" font-weight="700">PASS-THROUGH</text>
+                <text x="264" y="158" fill="#5A5753" font-family="Archivo, sans-serif" font-size="7" font-weight="500">Slot 12 drop chute</text>
+                <text x="264" y="168" fill="#5A5753" font-family="Archivo, sans-serif" font-size="7" font-weight="500">Airlock aligned</text>
+                <line x1="258" y1="155" x2="240" y2="158" stroke="#9E9696" stroke-width="1" stroke-dasharray="2 2"/>
+
+                <!-- Revolving Rotor Ring (Center: 190, 158; Radius: 46) -->
+                <circle cx="190" cy="158" r="46" fill="#EAE6D9" stroke="#191919" stroke-width="1.6"/>
+                <circle cx="190" cy="158" r="10" fill="#DAD8CB" stroke="#191919" stroke-width="1.4"/>
+                <circle cx="190" cy="158" r="3" fill="#191919"/>
+
+                <!-- Revolving Rotor Structure (Rotates to target slot) -->
+                <g id="cutawayRotor" transform="rotate(0 190 158)">
+                  <line x1="190" y1="112" x2="190" y2="204" stroke="#9E9696" stroke-width="1.1"/>
+                  <line x1="150" y1="135" x2="230" y2="181" stroke="#9E9696" stroke-width="1.1"/>
+                  <line x1="150" y1="181" x2="230" y2="135" stroke="#9E9696" stroke-width="1.1"/>
+                  <line x1="144" y1="158" x2="236" y2="158" stroke="#9E9696" stroke-width="1.1"/>
+
+                  <!-- Tonight's Container in Slot (Top slot at 0 deg) -->
+                  <rect id="cutawaySlotContainer" x="176" y="116" width="28" height="11" rx="2" fill="#C0775B" stroke="#191919" stroke-width="1.2"/>
+
+                  <!-- Stocked Radial Containers in Other Slots -->
+                  <rect transform="rotate(30 190 158)" x="176" y="116" width="28" height="11" rx="2" fill="#DAD8CB" stroke="#191919" stroke-width="1"/>
+                  <rect transform="rotate(60 190 158)" x="176" y="116" width="28" height="11" rx="2" fill="#DAD8CB" stroke="#191919" stroke-width="1"/>
+                  <rect transform="rotate(90 190 158)" x="176" y="116" width="28" height="11" rx="2" fill="#DAD8CB" stroke="#191919" stroke-width="1"/>
+                  <rect transform="rotate(120 190 158)" x="176" y="116" width="28" height="11" rx="2" fill="#DAD8CB" stroke="#191919" stroke-width="1"/>
+                  <rect transform="rotate(150 190 158)" x="176" y="116" width="28" height="11" rx="2" fill="#DAD8CB" stroke="#191919" stroke-width="1"/>
+                  <rect transform="rotate(210 190 158)" x="176" y="116" width="28" height="11" rx="2" fill="#DAD8CB" stroke="#191919" stroke-width="1"/>
+                  <rect transform="rotate(240 190 158)" x="176" y="116" width="28" height="11" rx="2" fill="#DAD8CB" stroke="#191919" stroke-width="1"/>
+                  <rect transform="rotate(270 190 158)" x="176" y="116" width="28" height="11" rx="2" fill="#DAD8CB" stroke="#191919" stroke-width="1"/>
+                  <rect transform="rotate(300 190 158)" x="176" y="116" width="28" height="11" rx="2" fill="#DAD8CB" stroke="#191919" stroke-width="1"/>
+                  <rect transform="rotate(330 190 158)" x="176" y="116" width="28" height="11" rx="2" fill="#DAD8CB" stroke="#191919" stroke-width="1"/>
+
+                  <!-- Slot 12: Open Pass-Through Chute Slot (at 180 deg) -->
+                  <rect transform="rotate(180 190 158)" x="176" y="116" width="28" height="11" rx="2" fill="#FFFFFF" stroke="#9E9696" stroke-width="1" stroke-dasharray="2 1.5"/>
                 </g>
-                <circle cx="190" cy="108" r="8" fill="#F1EFE5" stroke="#191919" stroke-width="1.5"/>
-                <text x="45" y="80" fill="#5A5753" font-family="Archivo, sans-serif" font-size="9" font-weight="700">CAROUSEL DRUM (11 MEALS)</text>
+                <circle cx="190" cy="158" r="8" fill="#F1EFE5" stroke="#191919" stroke-width="1.4"/>
 
-                <!-- Pass-through Airlock Chimney (Slot 12) -->
-                <rect x="173" y="146" width="34" height="16" fill="#DAD8CB" stroke="#191919" stroke-width="1.2"/>
-                <text x="215" y="156" fill="#5A5753" font-family="Archivo, sans-serif" font-size="8.5" font-weight="600">Airlock Chute (2.5 s)</text>
+                <!-- Pass-through Airlock Chute (Slot 12 Chimney) -->
+                <rect x="174" y="206" width="32" height="28" fill="#DAD8CB" stroke="#191919" stroke-width="1.2"/>
+                <text x="214" y="222" fill="#5A5753" font-family="Archivo, sans-serif" font-size="8" font-weight="600">Airlock Hatch (2.5 s)</text>
+
+                <!-- Smart Pause Warning Tag on Cutaway -->
+                <g id="cutawaySmartPauseTag" transform="translate(136, 220)" hidden>
+                  <rect x="-36" y="-8" width="72" height="16" rx="3" fill="#C0775B"/>
+                  <text x="0" y="3.5" text-anchor="middle" fill="#FFFFFF" font-family="Archivo, sans-serif" font-size="7.5" font-weight="700">SMART PAUSE</text>
+                </g>
 
                 <!-- Motorized Sealed Airlock Hatch Flap -->
                 <g id="cutawayHatchGroup">
-                  <line id="cutawayHatchFlap" x1="172" y1="162" x2="208" y2="162" stroke="#191919" stroke-width="3" stroke-linecap="round"/>
-                </g>
-
-                <!-- Smart Pause Warning Tag on Cutaway -->
-                <g id="cutawaySmartPauseTag" transform="translate(190, 154)" hidden>
-                  <rect x="-42" y="-9" width="84" height="18" rx="4" fill="#C0775B"/>
-                  <text x="0" y="3" text-anchor="middle" fill="#FFFFFF" font-family="Archivo, sans-serif" font-size="8.5" font-weight="700">SMART PAUSE</text>
+                  <line id="cutawayHatchFlap" x1="173" y1="234" x2="207" y2="234" stroke="#191919" stroke-width="3" stroke-linecap="round"/>
                 </g>
 
                 <!-- Moving Container Dropping from Chimney to Drawer -->
-                <g id="cutawayDropContainer" transform="translate(175, 146)" opacity="0">
-                  <rect x="0" y="0" width="30" height="11" rx="2" fill="#C0775B" stroke="#191919" stroke-width="1.2"/>
+                <g id="cutawayDropContainer" transform="translate(176, 212)" opacity="0">
+                  <rect x="0" y="0" width="28" height="11" rx="2" fill="#C0775B" stroke="#191919" stroke-width="1.2"/>
                 </g>
 
-                <!-- Zone 3: Independent Defrost Drawer (+3.0 °C Zone) -->
-                <rect id="cutawayDrawerGlow" x="35" y="166" width="310" height="48" fill="#EAE6D9" stroke="#191919" stroke-width="1.5"/>
+                <!-- ZONE 3: Independent Defrost Drawer (+3.0 °C Zone) -->
+                <rect id="cutawayDrawerGlow" x="32" y="238" width="316" height="86" rx="3" fill="#EAE6D9" stroke="#191919" stroke-width="1.6"/>
+                <!-- Drawer Header Strip -->
+                <rect x="32" y="238" width="316" height="16" fill="#DAD8CB"/>
+                <text x="40" y="249" fill="#191919" font-family="Archivo, sans-serif" font-size="8.5" font-weight="700">DEFROST DRAWER &bull; INDEPENDENT ZONE</text>
+                <text x="338" y="249" text-anchor="end" fill="#5A5753" font-family="Archivo, sans-serif" font-size="8" font-weight="700">+3.0 &deg;C</text>
+
                 <!-- Drawer Pull Handle with Live Halo Glow Indicator -->
-                <rect id="cutawayHandleGlow" x="338" y="174" width="5" height="32" rx="2" fill="#5B8EC0"/>
+                <rect id="cutawayHandleGlow" x="340" y="258" width="5" height="52" rx="2.5" fill="#5B8EC0" stroke="#191919" stroke-width="0.8"/>
                 
+                <!-- Removable Condensate Drip Tray underneath -->
+                <rect x="42" y="310" width="296" height="8" rx="1.5" fill="#D6D2C4" stroke="#9E9696" stroke-width="0.8"/>
+
                 <!-- Convection Crossflow Fan & Airflow Paths -->
                 <g id="cutawayAirflow" opacity="0">
-                  <circle cx="58" cy="190" r="10" fill="#DAD8CB" stroke="#191919" stroke-width="1.2"/>
-                  <path d="M 58 183 V 197 M 51 190 H 65" stroke="#191919" stroke-width="1.2"/>
-                  <path class="cutaway-air-flow" d="M 72 186 C 110 180, 150 180, 172 186" fill="none" stroke="#C0775B" stroke-width="1.5"/>
-                  <path class="cutaway-air-flow" d="M 72 194 C 110 200, 150 200, 172 194" fill="none" stroke="#C0775B" stroke-width="1.5"/>
+                  <circle cx="56" cy="274" r="9" fill="#DAD8CB" stroke="#191919" stroke-width="1.2"/>
+                  <path d="M 56 267 V 281 M 49 274 H 63" stroke="#191919" stroke-width="1.2"/>
+                  <text x="56" y="289" text-anchor="middle" fill="#5A5753" font-size="6.5" font-weight="600">Fan</text>
+                  <path class="cutaway-air-flow" d="M 68 270 C 110 262, 150 262, 172 270" fill="none" stroke="#C0775B" stroke-width="1.5"/>
+                  <path class="cutaway-air-flow" d="M 68 278 C 110 286, 150 286, 172 278" fill="none" stroke="#C0775B" stroke-width="1.5"/>
                 </g>
 
                 <!-- Container Resting Inside Defrost Drawer -->
-                <g id="cutawayDrawerContainer" transform="translate(175, 186)" opacity="0">
-                  <rect x="0" y="0" width="30" height="11" rx="2" fill="#C0775B" stroke="#191919" stroke-width="1.2"/>
+                <g id="cutawayDrawerContainer" transform="translate(176, 268)" opacity="0">
+                  <rect x="0" y="0" width="28" height="11" rx="2" fill="#C0775B" stroke="#191919" stroke-width="1.2"/>
                   <!-- Frost Layer Overlay on Container Lid -->
-                  <rect id="cutawayFrostLayer" x="1" y="1" width="28" height="9" rx="1" fill="#FFFFFF" opacity="0.8"/>
+                  <rect id="cutawayFrostLayer" x="1" y="1" width="26" height="9" rx="1" fill="#FFFFFF" opacity="0.8"/>
                 </g>
 
-                <text x="45" y="180" fill="#5A5753" font-family="Archivo, sans-serif" font-size="9" font-weight="700">DEFROST DRAWER (+3.0 &deg;C)</text>
-                <text id="cutawayDrawerStatusText" x="45" y="206" fill="#191919" font-family="Archivo, sans-serif" font-size="8.5" font-weight="600">Status: Empty &bull; Standby</text>
+                <text id="cutawayDrawerStatusText" x="78" y="302" fill="#191919" font-family="Archivo, sans-serif" font-size="8.5" font-weight="600">Status: Empty &bull; Standby</text>
               </svg>
             </div>
           </div>
@@ -422,7 +472,7 @@
           </div>
 
           <!-- Carousel Visualizer Wheel -->
-          <div class="drum-wheel-visualizer">
+          <div class="drum-wheel-visualizer" id="drumGraphic">
             <div class="drum-wheel-svg-box">
               <svg viewBox="0 0 120 120" width="96" height="96" aria-label="Interactive rotating meal carousel">
                 <circle cx="60" cy="60" r="52" fill="#F1EFE5" stroke="#191919" stroke-width="2"/>
@@ -871,7 +921,9 @@
 
   <!-- SHEET 1: CHANGE DINNER SHEET -->
   <div class="bottom-sheet" id="changeDinnerSheet" role="dialog" aria-labelledby="changeDinnerTitle" aria-modal="true" hidden>
-    <div class="sheet-handle-bar"></div>
+    <div class="sheet-handle-zone" aria-label="Drag down to close sheet" role="button" tabindex="0">
+      <div class="sheet-handle-bar"></div>
+    </div>
     <div class="sheet-header">
       <h3 class="sheet-title" id="changeDinnerTitle">Change Tonight&rsquo;s Dinner</h3>
       <button type="button" class="btn-sheet-close" id="btnCloseChangeDinner">Close</button>
@@ -920,7 +972,9 @@
 
   <!-- SHEET 2: ADD MEAL SHEET -->
   <div class="bottom-sheet" id="addMealSheet" role="dialog" aria-labelledby="addMealTitle" aria-modal="true" hidden>
-    <div class="sheet-handle-bar"></div>
+    <div class="sheet-handle-zone" aria-label="Drag down to close sheet" role="button" tabindex="0">
+      <div class="sheet-handle-bar"></div>
+    </div>
     <div class="sheet-header">
       <h3 class="sheet-title" id="addMealTitle">Add Meal to Freezer</h3>
       <button type="button" class="btn-sheet-close" id="btnCloseAddMeal">Close</button>
@@ -969,7 +1023,9 @@
 
   <!-- SHEET 3: LIVE COMMUTE MAP SHEET -->
   <div class="bottom-sheet" id="liveMapSheet" role="dialog" aria-labelledby="liveMapTitle" aria-modal="true" hidden>
-    <div class="sheet-handle-bar"></div>
+    <div class="sheet-handle-zone" aria-label="Drag down to close sheet" role="button" tabindex="0">
+      <div class="sheet-handle-bar"></div>
+    </div>
     <div class="sheet-header">
       <h3 class="sheet-title" id="liveMapTitle">Live Commute &amp; Defrost Sync</h3>
       <button type="button" class="btn-sheet-close" id="btnCloseLiveMap">Close</button>
@@ -1076,7 +1132,9 @@
 
   <!-- SHEET 4: MOBILE DEMO DIRECTOR SHEET (< 900px) -->
   <div class="bottom-sheet" id="directorSheet" role="dialog" aria-labelledby="directorSheetTitle" aria-modal="true" hidden>
-    <div class="sheet-handle-bar"></div>
+    <div class="sheet-handle-zone" aria-label="Drag down to close sheet" role="button" tabindex="0">
+      <div class="sheet-handle-bar"></div>
+    </div>
     <div class="sheet-header">
       <h3 class="sheet-title" id="directorSheetTitle">Simulation Controls</h3>
       <button type="button" class="btn-sheet-close" id="btnCloseDirectorSheet">Close</button>
@@ -1155,6 +1213,6 @@
     <span class="toast-text">Dinner scheduled</span>
   </div>
 
-  <script src="js/app.js?v=10.0"></script>
+  <script src="js/app.js?v=10.1"></script>
 </body>
 </html>

@@ -789,11 +789,13 @@ document.addEventListener("DOMContentLoaded", () => {
     // 1. Hatch opens (400ms)
     cutawayHatchFlap.classList.add("open");
     cutawayDropContainer.setAttribute("opacity", "1");
-    cutawayDropContainer.classList.remove("dropped");
+    cutawayDropContainer.style.transition = "none";
+    cutawayDropContainer.setAttribute("transform", "translate(176, 212)");
 
     // 2. Container slides down chimney into drawer (900ms)
     setTimeout(() => {
-      cutawayDropContainer.classList.add("dropped");
+      cutawayDropContainer.style.transition = "transform 900ms cubic-bezier(0.22, 0.61, 0.36, 1)";
+      cutawayDropContainer.setAttribute("transform", "translate(176, 268)");
     }, 400);
 
     // 3. Hatch closes (400ms) and container lands in drawer
@@ -879,8 +881,8 @@ document.addEventListener("DOMContentLoaded", () => {
     // Cutaway Mechanical Section Updates
     if (cutawayRotor) {
       const slotNum = parseInt(state.plan.slot, 10) || 1;
-      const deg = ((slotNum - 1) % 6) * 60;
-      cutawayRotor.setAttribute("transform", `rotate(${deg} 190 108)`);
+      const deg = ((slotNum - 1) % 12) * 30;
+      cutawayRotor.setAttribute("transform", `rotate(${deg} 190 158)`);
     }
 
     // Trigger Airlock sequence once upon entering drop phase
@@ -1269,7 +1271,13 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!sheetEl) return;
     lastActiveElement = document.activeElement;
     activeSheet = sheetEl;
-    if (sheetBackdrop) sheetBackdrop.classList.add("open");
+    sheetEl.style.transform = "";
+    sheetEl.style.transition = "";
+    if (sheetBackdrop) {
+      sheetBackdrop.style.opacity = "";
+      sheetBackdrop.style.transition = "";
+      sheetBackdrop.classList.add("open");
+    }
     sheetEl.removeAttribute("hidden");
     // Trigger CSS slide-up in next frame
     requestAnimationFrame(() => {
@@ -1284,16 +1292,161 @@ document.addEventListener("DOMContentLoaded", () => {
     const target = sheetEl || activeSheet;
     if (!target) return;
     target.classList.remove("open");
-    if (sheetBackdrop) sheetBackdrop.classList.remove("open");
+    target.style.transform = "";
+    target.style.transition = "";
+    if (sheetBackdrop) {
+      sheetBackdrop.classList.remove("open");
+      sheetBackdrop.style.opacity = "";
+      sheetBackdrop.style.transition = "";
+    }
     setTimeout(() => {
       target.setAttribute("hidden", "");
       if (lastActiveElement && typeof lastActiveElement.focus === "function") {
         lastActiveElement.focus();
       }
-      activeSheet = null;
+      if (activeSheet === target) activeSheet = null;
     }, 280);
     triggerHaptic([10]);
   }
+
+  // Emil Kowalski Pull-to-Dismiss Gesture Engine for Bottom Sheets
+  function setupSheetDragToDismiss(sheetEl) {
+    if (!sheetEl) return;
+
+    let isTracking = false;
+    let isDragging = false;
+    let startY = 0;
+    let currentY = 0;
+    let startTime = 0;
+    let startScrollTop = 0;
+
+    const sheetBody = sheetEl.querySelector(".sheet-body");
+
+    function getPointerY(e) {
+      return (e.touches && e.touches.length > 0) ? e.touches[0].clientY : e.clientY;
+    }
+
+    function onPointerDown(e) {
+      if (sheetEl.hasAttribute("hidden") || !sheetEl.classList.contains("open")) return;
+
+      // Ignore interactive controls inside sheet
+      if (e.target.closest("button, input, select, textarea, .time-preset-chip, .cat-chip, .dial-container, #dialTicks, .meal-option-card")) {
+        return;
+      }
+
+      const isHandleZone = !!e.target.closest(".sheet-handle-zone, .sheet-handle-bar, .sheet-header");
+      const atTop = sheetBody ? sheetBody.scrollTop <= 0 : true;
+
+      // Only initiate pull-to-dismiss if on the handle/header or at top of scrollable content
+      if (!isHandleZone && !atTop) return;
+
+      isTracking = true;
+      isDragging = false;
+      startY = getPointerY(e);
+      currentY = startY;
+      startTime = Date.now();
+      startScrollTop = sheetBody ? sheetBody.scrollTop : 0;
+    }
+
+    function onPointerMove(e) {
+      if (!isTracking) return;
+
+      const y = getPointerY(e);
+      const deltaY = y - startY;
+
+      if (!isDragging) {
+        const isHandleZone = !!e.target.closest(".sheet-handle-zone, .sheet-handle-bar, .sheet-header");
+        if (deltaY > 6 && (isHandleZone || startScrollTop <= 0)) {
+          isDragging = true;
+          sheetEl.style.transition = "none";
+          if (sheetBackdrop) sheetBackdrop.style.transition = "none";
+        } else if (deltaY < -6 && !isHandleZone) {
+          // Normal upward content scrolling
+          isTracking = false;
+          return;
+        }
+      }
+
+      if (isDragging) {
+        if (e.cancelable) e.preventDefault();
+        currentY = y;
+
+        if (deltaY > 0) {
+          // Direct 1:1 downward follow
+          sheetEl.style.transform = `translate(-50%, ${deltaY}px)`;
+          if (sheetBackdrop) {
+            const opacity = Math.max(0, 1 - (deltaY / 320));
+            sheetBackdrop.style.opacity = opacity.toString();
+          }
+        } else {
+          // Rubber-band resistance if dragged up
+          const resisted = deltaY * 0.2;
+          sheetEl.style.transform = `translate(-50%, ${resisted}px)`;
+        }
+      }
+    }
+
+    function onPointerUp() {
+      if (!isTracking) return;
+      isTracking = false;
+
+      if (!isDragging) return;
+      isDragging = false;
+
+      const deltaY = currentY - startY;
+      const elapsed = Math.max(1, Date.now() - startTime);
+      const velocity = deltaY / elapsed; // px/ms
+
+      // Dismiss if pulled down > 80px or flicked down rapidly (velocity > 0.3 px/ms)
+      const shouldDismiss = deltaY > 80 || (deltaY > 30 && velocity > 0.3);
+
+      if (shouldDismiss) {
+        sheetEl.style.transition = "transform 240ms cubic-bezier(0.32, 0.72, 0, 1)";
+        sheetEl.style.transform = "translate(-50%, 100%)";
+        if (sheetBackdrop) {
+          sheetBackdrop.style.transition = "opacity 240ms ease";
+          sheetBackdrop.style.opacity = "0";
+        }
+        setTimeout(() => {
+          closeSheet(sheetEl);
+        }, 240);
+        triggerHaptic([10]);
+      } else {
+        // Snap back to open position
+        sheetEl.style.transition = "transform 260ms cubic-bezier(0.16, 1, 0.3, 1)";
+        sheetEl.style.transform = "translate(-50%, 0)";
+        if (sheetBackdrop) {
+          sheetBackdrop.style.transition = "opacity 260ms ease";
+          sheetBackdrop.style.opacity = "1";
+        }
+        setTimeout(() => {
+          sheetEl.style.transition = "";
+          sheetEl.style.transform = "";
+          if (sheetBackdrop) {
+            sheetBackdrop.style.transition = "";
+            sheetBackdrop.style.opacity = "";
+          }
+        }, 260);
+      }
+    }
+
+    // Pointer events (desktop mice, trackpads, touch screens)
+    sheetEl.addEventListener("pointerdown", onPointerDown, { passive: true });
+    window.addEventListener("pointermove", onPointerMove, { passive: false });
+    window.addEventListener("pointerup", onPointerUp);
+    window.addEventListener("pointercancel", onPointerUp);
+
+    // Touch events for iOS Safari compatibility
+    sheetEl.addEventListener("touchstart", onPointerDown, { passive: true });
+    window.addEventListener("touchmove", onPointerMove, { passive: false });
+    window.addEventListener("touchend", onPointerUp);
+    window.addEventListener("touchcancel", onPointerUp);
+  }
+
+  // Bind drag-to-dismiss to all bottom sheets
+  [changeDinnerSheet, addMealSheet, liveMapSheet, directorSheet].forEach(sheet => {
+    if (sheet) setupSheetDragToDismiss(sheet);
+  });
 
   if (sheetBackdrop) {
     sheetBackdrop.addEventListener("click", () => closeSheet());
@@ -1875,7 +2028,6 @@ document.addEventListener("DOMContentLoaded", () => {
       triggerHaptic([10]);
       const spd = parseInt(btn.dataset.speed, 10);
       store.set({ sim: { speed: spd, playing: true } });
-      showToast(`Clock speed: ${spd}x (${spd} simulated min / real sec).`);
     });
   });
 
@@ -1905,7 +2057,6 @@ document.addEventListener("DOMContentLoaded", () => {
       tour: { active: false, step: 0 }
     });
     switchTab("tab-tonight");
-    showToast("Evening reset to 15:00 standby.");
   }
 
   if (btnDirectorReset) btnDirectorReset.addEventListener("click", resetEvening);
@@ -1917,7 +2068,6 @@ document.addEventListener("DOMContentLoaded", () => {
       triggerHaptic([10]);
       const sc = btn.dataset.commute;
       applyMapScene(sc);
-      showToast(`Commute scenario: ${sc.toUpperCase()}`);
     });
   });
 
@@ -1927,7 +2077,6 @@ document.addEventListener("DOMContentLoaded", () => {
       triggerHaptic([15]);
       const dur = parseInt(btn.dataset.pcut, 10);
       store.set({ flags: { powerCutMinutes: dur } });
-      showToast(`Power cut: ${dur} min.`);
     });
   });
 
@@ -1935,7 +2084,6 @@ document.addEventListener("DOMContentLoaded", () => {
     triggerHaptic([10]);
     const newState = !store.state.flags.drawerOccupied;
     store.set({ flags: { drawerOccupied: newState } });
-    showToast(newState ? "Dish placed in drawer (Smart Pause on drop)." : "Drawer cleared.");
   }
   if (btnToggleDrawerOccupied) btnToggleDrawerOccupied.addEventListener("click", toggleDrawerOccupied);
   if (btnMobileToggleDrawerOccupied) btnMobileToggleDrawerOccupied.addEventListener("click", toggleDrawerOccupied);
@@ -1944,10 +2092,14 @@ document.addEventListener("DOMContentLoaded", () => {
     triggerHaptic([10]);
     const newOffline = !store.state.flags.wifiOffline;
     store.set({ flags: { wifiOffline: newOffline } });
-    showToast(newOffline ? "Home Wi-Fi offline (running locally)." : "Wi-Fi reconnected.");
   }
   if (btnToggleWifiDesktop) btnToggleWifiDesktop.addEventListener("click", toggleWifi);
   if (btnMobileToggleWifi) btnMobileToggleWifi.addEventListener("click", toggleWifi);
+
+  // Tour Prompt Persistence
+  if (sessionStorage.getItem("dina_tour_dismissed") === "true") {
+    if (tourPromptCard) tourPromptCard.setAttribute("hidden", "");
+  }
 
   // =========================================================================
   // Guided Tour Engine (6 Steps)
@@ -2026,12 +2178,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function startGuidedTour() {
     closeSheet();
+    sessionStorage.setItem("dina_tour_dismissed", "true");
     if (tourPromptCard) tourPromptCard.setAttribute("hidden", "");
     runTourStep(1);
-    showToast("Starting 6-step guided tour (~90s).");
   }
 
   function dismissTourPrompt() {
+    sessionStorage.setItem("dina_tour_dismissed", "true");
     if (tourPromptCard) tourPromptCard.setAttribute("hidden", "");
     triggerHaptic([10]);
   }
