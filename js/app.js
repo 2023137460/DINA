@@ -543,6 +543,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const heroCountdownVal = document.getElementById("heroCountdownVal");
   const heroHeading = document.getElementById("heroHeading");
   const heroSubtext = document.getElementById("heroSubtext");
+  const heroReassuranceText = document.getElementById("heroReassuranceText");
   const btnHeroAction = document.getElementById("btnHeroAction");
   const thawConsumerPhaseLabel = document.getElementById("thawConsumerPhaseLabel");
   const thawConsumerReadyTime = document.getElementById("thawConsumerReadyTime");
@@ -910,6 +911,33 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     if (heroSubtext) {
       heroSubtext.textContent = computed.subtext;
+    }
+    if (heroReassuranceText) {
+      if (computed.phase === "scheduled") {
+        heroReassuranceText.innerHTML = `<strong>Nothing to do</strong> &mdash; DINA auto-drops at ${minsToTimeStr(state.plan.dropMins)} and thaws to +3.0 &deg;C. Arrive home to dinner ready to cook.`;
+      } else if (computed.phase === "drop") {
+        heroReassuranceText.innerHTML = `<strong>In progress</strong> &mdash; 2.5 s airlock hatch open. Transferring container into lower defrost drawer.`;
+      } else if (computed.phase === "thaw") {
+        heroReassuranceText.innerHTML = `<strong>Thawing gently</strong> &mdash; Closed-loop +10 &deg;C air circulation active. Surface monitored below +4.0 &deg;C safe limit.`;
+      } else if (computed.phase === "equalize") {
+        heroReassuranceText.innerHTML = `<strong>Equalizing core</strong> &mdash; Air stepped down to +3.0 &deg;C while conduction warms center.`;
+      } else if (computed.phase === "ready" || computed.phase === "held") {
+        heroReassuranceText.innerHTML = `<strong>Dinner is ready!</strong> &mdash; Safely held at +3.0 &deg;C. Open drawer and cook whenever you're ready.`;
+      } else if (computed.phase === "eating_out") {
+        heroReassuranceText.innerHTML = `<strong>Eating out tonight</strong> &mdash; Carousel remains frozen solid at &minus;18.0 &deg;C. Zero food wasted.`;
+      }
+    }
+    if (heroStatusPill) {
+      if (state.flags.powerCutMins > 0) {
+        heroStatusPill.textContent = state.flags.powerCutMins >= 120 ? "Safety Lockout" : "Power Advisory";
+        heroStatusPill.className = "hero-food-status-pill pill-warning";
+      } else if (state.flags.wifiOffline) {
+        heroStatusPill.textContent = "Offline (Local Schedule Active)";
+        heroStatusPill.className = "hero-food-status-pill pill-offline";
+      } else {
+        heroStatusPill.textContent = "All Systems Normal";
+        heroStatusPill.className = "hero-food-status-pill pill-scheduled";
+      }
     }
     if (btnHeroAction) {
       btnHeroAction.textContent = computed.action;

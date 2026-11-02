@@ -1258,6 +1258,96 @@ img {
 }
 
 /* ==========================================================================
+   PROBLEM VISUAL STORYTELLING (4-CARD COMPARISON)
+   ========================================================================== */
+.problem-story-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-top: 24px;
+  margin-bottom: 24px;
+}
+
+.problem-story-card {
+  background: var(--paper);
+  border: var(--hairline);
+  padding: 20px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  position: relative;
+}
+
+.problem-story-card.solution {
+  background: #FAF8F0;
+  border: 2px solid var(--clay);
+  box-shadow: 0 8px 24px rgba(192, 119, 91, 0.08);
+}
+
+.story-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.story-time-tag {
+  font-family: var(--font-head);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.story-card-top .story-time-tag.highlight {
+  color: var(--clay);
+}
+
+.problem-story-card h3 {
+  font-family: var(--font-head);
+  font-size: 16px;
+  font-weight: 700;
+  margin: 0;
+  color: var(--ink);
+}
+
+.story-card-desc {
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--ink-soft);
+  margin: 0;
+  flex-grow: 1;
+}
+
+.story-outcome-pill {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 4px 8px;
+  background: #EAE6D9;
+  color: var(--ink);
+  border-radius: 4px;
+  align-self: flex-start;
+  margin-top: auto;
+}
+
+.problem-story-card.solution .story-outcome-pill {
+  background: var(--clay);
+  color: var(--paper);
+}
+
+@media (max-width: 900px) {
+  .problem-story-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 540px) {
+  .problem-story-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ==========================================================================
    3-TIER VALIDATION LEGEND
    ========================================================================== */
 .validation-legend-grid {

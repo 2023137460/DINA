@@ -14,8 +14,8 @@
   <link rel="icon" type="image/svg+xml" href="assets/icons/pwa-logo.svg">
   <link rel="icon" type="image/png" sizes="192x192" href="assets/images/pwa-icon-192.png">
   <link rel="apple-touch-icon" sizes="180x180" href="assets/images/apple-touch-icon.png">
-  <link rel="stylesheet" href="css/tokens.css?v=10.5">
-  <link rel="stylesheet" href="css/app.css?v=10.5">
+  <link rel="stylesheet" href="css/tokens.css?v=10.6">
+  <link rel="stylesheet" href="css/app.css?v=10.6">
 </head>
 <body class="app-body">
 
@@ -145,8 +145,8 @@
              ==================================================================== -->
         <section class="tab-content active" id="tab-tonight" role="tabpanel" aria-label="Tonight's Dinner">
 
-          <!-- First-Run Guided Tour Prompt Card -->
-          <div class="lock-notification-card sand-card" id="tourPromptCard" role="region" aria-label="Guided Tour Prompt" style="background:var(--sand); margin-bottom:12px; padding:10px 14px;">
+          <!-- First-Run Guided Tour Prompt Card (Hidden by default; accessible via Demo Controls) -->
+          <div class="lock-notification-card sand-card" id="tourPromptCard" role="region" aria-label="Guided Tour Prompt" style="background:var(--sand); margin-bottom:12px; padding:10px 14px;" hidden>
             <div class="lock-notif-header" style="margin-bottom:4px;">
               <span class="lock-notif-badge">Evaluation Walkthrough</span>
               <button type="button" id="btnTourPromptSkip" style="background:none; border:none; color:var(--ink-soft); font-size:11px; cursor:pointer; font-weight:600;">Dismiss</button>
@@ -181,10 +181,10 @@
             </div>
           </div>
 
-          <!-- 1. Hero Food Card (Consumer-first appetizing visual + calm status + primary action) -->
+          <!-- 1. Hero Food Card (Consumer-first: What's for dinner, When ready, Systems status, What to do) -->
           <div class="status-hero-card hero-food-card" id="statusHeroCard" aria-live="polite">
             <div class="hero-food-media">
-              <img id="heroFoodImg" src="assets/images/meal_beef_ribeye.jpg" alt="Tonight's dinner" class="hero-food-img" loading="eager">
+              <img id="heroFoodImg" src="assets/images/meal_beef_ribeye.jpg" alt="Tonight's dinner: Beef Ribeye" class="hero-food-img" loading="eager">
               <div class="hero-food-overlay-badge">
                 <span class="status-hero-tag" id="heroPhaseTag">SCHEDULED</span>
                 <span class="status-hero-countdown" id="heroCountdownVal">Drops in 170 min</span>
@@ -193,12 +193,20 @@
             <div class="hero-food-body">
               <div class="hero-food-dish-row">
                 <div class="hero-food-title-col">
-                  <span class="hero-food-slot-label" id="heroFoodSlotLabel">Container 02 &bull; 450 g</span>
+                  <span class="hero-food-slot-label" id="heroFoodSlotLabel">Container 02 &bull; 450 g &bull; Prime Cut</span>
                   <h2 class="status-hero-heading" id="heroHeading">Beef Ribeye</h2>
                 </div>
-                <span class="hero-food-status-pill pill-scheduled" id="heroStatusPill">On Schedule</span>
+                <span class="hero-food-status-pill pill-scheduled" id="heroStatusPill">All Systems Normal</span>
               </div>
-              <p class="status-hero-sub" id="heroSubtext">Drawer starts empty in standby (+3.0 &deg;C zone). At 17:50, container drops for an 85 min gentle thaw + 15 min equalization.</p>
+              
+              <!-- 4 Consumer Questions: When ready & Action reassurance -->
+              <p class="status-hero-sub" id="heroSubtext">Drawer empty in standby (+3.0 &deg;C zone). At 17:50, container drops for an 85 min gentle thaw + 15 min equalization.</p>
+              
+              <div class="hero-reassurance-chip" id="heroReassuranceChip">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="color:var(--forest); flex-shrink:0;"><path d="M20 6L9 17l-5-5"/></svg>
+                <span id="heroReassuranceText"><strong>Nothing to do</strong> &mdash; DINA auto-drops &amp; thaws. Arrive home to dinner ready to cook.</span>
+              </div>
+
               <div class="hero-food-footer">
                 <div class="hero-timing-chip">
                   <span class="hero-timing-label">Target Ready:</span>
@@ -1102,7 +1110,7 @@
       <div class="sheet-handle-bar"></div>
     </div>
     <div class="sheet-header">
-      <h3 class="sheet-title" id="directorSheetTitle">Simulation Controls</h3>
+      <h3 class="sheet-title" id="directorSheetTitle">Concept Director &bull; Demo Controls</h3>
       <button type="button" class="btn-sheet-close" id="btnCloseDirectorSheet">Close</button>
     </div>
     <div class="sheet-body">
@@ -1265,6 +1273,6 @@
 
 
 
-  <script src="js/app.js?v=10.5"></script>
+  <script src="js/app.js?v=10.6"></script>
 </body>
 </html>

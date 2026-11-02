@@ -24,7 +24,7 @@ This repository contains the complete buyer-facing product website and the inter
 2. **Effortless Weekly Routine**:
    - **Load on Sunday**: Store 11 prepped meals in the revolving carousel drum, keeping 110 L of classic freezer shelves above.
    - **Check-In at 15:00**: Quick notification on your phone: confirm tonight's dish, swap meals, or let your default dinner plan run.
-   - **Walk In & Sear**: Arrive home at 19:00 to an evenly thawed meal chilled at +3.0 °C, ready to cook.
+   - **Walk In & Sear**: Arrive home at 19:30 to an evenly thawed meal chilled at +3.0 °C, ready to cook.
 
 3. **Commute & Traffic Delay Guard**:
    - If traffic delays your evening commute, your phone tells DINA to keep dinner safely chilled at +3.0 °C without sharing live location to external servers.

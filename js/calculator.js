@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
       factor: 0.125, // 320g => 65 min active thaw
       defaultGrams: 320,
       holdMinutes: 15,
-      benefit: "Gentle low-temperature thaw preserves tender, flaky restaurant texture"
+      benefit: "Gentle low-temperature airflow preserves delicate flaky moisture with zero microwave edge-cooking"
     },
     chicken: {
       name: "Organic Chicken Breast",

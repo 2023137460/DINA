@@ -10,8 +10,8 @@
   <link rel="icon" type="image/svg+xml" href="assets/icons/pwa-logo.svg">
   <link rel="icon" type="image/png" sizes="192x192" href="assets/images/pwa-icon-192.png">
   <link rel="apple-touch-icon" sizes="180x180" href="assets/images/apple-touch-icon.png">
-  <link rel="stylesheet" href="css/tokens.css?v=10.5">
-  <link rel="stylesheet" href="css/site.css?v=10.5">
+  <link rel="stylesheet" href="css/tokens.css?v=10.6">
+  <link rel="stylesheet" href="css/site.css?v=10.6">
 </head>
 <body>
 
@@ -173,30 +173,67 @@
       <section id="hero" class="content-section hero-editorial reveal in">
         <div class="hero-concept-badge">Academic Product Concept &bull; Mechanical Engineering Coursework</div>
         <h1>Dinner, <em>scheduled</em>.</h1>
-        <p class="hero-tagline" style="font-family:var(--font-head); font-size:18px; font-weight:600; color:var(--clay); margin-top:-8px; margin-bottom:14px; letter-spacing:0.02em;">Never remember to defrost again.</p>
+        <p class="hero-tagline" style="font-family:var(--font-head); font-size:18px; font-weight:600; color:var(--clay); margin-top:-8px; margin-bottom:14px; letter-spacing:0.02em;">Prepare your meals once. Let DINA take care of the rest.</p>
         <p class="lead">
-          Come home at 19:30 to a dinner that is tender, evenly thawed, and ready for the pan.
+          Your dinner automatically moves from the freezer to the preparation drawer, so it&rsquo;s ready when you get home.
         </p>
         <p>
-          DINA is an upright 60 cm companion freezer with an independent defrost drawer and motorized carousel. Load meals on Sunday; DINA lowers tonight&rsquo;s portion through a thermal airlock and gently thaws it for dinner — keeping 110 L of frozen food locked at &minus;18 &deg;C with zero mandatory subscriptions.
+          DINA is an upright 60 cm companion freezer featuring an 11-meal revolving carousel, a 2.5-second airlock transfer hatch, and an independent +3.0 &deg;C defrost drawer. Load prepped containers on Sunday &mdash; DINA handles the timing, gentle low-temperature airflow, and food safety with zero recurring subscriptions.
         </p>
 
         <div class="hero-actions-row">
-          <a href="app.html" class="btn btn-clay">Experience the App Simulator &rarr;</a>
-          <a href="#who-is-it-for" class="btn">Is DINA for You?</a>
+          <a href="#how-it-works" class="btn btn-clay">See How DINA Works &darr;</a>
+          <a href="app.html" class="btn">Launch App Simulator &rarr;</a>
         </div>
       </section>
 
-      <!-- Section 2: Intro Problem -->
+      <!-- Section 2: Intro Problem & Visual Storytelling Comparison -->
       <section id="intro" class="content-section reveal">
         <h2>Forgot to defrost dinner?</h2>
         <div class="intro-text-block">
           <p>
-            Dinner is the most challenging meal to make a decision on for 57% of households (Dolmio / OnePoll 2024 survey of 2,000 UK adults, which found people spend an average of 43 minutes a week deliberating, with dinnertime stress starting as early as 15:10). When you forget to take food out of the freezer the night before, weeknight options fail.
+            Dinner is the most challenging meal to decide on for 57% of households (Dolmio / OnePoll 2024 survey of 2,000 adults, with dinnertime stress starting as early as 15:10). When you forget to take food out of the freezer before leaving for work, every weeknight alternative falls short.
           </p>
-          <p>
-            Microwaves overheat thin outer edges into gray rubber while the center stays frozen solid. Leaving meat on the kitchen counter sits for hours in the bacterial danger zone (+5 &deg;C to +60 &deg;C). Takeaway delivery costs 35 &euro; while wholesome groceries already paid for sit frozen.
-          </p>
+
+          <!-- 4-Card Visual Storytelling Comparison -->
+          <div class="problem-story-grid">
+            <div class="problem-story-card">
+              <div class="story-card-top">
+                <span class="story-time-tag">19:00 Reality</span>
+              </div>
+              <h3>1. Forgetting to Defrost</h3>
+              <p class="story-card-desc">Arrive home exhausted to a rock-hard frozen steak. A 2-hour wait in cold water, or dinner plans abandoned.</p>
+              <span class="story-outcome-pill">&times; 2h delay &bull; Skipped meal</span>
+            </div>
+
+            <div class="problem-story-card">
+              <div class="story-card-top">
+                <span class="story-time-tag">19:15 Desperation</span>
+              </div>
+              <h3>2. The Microwave Trap</h3>
+              <p class="story-card-desc">Defrost settings burn thin outer edges into tough, gray rubber while the center remains icy solid.</p>
+              <span class="story-outcome-pill">&times; Rubbery meat &bull; Ruined juices</span>
+            </div>
+
+            <div class="problem-story-card">
+              <div class="story-card-top">
+                <span class="story-time-tag">19:45 Default</span>
+              </div>
+              <h3>3. Ordering Takeaway</h3>
+              <p class="story-card-desc">Ordering expensive delivery out of hunger and fatigue, while wholesome groceries already paid for sit locked in ice.</p>
+              <span class="story-outcome-pill">&times; 35 &euro; cost &bull; Daily regret</span>
+            </div>
+
+            <div class="problem-story-card solution">
+              <div class="story-card-top">
+                <span class="story-time-tag highlight">19:30 DINA</span>
+              </div>
+              <h3>4. Dinner, Scheduled</h3>
+              <p class="story-card-desc">Confirmed at 15:00. Automatically lowered and gently thawed to +3.0 &deg;C. Tender, juicy, and ready for the pan.</p>
+              <span class="story-outcome-pill">&check; On time &bull; Zero chores</span>
+            </div>
+          </div>
+
           <div class="intro-highlight-box">
             <p>
               DINA eliminates the weeknight compromise: stock 11 prepped meals on Sunday, confirm dinner from your phone, and return home to food thawed evenly under closed-loop surface temperature control.
@@ -314,7 +351,7 @@
               <span class="itinerary-step-label">15:00 Weekdays</span>
               <span class="itinerary-step-time">Check-In</span>
             </div>
-            <p class="itinerary-step-desc">A single phone notification: confirm tonight&rsquo;s salmon, swap to chicken, or let your default dinner schedule run automatically.</p>
+            <p class="itinerary-step-desc">A single phone notification: confirm tonight&rsquo;s Beef Ribeye (or swap to salmon or chicken), or let your default dinner schedule run automatically.</p>
           </div>
 
           <div class="itinerary-step">
@@ -330,7 +367,7 @@
               <span class="itinerary-step-label">17:50 &ndash; 19:15 Active Thaw</span>
               <span class="itinerary-step-time">Convection</span>
             </div>
-            <p class="itinerary-step-desc">Forced-air convection at +10 &deg;C warms the dish until surface telemetry reads +4.0 &deg;C (~85 min for 450 g beef ribeye), then steps down to a +3.0 &deg;C hold while conduction equalizes the core.</p>
+            <p class="itinerary-step-desc">Forced-air convection at +10 &deg;C warms the dish until surface telemetry reads +4.0 &deg;C (85 min active thaw for 450 g beef ribeye; 65 min for 320 g salmon fillet), then steps down to a +3.0 &deg;C hold while conduction equalizes the core.</p>
           </div>
 
           <div class="itinerary-step">
@@ -338,7 +375,7 @@
               <span class="itinerary-step-label">19:30 Dinnertime</span>
               <span class="itinerary-step-time">Ready</span>
             </div>
-            <p class="itinerary-step-desc">Tender, evenly thawed food chilled at +3.0 &deg;C, held safely for up to 24 hours (preventing the +5 &deg;C to +60 &deg;C bacterial danger zone).</p>
+            <p class="itinerary-step-desc">Food chilled at +3.0 &deg;C, held safely for up to 24 hours below microbial growth limits (modelled via 2D conduction FEA; formal microbiological assay planned on prototype).</p>
           </div>
 
           <div class="itinerary-slip-result">
@@ -463,7 +500,7 @@
             <h3>DINA Smart Freezer</h3>
             <div class="comp-cost">799&ndash;849 &euro; <span class="comp-onetime">one-off</span></div>
             <ul class="comp-list positive">
-              <li class="comp-pos">&check; Gentle closed-loop convection (+10 &deg;C) preserves restaurant texture</li>
+              <li class="comp-pos">&check; Gentle closed-loop convection (+10 &deg;C) preserves natural tenderness without microwave edge-cooking</li>
               <li class="comp-pos">&check; Autonomous schedule with on-device commute delay protection</li>
               <li class="comp-pos">&check; <strong>Zero monthly subscriptions</strong> &bull; Pays for itself in avoided takeaways in 6&ndash;8 months</li>
             </ul>
@@ -481,27 +518,32 @@
         <div class="stats-lines-grid">
           <div class="stat-row">
             <div class="stat-figure">60 cm</div>
-            <p class="stat-text"><strong>Standard Kitchen Width</strong> &mdash; 600 x 650 x 1450 mm upright column. Slides directly into your existing cabinetry line.</p>
+            <p class="stat-text"><strong>Standard Kitchen Fit</strong> &mdash; 600 &times; 650 &times; 1450 mm upright column slides seamlessly into standard European kitchen cabinetry with zero remodelling.</p>
           </div>
 
           <div class="stat-row">
             <div class="stat-figure">185 L</div>
-            <p class="stat-text"><strong>185 L Total Usable Volume</strong> &mdash; 185 L total = 110 L upper shelves (&minus;18 &deg;C) + 60 L motorized carousel + 15 L insulated defrost drawer.</p>
+            <p class="stat-text"><strong>Plenty of Room for Groceries</strong> &mdash; 185 L total usable capacity splits into 110 L upper shelves (&minus;18 &deg;C) for groceries, a 60 L motorized carousel for 11 prepped dinners, and a 15 L independent defrost drawer.</p>
           </div>
 
           <div class="stat-row">
             <div class="stat-figure">11 Meals</div>
-            <p class="stat-text"><strong>Two-Tier Revolving Carousel</strong> &mdash; 11 meals = two stacked discs (6 containers upper + 5 lower), plus 1 empty pass-through sector so meals drop through the 2.5 s airlock hatch.</p>
+            <p class="stat-text"><strong>A Week and a Half of Dinners</strong> &mdash; Two stacked motorized discs (6 containers upper + 5 lower) hold 11 dishwasher-safe 750 ml glass meal containers, plus 1 dedicated pass-through drop chute.</p>
+          </div>
+
+          <div class="stat-row">
+            <div class="stat-figure">25 mm VIP</div>
+            <p class="stat-text"><strong>Dual Thermal Isolation</strong> &mdash; An insulated vacuum barrier keeps your 110 L deep freeze at &minus;18 &deg;C while your dinner drawer warms to +3.0 &deg;C without cross-heating (25 mm Vacuum Insulation Panel, k = 0.004 W/m&middot;K).</p>
           </div>
 
           <div class="stat-row">
             <div class="stat-figure">&lt; 32 dBA</div>
-            <p class="stat-text"><strong>Whisper-Quiet Operation</strong> &mdash; Design target under 32 dBA steady-state. Drum rotates for only 2.5 seconds during transfer.</p>
+            <p class="stat-text"><strong>Whisper-Quiet in Your Home</strong> &mdash; Barely audible in open-plan living spaces. Steady-state noise target under 32 dBA; the carousel rotates for only 2.5 seconds during dinner transfer.</p>
           </div>
 
           <div class="stat-row">
-            <div class="stat-figure">0 Lines</div>
-            <p class="stat-text"><strong>Plug In Anywhere</strong> &mdash; Removable, dishwasher-safe condensate collection tray sliding out beneath the drawer for effortless periodic rinsing.</p>
+            <div class="stat-figure">0 Plumbing</div>
+            <p class="stat-text"><strong>Plug In Anywhere</strong> &mdash; Zero water lines or plumbing hookups required. Standard 230 V wall plug, with a dishwasher-safe condensate collection tray sliding out beneath the drawer for easy rinsing.</p>
           </div>
         </div>
 
@@ -758,7 +800,7 @@
     </div>
   </footer>
 
-  <script src="js/main.js?v=10.5"></script>
-  <script src="js/calculator.js?v=10.5"></script>
+  <script src="js/main.js?v=10.6"></script>
+  <script src="js/calculator.js?v=10.6"></script>
 </body>
 </html>
