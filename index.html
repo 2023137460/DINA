@@ -4,14 +4,14 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>DINA — Dinner, Scheduled | Smart Upright Freezer</title>
-  <meta name="description" content="Meet DINA: Defrosting Is Now Automatic. The 60 cm upright smart freezer that holds 11 meals at -18 °C, gently thaws tonight's dinner while you work, and holds it at +3.0 °C until you walk in.">
+  <meta name="description" content="Meet DINA: Defrosting Is Now Automatic. The 60 cm upright smart freezer concept that holds 11 meals at -18 °C, gently thaws tonight's dinner via closed-loop convection, and holds it at +3.0 °C.">
   <meta name="theme-color" content="#DAD8CB">
   <link rel="manifest" href="manifest.json">
   <link rel="icon" type="image/svg+xml" href="assets/icons/pwa-logo.svg">
   <link rel="icon" type="image/png" sizes="192x192" href="assets/images/pwa-icon-192.png">
   <link rel="apple-touch-icon" sizes="180x180" href="assets/images/apple-touch-icon.png">
-  <link rel="stylesheet" href="css/tokens.css?v=9.1">
-  <link rel="stylesheet" href="css/site.css?v=9.1">
+  <link rel="stylesheet" href="css/tokens.css?v=9.2">
+  <link rel="stylesheet" href="css/site.css?v=9.2">
 </head>
 <body>
 
@@ -65,16 +65,12 @@
         </div>
       </a>
 
-      <!-- Desktop Navigation -->
+      <!-- Desktop Navigation (4 clear items, no competing CTA) -->
       <nav class="desktop-nav" aria-label="Main navigation">
-        <a href="#how-it-works">How It Works</a>
+        <a href="#experience">Architecture</a>
         <a href="#calculator">When's Dinner</a>
-        <a href="#drawer">The Drawer</a>
-        <a href="#kitchen">Kitchen Fit</a>
-        <a href="#app">App &amp; Smart Home</a>
-        <a href="#faq">FAQ</a>
-        <a href="#pricing" class="btn btn-clay nav-cta">Notify Me</a>
-        <a href="app.html">Try App &rarr;</a>
+        <a href="#kitchen">Specs &amp; Validation</a>
+        <a href="app.html">Try App Simulator &rarr;</a>
       </nav>
 
       <!-- Mobile Header Actions (Visible only on <= 899px) -->
@@ -93,15 +89,10 @@
     <!-- Mobile Navigation Drawer -->
     <nav class="mobile-nav-drawer" id="mobileNavDrawer" aria-label="Mobile navigation drawer">
       <div class="mobile-nav-links">
-        <a href="#hero">Overview</a>
-        <a href="#intro">The Problem</a>
-        <a href="#how-it-works">How It Works</a>
-        <a href="#calculator">When's Dinner Calculator</a>
-        <a href="#drawer">Defrost Drawer &amp; Halo</a>
-        <a href="#kitchen">Kitchen Dimensions</a>
-        <a href="#app">App &amp; Smart Home</a>
-        <a href="#faq">Questions &amp; Answers</a>
-        <a href="#pricing">Pricing &amp; Launch List</a>
+        <a href="#experience">Architecture</a>
+        <a href="#calculator">When's Dinner</a>
+        <a href="#kitchen">Specs &amp; Validation</a>
+        <a href="app.html">Try App Simulator</a>
       </div>
       <div class="mobile-nav-bottom">
         <a href="app.html" class="btn btn-clay" style="width:100%;">Launch Interactive App &rarr;</a>
@@ -149,7 +140,7 @@
           id="stageSceneDrawer"
           class="stage-scene-layer"
           src="assets/images/dina_drawer_close.png"
-          alt="Illuminated independent defrost drawer holding tonight's dinner safely chilled at plus 3 degrees"
+          alt="Illuminated independent defrost drawer holding tonight's dinner safely chilled at plus 3.0 degrees"
           loading="lazy"
           width="1200"
           height="896"
@@ -176,39 +167,81 @@
 
       <!-- Section 1: Hero Editorial -->
       <section id="hero" class="content-section hero-editorial reveal in">
+        <div class="hero-concept-badge">Academic Product Concept &bull; Mechanical Engineering Coursework</div>
         <h1>Dinner, <em>scheduled</em>.</h1>
         <p class="lead">
           Come home at 7:00 PM to a dinner that is tender, evenly thawed, and ready for the pan.
         </p>
         <p>
-          DINA is a standard 60 cm upright freezer that stores 11 prepped meals at &minus;18 &deg;C, lowers tonight&rsquo;s dish into an independent defrost drawer while you finish work, and holds it chilled at +3.0 &deg;C until you walk into the kitchen.
+          DINA is an upright 60 cm companion freezer concept with an independent defrost drawer and motorized carousel. Load meals on Sunday; DINA lowers tonight&rsquo;s portion through a thermal airlock and gently thaws it for dinner.
         </p>
 
         <div class="hero-actions-row">
-          <a href="#pricing" class="btn btn-clay">Notify Me at Launch</a>
-          <a href="app.html" class="btn">Experience the App</a>
+          <a href="app.html" class="btn btn-clay">Experience the App</a>
+          <a href="#experience" class="btn">Explore the Architecture</a>
         </div>
       </section>
 
-      <!-- Section 2: Intro Problem -->
+      <!-- Section 2: Architecture & Flow (Moved directly below Hero) -->
+      <section id="experience" class="content-section reveal">
+        <span id="drawer" aria-hidden="true" style="position:relative;top:-80px;"></span>
+        <h2>Freezer above. Drawer below.</h2>
+        <p class="lead">
+          Two thermally isolated zones in one kitchen appliance. Grab tonight&rsquo;s thawed dinner from the lower drawer without opening the main freezer door &mdash; keeping 110 L of frozen food locked at &minus;18 &deg;C.
+        </p>
+
+        <div class="architecture-math-block">
+          <p class="math-line">
+            <strong>Volume Math:</strong> 185 L total = 110 L upper shelves (&minus;18 &deg;C) + 60 L motorized carousel + 15 L insulated defrost drawer.
+          </p>
+          <p class="math-line">
+            <strong>Carousel Math:</strong> 11 meals = two stacked discs (6 containers upper + 5 lower), plus 1 empty pass-through sector so a meal from the upper disc can drop through the lower disc and the 2.5 s airlock hatch into the drawer.
+          </p>
+        </div>
+
+        <div class="dual-zones-editorial-grid">
+          <div class="zone-card">
+            <span class="zone-badge">&minus;18 &deg;C deep freeze</span>
+            <h3>Upper Freezer &amp; Meal Vault</h3>
+            <p>
+              Holds 110 L of standard freezer shelves for groceries, vegetables, and ice cream, directly above the 60 L motorized carousel holding 11 meals at &minus;18 &deg;C. The upper cabinet door stays shut at dinnertime, preventing warm air infiltration and saving energy.
+            </p>
+          </div>
+
+          <div class="zone-card">
+            <span class="zone-badge">+3.0 &deg;C defrost drawer</span>
+            <h3>Independent Defrost Drawer</h3>
+            <p>
+              Operates closed-loop active thaw: forced-air convection at +10 &deg;C runs only until IR/NTC surface telemetry reads +4.0 &deg;C. The chamber then steps down to a +3.0 &deg;C hold while the core equalizes by conduction, keeping the meal fresh for up to 24 hours.
+            </p>
+            <div class="zone-halo-legend">
+              <span><strong class="halo-dot amber"></strong> Amber: Active Thaw (+10 &deg;C air)</span>
+              <span><strong class="halo-dot green"></strong> Green: Ready to Cook (+3.0 &deg;C hold)</span>
+              <span><strong class="halo-dot blue"></strong> Blue: Standby / &minus;18 &deg;C Vault</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 3: Intro Problem -->
       <section id="intro" class="content-section reveal">
         <h2>Forgot to defrost dinner?</h2>
         <div class="intro-text-block">
           <p>
-            Thawing steak, salmon, or batch-cooked meals safely in the fridge takes 12 to 24 hours. When you forget to take food out the night before, everyday options fail.
+            Dinner is the most challenging meal to make a decision on for 57% of households (Dolmio / OnePoll 2024 survey of 2,000 UK adults, which found people spend an average of 43 minutes a week deliberating, with dinnertime stress starting as early as 15:10). When you forget to take food out of the freezer the night before, weeknight options fail.
           </p>
           <p>
-            Microwaves overheat thin outer edges into gray rubber while the center stays frozen solid. Leaving meat on the kitchen counter sits for hours in the bacterial danger zone. Delivery apps cost 35 &euro; while groceries you already paid for sit frozen.
+            Microwaves overheat thin outer edges into gray rubber while the center stays frozen solid. Leaving meat on the kitchen counter sits for hours in the bacterial danger zone (+5 &deg;C to +60 &deg;C). Takeaway delivery costs 35 &euro; while wholesome groceries already paid for sit frozen.
           </p>
           <div class="intro-highlight-box">
             <p>
-              Dinner is the hardest meal to decide for 57% of households. DINA eliminates the rush: one afternoon tap, or your weekly plan runs itself.
+              DINA eliminates the weeknight compromise: stock 11 prepped meals on Sunday, confirm dinner from your phone, and return home to food thawed evenly under closed-loop surface temperature control.
             </p>
           </div>
         </div>
       </section>
 
-      <!-- Section 3: How It Works Itinerary -->
+      <!-- Section 4: How It Works Itinerary -->
       <section id="how-it-works" class="content-section reveal">
         <h2>A calmer weeknight routine</h2>
         <p>
@@ -223,7 +256,7 @@
               <span class="itinerary-step-label">Sunday Afternoon</span>
               <span class="itinerary-step-time">Load</span>
             </div>
-            <p class="itinerary-step-desc">Stock 11 reusable dishwasher-safe containers in the motorized revolving drum. 110 L of top freezer shelves remain free for family groceries.</p>
+            <p class="itinerary-step-desc">Stock 11 reusable dishwasher-safe 750 ml containers in the motorized carousel (6 upper disc + 5 lower disc). 110 L of top freezer shelves remain free for groceries.</p>
           </div>
 
           <div class="itinerary-step">
@@ -239,7 +272,15 @@
               <span class="itinerary-step-label">17:30 Drop</span>
               <span class="itinerary-step-time">Airlock</span>
             </div>
-            <p class="itinerary-step-desc">The drum rotates to tonight&rsquo;s container and drops it into the lower drawer through a sealed hatch that opens for just 2.5 seconds.</p>
+            <p class="itinerary-step-desc">The carousel indexes to tonight&rsquo;s container and drops it through the empty pass-through sector and 2.5-second airlock hatch into the lower drawer.</p>
+          </div>
+
+          <div class="itinerary-step">
+            <div class="itinerary-step-top">
+              <span class="itinerary-step-label">17:30 &ndash; 18:55 Active Thaw</span>
+              <span class="itinerary-step-time">Convection</span>
+            </div>
+            <p class="itinerary-step-desc">Forced-air convection at +10 &deg;C warms the dish until surface telemetry reads +4.0 &deg;C (~85 min for 320 g salmon), then steps down to a +3.0 &deg;C hold while conduction equalizes the core.</p>
           </div>
 
           <div class="itinerary-step">
@@ -247,7 +288,7 @@
               <span class="itinerary-step-label">19:00 Dinnertime</span>
               <span class="itinerary-step-time">Ready</span>
             </div>
-            <p class="itinerary-step-desc">Soft circulating air thaws dinner evenly. Once thawed, the drawer holds food chilled at +3.0 &deg;C for up to 24 hours.</p>
+            <p class="itinerary-step-desc">Tender, evenly thawed food chilled at +3.0 &deg;C, held safely for up to 24 hours (preventing the +5 &deg;C to +60 &deg;C bacterial danger zone).</p>
           </div>
 
           <div class="itinerary-slip-result">
@@ -257,11 +298,11 @@
         </div>
       </section>
 
-      <!-- Section 4: Live Interactive "When's dinner?" Calculator -->
+      <!-- Section 5: Live Interactive "When's dinner?" Calculator -->
       <section id="calculator" class="content-section reveal">
         <h2>When's dinner?</h2>
         <p>
-          Select what you want to eat and what time you get home. DINA calculates the exact drop time and gentle convection cycle.
+          Select what you want to eat and what time you get home. DINA calculates the exact drop time, active thaw duration, and conduction equalization hold.
         </p>
 
         <div class="calc-interactive-card">
@@ -293,46 +334,157 @@
 
           <div class="calc-result-box">
             <p class="calc-result-sentence" id="calcResultSentence">
-              Tonight's Atlantic Salmon Fillet (320 g): DINA drops it into the drawer at 18:25 and holds it fridge-fresh at +3.0 &deg;C at 19:30.
+              Tonight's Atlantic Salmon Fillet (320 g): DINA drops the container at 17:48, runs active thaw (+10 °C air) for 87 min until surface reaches +4.0 °C (19:15), then holds at +3.0 °C until 19:30.
             </p>
+
+            <div class="calc-timeline">
+              <div class="calc-timeline-step">
+                <span class="calc-step-time" id="calcDropTime">17:48</span>
+                <span class="calc-step-label">Airlock Drop</span>
+                <span class="calc-step-desc">Sealed hatch opens for 2.5 s into defrost drawer</span>
+              </div>
+              <div class="calc-timeline-step">
+                <span class="calc-step-time" id="calcActiveTime">17:48 &ndash; 19:15</span>
+                <span class="calc-step-label">Active Thaw</span>
+                <span class="calc-step-desc">+10 &deg;C forced air until surface reads +4.0 &deg;C (<span id="calcThawDuration">87</span> min)</span>
+              </div>
+              <div class="calc-timeline-step">
+                <span class="calc-step-time" id="calcHoldTime">19:15 &ndash; 19:30</span>
+                <span class="calc-step-label">Equalization Hold</span>
+                <span class="calc-step-desc">Chamber steps down to +3.0 &deg;C while core equalizes by conduction</span>
+              </div>
+              <div class="calc-timeline-step highlighted">
+                <span class="calc-step-time" id="calcDinnerTime">19:30</span>
+                <span class="calc-step-label">Ready for Pan</span>
+                <span class="calc-step-desc">Evenly thawed, chilled at +3.0 &deg;C (holds safely up to 24 h)</span>
+              </div>
+            </div>
+
             <p class="calc-result-meta" id="calcResultMeta">
-              Delicate low-temperature thaw preserves tender, flaky restaurant texture &bull; 65 min gentle thaw.
+              Gentle low-temperature thaw preserves tender, flaky restaurant texture &bull; 87 min active thaw (+10 &deg;C air until +4.0 &deg;C surface cutoff), followed by 15 min conduction equalization at +3.0 &deg;C.
             </p>
           </div>
         </div>
       </section>
 
-      <!-- Section 5: Kitchen Stats Lines -->
+      <!-- Section 6: Kitchen Stats Lines & Engineering Validation Table -->
       <section id="kitchen" class="content-section reveal">
         <h2>Fits your kitchen</h2>
         <p>
-          Engineered for everyday European apartments and houses. Standard 60 cm footprint with zero complex plumbing.
+          Engineered for everyday European kitchens. Standard 60 cm footprint with zero complex plumbing.
         </p>
 
         <div class="stats-lines-grid">
           <div class="stat-row">
             <div class="stat-figure">60 cm</div>
-            <p class="stat-text"><strong>Standard Kitchen Width</strong> &mdash; 60 cm wide &times; 65 cm deep &times; 145 cm high. Slides directly into your existing cabinetry line.</p>
+            <p class="stat-text"><strong>Standard Kitchen Width</strong> &mdash; 600 x 650 x 1450 mm upright column. Slides directly into your existing cabinetry line.</p>
+          </div>
+
+          <div class="stat-row">
+            <div class="stat-figure">185 L</div>
+            <p class="stat-text"><strong>185 L Total Usable Volume</strong> &mdash; 185 L total = 110 L upper shelves (&minus;18 &deg;C) + 60 L motorized carousel + 15 L insulated defrost drawer.</p>
           </div>
 
           <div class="stat-row">
             <div class="stat-figure">11 Meals</div>
-            <p class="stat-text"><strong>Motorized Drum Vault</strong> &mdash; 11 reusable 750 ml containers in the revolving carousel, plus 110 L of classic freezer shelving above.</p>
+            <p class="stat-text"><strong>Two-Tier Revolving Carousel</strong> &mdash; 11 meals = two stacked discs (6 containers upper + 5 lower), plus 1 empty pass-through sector so meals drop through the 2.5 s airlock hatch.</p>
           </div>
 
           <div class="stat-row">
             <div class="stat-figure">&lt; 32 dBA</div>
-            <p class="stat-text"><strong>Whisper-Quiet Operation</strong> &mdash; Quieter than a quiet library. The drum rotates for only 2.5 seconds when transferring a meal.</p>
+            <p class="stat-text"><strong>Whisper-Quiet Operation</strong> &mdash; Design target under 32 dBA steady-state. Drum rotates for only 2.5 seconds during transfer.</p>
           </div>
 
           <div class="stat-row">
             <div class="stat-figure">0 Lines</div>
-            <p class="stat-text"><strong>Plug In Anywhere</strong> &mdash; No water supply or drain required. Defrost condensation evaporates automatically into an internal dish-washable tray.</p>
+            <p class="stat-text"><strong>Plug In Anywhere</strong> &mdash; Self-evaporating condensate channel using waste heat, with a removable pan for periodic cleaning.</p>
+          </div>
+        </div>
+
+        <!-- Compact Engineering & Validation Table -->
+        <div class="validation-table-section">
+          <h3>Engineering &amp; Validation</h3>
+          <p class="muted">
+            Verification status across mechanical, thermal, food-safety, and smart-home subsystems.
+          </p>
+
+          <div class="validation-table-wrap">
+            <table class="validation-table">
+              <thead>
+                <tr>
+                  <th scope="col" style="width: 26%;">Parameter</th>
+                  <th scope="col" style="width: 50%;">Engineering Specification &amp; Evidence</th>
+                  <th scope="col" style="width: 24%;">Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="col-param">External Dimensions</td>
+                  <td class="col-val">600 x 650 x 1450 mm upright column. Fits standard 60 cm European cabinetry aperture.</td>
+                  <td class="col-tag"><span class="status-tag cad">[CAD Verified]</span></td>
+                </tr>
+                <tr>
+                  <td class="col-param">Usable Volume Split</td>
+                  <td class="col-val">185 L total: 110 L upper shelving (&minus;18 &deg;C vault) + 60 L motorized carousel drum + 15 L defrost drawer.</td>
+                  <td class="col-tag"><span class="status-tag cad">[CAD Verified]</span></td>
+                </tr>
+                <tr>
+                  <td class="col-param">Carousel Geometry</td>
+                  <td class="col-val">11 x 750 ml BPA-free containers: two stacked discs (6 upper + 5 lower) + 1 empty pass-through drop chimney.</td>
+                  <td class="col-tag"><span class="status-tag cad">[CAD Verified]</span></td>
+                </tr>
+                <tr>
+                  <td class="col-param">Thermal Barrier</td>
+                  <td class="col-val">25 mm Vacuum Insulation Panel (VIP) separating &minus;18 &deg;C vault from drawer; 2.5 s motorized airlock hatch.</td>
+                  <td class="col-tag"><span class="status-tag calc">[Calculated Model]</span></td>
+                </tr>
+                <tr>
+                  <td class="col-param">Thaw Convection Duration</td>
+                  <td class="col-val">85–90 min active thaw for 320 g salmon fillet (+10 &deg;C forced air, convective h &approx; 20 W/(m&sup2;&middot;K)) + equalization hold.</td>
+                  <td class="col-tag"><span class="status-tag calc">[Calculated Model]</span></td>
+                </tr>
+                <tr>
+                  <td class="col-param">Closed-Loop Thaw Logic</td>
+                  <td class="col-val">+10 &deg;C forced air until IR/NTC surface sensors read +4.0 &deg;C, stepping down to +3.0 &deg;C hold for up to 24 h (DIN 10508 / EFSA principle).</td>
+                  <td class="col-tag"><span class="status-tag logic">[Design Logic]</span></td>
+                </tr>
+                <tr>
+                  <td class="col-param">Food Contact Materials</td>
+                  <td class="col-val">Reusable BPA-free polypropylene containers compliant with EU Regulation 10/2011 overall migration limits (&le; 10 mg/dm&sup2;).</td>
+                  <td class="col-tag"><span class="status-tag logic">[Design Logic]</span></td>
+                </tr>
+                <tr>
+                  <td class="col-param">Temperature Abuse Cutoff</td>
+                  <td class="col-val">Autonomous temperature logging; discard alert triggered if food temperature exceeds +5.0 &deg;C for more than 2 hours.</td>
+                  <td class="col-tag"><span class="status-tag logic">[Design Logic]</span></td>
+                </tr>
+                <tr>
+                  <td class="col-param">Acoustic Emissions</td>
+                  <td class="col-val">Under 32 dBA steady-state target; 2.5 s actuation cycle for drum indexing and airlock transfer.</td>
+                  <td class="col-tag"><span class="status-tag target">[Design Target, Unvalidated]</span></td>
+                </tr>
+                <tr>
+                  <td class="col-param">Energy Consumption</td>
+                  <td class="col-val">Under 0.85 kWh/day target (variable-speed R600a compressor + secondary Peltier thermoelectric circuit).</td>
+                  <td class="col-tag"><span class="status-tag target">[Design Target, Unvalidated]</span></td>
+                </tr>
+                <tr>
+                  <td class="col-param">Smart Home Connectivity</td>
+                  <td class="col-val">Matter-over-Wi-Fi local telemetry (Apple Home, Google Home, Samsung SmartThings, Home Assistant).</td>
+                  <td class="col-tag"><span class="status-tag target">[Design Target, Unvalidated]</span></td>
+                </tr>
+                <tr>
+                  <td class="col-param">Retail Price &amp; Timeline</td>
+                  <td class="col-val">Target retail estimate (concept): 799 to 849 &euro; (incl. VAT); Q4 2027 planned delivery and 2-year warranty are illustrative assumptions.</td>
+                  <td class="col-tag"><span class="status-tag concept">[Concept Assumption]</span></td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
       </section>
 
-      <!-- Section 6: App & Smart Home -->
+      <!-- Section 7: App & Smart Home -->
       <section id="app" class="content-section reveal">
         <h2>Change plans from the train</h2>
         <div class="app-meta-badges">
@@ -356,29 +508,29 @@
         </div>
       </section>
 
-      <!-- Section 7: FAQ Answers as Reading Text -->
+      <!-- Section 8: FAQ Answers as Reading Text -->
       <section id="faq" class="content-section reveal">
         <h2>Questions &amp; Answers</h2>
         
         <div class="faq-reading-flow">
           <p class="faq-entry">
             <span class="faq-q">How easy is it to keep clean?</span>
-            <span class="faq-a">Your food stays sealed inside BPA-free 750 ml containers that go straight into the dishwasher. The interior drum wipes clean with a damp cloth in seconds, and any defrost moisture evaporates into an easy-rinse tray.</span>
+            <span class="faq-a">Your food stays sealed inside BPA-free 750 ml containers that go straight into the dishwasher (compliant with EU Regulation 10/2011). The interior drum wipes clean with a damp cloth in seconds, and defrost moisture channels into a self-evaporating system powered by compressor waste heat, with a removable pan for periodic cleaning.</span>
           </p>
 
           <p class="faq-entry">
             <span class="faq-q">Will I hear it in an open-plan kitchen?</span>
-            <span class="faq-a">At under 32 dBA, DINA operates below conversational volume. The revolving carousel turns for only 2.5 seconds when loading groceries or dropping dinner.</span>
+            <span class="faq-a">With an unvalidated design target under 32 dBA, DINA is engineered to operate below conversational volume. The revolving carousel turns for only 2.5 seconds when loading groceries or dropping dinner.</span>
           </p>
 
           <p class="faq-entry">
             <span class="faq-q">Does thawing dinner warm the rest of the freezer?</span>
-            <span class="faq-a">Never. A thick vacuum insulation barrier isolates the &minus;18 &deg;C upper cabinet from the lower drawer, and the internal drop hatch opens for just 2.5 seconds. The main freezer door stays completely closed.</span>
+            <span class="faq-a">Thermal transfer is prevented under normal operation by closed-loop surface limiting and a 25 mm vacuum insulation panel (VIP) separating the &minus;18 &deg;C upper vault from the lower drawer. The motorized airlock hatch opens for only 2.5 seconds during drop transfer, keeping internal freezer temperatures stable.</span>
           </p>
 
           <p class="faq-entry">
             <span class="faq-q">What happens if the power goes out?</span>
-            <span class="faq-a">DINA logs internal temperatures throughout. If power returns quickly and dinner stayed safely cold, thawing completes. If food warmed above +5.0 &deg;C for more than 2 hours, DINA halts and alerts your phone to discard the dish.</span>
+            <span class="faq-a">DINA logs internal temperature telemetry throughout. If power returns and the meal remained safely chilled, the cycle safely resumes. If temperature telemetry records food warming above +5.0 &deg;C for more than 2 hours, DINA halts active warming and triggers a phone alert recommending discarding the dish (conforming to EFSA temperature abuse guidelines).</span>
           </p>
 
           <p class="faq-entry">
@@ -388,40 +540,40 @@
 
           <p class="faq-entry">
             <span class="faq-q">What warranty and support is included?</span>
-            <span class="faq-a">Every unit includes a comprehensive 2-year European warranty with modular, repairable components. Scheduling, commute sync, and smart home alerts require no monthly fee.</span>
+            <span class="faq-a">For coursework evaluation, the design assumes a comprehensive 2-year European warranty with modular, repairable components (an illustrative go-to-market assumption). Scheduling, commute sync, and smart home alerts require no monthly fee.</span>
           </p>
         </div>
       </section>
 
-      <!-- Section 8: Pricing & Launch Sign-up -->
+      <!-- Section 9: Pricing & Simulated Reservation -->
       <section id="pricing" class="content-section reveal">
-        <h2>799 to 849 &euro; &bull; No subscription</h2>
+        <h2>Target retail estimate (concept): 799 to 849 &euro;</h2>
         <p>
-          Target retail price including VAT. Includes the 60 cm upright freezer, 11-meal revolving drum, 110 L top freezer shelves, independent defrost drawer, and reusable container kit. First deliveries planned for Q4 2027.
+          Target retail estimate including VAT for the 60 cm upright freezer, 11-meal revolving carousel, 110 L upper freezer shelves, independent defrost drawer, and reusable container kit. Q4 2027 planned delivery is an illustrative coursework assumption. Core app features are free forever with no subscription.
         </p>
 
         <div class="pricing-block" id="notify-signup">
-          <h3>Priority Launch List</h3>
+          <h3>Simulated Reservation</h3>
           <p class="muted">
-            Leave your email for early access to preorder reservations and home pilot invites. Zero spam &mdash; we only write when hardware milestones are achieved.
+            Test how reservations and delivery onboarding would function in production. This is an academic concept demo &mdash; no email addresses or personal data are collected, stored, or transmitted.
           </p>
 
           <form class="notify-form" id="notifyLaunchForm" novalidate>
             <div class="notify-form-inner">
-              <label for="notifyEmailInput" class="muted" style="font-size:14px; font-weight:600;">Your Email Address</label>
+              <label for="notifyEmailInput" class="muted" style="font-size:14px; font-weight:600;">Simulated Email Address</label>
               <div class="notify-form-row">
                 <input
                   type="email"
                   id="notifyEmailInput"
                   name="email"
                   class="notify-input"
-                  placeholder="you@example.com"
+                  placeholder="student@example.com"
                   required
                   autocomplete="email"
-                  aria-label="Email address for launch notification"
+                  aria-label="Email address for simulated reservation"
                 >
                 <button type="submit" class="btn btn-clay" id="notifySubmitBtn">
-                  Notify Me at Launch
+                  Simulate Reservation
                 </button>
               </div>
               <p class="notify-feedback" id="notifyFeedback" role="status" aria-live="polite"></p>
@@ -433,43 +585,6 @@
     </div><!-- /.stage-editorial-col -->
   </main>
 
-  <!-- Breakout Full-Width Section: Dual Zones Isolation -->
-  <section id="drawer" class="breakout-dual-zones reveal">
-    <div class="breakout-header">
-      <h2>Freezer above. Drawer below.</h2>
-      <p>
-        Two thermally isolated zones in one kitchen appliance. Grab tonight&rsquo;s thawed dinner from the lower drawer without opening the main freezer door &mdash; keeping 110 L of frozen food locked at &minus;18 &deg;C.
-      </p>
-    </div>
-
-    <div class="dual-zones-grid">
-      <div class="zone-panel">
-        <div>
-          <div class="zone-panel-badge">&minus;18 &deg;C deep freeze</div>
-          <h3>Upper Freezer &amp; Meal Vault</h3>
-          <p>
-            Holds 110 L of standard freezer shelves for groceries, vegetables, and ice cream, directly above the 11-meal revolving carousel. The main door remains closed at dinnertime, keeping cold air inside and saving energy.
-          </p>
-        </div>
-      </div>
-
-      <div class="zone-panel">
-        <div>
-          <div class="zone-panel-badge">+3.0 &deg;C defrost drawer</div>
-          <h3>Independent Defrost Drawer</h3>
-          <p>
-            Circulates gentle +10 &deg;C air to thaw dinner evenly without par-cooking. Once thawed, solid-state cooling holds your meal fresh at +3.0 &deg;C for up to 24 hours. An illuminated handle ring communicates status across the kitchen.
-          </p>
-        </div>
-        <div class="zone-halo-legend">
-          <span><strong class="halo-dot amber"></strong> Amber: Gently Thawing</span>
-          <span><strong class="halo-dot green"></strong> Green: Ready to Cook (+3 &deg;C)</span>
-          <span><strong class="halo-dot blue"></strong> Blue: Standby</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <!-- Full-Width Footer -->
   <footer class="site-footer" role="contentinfo">
     <div class="footer-inner">
@@ -477,26 +592,26 @@
         <h2 class="footer-giant-wordmark">DINA</h2>
         <div class="footer-links-group">
           <a href="#hero">Overview</a>
-          <a href="#how-it-works">How It Works</a>
-          <a href="#drawer">The Drawer</a>
-          <a href="#pricing">Pricing</a>
+          <a href="#experience">Architecture</a>
+          <a href="#calculator">When's Dinner</a>
+          <a href="#kitchen">Specs &amp; Validation</a>
           <a href="app.html">Interactive App</a>
           <a href="#hero">&uarr; Back to Top</a>
         </div>
       </div>
 
       <p class="footer-footnote">
-        Defrosting Is Now Automatic. 600 mm &times; 650 mm &times; 1450 mm upright companion freezer. Target planned retail 799 to 849 &euro; (incl. VAT), launch Q4 2027. Survey and market references: Dolmio/OnePoll 2024 (n = 2,000); Gousto/Am&aacute;rach 2026; IndustryARC Upright Freezer Market Forecast 2025&ndash;2032.
+        DINA (Defrosting Is Now Automatic) is an academic product concept for Mechanical Engineering coursework. 600 x 650 x 1450 mm upright companion freezer. Target retail estimate (concept): 799 to 849 &euro; (incl. VAT); Q4 2027 planned delivery and 2-year warranty are illustrative go-to-market assumptions. Survey and market references: Dolmio / OnePoll 2024 (n = 2,000 UK adults); Gousto / Am&aacute;rach 2026; IndustryARC Upright Freezer Market Forecast 2025&ndash;2032.
       </p>
 
       <div class="footer-bottom-row">
-        <span>&copy; 2026&ndash;2027 DINA. All rights reserved.</span>
+        <span>&copy; 2026&ndash;2027 DINA. Academic Coursework Concept.</span>
         <span>Dinner, scheduled.</span>
       </div>
     </div>
   </footer>
 
-  <script src="js/main.js?v=9.1"></script>
-  <script src="js/calculator.js?v=9.1"></script>
+  <script src="js/main.js?v=9.2"></script>
+  <script src="js/calculator.js?v=9.2"></script>
 </body>
 </html>

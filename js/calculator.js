@@ -1,52 +1,61 @@
 /**
- * DINA "When's Dinner?" Interactive Calculator (v9.0)
- * Customer-centric, appetizing, and based strictly on PRD Section 4.1 thermodynamic formulas
- * Zero emojis, calm editorial voice
+ * DINA "When's Dinner?" Interactive Calculator (v9.2)
+ * Recalculated convective heat-transfer model (forced air at +10 °C, h ≈ 20 W/(m²·K))
+ * Two-stage timeline: Active Thaw (+10 °C air until surface reads +4.0 °C) -> Equalization Hold (+3.0 °C)
+ * Zero LaTeX, plain text units, calm editorial voice
  */
 
 document.addEventListener("DOMContentLoaded", () => {
-  // PRD 4.1 Thermodynamic Formulas: Base Time + (Factor * Weight in grams)
+  // Recalculated Convective Thermal Model for 750 ml Container in +10 °C Forced Air
+  // Q_thaw = m * (c_frozen*ΔT_sens1 + L_eff + c_thawed*ΔT_sens2)
+  // q_dot ≈ h * A * ΔT_m (h ≈ 20 W/(m²·K), A ≈ 0.070 m², ΔT_m ≈ 10 K => ~14 W)
   const CATEGORIES = {
     salmon: {
       name: "Atlantic Salmon Fillet",
-      base: 20,
-      factor: 0.14,
+      base: 45,
+      factor: 0.13,
       defaultGrams: 320,
-      benefit: "Delicate low-temperature thaw preserves tender, flaky restaurant texture"
+      holdMinutes: 15,
+      benefit: "Gentle low-temperature thaw preserves tender, flaky restaurant texture"
     },
     chicken: {
       name: "Organic Chicken Breast",
-      base: 30,
-      factor: 0.13,
+      base: 50,
+      factor: 0.12,
       defaultGrams: 500,
+      holdMinutes: 20,
       benefit: "Even circulating warmth with zero dry or rubbery microwave borders"
     },
     ribeye: {
       name: "Prime Angus Ribeye",
-      base: 25,
+      base: 45,
       factor: 0.13,
       defaultGrams: 450,
-      benefit: "Gentle convective thaw locks in marbling, tenderness, and natural savory juices"
+      holdMinutes: 20,
+      benefit: "Convective thaw preserves marbling, tenderness, and natural juices"
     },
     prawns: {
       name: "Wild Tiger Prawns",
-      base: 15,
-      factor: 0.10,
+      base: 35,
+      factor: 0.12,
       defaultGrams: 250,
-      benefit: "Quick, crisp defrost preserving natural sweetness and firm bite"
+      holdMinutes: 10,
+      benefit: "Crisp defrost preserving natural sweetness and firm bite"
     },
     vegetables: {
       name: "Fresh Garden Vegetables",
-      base: 15,
+      base: 32,
       factor: 0.08,
       defaultGrams: 350,
+      holdMinutes: 10,
       benefit: "Gentle warming keeps cellular structure and fresh crispness intact"
     },
     lasagna: {
       name: "Artisanal Lasagna Prep",
-      base: 35,
-      factor: 0.115,
+      base: 55,
+      factor: 0.125,
       defaultGrams: 600,
+      holdMinutes: 25,
       benefit: "Even heat distribution through every savory, cheesy layer"
     }
   };
@@ -59,6 +68,11 @@ document.addEventListener("DOMContentLoaded", () => {
   const timeInput = document.getElementById("calcTimeInput");
   const weightSelect = document.getElementById("calcWeightSelect");
 
+  const calcDropTime = document.getElementById("calcDropTime");
+  const calcActiveTime = document.getElementById("calcActiveTime");
+  const calcHoldTime = document.getElementById("calcHoldTime");
+  const calcDinnerTime = document.getElementById("calcDinnerTime");
+  const calcThawDuration = document.getElementById("calcThawDuration");
   const resultSentence = document.getElementById("calcResultSentence");
   const resultMeta = document.getElementById("calcResultMeta");
 
@@ -73,18 +87,29 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function updateOutput() {
     const config = CATEGORIES[currentCategory] || CATEGORIES.salmon;
-    const thawMinutes = Math.round(config.base + (config.factor * currentWeight));
-    const dropMinutes = targetDinnerMinutes - thawMinutes;
+    const activeThawMinutes = Math.round(config.base + (config.factor * currentWeight));
+    const holdMinutes = config.holdMinutes || 15;
+    const totalCycleMinutes = activeThawMinutes + holdMinutes;
+
+    const dropMinutes = targetDinnerMinutes - totalCycleMinutes;
+    const cutoffMinutes = dropMinutes + activeThawMinutes;
 
     const dropTimeStr = formatTime(dropMinutes);
+    const cutoffTimeStr = formatTime(cutoffMinutes);
     const dinnerTimeStr = formatTime(targetDinnerMinutes);
 
+    if (calcDropTime) calcDropTime.textContent = dropTimeStr;
+    if (calcActiveTime) calcActiveTime.textContent = `${dropTimeStr} – ${cutoffTimeStr}`;
+    if (calcHoldTime) calcHoldTime.textContent = `${cutoffTimeStr} – ${dinnerTimeStr}`;
+    if (calcDinnerTime) calcDinnerTime.textContent = dinnerTimeStr;
+    if (calcThawDuration) calcThawDuration.textContent = String(activeThawMinutes);
+
     if (resultSentence) {
-      resultSentence.textContent = `Tonight's ${config.name} (${currentWeight} g): DINA drops it into the drawer at ${dropTimeStr} and holds it fridge-fresh at +3.0 °C at ${dinnerTimeStr}.`;
+      resultSentence.textContent = `Tonight's ${config.name} (${currentWeight} g): DINA drops the container at ${dropTimeStr}, runs active thaw (+10 °C air) for ${activeThawMinutes} min until surface reaches +4.0 °C (${cutoffTimeStr}), then holds at +3.0 °C until ${dinnerTimeStr}.`;
     }
 
     if (resultMeta) {
-      resultMeta.textContent = `${config.benefit} · ${thawMinutes} min gentle thaw.`;
+      resultMeta.textContent = `${config.benefit} · ${activeThawMinutes} min active thaw (+10 °C air until +4.0 °C surface cutoff), followed by ${holdMinutes} min conduction equalization at +3.0 °C.`;
     }
   }
 

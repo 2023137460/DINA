@@ -1,6 +1,6 @@
 /**
- * DINA Main Website JavaScript (v9.0)
- * Clean, quiet editorial interaction: split-stage crossfade, mobile drawer, email waitlist
+ * DINA Main Website JavaScript (v9.2)
+ * Clean, quiet editorial interaction: split-stage crossfade, mobile drawer, simulated reservation
  * Strictly adheres to /dina-brand-identity. Zero emojis.
  */
 
@@ -61,11 +61,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const sectionStageMap = {
     hero: "kitchen",
+    experience: "drawer",
+    drawer: "drawer",
     intro: "kitchen",
     "how-it-works": "drum",
     calculator: "drum",
-    drawer: "drawer",
-    kitchen: "drawer",
+    kitchen: "kitchen",
     app: "display",
     faq: "display",
     pricing: "kitchen"
@@ -136,21 +137,11 @@ document.addEventListener("DOMContentLoaded", () => {
     revealElements.forEach(el => revealObserver.observe(el));
   }
 
-  // "Notify Me at Launch" Priority Waitlist Form
+  // Simulated Reservation Form (Academic Concept Demo - Stores Nothing)
   const notifyForm = document.getElementById("notifyLaunchForm");
   const notifyInput = document.getElementById("notifyEmailInput");
   const notifyBtn = document.getElementById("notifySubmitBtn");
   const notifyFeedback = document.getElementById("notifyFeedback");
-  const STORAGE_KEY_EMAILS = "dina_launch_waitlist_emails";
-
-  function getSavedEmails() {
-    try {
-      const raw = localStorage.getItem(STORAGE_KEY_EMAILS);
-      return raw ? JSON.parse(raw) : [];
-    } catch (e) {
-      return [];
-    }
-  }
 
   if (notifyForm && notifyInput && notifyFeedback) {
     notifyForm.addEventListener("submit", (e) => {
@@ -167,23 +158,12 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
       }
 
-      const saved = getSavedEmails();
-      if (saved.includes(email)) {
-        notifyFeedback.textContent = "You are already on the priority launch list for Q4 2027.";
-        notifyFeedback.classList.add("success");
-        return;
-      }
-
-      saved.push(email);
-      try {
-        localStorage.setItem(STORAGE_KEY_EMAILS, JSON.stringify(saved));
-      } catch (err) {}
-
+      // Simulation only: store nothing, display academic concept confirmation
       notifyInput.value = "";
       if (notifyBtn) {
-        notifyBtn.textContent = "Registered";
+        notifyBtn.textContent = "Reservation Simulated";
       }
-      notifyFeedback.textContent = `Thank you. ${email} has been added to the Q4 2027 launch list.`;
+      notifyFeedback.textContent = `Simulation confirmed for ${email}. This is an academic concept demo — no personal data is stored or transmitted.`;
       notifyFeedback.classList.add("success");
     });
   }
