@@ -1686,3 +1686,293 @@ img {
     width: 100%;
   }
 }
+
+/* ==========================================================================
+   New Marketing & Buyer Experience Modules (Approved Action Plan)
+   ========================================================================== */
+
+/* 1. Hero 4-Step Visual Process Sequence */
+.hero-four-steps-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin: 28px 0 24px;
+}
+
+.hero-step-card {
+  background: var(--sand);
+  padding: 14px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.hero-step-tag {
+  font-family: var(--font-head);
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--clay);
+}
+
+.hero-step-card h3 {
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: none;
+  margin: 0;
+  line-height: 1.25;
+  color: var(--ink);
+}
+
+.hero-step-card p {
+  font-size: 12.5px;
+  color: var(--ink-soft);
+  margin: 0;
+  line-height: 1.35;
+}
+
+/* 2. Food Safety & Validation Disclaimer Banner */
+.validation-disclaimer-banner {
+  background: #EAE7DC;
+  border-left: 3.5px solid var(--clay);
+  padding: 18px 20px;
+  margin: 28px 0;
+}
+
+.validation-disclaimer-banner h4 {
+  font-family: var(--font-head);
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--ink);
+  margin: 0 0 6px;
+}
+
+.validation-disclaimer-banner p {
+  font-size: 13.5px;
+  color: var(--ink-soft);
+  margin: 0;
+  line-height: 1.5;
+  max-width: none;
+}
+
+/* 3. Conventional Freezer vs. DINA Comparison Table */
+.comparison-table-wrap {
+  margin: 32px 0 20px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.product-comparison-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+  text-align: left;
+}
+
+.product-comparison-table th {
+  background: var(--sand);
+  padding: 12px 14px;
+  font-family: var(--font-head);
+  font-size: 12.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--ink);
+  border-bottom: 1.5px solid var(--stone);
+}
+
+.product-comparison-table td {
+  padding: 12px 14px;
+  border-bottom: 1px solid #D6D2C4;
+  color: var(--ink);
+  vertical-align: middle;
+}
+
+.product-comparison-table tr:hover td {
+  background: rgba(218, 216, 203, 0.35);
+}
+
+.table-tag-yes {
+  display: inline-block;
+  padding: 2px 8px;
+  background: var(--sand);
+  color: var(--ink);
+  font-weight: 600;
+  font-size: 12px;
+}
+
+.table-tag-no {
+  display: inline-block;
+  padding: 2px 8px;
+  background: #E5E1D4;
+  color: var(--ink-soft);
+  font-size: 12px;
+}
+
+.table-tag-planned {
+  display: inline-block;
+  padding: 2px 8px;
+  background: #E8DDD7;
+  color: var(--clay);
+  font-weight: 600;
+  font-size: 12px;
+}
+
+/* 4. Physical Mechanical Process Demonstration */
+.mechanical-flow-card {
+  background: var(--sand);
+  padding: 22px 20px;
+  margin: 28px 0;
+}
+
+.mechanical-flow-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.mechanical-flow-title {
+  font-family: var(--font-head);
+  font-size: 15px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--ink);
+  margin: 0;
+}
+
+.mechanical-steps-row {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+  position: relative;
+}
+
+.mech-step {
+  background: var(--paper);
+  padding: 12px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.mech-step-num {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--clay);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.mech-step strong {
+  font-size: 12.5px;
+  color: var(--ink);
+  line-height: 1.25;
+}
+
+.mech-step p {
+  font-size: 11.5px;
+  color: var(--ink-soft);
+  margin: 0;
+  line-height: 1.35;
+}
+
+/* 5. Dedicated Prototype Validation Roadmap Grid */
+.roadmap-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+  margin: 28px 0;
+}
+
+.roadmap-card {
+  background: var(--sand);
+  padding: 16px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.roadmap-status-badge {
+  display: inline-block;
+  align-self: flex-start;
+  font-size: 10.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 2px 7px;
+  background: #E8DDD7;
+  color: var(--clay);
+}
+
+.roadmap-card h4 {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink);
+  margin: 0;
+  line-height: 1.3;
+}
+
+.roadmap-card p {
+  font-size: 12.5px;
+  color: var(--ink-soft);
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* 6. Buyer Practicalities Grid */
+.buyer-faq-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+  margin: 24px 0 32px;
+}
+
+.buyer-faq-card {
+  background: var(--sand);
+  padding: 18px 16px;
+}
+
+.buyer-faq-card h4 {
+  font-family: var(--font-head);
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--ink);
+  margin: 0 0 8px;
+  line-height: 1.25;
+}
+
+.buyer-faq-card p {
+  font-size: 13.5px;
+  color: var(--ink-soft);
+  margin: 0;
+  line-height: 1.45;
+}
+
+/* Responsive adjustments for new modules */
+@media (max-width: 899px) {
+  .hero-four-steps-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+  .mechanical-steps-row {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+  .roadmap-grid {
+    grid-template-columns: 1fr;
+  }
+  .buyer-faq-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 520px) {
+  .hero-four-steps-grid {
+    grid-template-columns: 1fr;
+  }
+}

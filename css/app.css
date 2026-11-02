@@ -4269,3 +4269,1014 @@ a.app-status-badge.simulator-badge:focus-visible {
     transform: none !important;
   }
 }
+
+/* ==========================================================================
+   SIMPLE MODE VS. ENGINEERING MODE ARCHITECTURE (User Approved Action Plan)
+   ========================================================================== */
+
+.header-mode-toggle {
+  display: inline-flex;
+  background: var(--sand);
+  padding: 2px;
+  gap: 2px;
+  border: 1px solid var(--stone);
+}
+
+.btn-mode-pill {
+  border: none;
+  background: transparent;
+  padding: 3px 8px;
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--ink-soft);
+  cursor: pointer;
+  transition: all 140ms var(--ease-out);
+}
+
+.btn-mode-pill.active {
+  background: var(--paper);
+  color: var(--ink);
+  font-weight: 700;
+}
+
+/* Mockup Layout Elements for Simple Mode */
+.hero-food-card .hero-food-dish-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 6px;
+}
+
+.hero-food-card .hero-timing-col {
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.hero-food-card .hero-timing-time {
+  font-size: 20px;
+  font-weight: 700;
+  font-family: var(--font-body);
+  color: var(--ink);
+}
+
+.hero-pill-row {
+  margin-bottom: 12px;
+}
+
+.hero-monitored-pill {
+  display: inline-block;
+  padding: 4px 10px;
+  background: #E0EADF;
+  color: #2E7D32;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.hero-action-full-row {
+  margin-bottom: 12px;
+}
+
+.btn-hero-change-dinner {
+  width: 100%;
+  background: var(--ink);
+  color: var(--paper);
+  border: none;
+  padding: 12px 16px;
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 160ms var(--ease-out);
+}
+
+.btn-hero-change-dinner:hover {
+  background: #333333;
+}
+
+/* Twin Target Temperature Cards */
+.twin-temp-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 14px;
+  margin-bottom: 12px;
+}
+
+.twin-temp-card {
+  background: var(--sand);
+  padding: 16px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.twin-temp-icon {
+  margin-bottom: 4px;
+}
+
+.twin-temp-title {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.twin-temp-val {
+  font-size: 22px;
+  font-weight: 700;
+  font-family: var(--font-body);
+  color: var(--ink);
+  line-height: 1.1;
+  margin: 2px 0;
+}
+
+.twin-temp-sub {
+  font-size: 11.5px;
+  color: var(--ink-soft);
+}
+
+/* Monitoring Reassurance Card */
+.monitoring-reassurance-card {
+  background: #EAE7DC;
+  border-left: 3.5px solid #2E7D32;
+  padding: 14px 16px;
+  margin-bottom: 16px;
+}
+
+.monitoring-reassurance-card .reassurance-icon-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--ink);
+  font-size: 13.5px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.monitoring-reassurance-card p {
+  font-size: 12px;
+  color: var(--ink-soft);
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* Simple Mode Footer Note */
+.simple-mode-footer-note {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 14px;
+  background: var(--sand);
+  font-size: 11px;
+  color: var(--ink-soft);
+  margin-top: 14px;
+  margin-bottom: 14px;
+}
+
+.btn-inline-mode-switch {
+  background: none;
+  border: none;
+  color: var(--clay);
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+  text-decoration: underline;
+  padding: 0;
+}
+
+/* Visibility Control between Modes */
+body[data-app-mode="simple"] .engineering-only {
+  display: none !important;
+}
+
+body[data-app-mode="engineering"] .simple-only {
+  display: none !important;
+}
+
+/* Freezer Tab Summary Card */
+.freezer-summary-card {
+  background: var(--sand);
+  padding: 14px 16px;
+  margin-bottom: 16px;
+}
+
+.freezer-summary-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.freezer-summary-title {
+  font-family: var(--font-head);
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--ink);
+}
+
+.freezer-summary-tag {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--clay);
+  background: #E8DDD7;
+  padding: 2px 8px;
+}
+
+.freezer-summary-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  text-align: center;
+}
+
+.freezer-stat-item {
+  background: var(--paper);
+  padding: 8px 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.freezer-stat-item strong {
+  font-size: 18px;
+  color: var(--ink);
+}
+
+.freezer-stat-item span {
+  font-size: 11px;
+  color: var(--ink-soft);
+}
+
+/* =========================================================================
+   CUSTOMER-FIRST UX REFACTOR STYLES (APP.HTML MOBILE REFACTOR)
+   ========================================================================= */
+
+/* 1. Global Clutter Removal */
+.floating-demo-btn {
+  display: none !important;
+}
+
+/* 2. Target Schedule Top Bar (Section 3.2) */
+.target-schedule-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 14px;
+  background: var(--sand);
+  border-bottom: 1px solid rgba(158, 150, 150, 0.45);
+  gap: 8px;
+  font-size: 11.5px;
+  position: sticky;
+  top: 48px;
+  z-index: 18;
+}
+
+.schedule-bar-main {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 12px;
+  text-align: left;
+  touch-action: manipulation;
+  transition: opacity 140ms var(--ease-out);
+}
+.schedule-bar-main:active {
+  opacity: 0.7;
+}
+
+.schedule-clock-icon {
+  flex-shrink: 0;
+  color: var(--clay);
+}
+
+.schedule-bar-title {
+  font-weight: 500;
+  white-space: nowrap;
+}
+.schedule-bar-title strong {
+  font-weight: 700;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+
+.schedule-bar-chevron {
+  font-size: 9px;
+  color: var(--ink-soft);
+  margin-left: 2px;
+}
+
+.schedule-bar-commute {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--paper);
+  border: 1px solid rgba(158, 150, 150, 0.6);
+  padding: 4px 9px;
+  border-radius: 14px;
+  cursor: pointer;
+  font-size: 10.5px;
+  font-weight: 600;
+  color: var(--ink);
+  touch-action: manipulation;
+  white-space: nowrap;
+  transition: transform 140ms var(--ease-out), border-color 140ms var(--ease-out);
+}
+.schedule-bar-commute:active {
+  transform: scale(0.96);
+  border-color: var(--clay);
+}
+
+.commute-status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #2C4C3E;
+  display: inline-block;
+  box-shadow: 0 0 0 2px rgba(44, 76, 62, 0.2);
+}
+.commute-status-dot.amber {
+  background: var(--clay);
+  box-shadow: 0 0 0 2px rgba(192, 119, 91, 0.2);
+}
+
+/* 3. Consolidated Simulator Header Pill (Section 3.1) */
+.header-sim-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: var(--sand);
+  border: 1px solid var(--ink);
+  color: var(--ink);
+  padding: 4px 10px;
+  border-radius: 16px;
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  touch-action: manipulation;
+  transition: transform 140ms var(--ease-out), background 140ms var(--ease-out), color 140ms var(--ease-out);
+  margin-right: 4px;
+}
+.header-sim-pill:hover,
+.header-sim-pill:active {
+  background: var(--ink);
+  color: var(--paper);
+}
+.header-sim-pill:active {
+  transform: scale(0.95);
+}
+.header-sim-pill svg {
+  flex-shrink: 0;
+}
+.sim-pill-label strong {
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+}
+
+/* 4. Sleek 3-Step Horizontal Order Tracker (Section 4.3) */
+.thaw-order-tracker {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--white);
+  border: var(--hairline);
+  padding: 10px 12px;
+  margin-bottom: 10px;
+  position: relative;
+  border-radius: var(--radius-xs);
+}
+
+.order-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 3px;
+  flex: 1;
+  position: relative;
+  z-index: 2;
+}
+
+.order-step-indicator {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 1.5px solid var(--stone);
+  background: var(--paper);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-head);
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--ink-soft);
+  transition: all 220ms var(--ease-out);
+}
+
+.order-step-indicator .step-chk {
+  display: none;
+}
+
+.order-step.done .order-step-indicator {
+  background: #2C4C3E;
+  border-color: #2C4C3E;
+  color: #FFFFFF;
+}
+.order-step.done .order-step-indicator .step-num {
+  display: none;
+}
+.order-step.done .order-step-indicator .step-chk {
+  display: block;
+  stroke: #FFFFFF;
+}
+
+.order-step.active .order-step-indicator {
+  border-color: var(--clay);
+  background: var(--clay);
+  color: #FFFFFF;
+  box-shadow: 0 0 0 3px rgba(192, 119, 91, 0.22);
+}
+
+.order-step-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1px;
+}
+
+.order-step-title {
+  font-family: var(--font-body);
+  font-size: 10.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--ink);
+}
+
+.order-step.active .order-step-title {
+  color: var(--clay);
+}
+
+.order-step-sub {
+  font-size: 9px;
+  color: var(--ink-soft);
+  white-space: nowrap;
+}
+
+.order-tracker-line {
+  flex: 1;
+  height: 2px;
+  background: var(--sand);
+  margin: 0 4px;
+  position: relative;
+  top: -9px;
+  z-index: 1;
+  transition: background 220ms var(--ease-out);
+}
+.order-tracker-line.active {
+  background: #2C4C3E;
+}
+
+/* Hero Action Side-by-Side Row */
+.hero-action-row-split {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+}
+.hero-action-row-split .btn-hero-change-dinner {
+  flex: 1.2;
+}
+.btn-hero-action-secondary {
+  flex: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--sand);
+  border: 1px solid var(--stone);
+  color: var(--ink);
+  padding: 10px 8px;
+  font-family: var(--font-body);
+  font-size: 11.5px;
+  font-weight: 600;
+  border-radius: var(--radius-xs);
+  cursor: pointer;
+  touch-action: manipulation;
+  transition: transform 140ms var(--ease-out), background 140ms var(--ease-out);
+}
+.btn-hero-action-secondary:active {
+  transform: scale(0.97);
+  background: var(--paper);
+}
+
+/* Compact Commute Strip */
+.compact-commute-strip {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 10px 12px;
+  margin-bottom: 10px;
+}
+.commute-strip-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+  min-width: 0;
+}
+.commute-car-icon {
+  flex-shrink: 0;
+  color: var(--clay);
+}
+.commute-strip-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+.btn-commute-map-pill {
+  flex-shrink: 0;
+  background: var(--paper);
+  border: 1px solid var(--stone);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 10.5px;
+  font-weight: 600;
+  padding: 5px 10px;
+  border-radius: 12px;
+  cursor: pointer;
+  touch-action: manipulation;
+  transition: all 140ms var(--ease-out);
+}
+.btn-commute-map-pill:active {
+  transform: scale(0.96);
+  background: var(--ink);
+  color: var(--paper);
+}
+
+/* 5. Tab 2: Compact Front Door Header & Food Menu (Section 5) */
+.freezer-door-compact-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--white);
+  border: var(--hairline);
+  padding: 10px 12px;
+  margin-bottom: 10px;
+  border-radius: var(--radius-xs);
+}
+
+.door-drum-minimap {
+  flex-shrink: 0;
+  width: 72px;
+  height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.door-status-col {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  flex: 1;
+  min-width: 0;
+}
+
+.door-status-count {
+  font-size: 10.5px;
+  font-weight: 600;
+  color: var(--ink-soft);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.door-active-dish {
+  font-family: var(--font-head);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--ink);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.btn-door-load {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  align-self: flex-start;
+  margin-top: 2px;
+  background: var(--sand);
+  border: 1px solid var(--ink);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 10.5px;
+  font-weight: 600;
+  padding: 4px 8px;
+  border-radius: var(--radius-xs);
+  cursor: pointer;
+  touch-action: manipulation;
+  transition: transform 140ms var(--ease-out), background 140ms var(--ease-out);
+}
+.btn-door-load:active {
+  transform: scale(0.96);
+  background: var(--ink);
+  color: var(--paper);
+}
+
+/* Category Filter Pills */
+.freezer-category-bar {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  padding: 2px 0 8px;
+  margin-bottom: 6px;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+.freezer-category-bar::-webkit-scrollbar {
+  display: none;
+}
+
+.freezer-cat-pill {
+  flex-shrink: 0;
+  background: var(--paper);
+  border: 1px solid var(--stone);
+  color: var(--ink-soft);
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 600;
+  padding: 5px 11px;
+  border-radius: 16px;
+  cursor: pointer;
+  touch-action: manipulation;
+  transition: all 140ms var(--ease-out);
+  white-space: nowrap;
+}
+.freezer-cat-pill:hover,
+.freezer-cat-pill.active {
+  background: var(--ink);
+  color: var(--paper);
+  border-color: var(--ink);
+}
+.freezer-cat-pill:active {
+  transform: scale(0.95);
+}
+
+/* Visual Menu List */
+.freezer-menu-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 70px;
+}
+
+.freezer-menu-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--white);
+  border: var(--hairline);
+  padding: 9px 12px;
+  cursor: pointer;
+  touch-action: manipulation;
+  border-radius: var(--radius-xs);
+  transition: border-color 140ms var(--ease-out), transform 140ms var(--ease-out), box-shadow 140ms var(--ease-out);
+  text-align: left;
+}
+.freezer-menu-card:active {
+  transform: scale(0.98);
+}
+.freezer-menu-card.active {
+  border-color: var(--clay);
+  box-shadow: 0 0 0 1px var(--clay);
+}
+.freezer-menu-card.tonight-scheduled {
+  border-color: var(--clay);
+  background: rgba(192, 119, 91, 0.04);
+}
+.freezer-menu-card.hidden {
+  display: none !important;
+}
+
+.menu-card-thumb-wrap {
+  position: relative;
+  width: 58px;
+  height: 58px;
+  flex-shrink: 0;
+  border-radius: var(--radius-xs);
+  overflow: hidden;
+  background: var(--sand);
+}
+.menu-card-thumb {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.menu-slot-badge {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  background: rgba(25, 25, 25, 0.85);
+  color: #FFFFFF;
+  font-size: 8.5px;
+  font-weight: 700;
+  padding: 1px 4px;
+  border-radius: 2px;
+  font-variant-numeric: tabular-nums;
+}
+
+.menu-card-body {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.menu-card-title {
+  font-family: var(--font-head);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1.25;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.menu-card-meta {
+  font-size: 11px;
+  color: var(--ink-soft);
+  line-height: 1.3;
+}
+
+.menu-card-action {
+  flex-shrink: 0;
+}
+
+.btn-card-select-pill {
+  background: var(--sand);
+  border: 1px solid var(--stone);
+  color: var(--ink);
+  font-size: 10px;
+  font-weight: 600;
+  padding: 5px 9px;
+  border-radius: 12px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 140ms var(--ease-out);
+}
+.freezer-menu-card.active .btn-card-select-pill {
+  background: var(--clay);
+  border-color: var(--clay);
+  color: #FFFFFF;
+}
+
+.badge-tonight-pill {
+  background: var(--clay);
+  color: #FFFFFF;
+  font-size: 9px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 4px 7px;
+  border-radius: 10px;
+  white-space: nowrap;
+}
+
+/* Empty Slot Card */
+.freezer-menu-card.card-empty {
+  border-style: dashed;
+  background: rgba(218, 216, 203, 0.22);
+}
+.menu-card-thumb-empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 58px;
+  height: 58px;
+  border: 1px dashed var(--stone);
+  border-radius: var(--radius-xs);
+  background: var(--paper);
+  color: var(--ink-soft);
+  font-size: 18px;
+  font-weight: 600;
+}
+
+/* Sticky Bottom Selection Bar */
+.freezer-sticky-bar {
+  position: sticky;
+  bottom: calc(56px + env(safe-area-inset-bottom, 0px));
+  z-index: 25;
+  background: var(--sand);
+  border-top: 1.5px solid var(--ink);
+  padding: 9px 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  box-shadow: 0 -4px 16px rgba(25, 25, 25, 0.08);
+  margin: 0 -14px;
+}
+
+.sticky-bar-info {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 0;
+  flex: 1;
+}
+
+.sticky-bar-label {
+  font-size: 9px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--ink-soft);
+}
+
+.sticky-bar-dish {
+  font-family: var(--font-head);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--ink);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sticky-bar-meta {
+  font-size: 10px;
+  color: var(--ink-soft);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sticky-bar-actions {
+  display: flex;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.btn-sticky-primary {
+  background: var(--clay);
+  border: 1px solid var(--clay);
+  color: #FFFFFF;
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 700;
+  padding: 8px 12px;
+  border-radius: var(--radius-xs);
+  cursor: pointer;
+  touch-action: manipulation;
+  white-space: nowrap;
+  transition: transform 140ms var(--ease-out), opacity 140ms var(--ease-out);
+}
+.btn-sticky-primary:active {
+  transform: scale(0.96);
+  opacity: 0.9;
+}
+
+.btn-sticky-secondary {
+  background: var(--paper);
+  border: 1px solid var(--ink);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 10.5px;
+  font-weight: 600;
+  padding: 8px 10px;
+  border-radius: var(--radius-xs);
+  cursor: pointer;
+  touch-action: manipulation;
+  white-space: nowrap;
+  transition: transform 140ms var(--ease-out);
+}
+.btn-sticky-secondary:active {
+  transform: scale(0.96);
+  background: var(--sand);
+}
+
+/* 6. Tab 3: Appliance 2x2 Bento Grid & Customer Handle Light (Section 6) */
+.halo-customer-guide {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.halo-guide-card {
+  background: var(--paper);
+  border: var(--hairline);
+  padding: 8px 6px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 4px;
+  border-radius: var(--radius-xs);
+}
+.halo-color-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  display: inline-block;
+}
+.halo-color-dot.blue { background: #5B8EC0; box-shadow: 0 0 0 2px rgba(91, 142, 192, 0.25); }
+.halo-color-dot.amber { background: #C0775B; box-shadow: 0 0 0 2px rgba(192, 119, 91, 0.25); }
+.halo-color-dot.green { background: #2C4C3E; box-shadow: 0 0 0 2px rgba(44, 76, 62, 0.25); }
+
+.halo-guide-title {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+.halo-guide-sub {
+  font-size: 9px;
+  color: var(--ink-soft);
+  line-height: 1.25;
+}
+
+/* 7. Concept Director Two-Tab View (Section 7) */
+.director-tabs-bar {
+  display: flex;
+  border-bottom: var(--hairline);
+  margin-bottom: 12px;
+}
+
+.director-tab-btn {
+  flex: 1;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  padding: 8px 10px;
+  font-family: var(--font-head);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  cursor: pointer;
+  touch-action: manipulation;
+  transition: all 140ms var(--ease-out);
+}
+
+.director-tab-btn.active {
+  color: var(--clay);
+  border-bottom-color: var(--clay);
+}
+
+.director-tab-panel {
+  display: none;
+}
+.director-tab-panel.active {
+  display: block;
+}
+
+/* Academic Evaluation Accordion */
+.academic-eval-accordion {
+  border: var(--hairline);
+  background: var(--sand);
+  margin-top: 14px;
+  border-radius: var(--radius-xs);
+  overflow: hidden;
+}
+.academic-eval-summary {
+  padding: 10px 14px;
+  font-family: var(--font-head);
+  font-size: 11.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--ink);
+  cursor: pointer;
+  background: var(--paper);
+  border-bottom: 1px solid transparent;
+  list-style: none;
+}
+.academic-eval-summary::-webkit-details-marker {
+  display: none;
+}
+.academic-eval-accordion[open] .academic-eval-summary {
+  border-bottom-color: var(--stone);
+}
+.academic-eval-body {
+  padding: 12px;
+}
+

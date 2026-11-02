@@ -523,6 +523,14 @@ document.addEventListener("DOMContentLoaded", () => {
   const headerStatusText = document.getElementById("headerStatusText");
   const headerPulseDot = document.getElementById("headerPulseDot");
   const btnHeaderBell = document.getElementById("btnHeaderBell");
+  const btnHeaderSim = document.getElementById("btnHeaderSim");
+
+  // Top Target Schedule Bar
+  const topBarTargetDinnerTime = document.getElementById("topBarTargetDinnerTime");
+  const topBarCommuteLabel = document.getElementById("topBarCommuteLabel");
+  const topBarCommuteDot = document.getElementById("topBarCommuteDot");
+  const btnOpenScheduleSheet = document.getElementById("btnOpenScheduleSheet");
+  const btnTopBarCommute = document.getElementById("btnTopBarCommute");
 
   // Tab Navigation Elements
   const bottomTabs = document.querySelectorAll(".bottom-tab-item");
@@ -545,12 +553,25 @@ document.addEventListener("DOMContentLoaded", () => {
   const heroSubtext = document.getElementById("heroSubtext");
   const heroReassuranceText = document.getElementById("heroReassuranceText");
   const btnHeroAction = document.getElementById("btnHeroAction");
+  const btnTonightHold30 = document.getElementById("btnTonightHold30");
   const thawConsumerPhaseLabel = document.getElementById("thawConsumerPhaseLabel");
   const thawConsumerReadyTime = document.getElementById("thawConsumerReadyTime");
   const techTelemetryDisclosure = document.getElementById("techTelemetryDisclosure");
   const btnToggleDemoMode = document.getElementById("btnToggleDemoMode");
 
+  // Tonight 3-Step Order Tracker
+  const thawOrderTracker = document.getElementById("thawOrderTracker");
+  const orderStep1 = document.getElementById("orderStep1");
+  const orderStep2 = document.getElementById("orderStep2");
+  const orderStep3 = document.getElementById("orderStep3");
+  const orderStepFrozenSub = document.getElementById("orderStepFrozenSub");
+  const orderStepPreparingSub = document.getElementById("orderStepPreparingSub");
+  const orderStepReadySub = document.getElementById("orderStepReadySub");
+  const orderTrackerLine1 = document.getElementById("orderTrackerLine1");
+  const orderTrackerLine2 = document.getElementById("orderTrackerLine2");
+
   // Cutaway SVG Elements
+  const cutawayCard = document.getElementById("cutawayCard");
   const cutawayRotor = document.getElementById("cutawayRotor");
   const cutawaySlotContainer = document.getElementById("cutawaySlotContainer");
   const cutawayHatchFlap = document.getElementById("cutawayHatchFlap");
@@ -602,6 +623,17 @@ document.addEventListener("DOMContentLoaded", () => {
   const slotDetailInfo = document.getElementById("slotDetailInfo");
   const btnUseSlotForTonight = document.getElementById("btnUseSlotForTonight");
   const btnOpenAddMealSheet = document.getElementById("btnOpenAddMealSheet");
+
+  // Freezer Front-Door Minimap, Filter Pills & Sticky Bar
+  const freezerMiniDoorIndicator = document.getElementById("freezerMiniDoorIndicator");
+  const btnDoorLoadMeal = document.getElementById("btnDoorLoadMeal");
+  const freezerCatPills = document.querySelectorAll(".freezer-cat-pill");
+  const freezerMenuCards = document.querySelectorAll(".freezer-menu-card");
+  const freezerStickyBar = document.getElementById("freezerStickyBar");
+  const stickySlotDish = document.getElementById("stickySlotDish");
+  const stickySlotMeta = document.getElementById("stickySlotMeta");
+  const btnStickyUseTonight = document.getElementById("btnStickyUseTonight");
+  const btnStickyBringToDoor = document.getElementById("btnStickyBringToDoor");
 
   // Kitchen Tab Elements
   const telemDrawerTemp = document.getElementById("telemDrawerTemp");
@@ -683,6 +715,18 @@ document.addEventListener("DOMContentLoaded", () => {
   const btnLaunchTourDesktop = document.getElementById("btnLaunchTourDesktop");
   const btnLaunchTourMobile = document.getElementById("btnLaunchTourMobile");
 
+  // Director Sub-Tabs & Cutaway Hosts
+  const btnDirectorTabScenario = document.getElementById("btnDirectorTabScenario");
+  const btnDirectorTabCad = document.getElementById("btnDirectorTabCad");
+  const directorScenarioPanel = document.getElementById("directorScenarioPanel");
+  const directorCadPanel = document.getElementById("directorCadPanel");
+  const btnDesktopTabScenario = document.getElementById("btnDesktopTabScenario");
+  const btnDesktopTabCad = document.getElementById("btnDesktopTabCad");
+  const desktopScenarioPanel = document.getElementById("desktopScenarioPanel");
+  const desktopCadPanel = document.getElementById("desktopCadPanel");
+  const mobileCutawayHost = document.getElementById("mobileCutawayHost");
+  const desktopCutawayHost = document.getElementById("desktopCutawayHost");
+
   // Tour Elements
   const tourPromptCard = document.getElementById("tourPromptCard");
   const btnTourPromptStart = document.getElementById("btnTourPromptStart");
@@ -694,6 +738,49 @@ document.addEventListener("DOMContentLoaded", () => {
   const btnTourNext = document.getElementById("btnTourNext");
   const btnTourReplay = document.getElementById("btnTourReplay");
   const btnTourExit = document.getElementById("btnTourExit");
+
+  // Mode Controller Elements (Simple Mode vs. Engineering Mode)
+  const btnModeSimple = document.getElementById("btnModeSimple");
+  const btnModeEngineering = document.getElementById("btnModeEngineering");
+  const btnToggleAppModeSimple = document.getElementById("btnToggleAppModeSimple");
+  const currentModeLabel = document.getElementById("currentModeLabel");
+  const twinDrawerTempVal = document.getElementById("twinDrawerTempVal");
+  const freezerOverviewReady = document.getElementById("freezerOverviewReady");
+  const freezerOverviewOpen = document.getElementById("freezerOverviewOpen");
+
+  let currentAppMode = localStorage.getItem("dina_app_mode") || "simple";
+
+  function setAppMode(mode) {
+    currentAppMode = mode;
+    localStorage.setItem("dina_app_mode", mode);
+    document.body.dataset.appMode = mode;
+    const isSimple = mode === "simple";
+    if (btnModeSimple) {
+      btnModeSimple.classList.toggle("active", isSimple);
+      btnModeSimple.setAttribute("aria-checked", String(isSimple));
+    }
+    if (btnModeEngineering) {
+      btnModeEngineering.classList.toggle("active", !isSimple);
+      btnModeEngineering.setAttribute("aria-checked", String(!isSimple));
+    }
+    if (currentModeLabel) {
+      currentModeLabel.textContent = isSimple ? "Simple Mode" : "Engineering Mode";
+    }
+    triggerHaptic([12]);
+  }
+
+  if (btnModeSimple) {
+    btnModeSimple.addEventListener("click", () => setAppMode("simple"));
+  }
+  if (btnModeEngineering) {
+    btnModeEngineering.addEventListener("click", () => setAppMode("engineering"));
+  }
+  if (btnToggleAppModeSimple) {
+    btnToggleAppModeSimple.addEventListener("click", () => {
+      setAppMode(currentAppMode === "simple" ? "engineering" : "simple");
+    });
+  }
+  setAppMode(currentAppMode);
 
   // =========================================================================
   // Dial Tick Generation & Geometry
@@ -852,6 +939,27 @@ document.addEventListener("DOMContentLoaded", () => {
       headerPulseDot.style.background = state.flags.wifiOffline ? "var(--clay)" : "#4A8B63";
     }
 
+    // Top Target Schedule Bar (Section 3.2)
+    if (topBarTargetDinnerTime) {
+      topBarTargetDinnerTime.textContent = minsToTimeStr(state.plan.readyMins);
+    }
+    if (topBarCommuteLabel) {
+      const cState = state.flags.commute;
+      if (cState === "traffic") {
+        topBarCommuteLabel.textContent = "Traffic Delay (+30m)";
+        if (topBarCommuteDot) topBarCommuteDot.style.background = "var(--clay)";
+      } else if (cState === "atwork") {
+        topBarCommuteLabel.textContent = "Still at Work";
+        if (topBarCommuteDot) topBarCommuteDot.style.background = "var(--clay)";
+      } else if (cState === "arrived") {
+        topBarCommuteLabel.textContent = "Arrived Home";
+        if (topBarCommuteDot) topBarCommuteDot.style.background = "#4A8B63";
+      } else {
+        topBarCommuteLabel.textContent = "Commute Sync (ETA 19:20)";
+        if (topBarCommuteDot) topBarCommuteDot.style.background = "#4A8B63";
+      }
+    }
+
     // 2. Tab 1: Tonight Screen Updates
     // 15:00 Notification Card
     if (lockNotificationCard) {
@@ -914,7 +1022,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     if (heroReassuranceText) {
       if (computed.phase === "scheduled") {
-        heroReassuranceText.innerHTML = `<strong>Nothing to do</strong> &mdash; DINA auto-drops at ${minsToTimeStr(state.plan.dropMins)} and thaws to +3.0 &deg;C. Arrive home to dinner ready to cook.`;
+        heroReassuranceText.innerHTML = `<strong>Nothing to do</strong> &mdash; DINA manages your dinner schedule and continuously monitors temperature.`;
       } else if (computed.phase === "drop") {
         heroReassuranceText.innerHTML = `<strong>In progress</strong> &mdash; 2.5 s airlock hatch open. Transferring container into lower defrost drawer.`;
       } else if (computed.phase === "thaw") {
@@ -922,7 +1030,7 @@ document.addEventListener("DOMContentLoaded", () => {
       } else if (computed.phase === "equalize") {
         heroReassuranceText.innerHTML = `<strong>Equalizing core</strong> &mdash; Air stepped down to +3.0 &deg;C while conduction warms center.`;
       } else if (computed.phase === "ready" || computed.phase === "held") {
-        heroReassuranceText.innerHTML = `<strong>Dinner is ready!</strong> &mdash; Safely held at +3.0 &deg;C. Open drawer and cook whenever you're ready.`;
+        heroReassuranceText.innerHTML = `<strong>Dinner is ready!</strong> &mdash; Monitored at +3.0 &deg;C. Open drawer and cook whenever you're ready.`;
       } else if (computed.phase === "eating_out") {
         heroReassuranceText.innerHTML = `<strong>Eating out tonight</strong> &mdash; Carousel remains frozen solid at &minus;18.0 &deg;C. Zero food wasted.`;
       }
@@ -935,8 +1043,15 @@ document.addEventListener("DOMContentLoaded", () => {
         heroStatusPill.textContent = "Offline (Local Schedule Active)";
         heroStatusPill.className = "hero-food-status-pill pill-offline";
       } else {
-        heroStatusPill.textContent = "All Systems Normal";
-        heroStatusPill.className = "hero-food-status-pill pill-scheduled";
+        heroStatusPill.textContent = "Scheduled and monitored";
+        heroStatusPill.className = "hero-monitored-pill";
+      }
+    }
+    if (twinDrawerTempVal) {
+      if (computed.drawerAirC !== null) {
+        twinDrawerTempVal.textContent = `+${computed.drawerAirC.toFixed(1)} \u00B0C`;
+      } else {
+        twinDrawerTempVal.textContent = "+3 \u00B0C";
       }
     }
     if (btnHeroAction) {
@@ -1048,6 +1163,56 @@ document.addEventListener("DOMContentLoaded", () => {
       stageEqualizeDurationLabel.textContent = `Soak (~${state.plan.equalizeMin}m)`;
     }
 
+    // 3-Step Horizontal Order Tracker (Section 4.3)
+    const isFrozenPhase = (computed.phase === "idle" || computed.phase === "checkin" || computed.phase === "scheduled" || computed.phase === "skipped");
+    const isPreparingPhase = (computed.phase === "drop" || computed.phase === "thaw" || computed.phase === "equalize");
+    const isReadyPhase = (computed.phase === "ready" || computed.phase === "held");
+
+    if (orderStep1) {
+      orderStep1.classList.toggle("active", isFrozenPhase);
+      orderStep1.classList.toggle("done", !isFrozenPhase);
+    }
+    if (orderStepFrozenSub) {
+      orderStepFrozenSub.textContent = `-18 °C until ${minsToTimeStr(state.plan.dropMins)}`;
+    }
+
+    if (orderStep2) {
+      orderStep2.classList.toggle("active", isPreparingPhase);
+      orderStep2.classList.toggle("done", isReadyPhase);
+    }
+    if (orderStepPreparingSub) {
+      if (computed.phase === "drop") {
+        orderStepPreparingSub.textContent = "Transferring meal";
+      } else if (computed.phase === "thaw") {
+        orderStepPreparingSub.textContent = `+10 °C Thaw (${Math.round(computed.minsToNext)}m left)`;
+      } else if (computed.phase === "equalize") {
+        orderStepPreparingSub.textContent = `Core equalize (${Math.round(computed.minsToNext)}m left)`;
+      } else if (isReadyPhase) {
+        orderStepPreparingSub.textContent = "Completed";
+      } else {
+        orderStepPreparingSub.textContent = `${minsToTimeStr(state.plan.dropMins)} Gentle Thaw`;
+      }
+    }
+
+    if (orderStep3) {
+      orderStep3.classList.toggle("active", isReadyPhase);
+      orderStep3.classList.toggle("done", false);
+    }
+    if (orderStepReadySub) {
+      if (isReadyPhase) {
+        orderStepReadySub.textContent = "Ready now (+3 °C Hold)";
+      } else {
+        orderStepReadySub.textContent = `${minsToTimeStr(state.plan.readyMins)} (+3 °C Hold)`;
+      }
+    }
+
+    if (orderTrackerLine1) {
+      orderTrackerLine1.classList.toggle("active", !isFrozenPhase);
+    }
+    if (orderTrackerLine2) {
+      orderTrackerLine2.classList.toggle("active", isReadyPhase);
+    }
+
     // Pipeline progress bar percentage
     if (pipelineProgressBar) {
       const eveningStart = state.plan.dropMins - 60; // 1 hour before drop
@@ -1093,6 +1258,8 @@ document.addEventListener("DOMContentLoaded", () => {
     // 3. Tab 2: Freezer Screen Updates
     const stockedKeys = Object.keys(drumInventory).filter(k => drumInventory[k] && !drumInventory[k].isChimney);
     if (freezerStockedCount) freezerStockedCount.textContent = String(stockedKeys.length);
+    if (freezerOverviewReady) freezerOverviewReady.textContent = String(stockedKeys.length);
+    if (freezerOverviewOpen) freezerOverviewOpen.textContent = String(11 - stockedKeys.length);
     if (upperRingBadge) {
       const upperStocked = ["01", "02", "03", "04", "05", "06"].filter(k => drumInventory[k]).length;
       upperRingBadge.textContent = `${upperStocked} / 6 Stocked`;
@@ -1157,6 +1324,49 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     }
 
+    // Synchronize Customer Freezer Menu Cards
+    freezerMenuCards.forEach(card => {
+      const slot = card.dataset.slot;
+      const isSelected = (slot === state.selectedFreezerSlot);
+      const isTonight = (slot === state.plan.slot);
+      const isDropped = (isTonight && state.sim.mins >= state.plan.dropMins);
+      const isReady = (isTonight && (computed.phase === "ready" || computed.phase === "held"));
+      card.classList.toggle("active", isSelected);
+      card.classList.toggle("tonight-scheduled", isTonight && !isDropped);
+      card.classList.toggle("in-drawer", isDropped);
+      card.classList.toggle("thawed-ready", isReady);
+    });
+
+    // Tab 2 Sticky Bottom Confirmation Bar
+    const curFreezerMeal = drumInventory[state.selectedFreezerSlot];
+    if (stickySlotDish && stickySlotMeta) {
+      if (curFreezerMeal && !curFreezerMeal.isChimney) {
+        stickySlotDish.textContent = curFreezerMeal.name;
+        const isTonight = curFreezerMeal.slot === state.plan.slot;
+        const isDropped = isTonight && state.sim.mins >= state.plan.dropMins;
+        stickySlotMeta.textContent = isDropped
+          ? "In Defrost Drawer (+3.0 °C)"
+          : (isTonight ? "Scheduled for tonight" : `Slot ${curFreezerMeal.slot} • ${curFreezerMeal.weight} g • ~${curFreezerMeal.thawTime}m thaw`);
+        if (btnStickyUseTonight) {
+          btnStickyUseTonight.textContent = isTonight ? "Tonight's Dinner" : "Use for Tonight";
+          btnStickyUseTonight.disabled = isTonight;
+        }
+        if (btnStickyBringToDoor) {
+          btnStickyBringToDoor.disabled = false;
+        }
+      } else {
+        stickySlotDish.textContent = `Open Slot ${state.selectedFreezerSlot}`;
+        stickySlotMeta.textContent = "Empty slot • Ready to stock meal";
+        if (btnStickyUseTonight) {
+          btnStickyUseTonight.textContent = "Empty Slot";
+          btnStickyUseTonight.disabled = true;
+        }
+        if (btnStickyBringToDoor) {
+          btnStickyBringToDoor.disabled = false;
+        }
+      }
+    }
+
     // 4. Tab 3: Kitchen & Care Updates
     if (telemDrawerTemp) {
       if (computed.drawerAirC === null) {
@@ -1171,12 +1381,19 @@ document.addEventListener("DOMContentLoaded", () => {
       if (state.flags.powerCutMinutes >= 120) {
         telemBlackoutVal.textContent = "Tier 2 Lockout";
         telemBlackoutVal.style.color = "var(--clay)";
+        if (telemBlackoutSub) telemBlackoutSub.textContent = "Assess condition: limits exceeded (USDA/EFSA)";
       } else if (state.flags.powerCutMinutes >= 30) {
         telemBlackoutVal.textContent = "Tier 1 Warning";
         telemBlackoutVal.style.color = "#D9822B";
+        if (telemBlackoutSub) telemBlackoutSub.textContent = "Assess food condition (> 30 min)";
+      } else if (state.flags.powerCutMinutes > 0) {
+        telemBlackoutVal.textContent = "Safe: Resumed";
+        telemBlackoutVal.style.color = "var(--ink)";
+        if (telemBlackoutSub) telemBlackoutSub.textContent = "Recovered within limits (< 30 min)";
       } else {
         telemBlackoutVal.textContent = "All Good";
         telemBlackoutVal.style.color = "var(--ink)";
+        if (telemBlackoutSub) telemBlackoutSub.textContent = "Temperature monitoring active";
       }
     }
 
@@ -1278,12 +1495,12 @@ document.addEventListener("DOMContentLoaded", () => {
         if (tourStepBadge) tourStepBadge.textContent = `Step ${state.tour.step} of 6`;
         if (tourCaptionText) {
           const captions = {
-            1: "Afternoon Check-In: At 15:00, DINA checks if you still want tonight's scheduled meal (Beef Ribeye). Tap 'Sounds Good' or swap with one tap.",
-            2: "Safe Frozen Storage: Your meal stays locked at -18 °C until the exact calculated drop time at 17:50 — zero morning thawing chores.",
-            3: "Airlock Transfer: At 17:50, your dinner drops into the preparation drawer while your main freezer stays sealed and deep-frozen.",
-            4: "Gentle Controlled Thaw: Low-temperature convection air brings food to +4.0 °C, keeping meats juicy and tender without microwave rubber.",
-            5: "Commute Delay Protection: Delayed in traffic? DINA senses your late commute and keeps dinner safely chilled at +3.0 °C until you walk in.",
-            6: "Dinner, Ready to Cook: Green halo on the handle! Open the drawer to a tender, evenly thawed cut ready for the pan."
+            1: "Sunday Meal Prep: You prepare your meals on Sunday and stock up to 11 portions in the motorized drum at -18 °C.",
+            2: "15:00 Check-In: On your weekday commute, DINA asks if you still want tonight's scheduled meal (Ribeye Steak). Tap 'Sounds Good' or swap with one tap.",
+            3: "17:50 Timed Transfer: DINA automatically indexes and drops tonight's dish into the defrost drawer while the main freezer stays closed.",
+            4: "Gentle Controlled Thaw: Low-temperature +10 °C convection warms the dish, stepping down once surface reaches +4.0 °C to preserve tenderness.",
+            5: "Commute Delay Protection: Delayed in traffic? Your phone signals DINA to extend the +3.0 °C safe hold so dinner stays fresh until you arrive.",
+            6: "Dinner Ready to Cook: Arrive home to a green halo indicator on the drawer. Collect your chilled, evenly thawed steak ready straight for the pan."
           };
           tourCaptionText.textContent = captions[state.tour.step] || "";
         }
@@ -1636,6 +1853,36 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  // Running Late (+30m) Action Button on Hero Card
+  if (btnTonightHold30) {
+    btnTonightHold30.addEventListener("click", () => {
+      triggerHaptic([15]);
+      const newReady = store.state.plan.readyMins + 30;
+      store.set({
+        plan: {
+          readyMins: newReady,
+          dropMins: newReady - store.state.plan.thawMin - store.state.plan.equalizeMin
+        }
+      });
+      showToast(`Dinner pushed by 30 min. Target: ${minsToTimeStr(newReady)}.`);
+    });
+  }
+
+  // Top Target Schedule Bar Interactions
+  if (btnOpenScheduleSheet) {
+    btnOpenScheduleSheet.addEventListener("click", () => {
+      triggerHaptic([10]);
+      openSheet(changeDinnerSheet);
+    });
+  }
+
+  if (btnTopBarCommute) {
+    btnTopBarCommute.addEventListener("click", () => {
+      triggerHaptic([10]);
+      openSheet(liveMapSheet);
+    });
+  }
+
   // =========================================================================
   // Sheet 1: Change Dinner Sheet (8 Stocked Meals & Interactive Dial)
   // =========================================================================
@@ -1846,6 +2093,68 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (btnOpenAddMealSheet) {
     btnOpenAddMealSheet.addEventListener("click", () => {
+      const openSlot = ["09", "10", "11"].find(k => !drumInventory[k]) || "09";
+      store.set({ targetStockSlot: openSlot });
+      if (sheetTargetSlotDisplay) sheetTargetSlotDisplay.textContent = `Container ${openSlot}`;
+      openSheet(addMealSheet);
+    });
+  }
+
+  // Tab 2 Category Filter Pills
+  freezerCatPills.forEach(pill => {
+    pill.addEventListener("click", () => {
+      triggerHaptic([10]);
+      freezerCatPills.forEach(p => p.classList.remove("active"));
+      pill.classList.add("active");
+      const cat = pill.dataset.filterCat;
+      freezerMenuCards.forEach(card => {
+        if (cat === "all") {
+          card.classList.remove("hidden");
+        } else {
+          const cardCat = card.dataset.cat || "";
+          card.classList.toggle("hidden", cardCat !== cat);
+        }
+      });
+    });
+  });
+
+  // Tab 2 Sticky Bottom Confirmation Bar Handlers
+  if (btnStickyUseTonight) {
+    btnStickyUseTonight.addEventListener("click", () => {
+      const slot = store.state.selectedFreezerSlot;
+      const item = drumInventory[slot];
+      if (!item || item.isChimney) {
+        showToast("Please choose a stocked container first.");
+        return;
+      }
+      triggerHaptic([20]);
+      const thawMin = item.thawTime;
+      const eqMin = item.equalizationTime;
+      store.set({
+        plan: {
+          slot: slot,
+          meal: item,
+          thawMin: thawMin,
+          equalizeMin: eqMin,
+          dropMins: store.state.plan.readyMins - thawMin - eqMin,
+          isConfirmed: true
+        },
+        flags: { skipped: false }
+      });
+      switchTab("tab-tonight");
+      showToast(`${item.name} set as tonight's dinner.`);
+    });
+  }
+
+  if (btnStickyBringToDoor) {
+    btnStickyBringToDoor.addEventListener("click", () => {
+      triggerHaptic([15]);
+      showToast(`Carousel indexed. Container ${store.state.selectedFreezerSlot} aligned with front door.`);
+    });
+  }
+
+  if (btnDoorLoadMeal) {
+    btnDoorLoadMeal.addEventListener("click", () => {
       const openSlot = ["09", "10", "11"].find(k => !drumInventory[k]) || "09";
       store.set({ targetStockSlot: openSlot });
       if (sheetTargetSlotDisplay) sheetTargetSlotDisplay.textContent = `Container ${openSlot}`;
@@ -2077,7 +2386,71 @@ document.addEventListener("DOMContentLoaded", () => {
   // Director Controls (Desktop Column & Mobile Sheet)
   // =========================================================================
 
-  // Open Mobile Director Sheet
+  // Consolidated Header Simulator Button (Section 3.1)
+  if (btnHeaderSim) {
+    btnHeaderSim.addEventListener("click", () => {
+      triggerHaptic([12]);
+      if (window.innerWidth >= 900) {
+        const appWrapper = document.querySelector(".app-layout-wrapper");
+        if (appWrapper) appWrapper.classList.remove("demo-controls-hidden");
+        const desktopPanel = document.getElementById("directorPanelDesktop");
+        if (desktopPanel) desktopPanel.scrollIntoView({ behavior: "smooth", block: "nearest" });
+        showToast("Concept Director evaluation panel active.");
+      } else {
+        openSheet(directorSheet);
+      }
+    });
+  }
+
+  // Director Sub-Tab Switching (Scenarios vs CAD & Cutaway)
+  function setupDirectorTabs(btnScenario, btnCad, panelScenario, panelCad, targetHost) {
+    if (!btnScenario || !btnCad || !panelScenario || !panelCad) return;
+
+    btnScenario.addEventListener("click", () => {
+      triggerHaptic([10]);
+      btnScenario.classList.add("active");
+      btnScenario.setAttribute("aria-selected", "true");
+      btnCad.classList.remove("active");
+      btnCad.setAttribute("aria-selected", "false");
+      panelScenario.classList.add("active");
+      panelCad.classList.remove("active");
+    });
+
+    btnCad.addEventListener("click", () => {
+      triggerHaptic([10]);
+      btnCad.classList.add("active");
+      btnCad.setAttribute("aria-selected", "true");
+      btnScenario.classList.remove("active");
+      btnScenario.setAttribute("aria-selected", "false");
+      panelCad.classList.add("active");
+      panelScenario.classList.remove("active");
+
+      // Dynamically mount cutawayCard into targetHost if needed
+      if (cutawayCard && targetHost && !targetHost.contains(cutawayCard)) {
+        targetHost.appendChild(cutawayCard);
+      }
+    });
+  }
+
+  // Mobile Director Sub-Tabs
+  setupDirectorTabs(
+    btnDirectorTabScenario,
+    btnDirectorTabCad,
+    directorScenarioPanel,
+    directorCadPanel,
+    mobileCutawayHost
+  );
+
+  // Desktop Director Sub-Tabs
+  setupDirectorTabs(
+    btnDesktopTabScenario,
+    btnDesktopTabCad,
+    desktopScenarioPanel,
+    desktopCadPanel,
+    desktopCutawayHost
+  );
+
+  // Open Mobile Director Sheet (Legacy compatibility)
   if (btnOpenDemoSheet) {
     btnOpenDemoSheet.addEventListener("click", () => {
       openSheet(directorSheet);

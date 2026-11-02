@@ -96,12 +96,12 @@
             <line x1="19" y1="12" x2="5" y2="12"></line>
             <polyline points="12 19 5 12 12 5"></polyline>
           </svg>
-          <span class="app-back-label">DINA Site</span>
+          <span class="app-back-label">Site</span>
         </a>
 
         <div class="app-header-center">
           <div class="app-brand-title-row">
-            <svg class="dina-icon app-header-emblem" viewBox="0 0 48 48" width="20" height="20" aria-hidden="true">
+            <svg class="dina-icon app-header-emblem" viewBox="0 0 48 48" width="18" height="18" aria-hidden="true">
               <rect class="d" style="--i:0" pathLength="1" x="10" y="5" width="28" height="38" rx="2"/>
               <path class="d" style="--i:1" pathLength="1" d="M10 28H38"/>
               <path class="d" style="--i:2" pathLength="1" d="M32 12V21"/>
@@ -109,26 +109,26 @@
             </svg>
             <h1 class="app-header-title">DINA</h1>
           </div>
-          <div class="header-meta-row">
-            <a href="index.html" class="app-status-badge simulator-badge" id="headerConnectionBadge" title="Concept Simulator · Virtual Appliance (Link to Website)">
-              <span class="status-pulse-dot" id="headerPulseDot"></span>
-              <span id="headerStatusText">Concept Simulator &bull; Virtual Appliance</span>
-            </a>
-            <div class="header-led-chip" id="headerLedChip" title="Drawer Handle Physical Light Ring State">
-              <span class="led-indicator-dot blue" id="headerLedDot"></span>
-              <span id="headerLedText">Standby</span>
-            </div>
-            <div class="header-clock-tag" title="Simulated afternoon clock for demo evaluation">
-              <span>Simulated:</span> <strong id="simClockDisplay">15:00</strong>
-            </div>
+          <!-- Hidden compatibility elements to safely satisfy existing JS queries -->
+          <div style="display:none;" aria-hidden="true">
+            <a href="index.html" id="headerConnectionBadge"><span id="headerPulseDot"></span><span id="headerStatusText">Concept Simulator</span></a>
+            <div id="headerLedChip"><span id="headerLedDot"></span><span id="headerLedText">Standby</span></div>
+            <button id="btnModeSimple"></button>
+            <button id="btnModeEngineering"></button>
+            <button id="btnToggleDemoMode"><span class="demo-toggle-label"></span></button>
           </div>
         </div>
 
         <div class="app-header-actions">
-          <button class="header-demo-toggle-btn" id="btnToggleDemoMode" title="Toggle Concept Director Controls Panel" aria-label="Toggle Demo Controls" type="button">
-            <span class="demo-toggle-dot"></span>
-            <span class="demo-toggle-label">Demo Controls</span>
+          <!-- Consolidated Simulator Access Pill Button (Section 3.1) -->
+          <button class="header-sim-pill" id="btnHeaderSim" title="Concept Director &amp; Simulator Controls" aria-label="Open Simulator Controls" type="button">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="3"></circle>
+              <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+            </svg>
+            <span class="sim-pill-label">Sim &bull; <strong id="simClockDisplay">15:00</strong></span>
           </button>
+
           <button class="app-header-btn" id="btnHeaderBell" title="Appliance Status Notification" aria-label="Appliance Status" type="button">
             <svg class="dina-icon" viewBox="0 0 48 48" width="20" height="20" style="filter:none;" aria-hidden="true">
               <g class="vb swing"><path class="d" style="--i:0" pathLength="1" d="M24 6C17 6 13 11 13 18V26L9 32H39L35 26V18C35 11 31 6 24 6Z"/><path class="d" style="--i:2" pathLength="1" d="M20 37a4 4 0 0 0 8 0"/></g><path class="d ac" style="--i:3" pathLength="1" d="M38 11a12 12 0 0 1 4 8M10 11a12 12 0 0 0 -4 8"/>
@@ -137,16 +137,33 @@
         </div>
       </header>
 
+      <!-- Target Schedule Top Bar (Section 3.2: Food App Style Deliver By / Target Bar) -->
+      <div class="target-schedule-bar" id="targetScheduleBar">
+        <button type="button" class="schedule-bar-main" id="btnOpenScheduleSheet" aria-label="Change dinner schedule">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="schedule-clock-icon" aria-hidden="true">
+            <circle cx="12" cy="12" r="10"></circle>
+            <polyline points="12 6 12 12 16 14"></polyline>
+          </svg>
+          <span class="schedule-bar-title">Dinner Ready at <strong id="topBarTargetDinnerTime">19:30</strong></span>
+          <span class="schedule-bar-chevron" aria-hidden="true">&#9662;</span>
+        </button>
+
+        <button type="button" class="schedule-bar-commute" id="btnTopBarCommute" aria-label="View live commute sync">
+          <span class="commute-status-dot" id="topBarCommuteDot"></span>
+          <span id="topBarCommuteLabel">Commute Sync (ETA 19:20)</span>
+        </button>
+      </div>
+
       <!-- Scrollable Main Content -->
       <div class="app-main-content">
 
         <!-- ====================================================================
-             TAB 1: TONIGHT (Connected Evening Flow, Status Hero, Cutaway, Pipeline)
+             TAB 1: TONIGHT (Live Order Tracker View — Customer First)
              ==================================================================== -->
         <section class="tab-content active" id="tab-tonight" role="tabpanel" aria-label="Tonight's Dinner">
 
-          <!-- First-Run Guided Tour Prompt Card (Hidden by default; accessible via Demo Controls) -->
-          <div class="lock-notification-card sand-card" id="tourPromptCard" role="region" aria-label="Guided Tour Prompt" style="background:var(--sand); margin-bottom:12px; padding:10px 14px;" hidden>
+          <!-- First-Run Guided Tour Prompt Card -->
+          <div class="lock-notification-card sand-card" id="tourPromptCard" role="region" aria-label="Guided Tour Prompt" style="background:var(--sand); margin-bottom:10px; padding:10px 14px;" hidden>
             <div class="lock-notif-header" style="margin-bottom:4px;">
               <span class="lock-notif-badge">Evaluation Walkthrough</span>
               <button type="button" id="btnTourPromptSkip" style="background:none; border:none; color:var(--ink-soft); font-size:11px; cursor:pointer; font-weight:600;">Dismiss</button>
@@ -160,16 +177,16 @@
             </div>
           </div>
 
-          <!-- 15:00 Lock-Screen Style Afternoon Check-In Notification -->
-          <div class="lock-notification-card" id="lockNotificationCard" role="region" aria-label="15:00 Afternoon Check-In">
+          <!-- 15:00 Afternoon Check-In Banner (Section 4.1) -->
+          <div class="lock-notification-card" id="lockNotificationCard" role="region" aria-label="15:00 Afternoon Check-In" style="margin-bottom:10px;">
             <div class="lock-notif-header">
               <div class="lock-notif-title-row">
-                <svg class="dina-icon" viewBox="0 0 48 48" width="20" height="20" aria-hidden="true">
+                <svg class="dina-icon" viewBox="0 0 48 48" width="18" height="18" aria-hidden="true">
                   <rect class="d" style="--i:0" pathLength="1" x="6" y="9" width="36" height="33" rx="3"/><path class="d" style="--i:1" pathLength="1" d="M6 18H42"/><path class="d" style="--i:1" pathLength="1" d="M15 5V12M33 5V12"/><g class="vb pulse-cal"><circle class="d ac" style="--i:2" pathLength="1" cx="33.5" cy="34" r="3.6"/></g>
                 </svg>
                 <span class="lock-notif-badge">15:00 Afternoon Check-In</span>
               </div>
-              <span class="lock-notif-sub">Runs automatically if you&rsquo;re busy</span>
+              <span class="lock-notif-sub">Confirm or swap before 17:50 drop</span>
             </div>
             <p class="lock-notif-text" id="lockNotifQuestionText">
               Tonight at <strong>19:30</strong>: Ready for <strong>Beef Ribeye</strong>?
@@ -181,8 +198,8 @@
             </div>
           </div>
 
-          <!-- 1. Hero Food Card (Consumer-first: What's for dinner, When ready, Systems status, What to do) -->
-          <div class="status-hero-card hero-food-card" id="statusHeroCard" aria-live="polite">
+          <!-- Hero Meal Card (Section 4.2) -->
+          <div class="status-hero-card hero-food-card" id="statusHeroCard" aria-live="polite" style="margin-bottom:10px;">
             <div class="hero-food-media">
               <img id="heroFoodImg" src="assets/images/meal_beef_ribeye.jpg" alt="Tonight's dinner: Beef Ribeye" class="hero-food-img" loading="eager">
               <div class="hero-food-overlay-badge">
@@ -193,250 +210,143 @@
             <div class="hero-food-body">
               <div class="hero-food-dish-row">
                 <div class="hero-food-title-col">
-                  <span class="hero-food-slot-label" id="heroFoodSlotLabel">Container 02 &bull; 450 g &bull; Prime Cut</span>
-                  <h2 class="status-hero-heading" id="heroHeading">Beef Ribeye</h2>
+                  <h2 class="status-hero-heading" id="heroHeading" style="margin:0 0 2px;">Beef Ribeye</h2>
+                  <span class="hero-food-slot-label" id="heroFoodSlotLabel" style="font-size:12.5px; color:var(--ink-soft);">450 g &bull; 2 Portions &bull; Container 02</span>
                 </div>
-                <span class="hero-food-status-pill pill-scheduled" id="heroStatusPill">All Systems Normal</span>
-              </div>
-              
-              <!-- 4 Consumer Questions: When ready & Action reassurance -->
-              <p class="status-hero-sub" id="heroSubtext">Drawer empty in standby (+3.0 &deg;C zone). At 17:50, container drops for an 85 min gentle thaw + 15 min equalization.</p>
-              
-              <div class="hero-reassurance-chip" id="heroReassuranceChip">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="color:var(--forest); flex-shrink:0;"><path d="M20 6L9 17l-5-5"/></svg>
-                <span id="heroReassuranceText"><strong>Nothing to do</strong> &mdash; DINA auto-drops &amp; thaws. Arrive home to dinner ready to cook.</span>
-              </div>
-
-              <div class="hero-food-footer">
-                <div class="hero-timing-chip">
-                  <span class="hero-timing-label">Target Ready:</span>
+                <div class="hero-timing-col">
                   <strong class="hero-timing-time" id="heroTargetDinnerTime">19:30</strong>
                 </div>
-                <div class="status-hero-actions" id="heroActions">
-                  <button type="button" class="btn-hero-primary" id="btnHeroAction">Change Dinner</button>
-                </div>
+              </div>
+              
+              <!-- Monitored Status Pill -->
+              <div class="hero-pill-row">
+                <span class="hero-monitored-pill" id="heroStatusPill">Scheduled and monitored</span>
+              </div>
+
+              <!-- Reassurance Callout Line -->
+              <div class="hero-reassurance-chip" id="heroReassuranceChip">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="color:#2E7D32; flex-shrink:0;"><path d="M20 6L9 17l-5-5"/></svg>
+                <span id="heroReassuranceText"><strong>Nothing to do</strong> &mdash; DINA starts preparing your meal at 17:50 and holds it safely at +3 &deg;C until you get home.</span>
+              </div>
+
+              <!-- Action Row (2 Buttons Side-by-Side: Section 4.4) -->
+              <div class="hero-action-row-split">
+                <button type="button" class="btn-hero-change-dinner" id="btnHeroAction">Change Dinner</button>
+                <button type="button" class="btn-hero-action-secondary" id="btnTonightHold30">Running Late (+30m)</button>
               </div>
             </div>
           </div>
 
-          <!-- 2. Cutaway Illustration (Mechanical cross-section: 110L vault, carousel, hatch, drawer) -->
-          <div class="cutaway-card" id="cutawayCard" aria-label="Appliance mechanical cutaway cross-section">
-            <div class="cutaway-header">
-              <span class="cutaway-title">Appliance Cutaway &bull; Cross-Section</span>
-              <span class="spec-status-tag cad">[CAD Verified Architecture]</span>
-            </div>
-            <div class="cutaway-svg-wrap">
-              <svg class="cutaway-svg" viewBox="0 0 380 340" aria-label="DINA upright freezer cutaway cross-section diagram">
-                <!-- Outer Insulated Cabinet Frame (60cm upright chassis) -->
-                <rect x="20" y="10" width="340" height="320" rx="4" fill="#F7F5EE" stroke="#191919" stroke-width="2"/>
-                <rect x="26" y="16" width="328" height="308" rx="3" fill="#EAE6D9" stroke="#9E9696" stroke-width="1"/>
-                
-                <!-- ZONE 1: Upper Manual Storage Shelves (110 L Vault at -18 °C) -->
-                <rect x="32" y="22" width="316" height="58" rx="2" fill="#F1EFE5" stroke="#9E9696" stroke-width="1.2"/>
-                <!-- Zone 1 Header Bar -->
-                <rect x="32" y="22" width="316" height="17" fill="#EAE6D9"/>
-                <text x="40" y="34" fill="#191919" font-family="Archivo, sans-serif" font-size="8.5" font-weight="700">110 L FREEZER VAULT</text>
-                <text x="338" y="34" text-anchor="end" fill="#5A5753" font-family="Archivo, sans-serif" font-size="8" font-weight="600">&minus;18.0 &deg;C &bull; Manual Shelves</text>
-                
-                <!-- Fixed wire storage shelf & stored frozen goods -->
-                <line x1="32" y1="56" x2="348" y2="56" stroke="#9E9696" stroke-width="1" stroke-dasharray="3 2"/>
-                <rect x="46" y="44" width="36" height="12" rx="1.5" fill="#DAD8CB" stroke="#9E9696" stroke-width="1"/>
-                <rect x="88" y="42" width="30" height="14" rx="1.5" fill="#D6D2C4" stroke="#9E9696" stroke-width="1"/>
-                <rect x="238" y="44" width="32" height="12" rx="1.5" fill="#DAD8CB" stroke="#9E9696" stroke-width="1"/>
-                <rect x="276" y="40" width="42" height="16" rx="1.5" fill="#D6D2C4" stroke="#9E9696" stroke-width="1"/>
-
-                <!-- ZONE 2: Middle Revolving Carousel Chamber (-18 °C) -->
-                <rect x="32" y="86" width="316" height="144" rx="2" fill="#F1EFE5" stroke="#9E9696" stroke-width="1.2"/>
-                <!-- Zone 2 Header Bar (Safely above the drum circle) -->
-                <rect x="32" y="86" width="316" height="17" fill="#EAE6D9"/>
-                <text x="40" y="98" fill="#191919" font-family="Archivo, sans-serif" font-size="8.5" font-weight="700">REVOLVING CAROUSEL DRUM</text>
-                <text x="338" y="98" text-anchor="end" fill="#5A5753" font-family="Archivo, sans-serif" font-size="8" font-weight="600">11 Meal Slots &bull; &minus;18.0 &deg;C</text>
-
-                <!-- Left-side engineering callout -->
-                <rect x="40" y="134" width="82" height="42" rx="3" fill="#FFFFFF" stroke="#DAD8CB" stroke-width="1"/>
-                <text x="46" y="147" fill="#191919" font-family="Archivo, sans-serif" font-size="7.5" font-weight="700">MEAL DRUM</text>
-                <text x="46" y="158" fill="#5A5753" font-family="Archivo, sans-serif" font-size="7" font-weight="500">11 Sealed slots</text>
-                <text x="46" y="168" fill="#5A5753" font-family="Archivo, sans-serif" font-size="7" font-weight="500">Indexed rotation</text>
-                <line x1="122" y1="155" x2="140" y2="158" stroke="#9E9696" stroke-width="1" stroke-dasharray="2 2"/>
-
-                <!-- Right-side engineering callout -->
-                <rect x="258" y="134" width="82" height="42" rx="3" fill="#FFFFFF" stroke="#DAD8CB" stroke-width="1"/>
-                <text x="264" y="147" fill="#191919" font-family="Archivo, sans-serif" font-size="7.5" font-weight="700">PASS-THROUGH</text>
-                <text x="264" y="158" fill="#5A5753" font-family="Archivo, sans-serif" font-size="7" font-weight="500">Slot 12 drop chute</text>
-                <text x="264" y="168" fill="#5A5753" font-family="Archivo, sans-serif" font-size="7" font-weight="500">Airlock aligned</text>
-                <line x1="258" y1="155" x2="240" y2="158" stroke="#9E9696" stroke-width="1" stroke-dasharray="2 2"/>
-
-                <!-- Revolving Rotor Ring (Center: 190, 158; Radius: 46) -->
-                <circle cx="190" cy="158" r="46" fill="#EAE6D9" stroke="#191919" stroke-width="1.6"/>
-                <circle cx="190" cy="158" r="10" fill="#DAD8CB" stroke="#191919" stroke-width="1.4"/>
-                <circle cx="190" cy="158" r="3" fill="#191919"/>
-
-                <!-- Revolving Rotor Structure (Rotates to target slot) -->
-                <g id="cutawayRotor" transform="rotate(0 190 158)">
-                  <line x1="190" y1="112" x2="190" y2="204" stroke="#9E9696" stroke-width="1.1"/>
-                  <line x1="150" y1="135" x2="230" y2="181" stroke="#9E9696" stroke-width="1.1"/>
-                  <line x1="150" y1="181" x2="230" y2="135" stroke="#9E9696" stroke-width="1.1"/>
-                  <line x1="144" y1="158" x2="236" y2="158" stroke="#9E9696" stroke-width="1.1"/>
-
-                  <!-- Tonight's Container in Slot (Top slot at 0 deg) -->
-                  <rect id="cutawaySlotContainer" x="176" y="116" width="28" height="11" rx="2" fill="#C0775B" stroke="#191919" stroke-width="1.2"/>
-
-                  <!-- Stocked Radial Containers in Other Slots -->
-                  <rect transform="rotate(30 190 158)" x="176" y="116" width="28" height="11" rx="2" fill="#DAD8CB" stroke="#191919" stroke-width="1"/>
-                  <rect transform="rotate(60 190 158)" x="176" y="116" width="28" height="11" rx="2" fill="#DAD8CB" stroke="#191919" stroke-width="1"/>
-                  <rect transform="rotate(90 190 158)" x="176" y="116" width="28" height="11" rx="2" fill="#DAD8CB" stroke="#191919" stroke-width="1"/>
-                  <rect transform="rotate(120 190 158)" x="176" y="116" width="28" height="11" rx="2" fill="#DAD8CB" stroke="#191919" stroke-width="1"/>
-                  <rect transform="rotate(150 190 158)" x="176" y="116" width="28" height="11" rx="2" fill="#DAD8CB" stroke="#191919" stroke-width="1"/>
-                  <rect transform="rotate(210 190 158)" x="176" y="116" width="28" height="11" rx="2" fill="#DAD8CB" stroke="#191919" stroke-width="1"/>
-                  <rect transform="rotate(240 190 158)" x="176" y="116" width="28" height="11" rx="2" fill="#DAD8CB" stroke="#191919" stroke-width="1"/>
-                  <rect transform="rotate(270 190 158)" x="176" y="116" width="28" height="11" rx="2" fill="#DAD8CB" stroke="#191919" stroke-width="1"/>
-                  <rect transform="rotate(300 190 158)" x="176" y="116" width="28" height="11" rx="2" fill="#DAD8CB" stroke="#191919" stroke-width="1"/>
-                  <rect transform="rotate(330 190 158)" x="176" y="116" width="28" height="11" rx="2" fill="#DAD8CB" stroke="#191919" stroke-width="1"/>
-
-                  <!-- Slot 12: Open Pass-Through Chute Slot (at 180 deg) -->
-                  <rect transform="rotate(180 190 158)" x="176" y="116" width="28" height="11" rx="2" fill="#FFFFFF" stroke="#9E9696" stroke-width="1" stroke-dasharray="2 1.5"/>
-                </g>
-                <circle cx="190" cy="158" r="8" fill="#F1EFE5" stroke="#191919" stroke-width="1.4"/>
-
-                <!-- Pass-through Airlock Chute (Slot 12 Chimney) -->
-                <rect x="174" y="206" width="32" height="28" fill="#DAD8CB" stroke="#191919" stroke-width="1.2"/>
-                <text x="214" y="222" fill="#5A5753" font-family="Archivo, sans-serif" font-size="8" font-weight="600">Airlock Hatch (2.5 s)</text>
-
-                <!-- Smart Pause Warning Tag on Cutaway -->
-                <g id="cutawaySmartPauseTag" transform="translate(136, 220)" hidden>
-                  <rect x="-36" y="-8" width="72" height="16" rx="3" fill="#C0775B"/>
-                  <text x="0" y="3.5" text-anchor="middle" fill="#FFFFFF" font-family="Archivo, sans-serif" font-size="7.5" font-weight="700">SMART PAUSE</text>
-                </g>
-
-                <!-- Motorized Sealed Airlock Hatch Flap -->
-                <g id="cutawayHatchGroup">
-                  <line id="cutawayHatchFlap" x1="173" y1="234" x2="207" y2="234" stroke="#191919" stroke-width="3" stroke-linecap="round"/>
-                </g>
-
-                <!-- Moving Container Dropping from Chimney to Drawer -->
-                <g id="cutawayDropContainer" transform="translate(176, 212)" opacity="0">
-                  <rect x="0" y="0" width="28" height="11" rx="2" fill="#C0775B" stroke="#191919" stroke-width="1.2"/>
-                </g>
-
-                <!-- ZONE 3: Independent Defrost Drawer (+3.0 °C Zone) -->
-                <rect id="cutawayDrawerGlow" x="32" y="238" width="316" height="86" rx="3" fill="#EAE6D9" stroke="#191919" stroke-width="1.6"/>
-                <!-- Drawer Header Strip -->
-                <rect x="32" y="238" width="316" height="16" fill="#DAD8CB"/>
-                <text x="40" y="249" fill="#191919" font-family="Archivo, sans-serif" font-size="8.5" font-weight="700">DEFROST DRAWER &bull; INDEPENDENT ZONE</text>
-                <text x="338" y="249" text-anchor="end" fill="#5A5753" font-family="Archivo, sans-serif" font-size="8" font-weight="700">+3.0 &deg;C</text>
-
-                <!-- Drawer Pull Handle with Live Halo Glow Indicator -->
-                <rect id="cutawayHandleGlow" x="340" y="258" width="5" height="52" rx="2.5" fill="#5B8EC0" stroke="#191919" stroke-width="0.8"/>
-                
-                <!-- Removable Condensate Drip Tray underneath -->
-                <rect x="42" y="310" width="296" height="8" rx="1.5" fill="#D6D2C4" stroke="#9E9696" stroke-width="0.8"/>
-
-                <!-- Convection Crossflow Fan & Airflow Paths -->
-                <g id="cutawayAirflow" opacity="0">
-                  <circle cx="56" cy="274" r="9" fill="#DAD8CB" stroke="#191919" stroke-width="1.2"/>
-                  <path d="M 56 267 V 281 M 49 274 H 63" stroke="#191919" stroke-width="1.2"/>
-                  <text x="56" y="289" text-anchor="middle" fill="#5A5753" font-size="6.5" font-weight="600">Fan</text>
-                  <path class="cutaway-air-flow" d="M 68 270 C 110 262, 150 262, 172 270" fill="none" stroke="#C0775B" stroke-width="1.5"/>
-                  <path class="cutaway-air-flow" d="M 68 278 C 110 286, 150 286, 172 278" fill="none" stroke="#C0775B" stroke-width="1.5"/>
-                </g>
-
-                <!-- Container Resting Inside Defrost Drawer -->
-                <g id="cutawayDrawerContainer" transform="translate(176, 268)" opacity="0">
-                  <rect x="0" y="0" width="28" height="11" rx="2" fill="#C0775B" stroke="#191919" stroke-width="1.2"/>
-                  <!-- Frost Layer Overlay on Container Lid -->
-                  <rect id="cutawayFrostLayer" x="1" y="1" width="26" height="9" rx="1" fill="#FFFFFF" opacity="0.8"/>
-                </g>
-
-                <text id="cutawayDrawerStatusText" x="78" y="302" fill="#191919" font-family="Archivo, sans-serif" font-size="8.5" font-weight="600">Status: Empty &bull; Standby</text>
-              </svg>
-            </div>
-          </div>
-
-          <!-- 3. Four-Stage Timeline (Frozen -> Active Thaw -> Equalize -> Hold) -->
-          <div class="thaw-stage-pipeline four-stage-pipeline" aria-label="Tonight's 4-stage automatic dinner plan">
-            <div class="stage-step" id="stageStepFrozen">
-              <svg class="dina-icon" viewBox="0 0 48 48" width="18" height="18" style="filter:none;" aria-hidden="true">
-                <g class="vb spin-snow"><path class="d" style="--i:0" pathLength="1" d="M24 8V40M10 16L38 32M38 16L10 32"/></g><circle class="d ac" style="--i:1" pathLength="1" cx="24" cy="24" r="2.5"/>
-              </svg>
-              <span class="stage-label">1. Frozen</span>
-              <span class="stage-sub" id="stageDropTimeLabel">-18 &deg;C (Until 17:50)</span>
-            </div>
-            <div class="stage-step" id="stageStepActiveThaw">
-              <svg class="dina-icon" viewBox="0 0 48 48" width="18" height="18" style="filter:none;" aria-hidden="true">
-                <circle class="d" style="--i:0" pathLength="1" cx="24" cy="24" r="18"/><g class="vb spin-fan"><path class="d" style="--i:1" pathLength="1" d="M24 21C23 13 27 8 33 9C34.5 15 30 20 24 21Z"/><g transform="rotate(120 24 24)"><path class="d" style="--i:1" pathLength="1" d="M24 21C23 13 27 8 33 9C34.5 15 30 20 24 21Z"/></g><g transform="rotate(240 24 24)"><path class="d" style="--i:1" pathLength="1" d="M24 21C23 13 27 8 33 9C34.5 15 30 20 24 21Z"/></g></g><circle class="d ac" style="--i:2" pathLength="1" cx="24" cy="24" r="2.8"/>
-              </svg>
-              <span class="stage-label">2. Active Thaw</span>
-              <span class="stage-sub" id="stageThawDurationLabel">+10 &deg;C (~85m)</span>
-            </div>
-            <div class="stage-step" id="stageStepEqualization">
-              <svg class="dina-icon" viewBox="0 0 48 48" width="18" height="18" style="filter:none;" aria-hidden="true">
-                <rect class="d" style="--i:0" pathLength="1" x="10" y="10" width="28" height="28" rx="2"/>
-                <path class="d ac" style="--i:1" pathLength="1" d="M10 24h28M24 10v28"/>
-                <circle class="d" style="--i:2" pathLength="1" cx="24" cy="24" r="4.5"/>
-              </svg>
-              <span class="stage-label">3. Equalize</span>
-              <span class="stage-sub" id="stageEqualizeDurationLabel">Soak (~15m)</span>
-            </div>
-            <div class="stage-step" id="stageStepHold">
-              <svg class="dina-icon" viewBox="0 0 48 48" width="18" height="18" style="filter:none;" aria-hidden="true">
-                <circle class="d" style="--i:0" pathLength="1" cx="26" cy="28" r="11"/><path class="d" style="--i:1" pathLength="1" d="M9 8V40M40 8V40"/><g class="steam"><path class="d ac" style="--i:2" pathLength="1" d="M24 14c-2-2 2-4 0-6"/></g>
-              </svg>
-              <span class="stage-label">4. Hold</span>
-              <span class="stage-sub" id="stageHoldDurationLabel">+3.0 &deg;C (&le; 24h)</span>
-            </div>
-          </div>
-          <div class="pipeline-progress-track">
-            <div class="pipeline-progress-bar" id="pipelineProgressBar"></div>
-          </div>
-
-          <!-- 4. Live Thaw Card (Visible during thaw and equalize phases) -->
-          <div class="live-thaw-card" id="liveThawCard" hidden>
-            <div class="live-thaw-header" style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
-              <span class="live-thaw-title" style="font-family:var(--font-head); font-size:13px; font-weight:700; text-transform:uppercase; letter-spacing:0.04em;">Gentle Defrost In Progress</span>
-              <span class="spec-status-tag thermal">[Closed-Loop Active Thaw]</span>
-            </div>
-            
-            <div class="thaw-metrics-split">
-              <!-- Radial Progress Ring -->
-              <div class="thaw-ring-box">
-                <svg class="thaw-ring-svg" viewBox="0 0 64 64">
-                  <circle cx="32" cy="32" r="26" fill="none" stroke="#EAE6D9" stroke-width="5"/>
-                  <circle id="thawRingProgressCircle" cx="32" cy="32" r="26" fill="none" stroke="#C0775B" stroke-width="5" stroke-linecap="round" stroke-dasharray="163.36" stroke-dashoffset="163.36"/>
-                </svg>
-                <div class="thaw-ring-text-center">
-                  <span class="thaw-ring-pct" id="thawRingPct">0%</span>
-                  <span class="thaw-ring-unit">Thawed</span>
-                </div>
+          <!-- 3-Step Horizontal Order Tracker (Section 4.3: Replaces 2x2 Technical Grid) -->
+          <div class="thaw-order-tracker" id="thawOrderTracker" aria-label="Tonight's 3-step meal preparation progress">
+            <div class="order-step active" id="orderStep1">
+              <div class="order-step-indicator">
+                <span class="step-num">1</span>
+                <svg class="step-chk" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
               </div>
-              <div class="thaw-consumer-status-col">
-                <div class="consumer-status-line">
-                  <span class="consumer-status-label">Phase:</span>
-                  <strong id="thawConsumerPhaseLabel">Gentle Convection Air</strong>
-                </div>
-                <div class="consumer-status-line">
-                  <span class="consumer-status-label">Target Ready:</span>
-                  <strong id="thawConsumerReadyTime">19:30</strong>
-                </div>
-                <p class="consumer-status-reassurance">
-                  Closed-loop thermal protection active. Convection steps down to +3.0 &deg;C once food surface reaches +4.0 &deg;C safe limit.
+              <div class="order-step-meta">
+                <strong class="order-step-title">Frozen</strong>
+                <span class="order-step-sub" id="orderStepFrozenSub">&minus;18 &deg;C until 17:50</span>
+              </div>
+            </div>
+
+            <div class="order-tracker-line" id="orderTrackerLine1"></div>
+
+            <div class="order-step" id="orderStep2">
+              <div class="order-step-indicator">
+                <span class="step-num">2</span>
+                <svg class="step-chk" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              </div>
+              <div class="order-step-meta">
+                <strong class="order-step-title">Preparing</strong>
+                <span class="order-step-sub" id="orderStepPreparingSub">17:50 Gentle Thaw</span>
+              </div>
+            </div>
+
+            <div class="order-tracker-line" id="orderTrackerLine2"></div>
+
+            <div class="order-step" id="orderStep3">
+              <div class="order-step-indicator">
+                <span class="step-num">3</span>
+                <svg class="step-chk" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              </div>
+              <div class="order-step-meta">
+                <strong class="order-step-title">Ready to Cook</strong>
+                <span class="order-step-sub" id="orderStepReadySub">19:30 (+3 &deg;C Hold)</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Compact Commute Protection Strip (Section 4.4) -->
+          <div class="evening-card compact-commute-strip" id="eveningCard">
+            <div class="commute-strip-left">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="commute-car-icon" aria-hidden="true">
+                <rect x="1" y="3" width="15" height="13"></rect>
+                <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon>
+                <circle cx="5.5" cy="18.5" r="2.5"></circle>
+                <circle cx="18.5" cy="18.5" r="2.5"></circle>
+              </svg>
+              <div class="commute-strip-text">
+                <p class="evening-commute-status" id="eveningCommuteText" style="margin:0; font-size:12px; font-weight:600;">
+                  Route clear &bull; <strong>ETA 19:20</strong> &bull; Scheduled for 19:30
                 </p>
+                <span style="font-size:11px; color:var(--ink-soft);">
+                  Stuck in traffic? DINA automatically holds dinner at +3 &deg;C.
+                </span>
               </div>
             </div>
+            <button type="button" class="btn-commute-map-pill" id="btnOpenMapSheet">
+              Map
+            </button>
+          </div>
 
-            <!-- Expandable Engineering Telemetry Disclosure -->
-            <details class="tech-telemetry-disclosure" id="techTelemetryDisclosure">
-              <summary class="tech-telemetry-summary">
-                <span class="disclosure-summary-text">
-                  <svg class="dina-icon" viewBox="0 0 48 48" width="15" height="15" aria-hidden="true" style="margin-right:6px; vertical-align:-2px;">
-                    <polyline class="d" points="6 38 16 26 26 32 42 12"/>
-                    <circle class="d ac" cx="42" cy="12" r="3"/>
-                  </svg>
-                  View Live Engineering Telemetry &amp; Curves
-                </span>
-                <span class="disclosure-chevron" aria-hidden="true">&#9662;</span>
-              </summary>
-              <div class="tech-telemetry-body">
-                <div class="thaw-readings-col">
+          <!-- Food Safety Footnote -->
+          <div class="do-not-refreeze-notice">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+            <span>Once thawed in drawer, consume within 24h at +3.0 &deg;C. Do not refreeze.</span>
+          </div>
+
+          <!-- Expandable Live Thaw & Telemetry Disclosure (Closed by default so customer view stays clean) -->
+          <details class="tech-telemetry-disclosure" id="techTelemetryDisclosure" style="margin-top:10px;">
+            <summary class="tech-telemetry-summary">
+              <span class="disclosure-summary-text">
+                <svg class="dina-icon" viewBox="0 0 48 48" width="15" height="15" aria-hidden="true" style="margin-right:6px; vertical-align:-2px;">
+                  <polyline class="d" points="6 38 16 26 26 32 42 12"/>
+                  <circle class="d ac" cx="42" cy="12" r="3"/>
+                </svg>
+                View Live Closed-Loop Sensors &amp; Thaw Curves
+              </span>
+              <span class="disclosure-chevron" aria-hidden="true">&#9662;</span>
+            </summary>
+            <div class="tech-telemetry-body">
+              <div class="live-thaw-card" id="liveThawCard" style="border:none; padding:0; background:transparent;">
+                <div class="thaw-metrics-split">
+                  <div class="thaw-ring-box">
+                    <svg class="thaw-ring-svg" viewBox="0 0 64 64">
+                      <circle cx="32" cy="32" r="26" fill="none" stroke="#EAE6D9" stroke-width="5"/>
+                      <circle id="thawRingProgressCircle" cx="32" cy="32" r="26" fill="none" stroke="#C0775B" stroke-width="5" stroke-linecap="round" stroke-dasharray="163.36" stroke-dashoffset="163.36"/>
+                    </svg>
+                    <div class="thaw-ring-text-center">
+                      <span class="thaw-ring-pct" id="thawRingPct">0%</span>
+                      <span class="thaw-ring-unit">Thawed</span>
+                    </div>
+                  </div>
+                  <div class="thaw-consumer-status-col">
+                    <div class="consumer-status-line">
+                      <span class="consumer-status-label">Phase:</span>
+                      <strong id="thawConsumerPhaseLabel">Gentle Convection Air</strong>
+                    </div>
+                    <div class="consumer-status-line">
+                      <span class="consumer-status-label">Target Ready:</span>
+                      <strong id="thawConsumerReadyTime">19:30</strong>
+                    </div>
+                    <p class="consumer-status-reassurance" style="font-size:11px;">
+                      Closed-loop thermal protection active. Convection steps down to +3.0 &deg;C once food surface reaches +4.0 &deg;C safe limit.
+                    </p>
+                  </div>
+                </div>
+
+                <div class="thaw-readings-col" style="margin-top:8px;">
                   <div class="thaw-reading-line">
                     <span>Convection Air Temp:</span>
                     <strong id="thawLiveAirC">+10.0 &deg;C</strong>
@@ -451,20 +361,14 @@
                   </div>
                 </div>
 
-                <!-- Mini SVG Temperature vs Time Chart (Surface vs Core with Needle) -->
-                <div class="thaw-chart-wrap">
+                <div class="thaw-chart-wrap" style="margin-top:6px;">
                   <svg class="thaw-chart-svg" viewBox="0 0 320 80" aria-label="Surface and Core temperature curves over time">
-                    <!-- Zero Degree Line -->
                     <line x1="20" y1="46" x2="305" y2="46" stroke="#9E9696" stroke-width="0.8" stroke-dasharray="3 2"/>
                     <text x="22" y="44" fill="#9E9696" font-family="Archivo, sans-serif" font-size="8">0 &deg;C</text>
-                    <!-- +4 °C Cutoff Line -->
                     <line x1="20" y1="28" x2="305" y2="28" stroke="#C0775B" stroke-width="0.8" stroke-dasharray="2 2" opacity="0.6"/>
                     <text x="22" y="26" fill="#C0775B" font-family="Archivo, sans-serif" font-size="8">+4 &deg;C Cutoff</text>
-                    <!-- Surface Temperature Curve (Clay) -->
                     <path d="M 30 72 Q 70 50, 110 48 T 200 44 Q 240 38, 270 28 T 300 32" fill="none" stroke="#C0775B" stroke-width="2"/>
-                    <!-- Core Temperature Curve (Ink Soft) -->
                     <path d="M 30 72 Q 90 70, 150 62 T 240 52 Q 280 44, 300 32" fill="none" stroke="#5A5753" stroke-width="2"/>
-                    <!-- Scrubber Needle Indicator -->
                     <line id="thawChartScrubberLine" x1="30" y1="10" x2="30" y2="76" stroke="#191919" stroke-width="1.8"/>
                   </svg>
                 </div>
@@ -474,369 +378,489 @@
                   <span style="font-size:9.5px;">CAD &amp; Thermal Model Data</span>
                 </div>
               </div>
-            </details>
-          </div>
-
-          <!-- 5. Evening Commute Card (Replaces old Running Late tab on main screen) -->
-          <div class="evening-card" id="eveningCard">
-            <div class="evening-card-header">
-              <span class="evening-card-title">Evening Commute &amp; Delay Protection</span>
-              <span class="spec-status-tag target">[On-Phone Privacy]</span>
             </div>
-            <p class="evening-commute-status" id="eveningCommuteText">
-              Route clear &bull; <strong>ETA 19:20</strong> &bull; Dinner scheduled for 19:30
-            </p>
-            <div style="display:flex; justify-content:space-between; align-items:center;">
-              <button type="button" class="btn-evening-map" id="btnOpenMapSheet">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"></polygon>
-                  <line x1="8" y1="2" x2="8" y2="18"></line>
-                  <line x1="16" y1="6" x2="16" y2="22"></line>
-                </svg>
-                <span>View Live Commute Map</span>
-              </button>
-              <span style="font-size:10.5px; color:var(--ink-soft);">Auto-switches to hold if late</span>
-            </div>
-          </div>
+          </details>
 
-          <!-- 6. Quick Actions Strip -->
-          <div class="quick-actions-strip">
-            <button type="button" class="btn-strip-action" id="btnQuickChangeDinner">Change Dinner</button>
-            <button type="button" class="btn-strip-action" id="btnQuickEatingOut">Eating Out Tonight</button>
-            <button type="button" class="btn-strip-action" id="btnQuickHold30">Hold +30 min</button>
-          </div>
-
-          <!-- Do-Not-Refreeze Food Safety Note -->
-          <div class="do-not-refreeze-notice">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
-            <span><strong>Food Safety:</strong> Once thawed in drawer, do not refreeze &bull; Consume within 24 h at +3.0 &deg;C.</span>
+          <!-- Hidden Compatibility Anchors (Keeps existing JS hooks completely intact) -->
+          <div style="display:none;" aria-hidden="true">
+            <div id="twinTempGrid"><span id="twinDrawerTempVal"></span></div>
+            <div id="monitoringReassuranceCard"></div>
+            <span id="heroSubtext"></span>
+            <button id="btnToggleAppModeSimple"></button>
+            <span id="currentModeLabel"></span>
+            <div id="stageStepFrozen"><span id="stageDropTimeLabel"></span></div>
+            <div id="stageStepActiveThaw"><span id="stageThawDurationLabel"></span></div>
+            <div id="stageStepEqualization"><span id="stageEqualizeDurationLabel"></span></div>
+            <div id="stageStepHold"><span id="stageHoldDurationLabel"></span></div>
+            <div id="pipelineProgressBar"></div>
+            <button id="btnQuickChangeDinner"></button>
+            <button id="btnQuickEatingOut"></button>
+            <button id="btnQuickHold30"></button>
           </div>
 
         </section>
 
         <!-- ====================================================================
-             TAB 2: FREEZER (Carousel Inventory, Stocking, Container Details)
+             TAB 2: FREEZER (Visual Food Delivery Menu & Vault Inventory)
              ==================================================================== -->
         <section class="tab-content" id="tab-freezer" role="tabpanel" aria-label="Freezer Inventory">
-          <div class="section-headline-block">
-            <div class="headline-with-icon">
-              <svg class="dina-icon" viewBox="0 0 48 48" width="30" height="30" aria-hidden="true">
-                <circle class="d" style="--i:0" pathLength="1" cx="24" cy="24" r="19"/><circle class="d" style="--i:1" pathLength="1" cx="24" cy="24" r="4"/><g class="vb spin-drum"><path class="d" style="--i:2" pathLength="1" d="M24 20L24 5M27.46 22L40.45 14.5M27.46 26L40.45 33.5M24 28L24 43M20.54 26L7.55 33.5M20.54 22L7.55 14.5"/><circle class="d ac" style="--i:3" pathLength="1" cx="36" cy="24" r="2.6"/></g>
-              </svg>
-              <div>
-                <h2>What&rsquo;s in My Freezer (<span id="freezerStockedCount">8</span> of 11 Stocked)</h2>
-                <p>8 containers stocked &bull; 3 open spots &bull; 1 dedicated auto-drop chute &bull; 2.5 s indexing access</p>
-              </div>
-            </div>
-          </div>
-
-          <!-- Carousel Visualizer Wheel -->
-          <div class="drum-wheel-visualizer" id="drumGraphic">
-            <div class="drum-wheel-svg-box">
-              <svg viewBox="0 0 120 120" width="96" height="96" aria-label="Interactive rotating meal carousel">
-                <circle cx="60" cy="60" r="52" fill="#F1EFE5" stroke="#191919" stroke-width="2"/>
+          
+          <!-- Compact Front-Door Access Header (Section 5.1: 72x72px Minimap + Door Access) -->
+          <div class="freezer-door-compact-card">
+            <div class="door-drum-minimap" id="drumGraphic">
+              <svg viewBox="0 0 120 120" width="72" height="72" aria-label="Interactive revolving carousel mini-map">
+                <!-- Door pointer / top alignment indicator -->
+                <polygon id="freezerMiniDoorIndicator" points="56,2 64,2 60,8" fill="#C0775B" stroke="#191919" stroke-width="0.8"/>
+                <circle cx="60" cy="60" r="54" fill="#F1EFE5" stroke="#191919" stroke-width="2"/>
                 <g id="interactiveDrumRotor" class="drum-rotor-group">
                   <line x1="60" y1="8" x2="60" y2="112" stroke="#9E9696" stroke-width="1.5"/>
                   <line x1="15" y1="34" x2="105" y2="86" stroke="#9E9696" stroke-width="1.5"/>
                   <line x1="105" y1="34" x2="15" y2="86" stroke="#9E9696" stroke-width="1.5"/>
-                  <circle cx="60" cy="24" r="10" fill="#C0775B"/>
-                  <circle cx="91" cy="42" r="9" fill="#DAD8CB" stroke="#191919" stroke-width="1.5"/>
-                  <circle cx="91" cy="78" r="9" fill="#DAD8CB" stroke="#191919" stroke-width="1.5"/>
-                  <circle cx="60" cy="96" r="9" fill="#FFFFFF" stroke="#191919" stroke-width="1.5" stroke-dasharray="3 2"/>
-                  <circle cx="29" cy="78" r="9" fill="#DAD8CB" stroke="#191919" stroke-width="1.5"/>
-                  <circle cx="29" cy="42" r="9" fill="#DAD8CB" stroke="#191919" stroke-width="1.5"/>
+                  <circle cx="60" cy="22" r="10" fill="#C0775B"/>
+                  <circle cx="91" cy="40" r="9" fill="#DAD8CB" stroke="#191919" stroke-width="1.5"/>
+                  <circle cx="91" cy="80" r="9" fill="#DAD8CB" stroke="#191919" stroke-width="1.5"/>
+                  <circle cx="60" cy="98" r="9" fill="#FFFFFF" stroke="#191919" stroke-width="1.5" stroke-dasharray="3 2"/>
+                  <circle cx="29" cy="80" r="9" fill="#DAD8CB" stroke="#191919" stroke-width="1.5"/>
+                  <circle cx="29" cy="40" r="9" fill="#DAD8CB" stroke="#191919" stroke-width="1.5"/>
                 </g>
                 <circle cx="60" cy="60" r="12" fill="#F1EFE5" stroke="#191919" stroke-width="2"/>
                 <circle cx="60" cy="60" r="4" fill="#C0775B"/>
               </svg>
             </div>
-            <div class="drum-wheel-copy">
-              <span class="caption clay-text">Insulated Front Door Access <span class="spec-status-tag cad">[CAD Verified]</span></span>
-              <strong id="drumWheelStatusTitle">Container 02 at Door (Beef Ribeye, 450 g)</strong>
-              <p>Dedicated insulated access door lets you slide meals in and out without opening the main freezer door or exposing 110 L of frozen food to warm kitchen air.</p>
-            </div>
-          </div>
-
-          <!-- Upper Carousel Ring (6 Containers) -->
-          <div class="drum-tier-card">
-            <div class="drum-tier-header">
-              <span class="drum-tier-title">Upper Ring (6 Meal Containers)</span>
-              <span class="drum-tier-badge" id="upperRingBadge">6 / 6 Stocked</span>
-            </div>
-            <div class="drum-slots-row">
-              <button class="drum-slot-btn" data-slot="01" type="button" aria-label="Container 01: Organic Chicken Breast, 500g">
-                <span class="slot-num">01</span>
-                <span class="slot-name">Chicken (500g)</span>
-              </button>
-              <button class="drum-slot-btn active" data-slot="02" type="button" aria-label="Container 02: Beef Ribeye, 450g">
-                <span class="slot-num">02</span>
-                <span class="slot-name">Ribeye (450g)</span>
-              </button>
-              <button class="drum-slot-btn" data-slot="03" type="button" aria-label="Container 03: Atlantic Salmon Fillet, 320g">
-                <span class="slot-num">03</span>
-                <span class="slot-name">Salmon (320g)</span>
-              </button>
-              <button class="drum-slot-btn" data-slot="04" type="button" aria-label="Container 04: Wild Tiger Prawns, 250g">
-                <span class="slot-num">04</span>
-                <span class="slot-name">Prawns (250g)</span>
-              </button>
-              <button class="drum-slot-btn" data-slot="05" type="button" aria-label="Container 05: Homemade Lasagna, 600g">
-                <span class="slot-num">05</span>
-                <span class="slot-name">Lasagna (600g)</span>
-              </button>
-              <button class="drum-slot-btn" data-slot="06" type="button" aria-label="Container 06: Pork Tenderloin Medallions, 350g">
-                <span class="slot-num">06</span>
-                <span class="slot-name">Pork (350g)</span>
+            <div class="door-status-col">
+              <span class="door-status-count"><strong id="freezerStockedCount">8</strong> of 11 Stocked &bull; Vault &minus;18 &deg;C</span>
+              <div class="door-active-dish" id="drumWheelStatusTitle">Slot 02 (Beef Ribeye) at Door</div>
+              <button type="button" class="btn-door-load" id="btnDoorLoadMeal">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                <span>+ Load Meal at Door</span>
               </button>
             </div>
           </div>
 
-          <!-- Lower Carousel Ring (5 Containers + Drop Chute) -->
-          <div class="drum-tier-card">
-            <div class="drum-tier-header">
-              <span class="drum-tier-title">Lower Ring (5 Containers + Drop Chute)</span>
-              <span class="drum-tier-badge" id="lowerRingBadge">3 Open Spots</span>
+          <!-- Category Filter Pills (Section 5.2: Horizontal Scroll) -->
+          <div class="freezer-category-bar" role="tablist" aria-label="Filter meals by category">
+            <button type="button" class="freezer-cat-pill active" data-filter="all">All (8)</button>
+            <button type="button" class="freezer-cat-pill" data-filter="beef">Steak &amp; Meat</button>
+            <button type="button" class="freezer-cat-pill" data-filter="fish">Fish &amp; Seafood</button>
+            <button type="button" class="freezer-cat-pill" data-filter="chicken">Poultry</button>
+            <button type="button" class="freezer-cat-pill" data-filter="lasagna">Homemade</button>
+            <button type="button" class="freezer-cat-pill" data-filter="empty">Empty Slots (3)</button>
+          </div>
+
+          <!-- Visual Meal Cards List (Section 5.3: Scannable Food Delivery Menu Cards) -->
+          <div class="freezer-menu-list" id="freezerMenuList">
+
+            <!-- Slot 01: Chicken -->
+            <div class="freezer-menu-card drum-slot-btn" data-slot="01" data-cat="chicken" role="button" tabindex="0">
+              <div class="menu-card-thumb-wrap">
+                <img src="assets/images/meal_chicken_breast.jpg" alt="Organic Chicken Breast" class="menu-card-thumb" loading="lazy">
+                <span class="menu-slot-badge">01</span>
+              </div>
+              <div class="menu-card-body">
+                <strong class="menu-card-title slot-name">Organic Chicken Breast</strong>
+                <span class="menu-card-meta">500 g &bull; Ready in ~95 min</span>
+              </div>
+              <div class="menu-card-action">
+                <span class="btn-card-select-pill">Select</span>
+              </div>
             </div>
-            <div class="drum-slots-row">
-              <button class="drum-slot-btn" data-slot="07" type="button" aria-label="Container 07: Atlantic Codfish Loins, 400g">
-                <span class="slot-num">07</span>
-                <span class="slot-name">Codfish (400g)</span>
-              </button>
-              <button class="drum-slot-btn" data-slot="08" type="button" aria-label="Container 08: Filet Mignon Steak, 300g">
-                <span class="slot-num">08</span>
-                <span class="slot-name">Mignon (300g)</span>
-              </button>
-              <button class="drum-slot-btn empty" data-slot="09" type="button" aria-label="Container 09: Empty slot, tap to stock">
-                <span class="slot-num">09</span>
-                <span class="slot-name">+ Add Meal</span>
-              </button>
-              <button class="drum-slot-btn empty" data-slot="10" type="button" aria-label="Container 10: Empty slot, tap to stock">
-                <span class="slot-num">10</span>
-                <span class="slot-name">+ Add Meal</span>
-              </button>
-              <button class="drum-slot-btn empty" data-slot="11" type="button" aria-label="Container 11: Empty slot, tap to stock">
-                <span class="slot-num">11</span>
-                <span class="slot-name">+ Add Meal</span>
-              </button>
-              <button class="drum-slot-btn chimney" data-slot="12" type="button" title="Dedicated pass-through path that lets upper meals drop into the defrost drawer" aria-label="Slot 12: Dedicated auto-drop path chute">
-                <span class="slot-num" style="color: var(--ink-soft);">Chute</span>
-                <span class="slot-name" style="color: var(--ink-soft);">Drop Path</span>
-              </button>
+
+            <!-- Slot 02: Beef Ribeye (Tonight's Scheduled Meal) -->
+            <div class="freezer-menu-card drum-slot-btn active tonight-scheduled" data-slot="02" data-cat="beef" role="button" tabindex="0">
+              <div class="menu-card-thumb-wrap">
+                <img src="assets/images/meal_beef_ribeye.jpg" alt="Beef Ribeye" class="menu-card-thumb" loading="lazy">
+                <span class="menu-slot-badge">02</span>
+              </div>
+              <div class="menu-card-body">
+                <strong class="menu-card-title slot-name">Beef Ribeye</strong>
+                <span class="menu-card-meta">450 g &bull; Ready in ~100 min</span>
+              </div>
+              <div class="menu-card-action">
+                <span class="badge-tonight-pill">Tonight 19:30</span>
+              </div>
+            </div>
+
+            <!-- Slot 03: Salmon -->
+            <div class="freezer-menu-card drum-slot-btn" data-slot="03" data-cat="fish" role="button" tabindex="0">
+              <div class="menu-card-thumb-wrap">
+                <img src="assets/images/meal_salmon_fillet.jpg" alt="Atlantic Salmon Fillet" class="menu-card-thumb" loading="lazy">
+                <span class="menu-slot-badge">03</span>
+              </div>
+              <div class="menu-card-body">
+                <strong class="menu-card-title slot-name">Atlantic Salmon Fillet</strong>
+                <span class="menu-card-meta">320 g &bull; Ready in ~75 min</span>
+              </div>
+              <div class="menu-card-action">
+                <span class="btn-card-select-pill">Select</span>
+              </div>
+            </div>
+
+            <!-- Slot 04: Prawns -->
+            <div class="freezer-menu-card drum-slot-btn" data-slot="04" data-cat="fish" role="button" tabindex="0">
+              <div class="menu-card-thumb-wrap">
+                <img src="assets/images/meal_tiger_prawns.jpg" alt="Wild Tiger Prawns" class="menu-card-thumb" loading="lazy">
+                <span class="menu-slot-badge">04</span>
+              </div>
+              <div class="menu-card-body">
+                <strong class="menu-card-title slot-name">Wild Tiger Prawns</strong>
+                <span class="menu-card-meta">250 g &bull; Ready in ~40 min</span>
+              </div>
+              <div class="menu-card-action">
+                <span class="btn-card-select-pill">Select</span>
+              </div>
+            </div>
+
+            <!-- Slot 05: Lasagna -->
+            <div class="freezer-menu-card drum-slot-btn" data-slot="05" data-cat="lasagna" role="button" tabindex="0">
+              <div class="menu-card-thumb-wrap">
+                <img src="assets/images/meal_lasagna.jpg" alt="Homemade Lasagna" class="menu-card-thumb" loading="lazy">
+                <span class="menu-slot-badge">05</span>
+              </div>
+              <div class="menu-card-body">
+                <strong class="menu-card-title slot-name">Homemade Lasagna</strong>
+                <span class="menu-card-meta">600 g &bull; Ready in ~115 min</span>
+              </div>
+              <div class="menu-card-action">
+                <span class="btn-card-select-pill">Select</span>
+              </div>
+            </div>
+
+            <!-- Slot 06: Pork Tenderloin -->
+            <div class="freezer-menu-card drum-slot-btn" data-slot="06" data-cat="beef" role="button" tabindex="0">
+              <div class="menu-card-thumb-wrap">
+                <img src="assets/images/meal_pork_tenderloin.jpg" alt="Pork Tenderloin Medallions" class="menu-card-thumb" loading="lazy">
+                <span class="menu-slot-badge">06</span>
+              </div>
+              <div class="menu-card-body">
+                <strong class="menu-card-title slot-name">Pork Tenderloin Medallions</strong>
+                <span class="menu-card-meta">350 g &bull; Ready in ~75 min</span>
+              </div>
+              <div class="menu-card-action">
+                <span class="btn-card-select-pill">Select</span>
+              </div>
+            </div>
+
+            <!-- Slot 07: Atlantic Codfish -->
+            <div class="freezer-menu-card drum-slot-btn" data-slot="07" data-cat="fish" role="button" tabindex="0">
+              <div class="menu-card-thumb-wrap">
+                <img src="assets/images/meal_salmon_fillet.jpg" alt="Atlantic Codfish Loins" class="menu-card-thumb" loading="lazy">
+                <span class="menu-slot-badge">07</span>
+              </div>
+              <div class="menu-card-body">
+                <strong class="menu-card-title slot-name">Atlantic Codfish Loins</strong>
+                <span class="menu-card-meta">400 g &bull; Ready in ~75 min</span>
+              </div>
+              <div class="menu-card-action">
+                <span class="btn-card-select-pill">Select</span>
+              </div>
+            </div>
+
+            <!-- Slot 08: Filet Mignon -->
+            <div class="freezer-menu-card drum-slot-btn" data-slot="08" data-cat="beef" role="button" tabindex="0">
+              <div class="menu-card-thumb-wrap">
+                <img src="assets/images/meal_beef_ribeye.jpg" alt="Filet Mignon Steak" class="menu-card-thumb" loading="lazy">
+                <span class="menu-slot-badge">08</span>
+              </div>
+              <div class="menu-card-body">
+                <strong class="menu-card-title slot-name">Filet Mignon Steak</strong>
+                <span class="menu-card-meta">300 g &bull; Ready in ~65 min</span>
+              </div>
+              <div class="menu-card-action">
+                <span class="btn-card-select-pill">Select</span>
+              </div>
+            </div>
+
+            <!-- Slot 09: Empty Slot -->
+            <div class="freezer-menu-card card-empty drum-slot-btn empty" data-slot="09" data-cat="empty" role="button" tabindex="0">
+              <div class="menu-card-thumb-empty">+</div>
+              <div class="menu-card-body">
+                <strong class="menu-card-title slot-name">Empty Slot 09</strong>
+                <span class="menu-card-meta">750 ml spot &bull; Tap to load meal</span>
+              </div>
+              <div class="menu-card-action">
+                <span class="btn-card-select-pill">+ Stock</span>
+              </div>
+            </div>
+
+            <!-- Slot 10: Empty Slot -->
+            <div class="freezer-menu-card card-empty drum-slot-btn empty" data-slot="10" data-cat="empty" role="button" tabindex="0">
+              <div class="menu-card-thumb-empty">+</div>
+              <div class="menu-card-body">
+                <strong class="menu-card-title slot-name">Empty Slot 10</strong>
+                <span class="menu-card-meta">750 ml spot &bull; Tap to load meal</span>
+              </div>
+              <div class="menu-card-action">
+                <span class="btn-card-select-pill">+ Stock</span>
+              </div>
+            </div>
+
+            <!-- Slot 11: Empty Slot -->
+            <div class="freezer-menu-card card-empty drum-slot-btn empty" data-slot="11" data-cat="empty" role="button" tabindex="0">
+              <div class="menu-card-thumb-empty">+</div>
+              <div class="menu-card-body">
+                <strong class="menu-card-title slot-name">Empty Slot 11</strong>
+                <span class="menu-card-meta">750 ml spot &bull; Tap to load meal</span>
+              </div>
+              <div class="menu-card-action">
+                <span class="btn-card-select-pill">+ Stock</span>
+              </div>
+            </div>
+
+            <!-- Slot 12: Pass-Through Drop Chute -->
+            <div class="freezer-menu-card drum-slot-btn chimney" data-slot="12" data-cat="chute" role="button" tabindex="0">
+              <div class="menu-card-thumb-empty" style="font-size:12px; font-weight:700;">Chute</div>
+              <div class="menu-card-body">
+                <strong class="menu-card-title slot-name">Pass-Through Drop Chute</strong>
+                <span class="menu-card-meta">Slot 12 Chimney &bull; Dedicated 2.5s Transfer Path</span>
+              </div>
+              <div class="menu-card-action">
+                <span class="btn-card-select-pill" style="opacity:0.6;">Airlock</span>
+              </div>
+            </div>
+
+          </div><!-- /.freezer-menu-list -->
+
+          <!-- Sticky Bottom Selection Bar (Section 5.4: No Scrolling to Confirm) -->
+          <div class="freezer-sticky-bar" id="freezerStickyBar">
+            <div class="sticky-bar-info">
+              <span class="sticky-bar-label">Selected Container</span>
+              <strong class="sticky-bar-dish" id="stickySlotDish">Beef Ribeye</strong>
+              <span class="sticky-bar-meta" id="stickySlotMeta">450 g &bull; Slot 02 &bull; Ready in ~100 min</span>
+            </div>
+            <div class="sticky-bar-actions">
+              <button type="button" class="btn-sticky-primary" id="btnStickyUseTonight">Use for Tonight</button>
+              <button type="button" class="btn-sticky-secondary" id="btnStickyBringToDoor">Rotate to Door</button>
             </div>
           </div>
 
-          <!-- Selected Container Details Bar -->
-          <div class="load-form-card" id="slotDetailCard">
-            <div style="display:flex; justify-content:space-between; align-items:center;">
-              <span class="form-label" style="margin:0;">Selected Container: <strong id="slotDetailName" style="color:var(--clay)">Beef Ribeye</strong></span>
-              <span class="spec-status-tag logic" id="slotDetailStatus">Ready in Drum</span>
-            </div>
-            <p id="slotDetailInfo" style="font-size:12px; color:var(--ink-soft); margin:6px 0 10px;">
-              Container 02 &bull; 450 g &bull; Modelled thaw time: ~85 min (+ 15 min equalization).
-            </p>
-            <div style="display:flex; gap:8px;">
-              <button type="button" class="btn-action-primary" id="btnUseSlotForTonight" style="font-size:12px; padding:10px 14px;">
-                Use for Tonight
-              </button>
-              <button type="button" class="btn-action-secondary" id="btnOpenAddMealSheet" style="font-size:12px; padding:10px 14px;">
-                Stock New Meal
-              </button>
+          <!-- Hidden Compatibility Elements for Legacy Freezer Queries -->
+          <div style="display:none;" aria-hidden="true">
+            <span id="upperRingBadge"></span>
+            <span id="lowerRingBadge"></span>
+            <span id="freezerOverviewReady"></span>
+            <span id="freezerOverviewOpen"></span>
+            <div id="slotDetailCard">
+              <span id="slotDetailName"></span>
+              <span id="slotDetailStatus"></span>
+              <p id="slotDetailInfo"></p>
+              <button id="btnUseSlotForTonight"></button>
+              <button id="btnOpenAddMealSheet"></button>
             </div>
           </div>
 
         </section>
 
         <!-- ====================================================================
-             TAB 3: KITCHEN & CARE (Telemetry, Closed-Loop, Power Safety, Settings)
+             TAB 3: APPLIANCE & CARE (Section 6: Simple Status, Light Guide, Hygiene)
              ==================================================================== -->
-        <section class="tab-content" id="tab-kitchen" role="tabpanel" aria-label="Kitchen &amp; Everyday Care">
+        <section class="tab-content" id="tab-kitchen" role="tabpanel" aria-label="Appliance &amp; Everyday Care">
           <div class="section-headline-block">
             <div class="headline-with-icon">
-              <svg class="dina-icon" viewBox="0 0 48 48" width="30" height="30" aria-hidden="true">
+              <svg class="dina-icon" viewBox="0 0 48 48" width="28" height="28" aria-hidden="true">
                 <path class="d" style="--i:0" pathLength="1" d="M24 5L39 10V22C39 32 32 39 24 43C16 39 9 32 9 22V10Z"/><g class="chk"><path class="d ac" style="--i:2" pathLength="1" d="M16.5 24L22 29.5L32 18.5"/></g>
               </svg>
               <div>
-                <h2>Your Kitchen &amp; Everyday Care</h2>
-                <p>Telemetry, thermal sensors, food safety guard, and appliance hygiene</p>
+                <h2>Your Appliance &amp; Care</h2>
+                <p>Simple status, handle light guide, appliance hygiene, and settings</p>
               </div>
             </div>
           </div>
 
-          <!-- 4 Telemetry Cells (Main freezer, Drawer, Fridge hold, Power guard) -->
+          <!-- 4-Card Status Summary Grid (Section 6.1: 2x2 Bento without developer bracket badges) -->
           <div class="telemetry-grid">
             <div class="telem-cell">
               <div class="telem-cell-top">
-                <span class="telem-cell-title">Main Freezer</span>
-                <svg class="dina-icon" viewBox="0 0 48 48" width="20" height="20" style="filter:none;" aria-hidden="true">
+                <span class="telem-cell-title">Freezer Vault</span>
+                <svg class="dina-icon" viewBox="0 0 48 48" width="18" height="18" style="filter:none;" aria-hidden="true">
                   <g class="vb spin-snow"><path class="d" style="--i:0" pathLength="1" d="M24 8V40M10 16L38 32M38 16L10 32"/></g><circle class="d ac" style="--i:1" pathLength="1" cx="24" cy="24" r="2.5"/>
                 </svg>
               </div>
               <div class="telem-cell-val">&minus;18.0 &deg;C</div>
-              <span class="telem-cell-sub">11 Meals + 110 L Vault <span class="spec-status-tag cad">[CAD Verified]</span></span>
+              <span class="telem-cell-sub">8 of 11 Meals Stocked</span>
             </div>
 
             <div class="telem-cell">
               <div class="telem-cell-top">
-                <span class="telem-cell-title">Defrost Drawer</span>
-                <svg class="dina-icon" viewBox="0 0 48 48" width="20" height="20" style="filter:none;" aria-hidden="true">
+                <span class="telem-cell-title">Preparation Drawer</span>
+                <svg class="dina-icon" viewBox="0 0 48 48" width="18" height="18" style="filter:none;" aria-hidden="true">
                   <circle class="d" style="--i:0" pathLength="1" cx="24" cy="24" r="18"/><g class="vb spin-fan"><path class="d" style="--i:1" pathLength="1" d="M24 21C23 13 27 8 33 9C34.5 15 30 20 24 21Z"/><g transform="rotate(120 24 24)"><path class="d" style="--i:1" pathLength="1" d="M24 21C23 13 27 8 33 9C34.5 15 30 20 24 21Z"/></g><g transform="rotate(240 24 24)"><path class="d" style="--i:1" pathLength="1" d="M24 21C23 13 27 8 33 9C34.5 15 30 20 24 21Z"/></g></g><circle class="d ac" style="--i:2" pathLength="1" cx="24" cy="24" r="2.8"/>
                 </svg>
               </div>
-              <div class="telem-cell-val" id="telemDrawerTemp" style="font-size:12.5px; line-height:1.3; color:var(--ink);">Empty &bull; standby</div>
-              <span class="telem-cell-sub" id="telemDrawerSub">Independent +3.0 &deg;C Zone <span class="spec-status-tag thermal">[Thermal Model]</span></span>
+              <div class="telem-cell-val" id="telemDrawerTemp" style="font-size:12.5px; line-height:1.3; color:var(--ink);">Empty &bull; Standby</div>
+              <span class="telem-cell-sub" id="telemDrawerSub">Ready for 17:50 drop</span>
             </div>
 
             <div class="telem-cell">
               <div class="telem-cell-top">
-                <span class="telem-cell-title">Fridge Hold</span>
-                <svg class="dina-icon" viewBox="0 0 48 48" width="20" height="20" style="filter:none;" aria-hidden="true">
+                <span class="telem-cell-title">Freshness Hold</span>
+                <svg class="dina-icon" viewBox="0 0 48 48" width="18" height="18" style="filter:none;" aria-hidden="true">
                   <path class="d" style="--i:0" pathLength="1" d="M24 5L39 10V22C39 32 32 39 24 43C16 39 9 32 9 22V10Z"/><path class="d ac" style="--i:1" pathLength="1" d="M17 24L22 29L31 19"/>
                 </svg>
               </div>
-              <div class="telem-cell-val">+3.0 &deg;C</div>
-              <span class="telem-cell-sub">Uniform +3.0 &deg;C (&le; 24 h) <span class="spec-status-tag logic">[Design Logic]</span></span>
+              <div class="telem-cell-val">+3.0 &deg;C Safe Zone</div>
+              <span class="telem-cell-sub">Up to 24h hold window</span>
             </div>
 
             <div class="telem-cell">
               <div class="telem-cell-top">
                 <span class="telem-cell-title">Power-Cut Guard</span>
-                <svg class="dina-icon" viewBox="0 0 48 48" width="20" height="20" style="filter:none;" aria-hidden="true">
+                <svg class="dina-icon" viewBox="0 0 48 48" width="18" height="18" style="filter:none;" aria-hidden="true">
                   <path class="d" style="--i:0" pathLength="1" d="M27 5L11 27H23L21 43L37 21H25Z"/>
                 </svg>
               </div>
-              <div class="telem-cell-val" id="telemBlackoutVal">All Good</div>
-              <span class="telem-cell-sub" id="telemBlackoutSub">Safe: Resumed (&lt; 30m) <span class="spec-status-tag logic">[USDA Rule]</span></span>
+              <div class="telem-cell-val" id="telemBlackoutVal">Protected</div>
+              <span class="telem-cell-sub" id="telemBlackoutSub">Offline schedule saved</span>
             </div>
           </div>
 
-          <!-- Closed-Loop Sensing & Thermal Control Card -->
-          <div class="closed-loop-card">
-            <div class="closed-loop-header">
-              <span class="closed-loop-title">Closed-Loop Sensing &amp; Thermal Control</span>
-              <span class="spec-status-tag thermal">[Design Logic]</span>
-            </div>
-            <p style="font-size:11.5px; color:var(--ink-soft); margin:0;">
-              Food surface limit (&le; +4.0 &deg;C) is monitored via lid-mounted NTC thermistor probe / chamber thermopiles. Air is controlled via setpoint switching with &plusmn;0.5 &deg;C hysteresis (not PID), preventing edge-cooking.
-            </p>
-            <div class="closed-loop-grid">
-              <div class="closed-loop-cell">
-                <span class="closed-loop-cell-title">Convection Air</span>
-                <span class="closed-loop-cell-val" id="clFanState">Standby</span>
-                <span class="closed-loop-cell-sub" id="clFanSub">Duct Setpoint</span>
-              </div>
-              <div class="closed-loop-cell">
-                <span class="closed-loop-cell-title">Food Surface</span>
-                <span class="closed-loop-cell-val" id="clSurfaceTemp">Standby</span>
-                <span class="closed-loop-cell-sub">Limit &le; +4.0 &deg;C</span>
-              </div>
-              <div class="closed-loop-cell">
-                <span class="closed-loop-cell-title">Core Temperature</span>
-                <span class="closed-loop-cell-val" id="clCoreTemp">Standby</span>
-                <span class="closed-loop-cell-sub">Soaks to +3.0 &deg;C</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- Power-Cut Protection Stepper (20 min, 45 min, 130 min) -->
-          <div class="load-form-card" style="margin-top:14px;">
-            <span class="form-label" style="margin-top:0;">Power-Cut Protection &bull; Stepped Outage Simulation</span>
-            <div class="power-cut-stepper" aria-label="Power cut duration selector">
-              <button type="button" class="pcut-step-btn active" data-duration="0" id="btnPcut0">
-                <strong>Normal (0m)</strong>
-                <span>Continuous Power</span>
-              </button>
-              <button type="button" class="pcut-step-btn" data-duration="20" id="btnPcut20">
-                <strong>&lt; 30 min (20m)</strong>
-                <span>Recoverable</span>
-              </button>
-              <button type="button" class="pcut-step-btn" data-duration="45" id="btnPcut45">
-                <strong>30&ndash;120 min (45m)</strong>
-                <span>Tier 1 Warning</span>
-              </button>
-              <button type="button" class="pcut-step-btn" data-duration="130" id="btnPcut130">
-                <strong>&gt; 120 min (130m)</strong>
-                <span>Tier 2 Lockout</span>
-              </button>
-            </div>
-
-            <!-- Demo Scenarios Buttons -->
-            <div class="demo-scenarios-list" style="margin-top:12px;">
-              <button type="button" class="scenario-btn" id="btnSimDrawerOpen">
-                <span>What if a dish is still in the drawer at drop time?</span>
-                <span class="scenario-tag" id="tagDrawerOccupied">Smart Pause</span>
-              </button>
-              <button type="button" class="scenario-btn" id="btnSimDishClean">
-                <span>Removable Condensate Drip Tray Care</span>
-                <span class="scenario-tag">Dishwasher-Safe</span>
-              </button>
-            </div>
-
-            <!-- Scenario Feedback Notice -->
-            <div class="scenario-feedback-card" id="scenarioFeedbackBox" hidden>
-              <p id="scenarioFeedbackText" style="margin:0;"></p>
-            </div>
-          </div>
-
-          <!-- Unified Handle Light Ring Guide -->
+          <!-- Unified Handle Light Ring Guide (Section 6.2: 3-Pill Customer Visual Key) -->
           <div class="halo-simulator-card" style="margin-top:14px;">
-            <span class="drum-tier-title">Drawer Handle Light Ring Guide</span>
-            <p style="font-size:12px; color:var(--ink-soft); margin-top:4px;">Single unified legend matching index.html and hardware PRD</p>
+            <span class="drum-tier-title">Handle Light Ring Guide</span>
+            <p style="font-size:11.5px; color:var(--ink-soft); margin-top:2px; margin-bottom:6px;">Live color key matching the illuminated handle on your DINA appliance:</p>
             
+            <div class="halo-customer-guide">
+              <div class="halo-guide-card">
+                <span class="halo-color-dot blue"></span>
+                <strong class="halo-guide-title">Soft Blue</strong>
+                <span class="halo-guide-sub">Standby &bull; Frozen</span>
+              </div>
+              <div class="halo-guide-card">
+                <span class="halo-color-dot amber"></span>
+                <strong class="halo-guide-title">Warm Clay</strong>
+                <span class="halo-guide-sub">Preparing &bull; Thawing</span>
+              </div>
+              <div class="halo-guide-card">
+                <span class="halo-color-dot green"></span>
+                <strong class="halo-guide-title">Forest Green</strong>
+                <span class="halo-guide-sub">Ready to Cook (+3 &deg;C)</span>
+              </div>
+            </div>
+
             <div class="halo-ring-visual blue" id="haloRingVisual"></div>
-            <p id="haloStateLabel" style="font-size:12.5px; font-weight:600; color:var(--ink);">Blue &mdash; Standby (all meals deep-frozen, drawer empty)</p>
+            <p id="haloStateLabel" style="font-size:12px; font-weight:600; color:var(--ink); margin-top:6px;">Blue &mdash; Standby (all meals deep-frozen, drawer empty)</p>
             
             <!-- Manual Preview Buttons (Auto-reverts after 5 seconds) -->
             <div class="halo-buttons-row">
               <button class="halo-btn active" data-mode="blue" type="button">Blue (Standby)</button>
-              <button class="halo-btn" data-mode="amber" type="button">Amber (Thawing)</button>
-              <button class="halo-btn" data-mode="green" type="button">Green (Ready / +3.0&deg;C)</button>
+              <button class="halo-btn" data-mode="amber" type="button">Clay (Thaw)</button>
+              <button class="halo-btn" data-mode="green" type="button">Green (Ready)</button>
               <button class="halo-btn" data-mode="amberFast" type="button">Amber (Warning)</button>
               <button class="halo-btn" data-mode="red" type="button">Red (Lockout)</button>
             </div>
-            <span style="font-size:10.5px; color:var(--ink-soft); margin-top:4px; display:block;">Manual preview reverts to live state automatically after 5 s.</span>
+            <span style="font-size:10px; color:var(--ink-soft); margin-top:4px; display:block;">Preview reverts to live status after 5 s.</span>
           </div>
 
-          <!-- Settings & Planned Integrations -->
+          <!-- Hygiene & Smart Home Settings -->
           <div class="load-form-card" style="margin-top:14px;">
-            <span class="form-label">Connectivity &amp; Smart Home Settings</span>
-            
-            <div class="toggle-row" style="margin-bottom:12px;">
+            <span class="form-label" style="margin-top:0;">Hygiene &amp; Smart Appliance Settings</span>
+
+            <div style="background:var(--paper); border:var(--hairline); padding:10px 12px; border-radius:var(--radius-xs); margin-bottom:12px;">
+              <strong style="font-size:12px; display:block; color:var(--ink); margin-bottom:2px;">Removable Condensate Drip Tray</strong>
+              <p style="font-size:11.5px; color:var(--ink-soft); margin:0; line-height:1.4;">Located directly beneath the defrost drawer. Dishwasher-safe for effortless weekly kitchen cleaning.</p>
+            </div>
+
+            <div class="toggle-row" style="margin-bottom:10px;">
               <div>
-                <strong style="font-size:12.5px; display:block;">Commute Sync Privacy</strong>
-                <p style="font-size:11.5px; color:var(--ink-soft); margin:0;">Designed so live location stays on the phone &mdash; only an arrival signal is dispatched to DINA.</p>
+                <strong style="font-size:12px; display:block;">Commute Sync Privacy</strong>
+                <p style="font-size:11px; color:var(--ink-soft); margin:0;">Live GPS stays strictly on your phone &mdash; only an arrival signal reaches DINA.</p>
               </div>
               <button type="button" class="privacy-toggle-btn active" id="btnToggleCommuteSync" aria-pressed="true">ON</button>
             </div>
 
-            <div class="toggle-row" style="margin-bottom:12px;">
+            <div class="toggle-row">
               <div>
-                <strong style="font-size:12.5px; display:block;">Home Wi-Fi Offline Test</strong>
-                <p style="font-size:11.5px; color:var(--ink-soft); margin:0;">DINA runs dinner schedules locally on hardware without cloud dependencies.</p>
+                <strong style="font-size:12px; display:block;">Home Wi-Fi Offline Test</strong>
+                <p style="font-size:11px; color:var(--ink-soft); margin:0;">DINA runs dinner schedules locally without cloud dependency.</p>
               </div>
               <button type="button" class="privacy-toggle-btn" id="btnSimulateOffline">Test Offline</button>
             </div>
+          </div>
 
-            <div style="border-top:var(--hairline); padding-top:10px; margin-top:10px;">
-              <span style="font-size:11px; font-weight:600; color:var(--ink); display:block; margin-bottom:6px;">Planned Integrations:</span>
-              <div style="display:flex; flex-wrap:wrap; gap:6px;">
-                <span class="spec-status-tag planned">Apple Home <span style="font-size:9px;">[Planned]</span></span>
-                <span class="spec-status-tag planned">Google Home <span style="font-size:9px;">[Planned]</span></span>
-                <span class="spec-status-tag planned">Samsung SmartThings <span style="font-size:9px;">[Planned]</span></span>
-                <span class="spec-status-tag planned">Home Assistant <span style="font-size:9px;">[Planned]</span></span>
-                <span class="spec-status-tag planned">Matter over Wi-Fi <span style="font-size:9px;">[Planned]</span></span>
+          <!-- Academic Evaluation Accordion (Section 6.3: Relocated Outage Simulator & Sensor Telemetry) -->
+          <details class="academic-eval-accordion" id="engEvalAccordion">
+            <summary class="academic-eval-summary">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:6px; vertical-align:-2px;" aria-hidden="true">
+                <path d="M21.3 8.7 8.7 21.3a1 1 0 0 1-1.4 0l-6-6a1 1 0 0 1 0-1.4L13.9 1.3a1 1 0 0 1 1.4 0l6 6a1 1 0 0 1 0 1.4z"></path>
+                <line x1="7" y1="17" x2="10" y2="14"></line>
+                <line x1="11" y1="13" x2="14" y2="10"></line>
+                <line x1="15" y1="9" x2="18" y2="6"></line>
+              </svg>
+              Academic Evaluation: Engineering Telemetry &amp; Outage Simulator &#9662;
+            </summary>
+            <div class="academic-eval-body">
+              <!-- Closed-Loop Sensing & Thermal Control -->
+              <div class="closed-loop-card" style="margin-bottom:12px;">
+                <div class="closed-loop-header">
+                  <span class="closed-loop-title">Closed-Loop Sensing &amp; Thermal Control</span>
+                  <span class="spec-status-tag thermal">[Design Logic]</span>
+                </div>
+                <p style="font-size:11.5px; color:var(--ink-soft); margin:0 0 10px;">
+                  Food surface limit (&le; +4.0 &deg;C) is monitored via lid-mounted NTC thermistor probe. Air is controlled via setpoint switching with &plusmn;0.5 &deg;C hysteresis (not PID), preventing edge-cooking.
+                </p>
+                <div class="closed-loop-grid">
+                  <div class="closed-loop-cell">
+                    <span class="closed-loop-cell-title">Convection Air</span>
+                    <span class="closed-loop-cell-val" id="clFanState">Standby</span>
+                    <span class="closed-loop-cell-sub" id="clFanSub">Duct Setpoint</span>
+                  </div>
+                  <div class="closed-loop-cell">
+                    <span class="closed-loop-cell-title">Food Surface</span>
+                    <span class="closed-loop-cell-val" id="clSurfaceTemp">Standby</span>
+                    <span class="closed-loop-cell-sub">Limit &le; +4.0 &deg;C</span>
+                  </div>
+                  <div class="closed-loop-cell">
+                    <span class="closed-loop-cell-title">Core Temperature</span>
+                    <span class="closed-loop-cell-val" id="clCoreTemp">Standby</span>
+                    <span class="closed-loop-cell-sub">Soaks to +3.0 &deg;C</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Power-Cut Protection Stepper -->
+              <div class="load-form-card" style="margin-top:0;">
+                <span class="form-label" style="margin-top:0;">Power-Cut Protection &bull; Stepped Outage Simulation</span>
+                <div class="power-cut-stepper" aria-label="Power cut duration selector">
+                  <button type="button" class="pcut-step-btn active" data-duration="0" id="btnPcut0">
+                    <strong>Normal (0m)</strong>
+                    <span>Continuous Power</span>
+                  </button>
+                  <button type="button" class="pcut-step-btn" data-duration="20" id="btnPcut20">
+                    <strong>&lt; 30 min (20m)</strong>
+                    <span>Recoverable</span>
+                  </button>
+                  <button type="button" class="pcut-step-btn" data-duration="45" id="btnPcut45">
+                    <strong>30&ndash;120 min (45m)</strong>
+                    <span>Tier 1 Warning</span>
+                  </button>
+                  <button type="button" class="pcut-step-btn" data-duration="130" id="btnPcut130">
+                    <strong>&gt; 120 min (130m)</strong>
+                    <span>Tier 2 Lockout</span>
+                  </button>
+                </div>
+
+                <div class="demo-scenarios-list" style="margin-top:12px;">
+                  <button type="button" class="scenario-btn" id="btnSimDrawerOpen">
+                    <span>What if a dish is still in the drawer at drop time?</span>
+                    <span class="scenario-tag" id="tagDrawerOccupied">Smart Pause</span>
+                  </button>
+                  <button type="button" class="scenario-btn" id="btnSimDishClean">
+                    <span>Removable Condensate Drip Tray Care</span>
+                    <span class="scenario-tag">Dishwasher-Safe</span>
+                  </button>
+                </div>
+
+                <div class="scenario-feedback-card" id="scenarioFeedbackBox" hidden style="margin-top:8px;">
+                  <p id="scenarioFeedbackText" style="margin:0;"></p>
+                </div>
               </div>
             </div>
-
-            <div style="border-top:var(--hairline); padding-top:10px; margin-top:12px; font-size:11.5px;">
-              <a href="index.html#validation" style="color:var(--clay); font-weight:600;">View Engineering &amp; Thermal Validation Specs on DINA Site &rarr;</a>
-            </div>
-          </div>
+          </details>
 
         </section>
 
       </div><!-- /.app-main-content -->
 
-      <!-- Sticky Bottom Navigation Bar (Tonight, Freezer, Kitchen) -->
+      <!-- Sticky Bottom Navigation Bar (Tonight, Freezer, Appliance) -->
       <nav class="bottom-tab-bar" aria-label="Bottom App Navigation">
         <button class="bottom-tab-item active" data-tab="tab-tonight" type="button" aria-label="Tonight's Dinner">
           <div class="tab-bar-indicator"></div>
@@ -862,14 +886,14 @@
           <span>Freezer</span>
         </button>
 
-        <button class="bottom-tab-item" data-tab="tab-kitchen" type="button" aria-label="Kitchen &amp; Care">
+        <button class="bottom-tab-item" data-tab="tab-kitchen" type="button" aria-label="Appliance &amp; Care">
           <div class="tab-bar-indicator"></div>
           <div class="bottom-tab-icon">
             <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
             </svg>
           </div>
-          <span>Kitchen</span>
+          <span>Appliance</span>
         </button>
       </nav>
 
@@ -1101,6 +1125,15 @@
       <p style="font-size:12px; color:var(--ink-soft); line-height:1.45; margin:0;">
         <strong>On-Device Location Privacy:</strong> Designed so live location stays on the phone. Only an encrypted delay hold signal is dispatched to DINA when traffic exceeds 15 minutes.
       </p>
+
+      <div style="background:var(--sand); padding:12px 14px; margin-top:14px;">
+        <span style="font-size:11px; font-weight:700; text-transform:uppercase; color:var(--ink); display:block; margin-bottom:6px;">Commute Sync Questions</span>
+        <ul style="font-size:11.5px; color:var(--ink-soft); line-height:1.45; padding-left:16px; margin:0;">
+          <li><strong>What if phone battery dies?</strong> DINA completes the scheduled thaw and safely transitions into +3.0 &deg;C cold hold.</li>
+          <li><strong>Does it require internet?</strong> No, schedules run on local appliance hardware once confirmed.</li>
+          <li><strong>Can I override?</strong> Yes, you can tap &ldquo;Hold +30 min&rdquo; or &ldquo;Eating Out&rdquo; at any time.</li>
+        </ul>
+      </div>
     </div>
   </div>
 
@@ -1114,66 +1147,217 @@
       <button type="button" class="btn-sheet-close" id="btnCloseDirectorSheet">Close</button>
     </div>
     <div class="sheet-body">
-      <!-- Mobile Clock Controls -->
-      <div class="director-section">
-        <div class="director-sec-title">Simulated Afternoon Clock</div>
-        <div class="director-clock-row">
-          <div class="director-clock-time" id="mobileDirectorClockVal">15:00</div>
-          <div class="director-speed-buttons">
-            <button type="button" class="btn-speed active" data-speed="1" id="btnSpeedMobile1">1x</button>
-            <button type="button" class="btn-speed" data-speed="5" id="btnSpeedMobile5">5x</button>
-            <button type="button" class="btn-speed" data-speed="20" id="btnSpeedMobile20">20x</button>
-            <button type="button" class="btn-speed" id="btnSpeedMobilePlayPause">Pause</button>
+      <!-- Director Sub-Tabs: Scenarios vs Engineering/CAD -->
+      <div class="director-tabs-bar" role="tablist" aria-label="Director Views">
+        <button type="button" class="director-tab-btn active" id="btnDirectorTabScenario" role="tab" aria-selected="true">Scenarios</button>
+        <button type="button" class="director-tab-btn" id="btnDirectorTabCad" role="tab" aria-selected="false">CAD &amp; Cutaway</button>
+      </div>
+
+      <!-- Tab Panel 1: Scenario Controls (Active by default) -->
+      <div class="director-tab-panel active" id="directorScenarioPanel" role="tabpanel">
+        <!-- Mobile Clock Controls -->
+        <div class="director-section">
+          <div class="director-sec-title">Simulated Afternoon Clock</div>
+          <div class="director-clock-row">
+            <div class="director-clock-time" id="mobileDirectorClockVal">15:00</div>
+            <div class="director-speed-buttons">
+              <button type="button" class="btn-speed active" data-speed="1" id="btnSpeedMobile1">1x</button>
+              <button type="button" class="btn-speed" data-speed="5" id="btnSpeedMobile5">5x</button>
+              <button type="button" class="btn-speed" data-speed="20" id="btnSpeedMobile20">20x</button>
+              <button type="button" class="btn-speed" id="btnSpeedMobilePlayPause">Pause</button>
+            </div>
+          </div>
+
+          <label for="mobileSimScrubber" class="form-label" style="margin:4px 0 2px; font-size:11px;">Scrub Simulated Evening (15:00 to 21:30):</label>
+          <input type="range" min="900" max="1290" step="1" value="900" class="range-slider" id="mobileSimScrubber" aria-label="Mobile simulated time scrubber">
+          
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-top:2px;">
+            <span style="font-size:10.5px; color:var(--ink-soft);">15:00 Check-in &bull; 17:50 Drop &bull; 19:30 Ready</span>
+            <button type="button" id="btnMobileDirectorReset" style="background:none; border:none; color:var(--clay); font-size:11px; font-weight:700; cursor:pointer; text-decoration:underline;">Reset Evening</button>
           </div>
         </div>
 
-        <label for="mobileSimScrubber" class="form-label" style="margin:4px 0 2px; font-size:11px;">Scrub Simulated Evening (15:00 to 21:30):</label>
-        <input type="range" min="900" max="1290" step="1" value="900" class="range-slider" id="mobileSimScrubber" aria-label="Mobile simulated time scrubber">
-        
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-top:2px;">
-          <span style="font-size:10.5px; color:var(--ink-soft);">15:00 Check-in &bull; 17:50 Drop &bull; 19:30 Ready</span>
-          <button type="button" id="btnMobileDirectorReset" style="background:none; border:none; color:var(--clay); font-size:11px; font-weight:700; cursor:pointer; text-decoration:underline;">Reset Evening</button>
+        <!-- Mobile Commute Scenarios -->
+        <div class="director-section" style="margin-top:12px;">
+          <div class="director-sec-title">Commute Disruption Scenario</div>
+          <div class="director-pills-grid">
+            <button type="button" class="btn-scenario-pill active" data-commute="ontime" id="pillMobileCommuteOntime">1. On Time</button>
+            <button type="button" class="btn-scenario-pill" data-commute="traffic" id="pillMobileCommuteTraffic">2. Traffic (+30m)</button>
+            <button type="button" class="btn-scenario-pill" data-commute="atwork" id="pillMobileCommuteAtwork">3. Still at Work</button>
+            <button type="button" class="btn-scenario-pill" data-commute="arrived" id="pillMobileCommuteArrived">4. Arrived Home</button>
+          </div>
+        </div>
+
+        <!-- Mobile Safety Scenarios -->
+        <div class="director-section" style="margin-top:12px;">
+          <div class="director-sec-title">Safety Scenarios</div>
+          <div class="director-pills-grid">
+            <button type="button" class="btn-scenario-pill active" data-pcut="0" id="pillMobilePcut0">Power Normal</button>
+            <button type="button" class="btn-scenario-pill" data-pcut="20" id="pillMobilePcut20">Cut 20m (Safe)</button>
+            <button type="button" class="btn-scenario-pill" data-pcut="45" id="pillMobilePcut45">Cut 45m (Warning)</button>
+            <button type="button" class="btn-scenario-pill" data-pcut="130" id="pillMobilePcut130">Cut 130m (Lockout)</button>
+          </div>
+          <button type="button" class="btn-scenario-pill" id="btnMobileToggleDrawerOccupied" style="margin-top:4px;">
+            <span>Dish in Drawer: <strong>Empty (Normal)</strong></span>
+          </button>
+        </div>
+
+        <!-- Mobile Connectivity -->
+        <div class="director-section" style="margin-top:12px;">
+          <div class="director-sec-title">Connectivity</div>
+          <button type="button" class="btn-scenario-pill" id="btnMobileToggleWifi">
+            <span>Home Wi-Fi: <strong>Connected</strong></span>
+          </button>
+        </div>
+
+        <!-- Mobile Tour Launcher -->
+        <div class="director-section" style="margin-top:16px;">
+          <button type="button" class="btn-tour-launch" id="btnLaunchTourMobile">
+            Start Guided Tour (~90s)
+          </button>
         </div>
       </div>
 
-      <!-- Mobile Commute Scenarios -->
-      <div class="director-section" style="margin-top:12px;">
-        <div class="director-sec-title">Commute Disruption Scenario</div>
-        <div class="director-pills-grid">
-          <button type="button" class="btn-scenario-pill active" data-commute="ontime" id="pillMobileCommuteOntime">1. On Time</button>
-          <button type="button" class="btn-scenario-pill" data-commute="traffic" id="pillMobileCommuteTraffic">2. Traffic (+30m)</button>
-          <button type="button" class="btn-scenario-pill" data-commute="atwork" id="pillMobileCommuteAtwork">3. Still at Work</button>
-          <button type="button" class="btn-scenario-pill" data-commute="arrived" id="pillMobileCommuteArrived">4. Arrived Home</button>
+      <!-- Tab Panel 2: Engineering & CAD View -->
+      <div class="director-tab-panel" id="directorCadPanel" role="tabpanel">
+        <div id="mobileCutawayHost">
+          <!-- Cutaway Illustration (Mechanical cross-section: 110L vault, carousel, hatch, drawer) -->
+          <div class="cutaway-card" id="cutawayCard" aria-label="Appliance mechanical cutaway cross-section">
+            <div class="cutaway-header">
+              <span class="cutaway-title">Appliance Cutaway &bull; Cross-Section</span>
+              <span class="spec-status-tag cad">[CAD Verified Architecture]</span>
+            </div>
+            <div class="cutaway-svg-wrap">
+              <svg class="cutaway-svg" viewBox="0 0 380 340" aria-label="DINA upright freezer cutaway cross-section diagram">
+                <!-- Outer Insulated Cabinet Frame (60cm upright chassis) -->
+                <rect x="20" y="10" width="340" height="320" rx="4" fill="#F7F5EE" stroke="#191919" stroke-width="2"/>
+                <rect x="26" y="16" width="328" height="308" rx="3" fill="#EAE6D9" stroke="#9E9696" stroke-width="1"/>
+                
+                <!-- ZONE 1: Upper Manual Storage Shelves (110 L Vault at -18 °C) -->
+                <rect x="32" y="22" width="316" height="58" rx="2" fill="#F1EFE5" stroke="#9E9696" stroke-width="1.2"/>
+                <!-- Zone 1 Header Bar -->
+                <rect x="32" y="22" width="316" height="17" fill="#EAE6D9"/>
+                <text x="40" y="34" fill="#191919" font-family="Archivo, sans-serif" font-size="8.5" font-weight="700">110 L FREEZER VAULT</text>
+                <text x="338" y="34" text-anchor="end" fill="#5A5753" font-family="Archivo, sans-serif" font-size="8" font-weight="600">&minus;18.0 &deg;C &bull; Manual Shelves</text>
+                
+                <!-- Fixed wire storage shelf & stored frozen goods -->
+                <line x1="32" y1="56" x2="348" y2="56" stroke="#9E9696" stroke-width="1" stroke-dasharray="3 2"/>
+                <rect x="46" y="44" width="36" height="12" rx="1.5" fill="#DAD8CB" stroke="#9E9696" stroke-width="1"/>
+                <rect x="88" y="42" width="30" height="14" rx="1.5" fill="#D6D2C4" stroke="#9E9696" stroke-width="1"/>
+                <rect x="238" y="44" width="32" height="12" rx="1.5" fill="#DAD8CB" stroke="#9E9696" stroke-width="1"/>
+                <rect x="276" y="40" width="42" height="16" rx="1.5" fill="#D6D2C4" stroke="#9E9696" stroke-width="1"/>
+
+                <!-- ZONE 2: Middle Revolving Carousel Chamber (-18 °C) -->
+                <rect x="32" y="86" width="316" height="144" rx="2" fill="#F1EFE5" stroke="#9E9696" stroke-width="1.2"/>
+                <!-- Zone 2 Header Bar (Safely above the drum circle) -->
+                <rect x="32" y="86" width="316" height="17" fill="#EAE6D9"/>
+                <text x="40" y="98" fill="#191919" font-family="Archivo, sans-serif" font-size="8.5" font-weight="700">REVOLVING CAROUSEL DRUM</text>
+                <text x="338" y="98" text-anchor="end" fill="#5A5753" font-family="Archivo, sans-serif" font-size="8" font-weight="600">11 Meal Slots &bull; &minus;18.0 &deg;C</text>
+
+                <!-- Left-side engineering callout -->
+                <rect x="40" y="134" width="82" height="42" rx="3" fill="#FFFFFF" stroke="#DAD8CB" stroke-width="1"/>
+                <text x="46" y="147" fill="#191919" font-family="Archivo, sans-serif" font-size="7.5" font-weight="700">MEAL DRUM</text>
+                <text x="46" y="158" fill="#5A5753" font-family="Archivo, sans-serif" font-size="7" font-weight="500">11 Sealed slots</text>
+                <text x="46" y="168" fill="#5A5753" font-family="Archivo, sans-serif" font-size="7" font-weight="500">Indexed rotation</text>
+                <line x1="122" y1="155" x2="140" y2="158" stroke="#9E9696" stroke-width="1" stroke-dasharray="2 2"/>
+
+                <!-- Right-side engineering callout -->
+                <rect x="258" y="134" width="82" height="42" rx="3" fill="#FFFFFF" stroke="#DAD8CB" stroke-width="1"/>
+                <text x="264" y="147" fill="#191919" font-family="Archivo, sans-serif" font-size="7.5" font-weight="700">PASS-THROUGH</text>
+                <text x="264" y="158" fill="#5A5753" font-family="Archivo, sans-serif" font-size="7" font-weight="500">Slot 12 drop chute</text>
+                <text x="264" y="168" fill="#5A5753" font-family="Archivo, sans-serif" font-size="7" font-weight="500">Airlock aligned</text>
+                <line x1="258" y1="155" x2="240" y2="158" stroke="#9E9696" stroke-width="1" stroke-dasharray="2 2"/>
+
+                <!-- Revolving Rotor Ring (Center: 190, 158; Radius: 46) -->
+                <circle cx="190" cy="158" r="46" fill="#EAE6D9" stroke="#191919" stroke-width="1.6"/>
+                <circle cx="190" cy="158" r="10" fill="#DAD8CB" stroke="#191919" stroke-width="1.4"/>
+                <circle cx="190" cy="158" r="3" fill="#191919"/>
+
+                <!-- Revolving Rotor Structure (Rotates to target slot) -->
+                <g id="cutawayRotor" transform="rotate(0 190 158)">
+                  <line x1="190" y1="112" x2="190" y2="204" stroke="#9E9696" stroke-width="1.1"/>
+                  <line x1="150" y1="135" x2="230" y2="181" stroke="#9E9696" stroke-width="1.1"/>
+                  <line x1="150" y1="181" x2="230" y2="135" stroke="#9E9696" stroke-width="1.1"/>
+                  <line x1="144" y1="158" x2="236" y2="158" stroke="#9E9696" stroke-width="1.1"/>
+
+                  <!-- Tonight's Container in Slot (Top slot at 0 deg) -->
+                  <rect id="cutawaySlotContainer" x="176" y="116" width="28" height="11" rx="2" fill="#C0775B" stroke="#191919" stroke-width="1.2"/>
+
+                  <!-- Stocked Radial Containers in Other Slots -->
+                  <rect transform="rotate(30 190 158)" x="176" y="116" width="28" height="11" rx="2" fill="#DAD8CB" stroke="#191919" stroke-width="1"/>
+                  <rect transform="rotate(60 190 158)" x="176" y="116" width="28" height="11" rx="2" fill="#DAD8CB" stroke="#191919" stroke-width="1"/>
+                  <rect transform="rotate(90 190 158)" x="176" y="116" width="28" height="11" rx="2" fill="#DAD8CB" stroke="#191919" stroke-width="1"/>
+                  <rect transform="rotate(120 190 158)" x="176" y="116" width="28" height="11" rx="2" fill="#DAD8CB" stroke="#191919" stroke-width="1"/>
+                  <rect transform="rotate(150 190 158)" x="176" y="116" width="28" height="11" rx="2" fill="#DAD8CB" stroke="#191919" stroke-width="1"/>
+                  <rect transform="rotate(210 190 158)" x="176" y="116" width="28" height="11" rx="2" fill="#DAD8CB" stroke="#191919" stroke-width="1"/>
+                  <rect transform="rotate(240 190 158)" x="176" y="116" width="28" height="11" rx="2" fill="#DAD8CB" stroke="#191919" stroke-width="1"/>
+                  <rect transform="rotate(270 190 158)" x="176" y="116" width="28" height="11" rx="2" fill="#DAD8CB" stroke="#191919" stroke-width="1"/>
+                  <rect transform="rotate(300 190 158)" x="176" y="116" width="28" height="11" rx="2" fill="#DAD8CB" stroke="#191919" stroke-width="1"/>
+                  <rect transform="rotate(330 190 158)" x="176" y="116" width="28" height="11" rx="2" fill="#DAD8CB" stroke="#191919" stroke-width="1"/>
+                </g>
+
+                <!-- Smart Pause Warning Tag on Cutaway -->
+                <g id="cutawaySmartPauseTag" transform="translate(136, 220)" hidden>
+                  <rect x="-8" y="-9" width="124" height="18" rx="3" fill="#FFF4E5" stroke="#C0775B" stroke-width="1.2"/>
+                  <text x="54" y="3" text-anchor="middle" fill="#C0775B" font-family="Archivo, sans-serif" font-size="7.5" font-weight="700">SMART PAUSE ACTIVE</text>
+                </g>
+
+                <!-- AIRLOCK PASS-THROUGH CHUTE & HATCH FLAP -->
+                <path d="M 166 226 L 172 236 L 208 236 L 214 226 Z" fill="#D6D2C4" stroke="#9E9696" stroke-width="1"/>
+                <g id="cutawayHatchGroup">
+                  <line id="cutawayHatchFlap" x1="173" y1="234" x2="207" y2="234" stroke="#191919" stroke-width="3" stroke-linecap="round"/>
+                  <circle cx="173" cy="234" r="2" fill="#191919"/>
+                </g>
+
+                <!-- Animated Dropping Meal Container -->
+                <g id="cutawayDropContainer" transform="translate(176, 212)" opacity="0">
+                  <rect x="0" y="0" width="28" height="11" rx="2" fill="#C0775B" stroke="#191919" stroke-width="1.2"/>
+                </g>
+
+                <!-- ZONE 3: Bottom Defrost & Safe-Hold Drawer (+3 °C / +10 °C) -->
+                <rect id="cutawayDrawerGlow" x="32" y="238" width="316" height="86" rx="3" fill="#EAE6D9" stroke="#191919" stroke-width="1.6"/>
+                <!-- Zone 3 Header Bar -->
+                <rect x="32" y="238" width="316" height="17" fill="#DAD8CB"/>
+                <text x="40" y="250" fill="#191919" font-family="Archivo, sans-serif" font-size="8.5" font-weight="700">DEFROST DRAWER</text>
+                <text id="cutawayDrawerTempTag" x="338" y="250" text-anchor="end" fill="#191919" font-family="Archivo, sans-serif" font-size="8" font-weight="700">+3.0 &deg;C</text>
+
+                <!-- Drawer Pull Handle with Live Halo Glow Indicator -->
+                <rect id="cutawayHandleGlow" x="340" y="258" width="5" height="52" rx="2.5" fill="#5B8EC0" stroke="#191919" stroke-width="0.8"/>
+                
+                <!-- Removable Condensate Drip Tray underneath -->
+                <rect x="42" y="310" width="296" height="8" rx="1.5" fill="#D6D2C4" stroke="#9E9696" stroke-width="0.8"/>
+
+                <!-- Convection Crossflow Fan & Airflow Paths -->
+                <g id="cutawayAirflow" opacity="0">
+                  <circle cx="56" cy="274" r="9" fill="#DAD8CB" stroke="#191919" stroke-width="1.2"/>
+                  <path d="M 56 267 V 281 M 49 274 H 63" stroke="#191919" stroke-width="1.2"/>
+                  <text x="56" y="289" text-anchor="middle" fill="#5A5753" font-size="6.5" font-weight="600">Fan</text>
+                  <path class="cutaway-air-flow" d="M 68 270 C 110 262, 150 262, 172 270" fill="none" stroke="#C0775B" stroke-width="1.5"/>
+                  <path class="cutaway-air-flow" d="M 68 278 C 110 286, 150 286, 172 278" fill="none" stroke="#C0775B" stroke-width="1.5"/>
+                </g>
+
+                <!-- Container Resting Inside Defrost Drawer -->
+                <g id="cutawayDrawerContainer" transform="translate(176, 268)" opacity="0">
+                  <rect x="0" y="0" width="28" height="11" rx="2" fill="#C0775B" stroke="#191919" stroke-width="1.2"/>
+                  <!-- Frost Layer Overlay on Container Lid -->
+                  <rect id="cutawayFrostLayer" x="1" y="1" width="26" height="9" rx="1" fill="#FFFFFF" opacity="0.8"/>
+                </g>
+
+                <text id="cutawayDrawerStatusText" x="78" y="302" fill="#191919" font-family="Archivo, sans-serif" font-size="8.5" font-weight="600">Status: Empty &bull; Standby</text>
+              </svg>
+            </div>
+          </div>
         </div>
-      </div>
 
-      <!-- Mobile Safety Scenarios -->
-      <div class="director-section" style="margin-top:12px;">
-        <div class="director-sec-title">Safety Scenarios</div>
-        <div class="director-pills-grid">
-          <button type="button" class="btn-scenario-pill active" data-pcut="0" id="pillMobilePcut0">Power Normal</button>
-          <button type="button" class="btn-scenario-pill" data-pcut="20" id="pillMobilePcut20">Cut 20m (Safe)</button>
-          <button type="button" class="btn-scenario-pill" data-pcut="45" id="pillMobilePcut45">Cut 45m (Warning)</button>
-          <button type="button" class="btn-scenario-pill" data-pcut="130" id="pillMobilePcut130">Cut 130m (Lockout)</button>
+        <div style="background:var(--sand); padding:12px; margin-top:12px; border-radius:var(--radius-xs); border:var(--hairline);">
+          <span style="font-size:11px; font-weight:700; text-transform:uppercase; color:var(--ink); display:block; margin-bottom:6px;">CAD Architecture &bull; Mechanical Specs</span>
+          <ul style="font-size:11.5px; color:var(--ink-soft); line-height:1.45; padding-left:16px; margin:0;">
+            <li><strong>Chassis:</strong> 60 cm European modular standard, 110 L upper static freezer vault.</li>
+            <li><strong>Drum:</strong> 11 sealed meal slots, stepper motor indexing with optical slot positioning.</li>
+            <li><strong>Airlock Pass-Through:</strong> Double-sealed spring hatch preventing thermal leakage.</li>
+            <li><strong>Defrost Drawer:</strong> PTC convective airflow (+10 &deg;C thaw, +3 &deg;C cold hold).</li>
+          </ul>
         </div>
-        <button type="button" class="btn-scenario-pill" id="btnMobileToggleDrawerOccupied" style="margin-top:4px;">
-          <span>Dish in Drawer: <strong>Empty (Normal)</strong></span>
-        </button>
-      </div>
-
-      <!-- Mobile Connectivity -->
-      <div class="director-section" style="margin-top:12px;">
-        <div class="director-sec-title">Connectivity</div>
-        <button type="button" class="btn-scenario-pill" id="btnMobileToggleWifi">
-          <span>Home Wi-Fi: <strong>Connected</strong></span>
-        </button>
-      </div>
-
-      <!-- Mobile Tour Launcher -->
-      <div class="director-section" style="margin-top:16px;">
-        <button type="button" class="btn-tour-launch" id="btnLaunchTourMobile">
-          Start Guided Tour (~90s)
-        </button>
       </div>
     </div>
   </div>
@@ -1194,84 +1378,104 @@
     <aside class="director-panel desktop-only" id="directorPanelDesktop" aria-label="Simulation Director Controls">
       <div class="director-header">
         <span class="director-title">Concept Director</span>
-        <span class="spec-status-tag logic">Demo Controls</span>
+        <span class="spec-status-tag logic">Evaluation Suite</span>
       </div>
 
-      <!-- Clock Controls -->
-      <div class="director-section">
-        <div class="director-sec-title">Simulated Afternoon Clock</div>
-        <div class="director-clock-row">
-          <div class="director-clock-time" id="directorClockVal">15:00</div>
-          <div class="director-speed-buttons">
-            <button type="button" class="btn-speed active" data-speed="1" id="btnSpeed1">1x</button>
-            <button type="button" class="btn-speed" data-speed="5" id="btnSpeed5">5x</button>
-            <button type="button" class="btn-speed" data-speed="20" id="btnSpeed20">20x</button>
-            <button type="button" class="btn-speed" id="btnDirectorPlayPause">Pause</button>
+      <!-- Desktop Sub-Tabs -->
+      <div class="director-tabs-bar" role="tablist" aria-label="Desktop Director Views">
+        <button type="button" class="director-tab-btn active" id="btnDesktopTabScenario" role="tab" aria-selected="true">Scenarios</button>
+        <button type="button" class="director-tab-btn" id="btnDesktopTabCad" role="tab" aria-selected="false">CAD &amp; Cutaway</button>
+      </div>
+
+      <!-- Tab Panel 1: Scenarios -->
+      <div class="director-tab-panel active" id="desktopScenarioPanel" role="tabpanel">
+        <!-- Clock Controls -->
+        <div class="director-section">
+          <div class="director-sec-title">Simulated Afternoon Clock</div>
+          <div class="director-clock-row">
+            <div class="director-clock-time" id="directorClockVal">15:00</div>
+            <div class="director-speed-buttons">
+              <button type="button" class="btn-speed active" data-speed="1" id="btnSpeed1">1x</button>
+              <button type="button" class="btn-speed" data-speed="5" id="btnSpeed5">5x</button>
+              <button type="button" class="btn-speed" data-speed="20" id="btnSpeed20">20x</button>
+              <button type="button" class="btn-speed" id="btnDirectorPlayPause">Pause</button>
+            </div>
+          </div>
+
+          <label for="simScrubber" class="form-label" style="margin:4px 0 2px; font-size:11px;">Scrub Simulated Evening (15:00 to 21:30):</label>
+          <input type="range" min="900" max="1290" step="1" value="900" class="range-slider" id="simScrubber" aria-label="Simulated time scrubber">
+
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-top:2px;">
+            <span style="font-size:10.5px; color:var(--ink-soft);">15:00 Check-in &bull; 17:50 Drop &bull; 19:30 Ready</span>
+            <button type="button" id="btnDirectorReset" style="background:none; border:none; color:var(--clay); font-size:11px; font-weight:700; cursor:pointer; text-decoration:underline;">Reset Evening</button>
           </div>
         </div>
 
-        <label for="simScrubber" class="form-label" style="margin:4px 0 2px; font-size:11px;">Scrub Simulated Evening (15:00 to 21:30):</label>
-        <input type="range" min="900" max="1290" step="1" value="900" class="range-slider" id="simScrubber" aria-label="Simulated time scrubber">
+        <!-- Commute Scenarios -->
+        <div class="director-section">
+          <div class="director-sec-title">Commute Disruption Scenario</div>
+          <div class="director-pills-grid">
+            <button type="button" class="btn-scenario-pill active" data-commute="ontime" id="pillCommuteOntime">1. On Time (19:20)</button>
+            <button type="button" class="btn-scenario-pill" data-commute="traffic" id="pillCommuteTraffic">2. Traffic Jam (+30m)</button>
+            <button type="button" class="btn-scenario-pill" data-commute="atwork" id="pillCommuteAtwork">3. Still at Work</button>
+            <button type="button" class="btn-scenario-pill" data-commute="arrived" id="pillCommuteArrived">4. Arrived Home</button>
+          </div>
+        </div>
 
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-top:2px;">
-          <span style="font-size:10.5px; color:var(--ink-soft);">15:00 Check-in &bull; 17:50 Drop &bull; 19:30 Ready</span>
-          <button type="button" id="btnDirectorReset" style="background:none; border:none; color:var(--clay); font-size:11px; font-weight:700; cursor:pointer; text-decoration:underline;">Reset Evening</button>
+        <!-- Safety Scenarios -->
+        <div class="director-section">
+          <div class="director-sec-title">Safety Scenarios</div>
+          <div class="director-pills-grid">
+            <button type="button" class="btn-scenario-pill active" data-pcut="0" id="pillPcut0">Power Normal</button>
+            <button type="button" class="btn-scenario-pill" data-pcut="20" id="pillPcut20">Cut 20m (Safe)</button>
+            <button type="button" class="btn-scenario-pill" data-pcut="45" id="pillPcut45">Cut 45m (Warning)</button>
+            <button type="button" class="btn-scenario-pill" data-pcut="130" id="pillPcut130">Cut 130m (Lockout)</button>
+          </div>
+          <button type="button" class="btn-scenario-pill" id="btnToggleDrawerOccupied" style="margin-top:4px;">
+            <span>Dish in Drawer: <strong>Empty (Normal)</strong></span>
+          </button>
+        </div>
+
+        <!-- Connectivity Toggle -->
+        <div class="director-section">
+          <div class="director-sec-title">Connectivity</div>
+          <button type="button" class="btn-scenario-pill" id="btnToggleWifiDesktop">
+            <span>Home Wi-Fi: <strong>Connected</strong></span>
+          </button>
+        </div>
+
+        <!-- Guided Tour Launcher -->
+        <div class="director-section" style="margin-top:auto; padding-top:12px; border-top:var(--hairline);">
+          <button type="button" class="btn-tour-launch" id="btnLaunchTourDesktop">
+            Start Guided Tour (~90s)
+          </button>
+          <span style="font-size:10px; color:var(--ink-soft); text-align:center; display:block; margin-top:4px;">
+            Automatically guides through check-in, airlock drop, thaw cutoff, and traffic delay.
+          </span>
         </div>
       </div>
 
-      <!-- Commute Scenarios -->
-      <div class="director-section">
-        <div class="director-sec-title">Commute Disruption Scenario</div>
-        <div class="director-pills-grid">
-          <button type="button" class="btn-scenario-pill active" data-commute="ontime" id="pillCommuteOntime">1. On Time (19:20)</button>
-          <button type="button" class="btn-scenario-pill" data-commute="traffic" id="pillCommuteTraffic">2. Traffic Jam (+30m)</button>
-          <button type="button" class="btn-scenario-pill" data-commute="atwork" id="pillCommuteAtwork">3. Still at Work</button>
-          <button type="button" class="btn-scenario-pill" data-commute="arrived" id="pillCommuteArrived">4. Arrived Home</button>
+      <!-- Tab Panel 2: CAD & Cutaway -->
+      <div class="director-tab-panel" id="desktopCadPanel" role="tabpanel">
+        <div id="desktopCutawayHost">
+          <!-- Cutaway SVG card will be dynamically mounted here when switching to desktop CAD tab -->
         </div>
-      </div>
-
-      <!-- Safety Scenarios -->
-      <div class="director-section">
-        <div class="director-sec-title">Safety Scenarios</div>
-        <div class="director-pills-grid">
-          <button type="button" class="btn-scenario-pill active" data-pcut="0" id="pillPcut0">Power Normal</button>
-          <button type="button" class="btn-scenario-pill" data-pcut="20" id="pillPcut20">Cut 20m (Safe)</button>
-          <button type="button" class="btn-scenario-pill" data-pcut="45" id="pillPcut45">Cut 45m (Warning)</button>
-          <button type="button" class="btn-scenario-pill" data-pcut="130" id="pillPcut130">Cut 130m (Lockout)</button>
+        <div style="background:var(--sand); padding:12px; margin-top:12px; border-radius:var(--radius-xs); border:var(--hairline);">
+          <span style="font-size:11px; font-weight:700; text-transform:uppercase; color:var(--ink); display:block; margin-bottom:6px;">CAD Architecture &bull; Mechanical Specs</span>
+          <ul style="font-size:11.5px; color:var(--ink-soft); line-height:1.45; padding-left:16px; margin:0;">
+            <li><strong>Chassis:</strong> 60 cm European modular standard, 110 L upper static freezer vault.</li>
+            <li><strong>Drum:</strong> 11 sealed meal slots, stepper motor indexing with optical slot positioning.</li>
+            <li><strong>Airlock Pass-Through:</strong> Double-sealed spring hatch preventing thermal leakage.</li>
+            <li><strong>Defrost Drawer:</strong> PTC convective airflow (+10 &deg;C thaw, +3 &deg;C cold hold).</li>
+          </ul>
         </div>
-        <button type="button" class="btn-scenario-pill" id="btnToggleDrawerOccupied" style="margin-top:4px;">
-          <span>Dish in Drawer: <strong>Empty (Normal)</strong></span>
-        </button>
-      </div>
-
-      <!-- Connectivity Toggle -->
-      <div class="director-section">
-        <div class="director-sec-title">Connectivity</div>
-        <button type="button" class="btn-scenario-pill" id="btnToggleWifiDesktop">
-          <span>Home Wi-Fi: <strong>Connected</strong></span>
-        </button>
-      </div>
-
-      <!-- Guided Tour Launcher -->
-      <div class="director-section" style="margin-top:auto; padding-top:12px; border-top:var(--hairline);">
-        <button type="button" class="btn-tour-launch" id="btnLaunchTourDesktop">
-          Start Guided Tour (~90s)
-        </button>
-        <span style="font-size:10px; color:var(--ink-soft); text-align:center; display:block; margin-top:4px;">
-          Automatically guides through check-in, airlock drop, thaw cutoff, and traffic delay.
-        </span>
       </div>
     </aside>
 
   </div><!-- /.app-layout-wrapper -->
 
-  <!-- Floating Demo Button on Mobile Screens (< 900px) -->
-  <button type="button" class="floating-demo-btn" id="btnOpenDemoSheet" aria-label="Open Simulation Director Controls">
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
-    <span>Director</span>
-  </button>
-
-
+  <!-- Hidden compatibility button for legacy script references -->
+  <button type="button" class="floating-demo-btn" id="btnOpenDemoSheet" aria-label="Open Simulation Director Controls" style="display:none !important;" aria-hidden="true"></button>
 
   <script src="js/app.js?v=10.6"></script>
 </body>
