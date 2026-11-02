@@ -570,12 +570,19 @@ document.addEventListener("DOMContentLoaded", () => {
   const orderTrackerLine1 = document.getElementById("orderTrackerLine1");
   const orderTrackerLine2 = document.getElementById("orderTrackerLine2");
 
-  // Cutaway SVG Elements
+  // Cutaway SVG Elements (CAD Section A-A)
   const cutawayCard = document.getElementById("cutawayCard");
+  const cutawaySlotActive = document.getElementById("cutaway-slot-active");
+  const cutawayHatch = document.getElementById("cutaway-hatch");
+  const cutawayDrawerMeal = document.getElementById("cutaway-drawer-meal");
+  const cutawayDrawerStatus = document.getElementById("cutaway-drawer-status");
+  const cutawayDropContainer = document.getElementById("cutawayDropContainer");
+  const cutawayDrawerTemp = document.getElementById("cutaway-drawer-temp");
+  const cutawayDrawerIndicator = document.getElementById("cutaway-drawer-indicator");
+  // Legacy references kept safe if queried elsewhere
   const cutawayRotor = document.getElementById("cutawayRotor");
   const cutawaySlotContainer = document.getElementById("cutawaySlotContainer");
   const cutawayHatchFlap = document.getElementById("cutawayHatchFlap");
-  const cutawayDropContainer = document.getElementById("cutawayDropContainer");
   const cutawayDrawerContainer = document.getElementById("cutawayDrawerContainer");
   const cutawayFrostLayer = document.getElementById("cutawayFrostLayer");
   const cutawayDrawerGlow = document.getElementById("cutawayDrawerGlow");
@@ -871,34 +878,71 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let lastPhase = "idle";
   function triggerAirlockSequence() {
-    if (!cutawayHatchFlap || !cutawayDropContainer || !cutawayDrawerContainer) return;
+    if (!cutawayHatch && !cutawayHatchFlap) return;
 
     // Check if motion is reduced
     const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (prefersReduced) {
-      cutawayHatchFlap.classList.remove("open");
-      cutawayDropContainer.setAttribute("opacity", "0");
-      cutawayDrawerContainer.setAttribute("opacity", "1");
+      if (cutawayHatch) cutawayHatch.style.transform = "rotate(0deg)";
+      if (cutawayHatchFlap) cutawayHatchFlap.classList.remove("open");
+      if (cutawaySlotActive) cutawaySlotActive.setAttribute("opacity", "0.25");
+      if (cutawayDropContainer) cutawayDropContainer.setAttribute("opacity", "0");
+      if (cutawayDrawerMeal) {
+        cutawayDrawerMeal.setAttribute("opacity", "1");
+        const mealRect = cutawayDrawerMeal.querySelector("rect");
+        if (mealRect) {
+          mealRect.setAttribute("fill", "#C87D55");
+          mealRect.setAttribute("stroke", "#191919");
+          mealRect.removeAttribute("stroke-dasharray");
+        }
+        const mealText = cutawayDrawerMeal.querySelector("text");
+        if (mealText) {
+          mealText.textContent = "Beef Ribeye • 450g";
+          mealText.setAttribute("fill", "#FFFFFF");
+        }
+      }
+      if (cutawayDrawerContainer) cutawayDrawerContainer.setAttribute("opacity", "1");
       return;
     }
 
     // 1. Hatch opens (400ms)
-    cutawayHatchFlap.classList.add("open");
-    cutawayDropContainer.setAttribute("opacity", "1");
-    cutawayDropContainer.style.transition = "none";
-    cutawayDropContainer.setAttribute("transform", "translate(176, 212)");
+    if (cutawayHatch) cutawayHatch.style.transform = "rotate(30deg)";
+    if (cutawayHatchFlap) cutawayHatchFlap.classList.add("open");
+    if (cutawaySlotActive) cutawaySlotActive.setAttribute("opacity", "0.25");
+    if (cutawayDropContainer) {
+      cutawayDropContainer.setAttribute("opacity", "1");
+      cutawayDropContainer.style.transition = "none";
+      cutawayDropContainer.setAttribute("transform", "translate(0, 0)");
+    }
 
-    // 2. Container slides down chimney into drawer (900ms)
+    // 2. Container slides down pass-through chute into Defrost Drawer (900ms)
     setTimeout(() => {
-      cutawayDropContainer.style.transition = "transform 900ms cubic-bezier(0.22, 0.61, 0.36, 1)";
-      cutawayDropContainer.setAttribute("transform", "translate(176, 268)");
+      if (cutawayDropContainer) {
+        cutawayDropContainer.style.transition = "transform 900ms cubic-bezier(0.22, 0.61, 0.36, 1)";
+        cutawayDropContainer.setAttribute("transform", "translate(0, 236)");
+      }
     }, 400);
 
-    // 3. Hatch closes (400ms) and container lands in drawer
+    // 3. Hatch closes (400ms) and container lands on Defrost Drawer tray
     setTimeout(() => {
-      cutawayHatchFlap.classList.remove("open");
-      cutawayDropContainer.setAttribute("opacity", "0");
-      cutawayDrawerContainer.setAttribute("opacity", "1");
+      if (cutawayHatch) cutawayHatch.style.transform = "rotate(0deg)";
+      if (cutawayHatchFlap) cutawayHatchFlap.classList.remove("open");
+      if (cutawayDropContainer) cutawayDropContainer.setAttribute("opacity", "0");
+      if (cutawayDrawerMeal) {
+        cutawayDrawerMeal.setAttribute("opacity", "1");
+        const mealRect = cutawayDrawerMeal.querySelector("rect");
+        if (mealRect) {
+          mealRect.setAttribute("fill", "#C87D55");
+          mealRect.setAttribute("stroke", "#191919");
+          mealRect.removeAttribute("stroke-dasharray");
+        }
+        const mealText = cutawayDrawerMeal.querySelector("text");
+        if (mealText) {
+          mealText.textContent = "Beef Ribeye • 450g";
+          mealText.setAttribute("fill", "#FFFFFF");
+        }
+      }
+      if (cutawayDrawerContainer) cutawayDrawerContainer.setAttribute("opacity", "1");
     }, 1300);
   }
 
@@ -1072,26 +1116,108 @@ document.addEventListener("DOMContentLoaded", () => {
       thawConsumerReadyTime.textContent = minsToTimeStr(state.plan.readyMins);
     }
 
-    // Cutaway Mechanical Section Updates
+    // Cutaway Mechanical Section Updates (CAD Vertical Section A-A)
+    const isPostDrop = (computed.phase === "thaw" || computed.phase === "equalize" || computed.phase === "ready" || computed.phase === "held");
+    const isFrozen = (computed.phase === "idle" || computed.phase === "checkin" || computed.phase === "scheduled" || computed.phase === "skipped");
+
+    // Trigger Airlock sequence once upon entering drop phase
+    if (computed.phase === "drop" && lastPhase !== "drop") {
+      triggerAirlockSequence();
+    } else if (isPostDrop) {
+      if (cutawaySlotActive) cutawaySlotActive.setAttribute("opacity", "0.25");
+      if (cutawayDropContainer) cutawayDropContainer.setAttribute("opacity", "0");
+      if (cutawayHatch) cutawayHatch.style.transform = "rotate(0deg)";
+      if (cutawayDrawerMeal) {
+        cutawayDrawerMeal.setAttribute("opacity", "1");
+        const mealRect = cutawayDrawerMeal.querySelector("rect");
+        const mealText = cutawayDrawerMeal.querySelector("text");
+        const isHold = (computed.phase === "ready" || computed.phase === "held");
+        const color = isHold ? "#2C4C3E" : "#C87D55";
+        if (mealRect) {
+          mealRect.setAttribute("fill", color);
+          mealRect.setAttribute("stroke", "#191919");
+          mealRect.removeAttribute("stroke-dasharray");
+        }
+        if (mealText) {
+          mealText.textContent = isHold ? "Beef Ribeye • Ready (+3 °C)" : "Beef Ribeye • Thawing";
+          mealText.setAttribute("fill", "#FFFFFF");
+        }
+      }
+      if (cutawayDrawerContainer) cutawayDrawerContainer.setAttribute("opacity", "1");
+    } else if (isFrozen) {
+      if (cutawaySlotActive) cutawaySlotActive.setAttribute("opacity", "1");
+      if (cutawayDropContainer) cutawayDropContainer.setAttribute("opacity", "0");
+      if (cutawayHatch) cutawayHatch.style.transform = "rotate(0deg)";
+      if (cutawayDrawerMeal) {
+        cutawayDrawerMeal.setAttribute("opacity", "0.35");
+        const mealRect = cutawayDrawerMeal.querySelector("rect");
+        const mealText = cutawayDrawerMeal.querySelector("text");
+        if (mealRect) {
+          mealRect.setAttribute("fill", "none");
+          mealRect.setAttribute("stroke", "#8C857B");
+          mealRect.setAttribute("stroke-dasharray", "4 3");
+        }
+        if (mealText) {
+          mealText.textContent = "Drop Landing Zone";
+          mealText.setAttribute("fill", "#5A554C");
+        }
+      }
+      if (cutawayDrawerContainer) cutawayDrawerContainer.setAttribute("opacity", "0");
+    }
+    lastPhase = computed.phase;
+
+    // Cutaway Drawer Status & Telemetry Updates
+    if (cutawayDrawerStatus) {
+      if (computed.phase === "thaw") {
+        cutawayDrawerStatus.textContent = `Status: Active Thaw • +10.0 °C Convection (Surface: ${computed.surfaceC !== null ? (computed.surfaceC > 0 ? '+' : '') + computed.surfaceC.toFixed(1) + ' °C' : 'Standby'})`;
+      } else if (computed.phase === "equalize") {
+        cutawayDrawerStatus.textContent = `Status: Equalizing • Conduction (Air: +${computed.drawerAirC !== null ? computed.drawerAirC.toFixed(1) : '3.0'} °C • Core: ${computed.coreC !== null ? (computed.coreC > 0 ? '+' : '') + computed.coreC.toFixed(1) + ' °C' : 'Standby'})`;
+      } else if (computed.phase === "ready" || computed.phase === "held") {
+        cutawayDrawerStatus.textContent = `Status: Ready • Holding at +3.0 °C (Safe Fridge Zone)`;
+      } else if (computed.phase === "drop") {
+        cutawayDrawerStatus.textContent = `Status: Airlock Drop • 2.5s Vertical Pass-Through`;
+      } else if (computed.phase === "warning") {
+        cutawayDrawerStatus.textContent = `Status: Safety Warning • Heating Paused (+5.2 °C)`;
+      } else if (computed.phase === "lockout") {
+        cutawayDrawerStatus.textContent = `Status: Safety Lockout • Active Heating Paused`;
+      } else {
+        cutawayDrawerStatus.textContent = `Status: Empty • Standby (+3.0 °C Zone)`;
+      }
+    }
+
+    if (cutawayDrawerTemp) {
+      if (computed.phase === "thaw") {
+        cutawayDrawerTemp.textContent = "+10.0 °C Air";
+        cutawayDrawerTemp.setAttribute("fill", "#C87D55");
+      } else if (computed.phase === "equalize") {
+        cutawayDrawerTemp.textContent = `+${computed.drawerAirC !== null ? computed.drawerAirC.toFixed(1) : '3.0'} °C Air`;
+        cutawayDrawerTemp.setAttribute("fill", "#D9822B");
+      } else if (computed.phase === "ready" || computed.phase === "held") {
+        cutawayDrawerTemp.textContent = "+3.0 °C Hold";
+        cutawayDrawerTemp.setAttribute("fill", "#2C4C3E");
+      } else {
+        cutawayDrawerTemp.textContent = "+3.0 °C Standby";
+        cutawayDrawerTemp.setAttribute("fill", "#2C4C3E");
+      }
+    }
+
+    if (cutawayDrawerIndicator) {
+      const indColors = {
+        blue: "#5B82B8",
+        amber: "#C87D55",
+        amberFast: "#D9822B",
+        green: "#2C4C3E",
+        red: "#C0392B"
+      };
+      cutawayDrawerIndicator.setAttribute("fill", indColors[computed.led] || "#5B82B8");
+    }
+
+    // Legacy Cutaway Elements (kept safe for backwards compatibility)
     if (cutawayRotor) {
       const slotNum = parseInt(state.plan.slot, 10) || 1;
       const deg = ((slotNum - 1) % 12) * 30;
       cutawayRotor.setAttribute("transform", `rotate(${deg} 190 158)`);
     }
-
-    // Trigger Airlock sequence once upon entering drop phase
-    if (computed.phase === "drop" && lastPhase !== "drop") {
-      triggerAirlockSequence();
-    } else if (computed.phase === "thaw" || computed.phase === "equalize" || computed.phase === "ready" || computed.phase === "held") {
-      if (cutawayDrawerContainer) cutawayDrawerContainer.setAttribute("opacity", "1");
-      if (cutawayDropContainer) cutawayDropContainer.setAttribute("opacity", "0");
-    } else if (computed.phase === "idle" || computed.phase === "checkin" || computed.phase === "scheduled" || computed.phase === "skipped") {
-      if (cutawayDrawerContainer) cutawayDrawerContainer.setAttribute("opacity", "0");
-      if (cutawayDropContainer) cutawayDropContainer.setAttribute("opacity", "0");
-    }
-    lastPhase = computed.phase;
-
-    // Cutaway drawer glow and airflow
     if (cutawayDrawerGlow) {
       const glowColors = {
         blue: "#EAE6D9",
