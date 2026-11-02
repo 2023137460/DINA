@@ -2526,8 +2526,9 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // Director Sub-Tab Switching (Scenarios vs CAD & Cutaway)
-  function setupDirectorTabs(btnScenario, btnCad, panelScenario, panelCad, targetHost) {
+  function setupDirectorTabs(btnScenario, btnCad, panelScenario, panelCad, targetHost, isDesktop) {
     if (!btnScenario || !btnCad || !panelScenario || !panelCad) return;
+    const desktopPanel = document.getElementById("directorPanelDesktop");
 
     btnScenario.addEventListener("click", () => {
       triggerHaptic([10]);
@@ -2537,6 +2538,9 @@ document.addEventListener("DOMContentLoaded", () => {
       btnCad.setAttribute("aria-selected", "false");
       panelScenario.classList.add("active");
       panelCad.classList.remove("active");
+      if (isDesktop && desktopPanel) {
+        desktopPanel.classList.remove("cad-active");
+      }
     });
 
     btnCad.addEventListener("click", () => {
@@ -2547,6 +2551,9 @@ document.addEventListener("DOMContentLoaded", () => {
       btnScenario.setAttribute("aria-selected", "false");
       panelCad.classList.add("active");
       panelScenario.classList.remove("active");
+      if (isDesktop && desktopPanel) {
+        desktopPanel.classList.add("cad-active");
+      }
 
       // Dynamically mount cutawayCard into targetHost if needed
       if (cutawayCard && targetHost && !targetHost.contains(cutawayCard)) {
@@ -2561,7 +2568,8 @@ document.addEventListener("DOMContentLoaded", () => {
     btnDirectorTabCad,
     directorScenarioPanel,
     directorCadPanel,
-    mobileCutawayHost
+    mobileCutawayHost,
+    false
   );
 
   // Desktop Director Sub-Tabs
@@ -2570,8 +2578,54 @@ document.addEventListener("DOMContentLoaded", () => {
     btnDesktopTabCad,
     desktopScenarioPanel,
     desktopCadPanel,
-    desktopCutawayHost
+    desktopCutawayHost,
+    true
   );
+
+  // Cutaway Enlarge / Full View Toggle
+  const btnCutawayZoom = document.getElementById("btnCutawayZoom");
+  if (btnCutawayZoom && cutawayCard) {
+    function toggleCutawayEnlarge(enlarge) {
+      const willEnlarge = enlarge !== undefined ? enlarge : !cutawayCard.classList.contains("enlarged");
+      triggerHaptic([12]);
+      const zoomInIcon = btnCutawayZoom.querySelector(".zoom-in-icon");
+      const zoomOutIcon = btnCutawayZoom.querySelector(".zoom-out-icon");
+      const zoomLabel = btnCutawayZoom.querySelector(".zoom-label");
+
+      if (willEnlarge) {
+        cutawayCard.classList.add("enlarged");
+        if (zoomInIcon) zoomInIcon.style.display = "none";
+        if (zoomOutIcon) zoomOutIcon.style.display = "inline-block";
+        if (zoomLabel) zoomLabel.textContent = "Close";
+        btnCutawayZoom.setAttribute("aria-label", "Close Fullscreen Cutaway View");
+      } else {
+        cutawayCard.classList.remove("enlarged");
+        if (zoomInIcon) zoomInIcon.style.display = "inline-block";
+        if (zoomOutIcon) zoomOutIcon.style.display = "none";
+        if (zoomLabel) zoomLabel.textContent = "Enlarge";
+        btnCutawayZoom.setAttribute("aria-label", "Open Fullscreen Cutaway View");
+      }
+    }
+
+    btnCutawayZoom.addEventListener("click", (e) => {
+      e.stopPropagation();
+      toggleCutawayEnlarge();
+    });
+
+    // Close on backdrop click (when clicking outside the inner modal content)
+    cutawayCard.addEventListener("click", (e) => {
+      if (cutawayCard.classList.contains("enlarged") && e.target === cutawayCard) {
+        toggleCutawayEnlarge(false);
+      }
+    });
+
+    // Close on Escape key
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && cutawayCard.classList.contains("enlarged")) {
+        toggleCutawayEnlarge(false);
+      }
+    });
+  }
 
   // Open Mobile Director Sheet (Legacy compatibility)
   if (btnOpenDemoSheet) {

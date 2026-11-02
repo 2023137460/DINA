@@ -3210,10 +3210,19 @@ a.app-status-badge.simulator-badge:focus-visible {
   background: var(--paper);
   border: var(--hairline);
   border-radius: 12px;
-  padding: 14px;
-  margin-bottom: 14px;
+  padding: 12px 10px;
+  margin-bottom: 12px;
   position: relative;
   overflow: hidden;
+  width: 100%;
+  box-sizing: border-box;
+  transition: transform 200ms var(--ease-out), box-shadow 200ms var(--ease-out);
+}
+
+.cutaway-inner-card {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .cutaway-header {
@@ -3221,6 +3230,14 @@ a.app-status-badge.simulator-badge:focus-visible {
   align-items: center;
   justify-content: space-between;
   margin-bottom: 10px;
+  gap: 8px;
+}
+
+.cutaway-header-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
 }
 
 .cutaway-title {
@@ -3232,6 +3249,33 @@ a.app-status-badge.simulator-badge:focus-visible {
   color: var(--ink);
 }
 
+.btn-cutaway-zoom {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: var(--sand);
+  border: var(--hairline);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 600;
+  padding: 4px 9px;
+  border-radius: 4px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 150ms ease, color 150ms ease, transform 120ms ease;
+  flex-shrink: 0;
+}
+
+.btn-cutaway-zoom:hover {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.btn-cutaway-zoom:active {
+  transform: scale(0.96);
+}
+
 .cutaway-svg-wrap {
   width: 100%;
   position: relative;
@@ -3239,12 +3283,92 @@ a.app-status-badge.simulator-badge:focus-visible {
   background: #EAE6D9;
   border: var(--hairline);
   overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .cutaway-svg {
   width: 100%;
+  max-width: 100%;
   height: auto;
   display: block;
+  margin: 0 auto;
+}
+
+/* Fullscreen / Enlarged Modal State */
+.cutaway-card.enlarged {
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 9999 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  height: 100dvh !important;
+  max-width: 100% !important;
+  max-height: 100% !important;
+  margin: 0 !important;
+  border: none !important;
+  border-radius: 0 !important;
+  padding: clamp(14px, 3vh, 28px) clamp(14px, 4vw, 36px) !important;
+  background: rgba(25, 25, 25, 0.76) !important;
+  backdrop-filter: blur(8px) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  box-sizing: border-box !important;
+  overflow-y: auto !important;
+}
+
+.cutaway-card.enlarged .cutaway-inner-card {
+  background: var(--paper);
+  border: 1.5px solid var(--stone);
+  border-radius: 14px;
+  padding: 16px 20px 20px;
+  width: 100%;
+  max-width: min(680px, 94vw);
+  max-height: min(92vh, 92dvh);
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.45);
+  box-sizing: border-box;
+  overflow-y: auto;
+}
+
+.cutaway-card.enlarged .cutaway-header {
+  padding-bottom: 8px;
+  border-bottom: var(--hairline);
+  margin-bottom: 12px;
+}
+
+.cutaway-card.enlarged .cutaway-svg-wrap {
+  background: var(--paper);
+  border: none;
+}
+
+.cutaway-card.enlarged .cutaway-svg {
+  max-width: min(580px, 100%);
+  max-height: calc(88vh - 80px);
+  max-height: calc(88dvh - 80px);
+  margin: 0 auto;
+}
+
+/* Mobile Sheet enhancements when CAD View is active */
+@media (max-width: 959px) {
+  .bottom-sheet:has(#directorCadPanel.active) {
+    max-height: 94vh;
+    max-height: 94dvh;
+  }
+
+  #directorCadPanel.active {
+    padding: 2px 0 16px;
+  }
+
+  #mobileCutawayHost .cutaway-card {
+    padding: 8px 4px;
+    margin-bottom: 8px;
+  }
 }
 
 /* Cutaway Animations: Hatch swing, container drop, airflow */
@@ -3654,24 +3778,40 @@ a.app-status-badge.simulator-badge:focus-visible {
 
 /* Director Panel (Desktop Sidebar & Mobile Bottom Sheet) */
 .director-panel {
-  width: 320px;
-  max-width: 340px;
+  width: 340px;
+  max-width: 360px;
   background: var(--sand);
   border: var(--hairline);
   border-radius: 16px;
-  padding: 18px;
+  padding: 16px;
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 12px;
   position: sticky;
   top: 20px;
   height: auto;
-  max-height: min(860px, calc(100vh - 40px));
-  max-height: min(860px, calc(100dvh - 40px));
+  max-height: min(880px, calc(100vh - 40px));
+  max-height: min(880px, calc(100dvh - 40px));
   overflow-y: auto;
   box-shadow: 0 16px 44px rgba(25, 25, 25, 0.08);
   box-sizing: border-box;
   flex-shrink: 0;
+  transition: width 240ms cubic-bezier(0.22, 0.61, 0.36, 1), max-width 240ms cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+/* Substantial enlargement when CAD & Cutaway tab is active on desktop/tablet */
+.director-panel.cad-active,
+.director-panel:has(#desktopCadPanel.active) {
+  width: min(520px, 48vw);
+  max-width: 540px;
+}
+
+@media (min-width: 1400px) {
+  .director-panel.cad-active,
+  .director-panel:has(#desktopCadPanel.active) {
+    width: 560px;
+    max-width: 600px;
+  }
 }
 
 @media (max-width: 959px) {
