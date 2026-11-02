@@ -14,8 +14,8 @@
   <link rel="icon" type="image/svg+xml" href="assets/icons/pwa-logo.svg">
   <link rel="icon" type="image/png" sizes="192x192" href="assets/images/pwa-icon-192.png">
   <link rel="apple-touch-icon" sizes="180x180" href="assets/images/apple-touch-icon.png">
-  <link rel="stylesheet" href="css/tokens.css?v=8.2">
-  <link rel="stylesheet" href="css/app.css?v=8.2">
+  <link rel="stylesheet" href="css/tokens.css?v=8.3">
+  <link rel="stylesheet" href="css/app.css?v=8.3">
 </head>
 <body class="app-body">
 
@@ -105,12 +105,14 @@
           </svg>
           <h1 class="app-header-title">DINA</h1>
         </div>
-        <a href="index.html#kitchen" class="app-status-badge simulator-badge" id="headerConnectionBadge" title="View Concept &amp; Engineering Validation Specs">
-          <span class="status-pulse-dot" id="headerPulseDot"></span>
-          <span id="headerStatusText">Concept Simulator &bull; Virtual Appliance</span>
-        </a>
-        <div class="header-clock-tag" title="Simulated afternoon clock for demo evaluation">
-          <span>Simulated:</span> <strong id="simClockDisplay">17:20</strong>
+        <div class="header-meta-row">
+          <a href="index.html#kitchen" class="app-status-badge simulator-badge" id="headerConnectionBadge" title="View Concept &amp; Engineering Validation Specs">
+            <span class="status-pulse-dot" id="headerPulseDot"></span>
+            <span id="headerStatusText">Concept Simulator</span>
+          </a>
+          <div class="header-clock-tag" title="Simulated afternoon clock for demo evaluation">
+            <span>Simulated:</span> <strong id="simClockDisplay">17:20</strong>
+          </div>
         </div>
       </div>
 
@@ -566,14 +568,6 @@
         </div>
       </section>
 
-              <button class="btn-action-primary" id="btnConfirmStore" style="padding: 12px 18px; font-size: 14px;" type="button">
-                Bring Container to Door &amp; Save
-              </button>
-            </div>
-          </div>
-        </div>
-      </section>
-
       <!-- TAB 3: RUNNING LATE (Live Animated Mock Location Map, Traffic Jam, Still at Work & ETA Sync) -->
       <section class="tab-content" id="tab-map">
         <div class="section-headline-block">
@@ -921,6 +915,6 @@
 
   </div>
 
-  <script src="js/app.js?v=8.2"></script>
+  <script src="js/app.js?v=8.3"></script>
 </body>
 </html>
