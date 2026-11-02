@@ -823,6 +823,8 @@ img {
 .halo-dot.amber { background: var(--clay); }
 .halo-dot.green { background: #4A8B63; }
 .halo-dot.blue  { background: #5B8EC0; }
+.halo-dot.amber-fast { background: #D9822B; }
+.halo-dot.red   { background: #C0392B; }
 
 /* Section 5: Kitchen Stats Lines */
 .stats-lines-grid {

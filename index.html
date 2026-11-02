@@ -215,9 +215,11 @@
               Operates closed-loop active thaw: forced-air convection at +10 &deg;C runs only until IR/NTC surface telemetry reads +4.0 &deg;C. The chamber then steps down to a +3.0 &deg;C hold while the core equalizes by conduction, keeping the meal fresh for up to 24 hours.
             </p>
             <div class="zone-halo-legend">
-              <span><strong class="halo-dot amber"></strong> Amber: Active Thaw (+10 &deg;C air)</span>
-              <span><strong class="halo-dot green"></strong> Green: Ready to Cook (+3.0 &deg;C hold)</span>
-              <span><strong class="halo-dot blue"></strong> Blue: Standby / &minus;18 &deg;C Vault</span>
+              <span><strong class="halo-dot blue"></strong> Blue: Standby (meals at &minus;18 &deg;C, drawer empty)</span>
+              <span><strong class="halo-dot amber"></strong> Amber (slow pulse): Thawing</span>
+              <span><strong class="halo-dot green"></strong> Green: Ready / holding at +3.0 &deg;C</span>
+              <span><strong class="halo-dot amber-fast"></strong> Amber (fast pulse): Safety warning (30&ndash;120 min)</span>
+              <span><strong class="halo-dot red"></strong> Red (pulse): Safety lockout</span>
             </div>
           </div>
         </div>
@@ -309,10 +311,10 @@
           <div class="calc-chips-grid">
             <button class="calc-meal-chip active" data-cat="salmon" type="button">Salmon Fillet</button>
             <button class="calc-meal-chip" data-cat="chicken" type="button">Chicken Breast</button>
-            <button class="calc-meal-chip" data-cat="ribeye" type="button">Angus Ribeye</button>
+            <button class="calc-meal-chip" data-cat="ribeye" type="button">Beef Ribeye</button>
             <button class="calc-meal-chip" data-cat="prawns" type="button">Tiger Prawns</button>
             <button class="calc-meal-chip" data-cat="vegetables" type="button">Fresh Vegetables</button>
-            <button class="calc-meal-chip" data-cat="lasagna" type="button">Artisanal Lasagna</button>
+            <button class="calc-meal-chip" data-cat="lasagna" type="button">Homemade Lasagna</button>
           </div>
 
           <div class="calc-controls-row">

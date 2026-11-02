@@ -27,7 +27,7 @@ document.addEventListener("DOMContentLoaded", () => {
       benefit: "Even circulating warmth with zero dry or rubbery microwave borders"
     },
     ribeye: {
-      name: "Prime Angus Ribeye",
+      name: "Beef Ribeye",
       base: 26,
       factor: 0.131, // 450g => 85 min active thaw
       defaultGrams: 450,
@@ -51,7 +51,7 @@ document.addEventListener("DOMContentLoaded", () => {
       benefit: "Gentle warming keeps cellular structure and fresh crispness intact"
     },
     lasagna: {
-      name: "Artisanal Lasagna Prep",
+      name: "Homemade Lasagna",
       base: 35,
       factor: 0.115, // 600g => 104 min active thaw
       defaultGrams: 600,

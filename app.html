@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>DINA App — Your Weeknight Dinner, Scheduled</title>
-  <meta name="description" content="DINA Companion App — Schedule tonight's dinner in one tap, browse your 8 stocked freezer meals, and keep dinner fridge-fresh at +3.0 °C if you're running late.">
+  <meta name="description" content="DINA Companion App — Concept Simulator &amp; Virtual Appliance. Schedule tonight's dinner, browse your stocked freezer meals, and keep dinner fridge-fresh at +3.0 °C.">
   <meta name="theme-color" content="#F1EFE5">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="mobile-web-app-capable" content="yes">
@@ -14,8 +14,8 @@
   <link rel="icon" type="image/svg+xml" href="assets/icons/pwa-logo.svg">
   <link rel="icon" type="image/png" sizes="192x192" href="assets/images/pwa-icon-192.png">
   <link rel="apple-touch-icon" sizes="180x180" href="assets/images/apple-touch-icon.png">
-  <link rel="stylesheet" href="css/tokens.css?v=8.3">
-  <link rel="stylesheet" href="css/app.css?v=8.3">
+  <link rel="stylesheet" href="css/tokens.css?v=10.0">
+  <link rel="stylesheet" href="css/app.css?v=10.0">
 </head>
 <body class="app-body">
 
@@ -29,7 +29,8 @@
         overflow: visible;
       }
       .sand-card svg.dina-icon,
-      .one-tap-prompt-card svg.dina-icon,
+      .lock-notification-card svg.dina-icon,
+      .status-hero-card svg.dina-icon,
       .drum-tier-card svg.dina-icon,
       .halo-simulator-card svg.dina-icon {
         filter: drop-shadow(1.8px 1.8px 0 var(--paper, #F1EFE5));
@@ -82,839 +83,1078 @@
     </style>
   </svg>
 
-  <!-- DINA Web App Shell (Optimised for Mobile, Tablet/iPad, and PC; works in browser or installed as PWA) -->
-  <div class="web-app-shell" id="appRoot" data-viewport="auto">
+  <!-- Responsive Layout: Centered Phone Shell on Mobile; Phone + Director Panel Side-by-Side on Desktop -->
+  <div class="app-layout-wrapper">
 
-    <!-- Top Web App Header -->
-    <header class="app-header">
-      <a href="index.html" class="app-header-back" title="Return to DINA Website" aria-label="Back to Website">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-          <line x1="19" y1="12" x2="5" y2="12"></line>
-          <polyline points="12 19 5 12 12 5"></polyline>
-        </svg>
-        <span class="app-back-label">DINA Site</span>
-      </a>
+    <!-- Primary Phone Shell (Max-Width 430px) -->
+    <main class="web-app-shell" id="appRoot" data-viewport="mobile">
 
-      <div class="app-header-center">
-        <div class="app-brand-title-row">
-          <svg class="dina-icon app-header-emblem" viewBox="0 0 48 48" width="22" height="22" aria-hidden="true">
-            <rect class="d" style="--i:0" pathLength="1" x="10" y="5" width="28" height="38" rx="2"/>
-            <path class="d" style="--i:1" pathLength="1" d="M10 28H38"/>
-            <path class="d" style="--i:2" pathLength="1" d="M32 12V21"/>
-            <g class="vb pulse-drawer"><circle class="d ac" style="--i:3" pathLength="1" cx="24" cy="36" r="3.2"/></g>
+      <!-- Top Web App Header -->
+      <header class="app-header">
+        <a href="index.html" class="app-header-back" title="Return to DINA Website" aria-label="Back to Website">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="19" y1="12" x2="5" y2="12"></line>
+            <polyline points="12 19 5 12 12 5"></polyline>
           </svg>
-          <h1 class="app-header-title">DINA</h1>
-        </div>
-        <div class="header-meta-row">
-          <a href="index.html#kitchen" class="app-status-badge simulator-badge" id="headerConnectionBadge" title="View Concept &amp; Engineering Validation Specs">
-            <span class="status-pulse-dot" id="headerPulseDot"></span>
-            <span id="headerStatusText">Concept Simulator</span>
-          </a>
-          <div class="header-clock-tag" title="Simulated afternoon clock for demo evaluation">
-            <span>Simulated:</span> <strong id="simClockDisplay">17:20</strong>
+          <span class="app-back-label">DINA Site</span>
+        </a>
+
+        <div class="app-header-center">
+          <div class="app-brand-title-row">
+            <svg class="dina-icon app-header-emblem" viewBox="0 0 48 48" width="20" height="20" aria-hidden="true">
+              <rect class="d" style="--i:0" pathLength="1" x="10" y="5" width="28" height="38" rx="2"/>
+              <path class="d" style="--i:1" pathLength="1" d="M10 28H38"/>
+              <path class="d" style="--i:2" pathLength="1" d="M32 12V21"/>
+              <g class="vb pulse-drawer"><circle class="d ac" style="--i:3" pathLength="1" cx="24" cy="36" r="3.2"/></g>
+            </svg>
+            <h1 class="app-header-title">DINA</h1>
           </div>
+          <div class="header-meta-row">
+            <a href="index.html" class="app-status-badge simulator-badge" id="headerConnectionBadge" title="Concept Simulator · Virtual Appliance (Link to Website)">
+              <span class="status-pulse-dot" id="headerPulseDot"></span>
+              <span id="headerStatusText">Concept Simulator &bull; Virtual Appliance</span>
+            </a>
+            <div class="header-led-chip" id="headerLedChip" title="Drawer Handle Physical Light Ring State">
+              <span class="led-indicator-dot blue" id="headerLedDot"></span>
+              <span id="headerLedText">Standby</span>
+            </div>
+            <div class="header-clock-tag" title="Simulated afternoon clock for demo evaluation">
+              <span>Simulated:</span> <strong id="simClockDisplay">15:00</strong>
+            </div>
+          </div>
+        </div>
+
+        <div class="app-header-actions">
+          <button class="app-header-btn" id="btnHeaderBell" title="Appliance Status Notification" aria-label="Appliance Status" type="button">
+            <svg class="dina-icon" viewBox="0 0 48 48" width="20" height="20" style="filter:none;" aria-hidden="true">
+              <g class="vb swing"><path class="d" style="--i:0" pathLength="1" d="M24 6C17 6 13 11 13 18V26L9 32H39L35 26V18C35 11 31 6 24 6Z"/><path class="d" style="--i:2" pathLength="1" d="M20 37a4 4 0 0 0 8 0"/></g><path class="d ac" style="--i:3" pathLength="1" d="M38 11a12 12 0 0 1 4 8M10 11a12 12 0 0 0 -4 8"/>
+            </svg>
+          </button>
+        </div>
+      </header>
+
+      <!-- Scrollable Main Content -->
+      <div class="app-main-content">
+
+        <!-- ====================================================================
+             TAB 1: TONIGHT (Connected Evening Flow, Status Hero, Cutaway, Pipeline)
+             ==================================================================== -->
+        <section class="tab-content active" id="tab-tonight" role="tabpanel" aria-label="Tonight's Dinner">
+
+          <!-- First-Run Guided Tour Prompt Card -->
+          <div class="lock-notification-card sand-card" id="tourPromptCard" role="region" aria-label="Guided Tour Prompt" style="background:var(--sand); margin-bottom:12px;">
+            <div class="lock-notif-header">
+              <span class="lock-notif-badge">Evaluation Walkthrough</span>
+              <button type="button" id="btnTourPromptSkip" style="background:none; border:none; color:var(--ink-soft); font-size:11px; cursor:pointer; font-weight:600;">Skip</button>
+            </div>
+            <p class="lock-notif-text">
+              Follow tonight&rsquo;s dinner in about 90 seconds.
+            </p>
+            <div style="display:flex; gap:8px; margin-top:4px;">
+              <button type="button" class="btn-hero-primary" id="btnTourPromptStart" style="font-size:11px; padding:7px 12px;">Start</button>
+              <button type="button" class="btn-hero-secondary" id="btnTourPromptDismiss" style="font-size:11px; padding:7px 10px;">Skip</button>
+            </div>
+          </div>
+
+          <!-- 15:00 Lock-Screen Style Afternoon Check-In Notification -->
+          <div class="lock-notification-card" id="lockNotificationCard" role="region" aria-label="15:00 Afternoon Check-In">
+            <div class="lock-notif-header">
+              <div class="lock-notif-title-row">
+                <svg class="dina-icon" viewBox="0 0 48 48" width="20" height="20" aria-hidden="true">
+                  <rect class="d" style="--i:0" pathLength="1" x="6" y="9" width="36" height="33" rx="3"/><path class="d" style="--i:1" pathLength="1" d="M6 18H42"/><path class="d" style="--i:1" pathLength="1" d="M15 5V12M33 5V12"/><g class="vb pulse-cal"><circle class="d ac" style="--i:2" pathLength="1" cx="33.5" cy="34" r="3.6"/></g>
+                </svg>
+                <span class="lock-notif-badge">15:00 Afternoon Check-In</span>
+              </div>
+              <span class="lock-notif-sub">Runs automatically if you&rsquo;re busy</span>
+            </div>
+            <p class="lock-notif-text" id="lockNotifQuestionText">
+              Tonight at <strong>19:30</strong>: Ready for <strong>Beef Ribeye</strong>?
+            </p>
+            <div class="lock-notif-actions">
+              <button type="button" class="btn-notif-action confirm" id="btnNotifYes">Sounds Good</button>
+              <button type="button" class="btn-notif-action" id="btnNotifSwap">Pick Another</button>
+              <button type="button" class="btn-notif-action" id="btnNotifSkip">Eating Out Tonight</button>
+            </div>
+          </div>
+
+          <!-- 1. Status Hero Card (Single sentence of state + number + primary action) -->
+          <div class="status-hero-card" id="statusHeroCard" aria-live="polite">
+            <div class="status-hero-meta">
+              <span class="status-hero-tag" id="heroPhaseTag">SCHEDULED</span>
+              <span class="status-hero-countdown" id="heroCountdownVal">Drops in 170 min</span>
+            </div>
+            <h2 class="status-hero-heading" id="heroHeading">Dinner is scheduled. Beef Ribeye drops at 17:50.</h2>
+            <p class="status-hero-sub" id="heroSubtext">Drawer starts empty in standby (+3.0 &deg;C zone). At 17:50, container drops for an 85 min gentle thaw + 15 min equalization.</p>
+            <div class="status-hero-actions" id="heroActions">
+              <button type="button" class="btn-hero-primary" id="btnHeroAction">Change Dinner</button>
+            </div>
+          </div>
+
+          <!-- 2. Cutaway Illustration (Mechanical cross-section: 110L vault, carousel, hatch, drawer) -->
+          <div class="cutaway-card" id="cutawayCard" aria-label="Appliance mechanical cutaway cross-section">
+            <div class="cutaway-header">
+              <span class="cutaway-title">Appliance Cutaway &bull; Cross-Section</span>
+              <span class="spec-status-tag cad">[CAD Verified Architecture]</span>
+            </div>
+            <div class="cutaway-svg-wrap">
+              <svg class="cutaway-svg" viewBox="0 0 380 230" aria-label="DINA upright freezer cutaway cross-section diagram">
+                <!-- Outer Insulated Cabinet Frame (60cm upright chassis) -->
+                <rect x="25" y="10" width="330" height="210" rx="4" fill="#F1EFE5" stroke="#191919" stroke-width="2"/>
+                
+                <!-- Zone 1 Divider: Upper Manual Storage Shelves (110 L Vault at -18 °C) -->
+                <rect x="35" y="18" width="310" height="42" fill="#EAE6D9" stroke="#9E9696" stroke-width="1.2"/>
+                <line x1="35" y1="38" x2="345" y2="38" stroke="#9E9696" stroke-width="1" stroke-dasharray="3 2"/>
+                <text x="45" y="32" fill="#5A5753" font-family="Archivo, sans-serif" font-size="9.5" font-weight="700">110 L FREEZER VAULT &bull; &minus;18.0 &deg;C</text>
+                <text x="250" y="32" fill="#5A5753" font-family="Archivo, sans-serif" font-size="9" font-weight="600">Manual Shelves</text>
+
+                <!-- Zone 2: Middle Revolving Carousel Chamber (-18 °C) -->
+                <rect x="35" y="66" width="310" height="84" fill="#F1EFE5" stroke="#9E9696" stroke-width="1.2"/>
+                <circle cx="190" cy="108" r="38" fill="#EAE6D9" stroke="#191919" stroke-width="1.5"/>
+                
+                <!-- Revolving Rotor Structure -->
+                <g id="cutawayRotor" transform="rotate(0 190 108)">
+                  <line x1="190" y1="72" x2="190" y2="144" stroke="#9E9696" stroke-width="1.2"/>
+                  <line x1="154" y1="90" x2="226" y2="126" stroke="#9E9696" stroke-width="1.2"/>
+                  <line x1="154" y1="126" x2="226" y2="90" stroke="#9E9696" stroke-width="1.2"/>
+                  <!-- Tonight's Container in Slot -->
+                  <rect id="cutawaySlotContainer" x="175" y="72" width="30" height="10" rx="2" fill="#C0775B" stroke="#191919" stroke-width="1"/>
+                  <rect x="210" y="92" width="10" height="16" rx="2" fill="#DAD8CB" stroke="#191919" stroke-width="1"/>
+                  <rect x="210" y="114" width="10" height="16" rx="2" fill="#DAD8CB" stroke="#191919" stroke-width="1"/>
+                  <rect x="175" y="128" width="30" height="10" rx="2" fill="#FFFFFF" stroke="#9E9696" stroke-width="1" stroke-dasharray="2 1"/>
+                  <rect x="156" y="114" width="10" height="16" rx="2" fill="#DAD8CB" stroke="#191919" stroke-width="1"/>
+                  <rect x="156" y="92" width="10" height="16" rx="2" fill="#DAD8CB" stroke="#191919" stroke-width="1"/>
+                </g>
+                <circle cx="190" cy="108" r="8" fill="#F1EFE5" stroke="#191919" stroke-width="1.5"/>
+                <text x="45" y="80" fill="#5A5753" font-family="Archivo, sans-serif" font-size="9" font-weight="700">CAROUSEL DRUM (11 MEALS)</text>
+
+                <!-- Pass-through Airlock Chimney (Slot 12) -->
+                <rect x="173" y="146" width="34" height="16" fill="#DAD8CB" stroke="#191919" stroke-width="1.2"/>
+                <text x="215" y="156" fill="#5A5753" font-family="Archivo, sans-serif" font-size="8.5" font-weight="600">Airlock Chute (2.5 s)</text>
+
+                <!-- Motorized Sealed Airlock Hatch Flap -->
+                <g id="cutawayHatchGroup">
+                  <line id="cutawayHatchFlap" x1="172" y1="162" x2="208" y2="162" stroke="#191919" stroke-width="3" stroke-linecap="round"/>
+                </g>
+
+                <!-- Smart Pause Warning Tag on Cutaway -->
+                <g id="cutawaySmartPauseTag" transform="translate(190, 154)" hidden>
+                  <rect x="-42" y="-9" width="84" height="18" rx="4" fill="#C0775B"/>
+                  <text x="0" y="3" text-anchor="middle" fill="#FFFFFF" font-family="Archivo, sans-serif" font-size="8.5" font-weight="700">SMART PAUSE</text>
+                </g>
+
+                <!-- Moving Container Dropping from Chimney to Drawer -->
+                <g id="cutawayDropContainer" transform="translate(175, 146)" opacity="0">
+                  <rect x="0" y="0" width="30" height="11" rx="2" fill="#C0775B" stroke="#191919" stroke-width="1.2"/>
+                </g>
+
+                <!-- Zone 3: Independent Defrost Drawer (+3.0 °C Zone) -->
+                <rect id="cutawayDrawerGlow" x="35" y="166" width="310" height="48" fill="#EAE6D9" stroke="#191919" stroke-width="1.5"/>
+                <!-- Drawer Pull Handle with Live Halo Glow Indicator -->
+                <rect id="cutawayHandleGlow" x="338" y="174" width="5" height="32" rx="2" fill="#5B8EC0"/>
+                
+                <!-- Convection Crossflow Fan & Airflow Paths -->
+                <g id="cutawayAirflow" opacity="0">
+                  <circle cx="58" cy="190" r="10" fill="#DAD8CB" stroke="#191919" stroke-width="1.2"/>
+                  <path d="M 58 183 V 197 M 51 190 H 65" stroke="#191919" stroke-width="1.2"/>
+                  <path class="cutaway-air-flow" d="M 72 186 C 110 180, 150 180, 172 186" fill="none" stroke="#C0775B" stroke-width="1.5"/>
+                  <path class="cutaway-air-flow" d="M 72 194 C 110 200, 150 200, 172 194" fill="none" stroke="#C0775B" stroke-width="1.5"/>
+                </g>
+
+                <!-- Container Resting Inside Defrost Drawer -->
+                <g id="cutawayDrawerContainer" transform="translate(175, 186)" opacity="0">
+                  <rect x="0" y="0" width="30" height="11" rx="2" fill="#C0775B" stroke="#191919" stroke-width="1.2"/>
+                  <!-- Frost Layer Overlay on Container Lid -->
+                  <rect id="cutawayFrostLayer" x="1" y="1" width="28" height="9" rx="1" fill="#FFFFFF" opacity="0.8"/>
+                </g>
+
+                <text x="45" y="180" fill="#5A5753" font-family="Archivo, sans-serif" font-size="9" font-weight="700">DEFROST DRAWER (+3.0 &deg;C)</text>
+                <text id="cutawayDrawerStatusText" x="45" y="206" fill="#191919" font-family="Archivo, sans-serif" font-size="8.5" font-weight="600">Status: Empty &bull; Standby</text>
+              </svg>
+            </div>
+          </div>
+
+          <!-- 3. Four-Stage Timeline (Frozen -> Active Thaw -> Equalize -> Hold) -->
+          <div class="thaw-stage-pipeline four-stage-pipeline" aria-label="Tonight's 4-stage automatic dinner plan">
+            <div class="stage-step" id="stageStepFrozen">
+              <svg class="dina-icon" viewBox="0 0 48 48" width="18" height="18" style="filter:none;" aria-hidden="true">
+                <g class="vb spin-snow"><path class="d" style="--i:0" pathLength="1" d="M24 8V40M10 16L38 32M38 16L10 32"/></g><circle class="d ac" style="--i:1" pathLength="1" cx="24" cy="24" r="2.5"/>
+              </svg>
+              <span class="stage-label">1. Frozen</span>
+              <span class="stage-sub" id="stageDropTimeLabel">-18 &deg;C (Until 17:50)</span>
+            </div>
+            <div class="stage-step" id="stageStepActiveThaw">
+              <svg class="dina-icon" viewBox="0 0 48 48" width="18" height="18" style="filter:none;" aria-hidden="true">
+                <circle class="d" style="--i:0" pathLength="1" cx="24" cy="24" r="18"/><g class="vb spin-fan"><path class="d" style="--i:1" pathLength="1" d="M24 21C23 13 27 8 33 9C34.5 15 30 20 24 21Z"/><g transform="rotate(120 24 24)"><path class="d" style="--i:1" pathLength="1" d="M24 21C23 13 27 8 33 9C34.5 15 30 20 24 21Z"/></g><g transform="rotate(240 24 24)"><path class="d" style="--i:1" pathLength="1" d="M24 21C23 13 27 8 33 9C34.5 15 30 20 24 21Z"/></g></g><circle class="d ac" style="--i:2" pathLength="1" cx="24" cy="24" r="2.8"/>
+              </svg>
+              <span class="stage-label">2. Active Thaw</span>
+              <span class="stage-sub" id="stageThawDurationLabel">+10 &deg;C (~85m)</span>
+            </div>
+            <div class="stage-step" id="stageStepEqualization">
+              <svg class="dina-icon" viewBox="0 0 48 48" width="18" height="18" style="filter:none;" aria-hidden="true">
+                <rect class="d" style="--i:0" pathLength="1" x="10" y="10" width="28" height="28" rx="2"/>
+                <path class="d ac" style="--i:1" pathLength="1" d="M10 24h28M24 10v28"/>
+                <circle class="d" style="--i:2" pathLength="1" cx="24" cy="24" r="4.5"/>
+              </svg>
+              <span class="stage-label">3. Equalize</span>
+              <span class="stage-sub" id="stageEqualizeDurationLabel">Soak (~15m)</span>
+            </div>
+            <div class="stage-step" id="stageStepHold">
+              <svg class="dina-icon" viewBox="0 0 48 48" width="18" height="18" style="filter:none;" aria-hidden="true">
+                <circle class="d" style="--i:0" pathLength="1" cx="26" cy="28" r="11"/><path class="d" style="--i:1" pathLength="1" d="M9 8V40M40 8V40"/><g class="steam"><path class="d ac" style="--i:2" pathLength="1" d="M24 14c-2-2 2-4 0-6"/></g>
+              </svg>
+              <span class="stage-label">4. Hold</span>
+              <span class="stage-sub" id="stageHoldDurationLabel">+3.0 &deg;C (&le; 24h)</span>
+            </div>
+          </div>
+          <div class="pipeline-progress-track">
+            <div class="pipeline-progress-bar" id="pipelineProgressBar"></div>
+          </div>
+
+          <!-- 4. Live Thaw Card (Visible during thaw and equalize phases) -->
+          <div class="live-thaw-card" id="liveThawCard" hidden>
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <span class="form-label" style="margin:0;">Live Defrost Telemetry</span>
+              <span class="spec-status-tag thermal">[Thermal Model &bull; Design Logic]</span>
+            </div>
+            <div class="thaw-metrics-split">
+              <!-- Radial Progress Ring -->
+              <div class="thaw-ring-box">
+                <svg class="thaw-ring-svg" viewBox="0 0 64 64">
+                  <circle cx="32" cy="32" r="26" fill="none" stroke="#EAE6D9" stroke-width="5"/>
+                  <circle id="thawRingProgressCircle" cx="32" cy="32" r="26" fill="none" stroke="#C0775B" stroke-width="5" stroke-linecap="round" stroke-dasharray="163.36" stroke-dashoffset="163.36"/>
+                </svg>
+                <div class="thaw-ring-text-center">
+                  <span class="thaw-ring-pct" id="thawRingPct">0%</span>
+                  <span class="thaw-ring-unit">Thawed</span>
+                </div>
+              </div>
+              <div class="thaw-readings-col">
+                <div class="thaw-reading-line">
+                  <span>Convection Air:</span>
+                  <strong id="thawLiveAirC">+10.0 &deg;C</strong>
+                </div>
+                <div class="thaw-reading-line">
+                  <span>Food Surface:</span>
+                  <strong id="thawLiveSurfaceC">&minus;18.0 &deg;C</strong>
+                </div>
+                <div class="thaw-reading-line">
+                  <span>Surface Cutoff Limit:</span>
+                  <span>&le; +4.0 &deg;C</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Mini SVG Temperature vs Time Chart (Surface vs Core with Needle) -->
+            <div class="thaw-chart-wrap">
+              <svg class="thaw-chart-svg" viewBox="0 0 320 80" aria-label="Surface and Core temperature curves over time">
+                <!-- Zero Degree Line -->
+                <line x1="20" y1="46" x2="305" y2="46" stroke="#9E9696" stroke-width="0.8" stroke-dasharray="3 2"/>
+                <text x="22" y="44" fill="#9E9696" font-family="Archivo, sans-serif" font-size="8">0 &deg;C</text>
+                <!-- +4 °C Cutoff Line -->
+                <line x1="20" y1="28" x2="305" y2="28" stroke="#C0775B" stroke-width="0.8" stroke-dasharray="2 2" opacity="0.6"/>
+                <text x="22" y="26" fill="#C0775B" font-family="Archivo, sans-serif" font-size="8">+4 &deg;C Cutoff</text>
+                <!-- Surface Temperature Curve (Clay) -->
+                <path d="M 30 72 Q 70 50, 110 48 T 200 44 Q 240 38, 270 28 T 300 32" fill="none" stroke="#C0775B" stroke-width="2"/>
+                <!-- Core Temperature Curve (Ink Soft) -->
+                <path d="M 30 72 Q 90 70, 150 62 T 240 52 Q 280 44, 300 32" fill="none" stroke="#5A5753" stroke-width="2"/>
+                <!-- Scrubber Needle Indicator -->
+                <line id="thawChartScrubberLine" x1="30" y1="10" x2="30" y2="76" stroke="#191919" stroke-width="1.8"/>
+              </svg>
+            </div>
+            <div class="thaw-chart-legend">
+              <span style="color:var(--clay); font-weight:600;">&bull; Surface (Cutoff &le; +4.0 &deg;C)</span>
+              <span style="color:var(--ink-soft); font-weight:600;">&bull; Core (Soak to +3.0 &deg;C)</span>
+              <span style="font-size:9.5px;">Modelled estimates</span>
+            </div>
+          </div>
+
+          <!-- 5. Evening Commute Card (Replaces old Running Late tab on main screen) -->
+          <div class="evening-card" id="eveningCard">
+            <div class="evening-card-header">
+              <span class="evening-card-title">Evening Commute &amp; Delay Protection</span>
+              <span class="spec-status-tag target">[On-Phone Privacy]</span>
+            </div>
+            <p class="evening-commute-status" id="eveningCommuteText">
+              Route clear &bull; <strong>ETA 19:20</strong> &bull; Dinner scheduled for 19:30
+            </p>
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <button type="button" class="btn-evening-map" id="btnOpenMapSheet">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"></polygon>
+                  <line x1="8" y1="2" x2="8" y2="18"></line>
+                  <line x1="16" y1="6" x2="16" y2="22"></line>
+                </svg>
+                <span>View Live Commute Map</span>
+              </button>
+              <span style="font-size:10.5px; color:var(--ink-soft);">Auto-switches to hold if late</span>
+            </div>
+          </div>
+
+          <!-- 6. Quick Actions Strip -->
+          <div class="quick-actions-strip">
+            <button type="button" class="btn-strip-action" id="btnQuickChangeDinner">Change Dinner</button>
+            <button type="button" class="btn-strip-action" id="btnQuickEatingOut">Eating Out Tonight</button>
+            <button type="button" class="btn-strip-action" id="btnQuickHold30">Hold +30 min</button>
+          </div>
+
+          <!-- Do-Not-Refreeze Food Safety Note -->
+          <div class="do-not-refreeze-notice">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+            <span><strong>Food Safety:</strong> Once thawed in drawer, do not refreeze &bull; Consume within 24 h at +3.0 &deg;C.</span>
+          </div>
+
+        </section>
+
+        <!-- ====================================================================
+             TAB 2: FREEZER (Carousel Inventory, Stocking, Container Details)
+             ==================================================================== -->
+        <section class="tab-content" id="tab-freezer" role="tabpanel" aria-label="Freezer Inventory">
+          <div class="section-headline-block">
+            <div class="headline-with-icon">
+              <svg class="dina-icon" viewBox="0 0 48 48" width="30" height="30" aria-hidden="true">
+                <circle class="d" style="--i:0" pathLength="1" cx="24" cy="24" r="19"/><circle class="d" style="--i:1" pathLength="1" cx="24" cy="24" r="4"/><g class="vb spin-drum"><path class="d" style="--i:2" pathLength="1" d="M24 20L24 5M27.46 22L40.45 14.5M27.46 26L40.45 33.5M24 28L24 43M20.54 26L7.55 33.5M20.54 22L7.55 14.5"/><circle class="d ac" style="--i:3" pathLength="1" cx="36" cy="24" r="2.6"/></g>
+              </svg>
+              <div>
+                <h2>What&rsquo;s in My Freezer (<span id="freezerStockedCount">8</span> of 11 Stocked)</h2>
+                <p>8 containers stocked &bull; 3 open spots &bull; 1 dedicated auto-drop chute &bull; 2.5 s indexing access</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Carousel Visualizer Wheel -->
+          <div class="drum-wheel-visualizer">
+            <div class="drum-wheel-svg-box">
+              <svg viewBox="0 0 120 120" width="96" height="96" aria-label="Interactive rotating meal carousel">
+                <circle cx="60" cy="60" r="52" fill="#F1EFE5" stroke="#191919" stroke-width="2"/>
+                <g id="interactiveDrumRotor" class="drum-rotor-group">
+                  <line x1="60" y1="8" x2="60" y2="112" stroke="#9E9696" stroke-width="1.5"/>
+                  <line x1="15" y1="34" x2="105" y2="86" stroke="#9E9696" stroke-width="1.5"/>
+                  <line x1="105" y1="34" x2="15" y2="86" stroke="#9E9696" stroke-width="1.5"/>
+                  <circle cx="60" cy="24" r="10" fill="#C0775B"/>
+                  <circle cx="91" cy="42" r="9" fill="#DAD8CB" stroke="#191919" stroke-width="1.5"/>
+                  <circle cx="91" cy="78" r="9" fill="#DAD8CB" stroke="#191919" stroke-width="1.5"/>
+                  <circle cx="60" cy="96" r="9" fill="#FFFFFF" stroke="#191919" stroke-width="1.5" stroke-dasharray="3 2"/>
+                  <circle cx="29" cy="78" r="9" fill="#DAD8CB" stroke="#191919" stroke-width="1.5"/>
+                  <circle cx="29" cy="42" r="9" fill="#DAD8CB" stroke="#191919" stroke-width="1.5"/>
+                </g>
+                <circle cx="60" cy="60" r="12" fill="#F1EFE5" stroke="#191919" stroke-width="2"/>
+                <circle cx="60" cy="60" r="4" fill="#C0775B"/>
+              </svg>
+            </div>
+            <div class="drum-wheel-copy">
+              <span class="caption clay-text">Insulated Front Door Access <span class="spec-status-tag cad">[CAD Verified]</span></span>
+              <strong id="drumWheelStatusTitle">Container 02 at Door (Beef Ribeye, 450 g)</strong>
+              <p>Dedicated insulated access door lets you slide meals in and out without opening the main freezer door or exposing 110 L of frozen food to warm kitchen air.</p>
+            </div>
+          </div>
+
+          <!-- Upper Carousel Ring (6 Containers) -->
+          <div class="drum-tier-card">
+            <div class="drum-tier-header">
+              <span class="drum-tier-title">Upper Ring (6 Meal Containers)</span>
+              <span class="drum-tier-badge" id="upperRingBadge">6 / 6 Stocked</span>
+            </div>
+            <div class="drum-slots-row">
+              <button class="drum-slot-btn" data-slot="01" type="button" aria-label="Container 01: Organic Chicken Breast, 500g">
+                <span class="slot-num">01</span>
+                <span class="slot-name">Chicken (500g)</span>
+              </button>
+              <button class="drum-slot-btn active" data-slot="02" type="button" aria-label="Container 02: Beef Ribeye, 450g">
+                <span class="slot-num">02</span>
+                <span class="slot-name">Ribeye (450g)</span>
+              </button>
+              <button class="drum-slot-btn" data-slot="03" type="button" aria-label="Container 03: Atlantic Salmon Fillet, 320g">
+                <span class="slot-num">03</span>
+                <span class="slot-name">Salmon (320g)</span>
+              </button>
+              <button class="drum-slot-btn" data-slot="04" type="button" aria-label="Container 04: Wild Tiger Prawns, 250g">
+                <span class="slot-num">04</span>
+                <span class="slot-name">Prawns (250g)</span>
+              </button>
+              <button class="drum-slot-btn" data-slot="05" type="button" aria-label="Container 05: Homemade Lasagna, 600g">
+                <span class="slot-num">05</span>
+                <span class="slot-name">Lasagna (600g)</span>
+              </button>
+              <button class="drum-slot-btn" data-slot="06" type="button" aria-label="Container 06: Pork Tenderloin Medallions, 350g">
+                <span class="slot-num">06</span>
+                <span class="slot-name">Pork (350g)</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Lower Carousel Ring (5 Containers + Drop Chute) -->
+          <div class="drum-tier-card">
+            <div class="drum-tier-header">
+              <span class="drum-tier-title">Lower Ring (5 Containers + Drop Chute)</span>
+              <span class="drum-tier-badge" id="lowerRingBadge">3 Open Spots</span>
+            </div>
+            <div class="drum-slots-row">
+              <button class="drum-slot-btn" data-slot="07" type="button" aria-label="Container 07: Atlantic Codfish Loins, 400g">
+                <span class="slot-num">07</span>
+                <span class="slot-name">Codfish (400g)</span>
+              </button>
+              <button class="drum-slot-btn" data-slot="08" type="button" aria-label="Container 08: Filet Mignon Steak, 300g">
+                <span class="slot-num">08</span>
+                <span class="slot-name">Mignon (300g)</span>
+              </button>
+              <button class="drum-slot-btn empty" data-slot="09" type="button" aria-label="Container 09: Empty slot, tap to stock">
+                <span class="slot-num">09</span>
+                <span class="slot-name">+ Add Meal</span>
+              </button>
+              <button class="drum-slot-btn empty" data-slot="10" type="button" aria-label="Container 10: Empty slot, tap to stock">
+                <span class="slot-num">10</span>
+                <span class="slot-name">+ Add Meal</span>
+              </button>
+              <button class="drum-slot-btn empty" data-slot="11" type="button" aria-label="Container 11: Empty slot, tap to stock">
+                <span class="slot-num">11</span>
+                <span class="slot-name">+ Add Meal</span>
+              </button>
+              <button class="drum-slot-btn chimney" data-slot="12" type="button" title="Dedicated pass-through path that lets upper meals drop into the defrost drawer" aria-label="Slot 12: Dedicated auto-drop path chute">
+                <span class="slot-num" style="color: var(--ink-soft);">Chute</span>
+                <span class="slot-name" style="color: var(--ink-soft);">Drop Path</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Selected Container Details Bar -->
+          <div class="load-form-card" id="slotDetailCard">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <span class="form-label" style="margin:0;">Selected Container: <strong id="slotDetailName" style="color:var(--clay)">Beef Ribeye</strong></span>
+              <span class="spec-status-tag logic" id="slotDetailStatus">Ready in Drum</span>
+            </div>
+            <p id="slotDetailInfo" style="font-size:12px; color:var(--ink-soft); margin:6px 0 10px;">
+              Container 02 &bull; 450 g &bull; Modelled thaw time: ~85 min (+ 15 min equalization).
+            </p>
+            <div style="display:flex; gap:8px;">
+              <button type="button" class="btn-action-primary" id="btnUseSlotForTonight" style="font-size:12px; padding:10px 14px;">
+                Use for Tonight
+              </button>
+              <button type="button" class="btn-action-secondary" id="btnOpenAddMealSheet" style="font-size:12px; padding:10px 14px;">
+                Stock New Meal
+              </button>
+            </div>
+          </div>
+
+        </section>
+
+        <!-- ====================================================================
+             TAB 3: KITCHEN & CARE (Telemetry, Closed-Loop, Power Safety, Settings)
+             ==================================================================== -->
+        <section class="tab-content" id="tab-kitchen" role="tabpanel" aria-label="Kitchen &amp; Everyday Care">
+          <div class="section-headline-block">
+            <div class="headline-with-icon">
+              <svg class="dina-icon" viewBox="0 0 48 48" width="30" height="30" aria-hidden="true">
+                <path class="d" style="--i:0" pathLength="1" d="M24 5L39 10V22C39 32 32 39 24 43C16 39 9 32 9 22V10Z"/><g class="chk"><path class="d ac" style="--i:2" pathLength="1" d="M16.5 24L22 29.5L32 18.5"/></g>
+              </svg>
+              <div>
+                <h2>Your Kitchen &amp; Everyday Care</h2>
+                <p>Telemetry, thermal sensors, food safety guard, and appliance hygiene</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- 4 Telemetry Cells (Main freezer, Drawer, Fridge hold, Power guard) -->
+          <div class="telemetry-grid">
+            <div class="telem-cell">
+              <div class="telem-cell-top">
+                <span class="telem-cell-title">Main Freezer</span>
+                <svg class="dina-icon" viewBox="0 0 48 48" width="20" height="20" style="filter:none;" aria-hidden="true">
+                  <g class="vb spin-snow"><path class="d" style="--i:0" pathLength="1" d="M24 8V40M10 16L38 32M38 16L10 32"/></g><circle class="d ac" style="--i:1" pathLength="1" cx="24" cy="24" r="2.5"/>
+                </svg>
+              </div>
+              <div class="telem-cell-val">&minus;18.0 &deg;C</div>
+              <span class="telem-cell-sub">11 Meals + 110 L Vault <span class="spec-status-tag cad">[CAD Verified]</span></span>
+            </div>
+
+            <div class="telem-cell">
+              <div class="telem-cell-top">
+                <span class="telem-cell-title">Defrost Drawer</span>
+                <svg class="dina-icon" viewBox="0 0 48 48" width="20" height="20" style="filter:none;" aria-hidden="true">
+                  <circle class="d" style="--i:0" pathLength="1" cx="24" cy="24" r="18"/><g class="vb spin-fan"><path class="d" style="--i:1" pathLength="1" d="M24 21C23 13 27 8 33 9C34.5 15 30 20 24 21Z"/><g transform="rotate(120 24 24)"><path class="d" style="--i:1" pathLength="1" d="M24 21C23 13 27 8 33 9C34.5 15 30 20 24 21Z"/></g><g transform="rotate(240 24 24)"><path class="d" style="--i:1" pathLength="1" d="M24 21C23 13 27 8 33 9C34.5 15 30 20 24 21Z"/></g></g><circle class="d ac" style="--i:2" pathLength="1" cx="24" cy="24" r="2.8"/>
+                </svg>
+              </div>
+              <div class="telem-cell-val" id="telemDrawerTemp" style="font-size:12.5px; line-height:1.3; color:var(--ink);">Empty &bull; standby</div>
+              <span class="telem-cell-sub" id="telemDrawerSub">Independent +3.0 &deg;C Zone <span class="spec-status-tag thermal">[Thermal Model]</span></span>
+            </div>
+
+            <div class="telem-cell">
+              <div class="telem-cell-top">
+                <span class="telem-cell-title">Fridge Hold</span>
+                <svg class="dina-icon" viewBox="0 0 48 48" width="20" height="20" style="filter:none;" aria-hidden="true">
+                  <path class="d" style="--i:0" pathLength="1" d="M24 5L39 10V22C39 32 32 39 24 43C16 39 9 32 9 22V10Z"/><path class="d ac" style="--i:1" pathLength="1" d="M17 24L22 29L31 19"/>
+                </svg>
+              </div>
+              <div class="telem-cell-val">+3.0 &deg;C</div>
+              <span class="telem-cell-sub">Uniform +3.0 &deg;C (&le; 24 h) <span class="spec-status-tag logic">[Design Logic]</span></span>
+            </div>
+
+            <div class="telem-cell">
+              <div class="telem-cell-top">
+                <span class="telem-cell-title">Power-Cut Guard</span>
+                <svg class="dina-icon" viewBox="0 0 48 48" width="20" height="20" style="filter:none;" aria-hidden="true">
+                  <path class="d" style="--i:0" pathLength="1" d="M27 5L11 27H23L21 43L37 21H25Z"/>
+                </svg>
+              </div>
+              <div class="telem-cell-val" id="telemBlackoutVal">All Good</div>
+              <span class="telem-cell-sub" id="telemBlackoutSub">Safe: Resumed (&lt; 30m) <span class="spec-status-tag logic">[USDA Rule]</span></span>
+            </div>
+          </div>
+
+          <!-- Closed-Loop Sensing & Thermal Control Card -->
+          <div class="closed-loop-card">
+            <div class="closed-loop-header">
+              <span class="closed-loop-title">Closed-Loop Sensing &amp; Thermal Control</span>
+              <span class="spec-status-tag thermal">[Design Logic]</span>
+            </div>
+            <p style="font-size:11.5px; color:var(--ink-soft); margin:0;">
+              Food surface limit (&le; +4.0 &deg;C) is monitored via lid-mounted NTC thermistor probe / chamber thermopiles. Air is controlled via setpoint switching with &plusmn;0.5 &deg;C hysteresis (not PID), preventing edge-cooking.
+            </p>
+            <div class="closed-loop-grid">
+              <div class="closed-loop-cell">
+                <span class="closed-loop-cell-title">Convection Air</span>
+                <span class="closed-loop-cell-val" id="clFanState">Standby</span>
+                <span class="closed-loop-cell-sub" id="clFanSub">Duct Setpoint</span>
+              </div>
+              <div class="closed-loop-cell">
+                <span class="closed-loop-cell-title">Food Surface</span>
+                <span class="closed-loop-cell-val" id="clSurfaceTemp">Standby</span>
+                <span class="closed-loop-cell-sub">Limit &le; +4.0 &deg;C</span>
+              </div>
+              <div class="closed-loop-cell">
+                <span class="closed-loop-cell-title">Core Temperature</span>
+                <span class="closed-loop-cell-val" id="clCoreTemp">Standby</span>
+                <span class="closed-loop-cell-sub">Soaks to +3.0 &deg;C</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Power-Cut Protection Stepper (20 min, 45 min, 130 min) -->
+          <div class="load-form-card" style="margin-top:14px;">
+            <span class="form-label" style="margin-top:0;">Power-Cut Protection &bull; Stepped Outage Simulation</span>
+            <div class="power-cut-stepper" aria-label="Power cut duration selector">
+              <button type="button" class="pcut-step-btn active" data-duration="0" id="btnPcut0">
+                <strong>Normal (0m)</strong>
+                <span>Continuous Power</span>
+              </button>
+              <button type="button" class="pcut-step-btn" data-duration="20" id="btnPcut20">
+                <strong>&lt; 30 min (20m)</strong>
+                <span>Recoverable</span>
+              </button>
+              <button type="button" class="pcut-step-btn" data-duration="45" id="btnPcut45">
+                <strong>30&ndash;120 min (45m)</strong>
+                <span>Tier 1 Warning</span>
+              </button>
+              <button type="button" class="pcut-step-btn" data-duration="130" id="btnPcut130">
+                <strong>&gt; 120 min (130m)</strong>
+                <span>Tier 2 Lockout</span>
+              </button>
+            </div>
+
+            <!-- Demo Scenarios Buttons -->
+            <div class="demo-scenarios-list" style="margin-top:12px;">
+              <button type="button" class="scenario-btn" id="btnSimDrawerOpen">
+                <span>What if a dish is still in the drawer at drop time?</span>
+                <span class="scenario-tag" id="tagDrawerOccupied">Smart Pause</span>
+              </button>
+              <button type="button" class="scenario-btn" id="btnSimDishClean">
+                <span>Removable Condensate Drip Tray Care</span>
+                <span class="scenario-tag">Dishwasher-Safe</span>
+              </button>
+            </div>
+
+            <!-- Scenario Feedback Notice -->
+            <div class="scenario-feedback-card" id="scenarioFeedbackBox" hidden>
+              <p id="scenarioFeedbackText" style="margin:0;"></p>
+            </div>
+          </div>
+
+          <!-- Unified Handle Light Ring Guide -->
+          <div class="halo-simulator-card" style="margin-top:14px;">
+            <span class="drum-tier-title">Drawer Handle Light Ring Guide</span>
+            <p style="font-size:12px; color:var(--ink-soft); margin-top:4px;">Single unified legend matching index.html and hardware PRD</p>
+            
+            <div class="halo-ring-visual blue" id="haloRingVisual"></div>
+            <p id="haloStateLabel" style="font-size:12.5px; font-weight:600; color:var(--ink);">Blue &mdash; Standby (all meals deep-frozen, drawer empty)</p>
+            
+            <!-- Manual Preview Buttons (Auto-reverts after 5 seconds) -->
+            <div class="halo-buttons-row">
+              <button class="halo-btn active" data-mode="blue" type="button">Blue (Standby)</button>
+              <button class="halo-btn" data-mode="amber" type="button">Amber (Thawing)</button>
+              <button class="halo-btn" data-mode="green" type="button">Green (Ready / +3.0&deg;C)</button>
+              <button class="halo-btn" data-mode="amberFast" type="button">Amber (Warning)</button>
+              <button class="halo-btn" data-mode="red" type="button">Red (Lockout)</button>
+            </div>
+            <span style="font-size:10.5px; color:var(--ink-soft); margin-top:4px; display:block;">Manual preview reverts to live state automatically after 5 s.</span>
+          </div>
+
+          <!-- Settings & Planned Integrations -->
+          <div class="load-form-card" style="margin-top:14px;">
+            <span class="form-label">Connectivity &amp; Smart Home Settings</span>
+            
+            <div class="toggle-row" style="margin-bottom:12px;">
+              <div>
+                <strong style="font-size:12.5px; display:block;">Commute Sync Privacy</strong>
+                <p style="font-size:11.5px; color:var(--ink-soft); margin:0;">Designed so live location stays on the phone &mdash; only an arrival signal is dispatched to DINA.</p>
+              </div>
+              <button type="button" class="privacy-toggle-btn active" id="btnToggleCommuteSync" aria-pressed="true">ON</button>
+            </div>
+
+            <div class="toggle-row" style="margin-bottom:12px;">
+              <div>
+                <strong style="font-size:12.5px; display:block;">Home Wi-Fi Offline Test</strong>
+                <p style="font-size:11.5px; color:var(--ink-soft); margin:0;">DINA runs dinner schedules locally on hardware without cloud dependencies.</p>
+              </div>
+              <button type="button" class="privacy-toggle-btn" id="btnSimulateOffline">Test Offline</button>
+            </div>
+
+            <div style="border-top:var(--hairline); padding-top:10px; margin-top:10px;">
+              <span style="font-size:11px; font-weight:600; color:var(--ink); display:block; margin-bottom:6px;">Planned Integrations:</span>
+              <div style="display:flex; flex-wrap:wrap; gap:6px;">
+                <span class="spec-status-tag planned">Apple Home <span style="font-size:9px;">[Planned]</span></span>
+                <span class="spec-status-tag planned">Google Home <span style="font-size:9px;">[Planned]</span></span>
+                <span class="spec-status-tag planned">Samsung SmartThings <span style="font-size:9px;">[Planned]</span></span>
+                <span class="spec-status-tag planned">Home Assistant <span style="font-size:9px;">[Planned]</span></span>
+                <span class="spec-status-tag planned">Matter over Wi-Fi <span style="font-size:9px;">[Planned]</span></span>
+              </div>
+            </div>
+
+            <div style="border-top:var(--hairline); padding-top:10px; margin-top:12px; font-size:11.5px;">
+              <a href="index.html#validation" style="color:var(--clay); font-weight:600;">View Engineering &amp; Thermal Validation Specs on DINA Site &rarr;</a>
+            </div>
+          </div>
+
+        </section>
+
+      </div><!-- /.app-main-content -->
+
+      <!-- Sticky Bottom Navigation Bar (Tonight, Freezer, Kitchen) -->
+      <nav class="bottom-tab-bar" aria-label="Bottom App Navigation">
+        <button class="bottom-tab-item active" data-tab="tab-tonight" type="button" aria-label="Tonight's Dinner">
+          <div class="tab-bar-indicator"></div>
+          <div class="bottom-tab-icon">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <polyline points="12 6 12 12 16 14"></polyline>
+            </svg>
+          </div>
+          <span>Tonight</span>
+        </button>
+
+        <button class="bottom-tab-item" data-tab="tab-freezer" type="button" aria-label="Freezer Inventory">
+          <div class="tab-bar-indicator"></div>
+          <div class="bottom-tab-icon">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <circle cx="12" cy="12" r="3"></circle>
+              <line x1="12" y1="2" x2="12" y2="5"></line>
+              <line x1="12" y1="19" x2="12" y2="22"></line>
+            </svg>
+          </div>
+          <span>Freezer</span>
+        </button>
+
+        <button class="bottom-tab-item" data-tab="tab-kitchen" type="button" aria-label="Kitchen &amp; Care">
+          <div class="tab-bar-indicator"></div>
+          <div class="bottom-tab-icon">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+            </svg>
+          </div>
+          <span>Kitchen</span>
+        </button>
+      </nav>
+
+      <!-- Guided Tour Bottom Caption Bar -->
+      <div class="tour-caption-bar" id="tourCaptionBar" hidden>
+        <div class="tour-caption-top">
+          <span class="tour-step-badge" id="tourStepBadge">Step 1 of 6</span>
+          <button type="button" id="btnTourExit" class="btn-tour-nav" style="border:none; padding:0 4px; font-size:10px;">Exit Tour</button>
+        </div>
+        <p class="tour-caption-text" id="tourCaptionText">
+          15:00 Check-In: DINA checks in with tonight's dinner suggestion (Beef Ribeye). Tap "Sounds Good" or "Next".
+        </p>
+        <div class="tour-caption-actions">
+          <button type="button" class="btn-tour-nav" id="btnTourReplay">Replay</button>
+          <button type="button" class="btn-tour-nav primary" id="btnTourNext">Next Step &rarr;</button>
         </div>
       </div>
 
-      <div class="app-header-actions">
-        <button class="app-header-btn" id="btnRefresh" title="Check Kitchen Status" aria-label="Check Kitchen Status" type="button">
-          <svg class="dina-icon" viewBox="0 0 48 48" width="22" height="22" style="filter:none;" aria-hidden="true">
-            <g class="vb swing"><path class="d" style="--i:0" pathLength="1" d="M24 6C17 6 13 11 13 18V26L9 32H39L35 26V18C35 11 31 6 24 6Z"/><path class="d" style="--i:2" pathLength="1" d="M20 37a4 4 0 0 0 8 0"/></g><path class="d ac" style="--i:3" pathLength="1" d="M38 11a12 12 0 0 1 4 8M10 11a12 12 0 0 0 -4 8"/>
-          </svg>
+    </main><!-- /.web-app-shell -->
+
+    <!-- ====================================================================
+         DESKTOP DIRECTOR PANEL (Side Column on Screens >= 900px)
+         ==================================================================== -->
+    <aside class="director-panel desktop-only" id="directorPanelDesktop" aria-label="Simulation Director Controls">
+      <div class="director-header">
+        <span class="director-title">Concept Director</span>
+        <span class="spec-status-tag logic">Demo Controls</span>
+      </div>
+
+      <!-- Clock Controls -->
+      <div class="director-section">
+        <div class="director-sec-title">Simulated Afternoon Clock</div>
+        <div class="director-clock-row">
+          <div class="director-clock-time" id="directorClockVal">15:00</div>
+          <div class="director-speed-buttons">
+            <button type="button" class="btn-speed active" data-speed="1" id="btnSpeed1">1x</button>
+            <button type="button" class="btn-speed" data-speed="5" id="btnSpeed5">5x</button>
+            <button type="button" class="btn-speed" data-speed="20" id="btnSpeed20">20x</button>
+            <button type="button" class="btn-speed" id="btnDirectorPlayPause">Pause</button>
+          </div>
+        </div>
+
+        <label for="simScrubber" class="form-label" style="margin:4px 0 2px; font-size:11px;">Scrub Simulated Evening (15:00 to 21:30):</label>
+        <input type="range" min="900" max="1290" step="1" value="900" class="range-slider" id="simScrubber" aria-label="Simulated time scrubber">
+
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-top:2px;">
+          <span style="font-size:10.5px; color:var(--ink-soft);">15:00 Check-in &bull; 17:50 Drop &bull; 19:30 Ready</span>
+          <button type="button" id="btnDirectorReset" style="background:none; border:none; color:var(--clay); font-size:11px; font-weight:700; cursor:pointer; text-decoration:underline;">Reset Evening</button>
+        </div>
+      </div>
+
+      <!-- Commute Scenarios -->
+      <div class="director-section">
+        <div class="director-sec-title">Commute Disruption Scenario</div>
+        <div class="director-pills-grid">
+          <button type="button" class="btn-scenario-pill active" data-commute="ontime" id="pillCommuteOntime">1. On Time (19:20)</button>
+          <button type="button" class="btn-scenario-pill" data-commute="traffic" id="pillCommuteTraffic">2. Traffic Jam (+30m)</button>
+          <button type="button" class="btn-scenario-pill" data-commute="atwork" id="pillCommuteAtwork">3. Still at Work</button>
+          <button type="button" class="btn-scenario-pill" data-commute="arrived" id="pillCommuteArrived">4. Arrived Home</button>
+        </div>
+      </div>
+
+      <!-- Safety Scenarios -->
+      <div class="director-section">
+        <div class="director-sec-title">Safety Scenarios</div>
+        <div class="director-pills-grid">
+          <button type="button" class="btn-scenario-pill active" data-pcut="0" id="pillPcut0">Power Normal</button>
+          <button type="button" class="btn-scenario-pill" data-pcut="20" id="pillPcut20">Cut 20m (Safe)</button>
+          <button type="button" class="btn-scenario-pill" data-pcut="45" id="pillPcut45">Cut 45m (Warning)</button>
+          <button type="button" class="btn-scenario-pill" data-pcut="130" id="pillPcut130">Cut 130m (Lockout)</button>
+        </div>
+        <button type="button" class="btn-scenario-pill" id="btnToggleDrawerOccupied" style="margin-top:4px;">
+          <span>Dish in Drawer: <strong>Empty (Normal)</strong></span>
         </button>
       </div>
-    </header>
 
-    <!-- Pill Tabs Navigation with Animated Deck Icons -->
-    <nav class="pill-tabs-nav" aria-label="App Navigation">
-      <button class="pill-tab active" data-tab="tab-frozen" type="button">
-        <svg class="dina-icon tab-nav-icon" viewBox="0 0 48 48" width="18" height="18" style="filter:none;" aria-hidden="true">
-          <circle class="d" style="--i:0" pathLength="1" cx="26" cy="28" r="11"/><path class="d" style="--i:1" pathLength="1" d="M9 8V40M40 8V40"/><g class="steam"><path class="d ac" style="--i:2" pathLength="1" d="M24 14c-2-2 2-4 0-6"/></g>
-        </svg>
-        <span>Tonight&rsquo;s Dinner</span>
-      </button>
-      <button class="pill-tab" data-tab="tab-meals" type="button">
-        <svg class="dina-icon tab-nav-icon" viewBox="0 0 48 48" width="18" height="18" style="filter:none;" aria-hidden="true">
-          <circle class="d" style="--i:0" pathLength="1" cx="24" cy="24" r="18"/><circle class="d ac" style="--i:1" pathLength="1" cx="24" cy="24" r="5"/>
-        </svg>
-        <span>My Freezer (8/11)</span>
-      </button>
-      <button class="pill-tab" data-tab="tab-map" type="button">
-        <svg class="dina-icon tab-nav-icon" viewBox="0 0 48 48" width="18" height="18" style="filter:none;" aria-hidden="true">
-          <g class="bob"><path class="d" style="--i:0" pathLength="1" d="M24 42C24 42 12 30 12 20a12 12 0 0 1 24 0C36 30 24 42 24 42Z"/><circle class="d ac" style="--i:1" pathLength="1" cx="24" cy="20" r="4.5"/></g>
-        </svg>
-        <span>Running Late</span>
-      </button>
-      <button class="pill-tab" data-tab="tab-chat" type="button">
-        <svg class="dina-icon tab-nav-icon" viewBox="0 0 48 48" width="18" height="18" style="filter:none;" aria-hidden="true">
-          <path class="d" style="--i:0" pathLength="1" d="M24 5L39 10V22C39 32 32 39 24 43C16 39 9 32 9 22V10Z"/><path class="d ac" style="--i:1" pathLength="1" d="M17 24L22 29L31 19"/>
-        </svg>
-        <span>Kitchen &amp; Care</span>
-      </button>
-    </nav>
-
-    <!-- Scrollable Main Content -->
-    <div class="app-main-content">
-
-      <!-- TAB 1: TONIGHT'S DINNER (Adaptive Split on iPad/PC, Stack on Phone) -->
-      <section class="tab-content active" id="tab-frozen">
-        <div class="tab-split-layout">
-
-          <!-- Left Column: 15:00 Afternoon Check-In + 8 Stocked Meals in Your Freezer -->
-          <div class="tab-col-primary">
-
-            <!-- 15:00 One-Tap Check-In Card for Busy Days -->
-            <div class="one-tap-prompt-card" id="oneTapPromptCard">
-              <div class="one-tap-header">
-                <div class="one-tap-title-wrap">
-                  <svg class="dina-icon" viewBox="0 0 48 48" width="24" height="24" aria-hidden="true">
-                    <rect class="d" style="--i:0" pathLength="1" x="6" y="9" width="36" height="33" rx="3"/><path class="d" style="--i:1" pathLength="1" d="M6 18H42"/><path class="d" style="--i:1" pathLength="1" d="M15 5V12M33 5V12"/><g class="vb pulse-cal"><circle class="d ac" style="--i:2" pathLength="1" cx="33.5" cy="34" r="3.6"/></g>
-                  </svg>
-                  <span class="one-tap-badge">15:00 Afternoon Check-In</span>
-                </div>
-                <span class="one-tap-meta">Runs automatically if you&rsquo;re busy</span>
-              </div>
-              <p class="one-tap-question" id="oneTapQuestionText">
-                Tonight at <strong>19:30</strong>: Ready for <strong>Prime Angus Ribeye</strong>?
-              </p>
-              <div class="one-tap-actions">
-                <button type="button" class="one-tap-btn confirm" id="btnOneTapYes">Sounds Good</button>
-                <button type="button" class="one-tap-btn" id="btnOneTapSwap">Pick Another Dish</button>
-                <button type="button" class="one-tap-btn" id="btnOneTapSkip">Eating Out Tonight</button>
-              </div>
-            </div>
-
-            <div class="sub-section-label-row">
-              <span class="form-label" style="margin:0;">Tap What You Feel Like Eating Tonight</span>
-              <span style="font-size:11px; color:var(--ink-soft);">Stored in Drum Vault at &minus;18.0 &deg;C <span class="spec-status-tag cad">[CAD Verified]</span></span>
-            </div>
-
-            <!-- 2x4 (Phone) / 4x2 (iPad & PC) Grid of Stocked Meals in Your Freezer -->
-            <div class="meal-grid" id="mealGrid">
-
-              <!-- 1. Prime Angus Ribeye -->
-              <article class="meal-card selected" data-slot="02" role="button" tabindex="0" aria-label="Select Prime Angus Ribeye, 450 grams">
-                <span class="badge-tagged">~85 min</span>
-                <div class="meal-thumb-wrap">
-                  <img src="assets/images/meal_beef_ribeye.jpg" alt="Prime Angus Ribeye Steak" loading="lazy">
-                </div>
-                <div class="meal-label">Prime Angus Ribeye</div>
-                <div class="meal-sublabel">2 Portions (450 g)</div>
-              </article>
-
-              <!-- 2. Atlantic Salmon Fillet -->
-              <article class="meal-card" data-slot="03" role="button" tabindex="0" aria-label="Select Atlantic Salmon Fillet, 320 grams">
-                <span class="badge-tagged">~65 min</span>
-                <div class="meal-thumb-wrap">
-                  <img src="assets/images/meal_salmon_fillet.jpg" alt="Atlantic Salmon Fillet" loading="lazy">
-                </div>
-                <div class="meal-label">Atlantic Salmon Fillet</div>
-                <div class="meal-sublabel">2 Fillets (320 g)</div>
-              </article>
-
-              <!-- 3. Organic Chicken Breast -->
-              <article class="meal-card" data-slot="01" role="button" tabindex="0" aria-label="Select Organic Chicken Breast, 500 grams">
-                <span class="badge-tagged">~95 min</span>
-                <div class="meal-thumb-wrap">
-                  <img src="assets/images/meal_chicken_breast.jpg" alt="Organic Chicken Breast" loading="lazy">
-                </div>
-                <div class="meal-label">Organic Chicken Breast</div>
-                <div class="meal-sublabel">Family Cut (500 g)</div>
-              </article>
-
-              <!-- 4. Wild Tiger Prawns -->
-              <article class="meal-card" data-slot="04" role="button" tabindex="0" aria-label="Select Wild Tiger Prawns, 250 grams">
-                <span class="badge-tagged">~40 min</span>
-                <div class="meal-thumb-wrap">
-                  <img src="assets/images/meal_tiger_prawns.jpg" alt="Wild Tiger Prawns" loading="lazy">
-                </div>
-                <div class="meal-label">Wild Tiger Prawns</div>
-                <div class="meal-sublabel">Quick Thaw (250 g)</div>
-              </article>
-
-              <!-- 5. Artisanal Lasagna -->
-              <article class="meal-card" data-slot="05" role="button" tabindex="0" aria-label="Select Artisanal Lasagna Prep, 600 grams">
-                <span class="badge-tagged">~1h 44m</span>
-                <div class="meal-thumb-wrap">
-                  <img src="assets/images/meal_lasagna.jpg" alt="Artisanal Lasagna Prep" loading="lazy">
-                </div>
-                <div class="meal-label">Artisanal Lasagna</div>
-                <div class="meal-sublabel">Batch Dish (600 g)</div>
-              </article>
-
-              <!-- 6. Pork Tenderloin Medallions -->
-              <article class="meal-card" data-slot="06" role="button" tabindex="0" aria-label="Select Pork Tenderloin Medallions, 350 grams">
-                <span class="badge-tagged">~74 min</span>
-                <div class="meal-thumb-wrap">
-                  <img src="assets/images/meal_pork_tenderloin.jpg" alt="Pork Tenderloin Medallions" loading="lazy">
-                </div>
-                <div class="meal-label">Pork Medallions</div>
-                <div class="meal-sublabel">Medallions (350 g)</div>
-              </article>
-
-              <!-- 7. Atlantic Codfish Loins -->
-              <article class="meal-card" data-slot="07" role="button" tabindex="0" aria-label="Select Atlantic Codfish Loins, 400 grams">
-                <span class="badge-tagged">~76 min</span>
-                <div class="meal-thumb-wrap">
-                  <img src="assets/images/meal_salmon_fillet.jpg" alt="Atlantic Codfish Loins" loading="lazy">
-                </div>
-                <div class="meal-label">Atlantic Codfish</div>
-                <div class="meal-sublabel">Loins (400 g)</div>
-              </article>
-
-              <!-- 8. Filet Mignon Steak -->
-              <article class="meal-card" data-slot="08" role="button" tabindex="0" aria-label="Select Filet Mignon Steak, 300 grams">
-                <span class="badge-tagged">~64 min</span>
-                <div class="meal-thumb-wrap">
-                  <img src="assets/images/meal_beef_ribeye.jpg" alt="Filet Mignon Steak" loading="lazy">
-                </div>
-                <div class="meal-label">Filet Mignon</div>
-                <div class="meal-sublabel">Tender Steak (300 g)</div>
-              </article>
-
-            </div>
-          </div>
-
-          <!-- Right Column: Schedule Dial, Visual 4-Stage Evening Plan & Action Button -->
-          <div class="tab-col-secondary">
-            <div class="schedule-panel-card">
-              <div class="schedule-widget-wrap">
-                <div class="dial-container" id="dialContainer" role="slider" tabindex="0" aria-label="Target dinner ready time" aria-valuemin="1080" aria-valuemax="1320" aria-valuenow="1170" aria-valuetext="19:30" title="Drag the dial, use arrow keys, or tap a preset below">
-                  <svg class="dial-svg" viewBox="0 0 200 200">
-                    <circle class="dial-bg-circle" cx="100" cy="100" r="96" />
-                    <g id="dialTicks"></g>
-                    <path id="dialArc" d="M 188 100 A 88 88 0 0 1 100 188" fill="none" stroke="#C0775B" stroke-width="14" stroke-linecap="round"/>
-                  </svg>
-
-                  <div class="dial-center-disc">
-                    <span class="dial-title">Ready By</span>
-                    <span class="dial-value" id="dialValue">19:30</span>
-                    <span class="dial-sub">Tonight</span>
-                  </div>
-                </div>
-
-                <p class="dial-workflow-caption">Drag dial or use &larr;/&rarr; keys &bull; Pick preset below</p>
-              </div>
-
-              <!-- Animated 4-Stage Visual Evening Plan (Frozen -> Active Thaw -> Equalization -> Fridge Hold) -->
-              <div class="thaw-stage-pipeline four-stage-pipeline" aria-label="Tonight's 4-stage automatic dinner plan">
-                <div class="stage-step done" id="stageStepFrozen">
-                  <svg class="dina-icon" viewBox="0 0 48 48" width="18" height="18" style="filter:none;" aria-hidden="true">
-                    <g class="vb spin-snow"><path class="d" style="--i:0" pathLength="1" d="M24 8V40M10 16L38 32M38 16L10 32"/></g><circle class="d ac" style="--i:1" pathLength="1" cx="24" cy="24" r="2.5"/>
-                  </svg>
-                  <span class="stage-label">1. Frozen</span>
-                  <span class="stage-sub" id="stageDropTimeLabel">-18 &deg;C (Until 17:45)</span>
-                </div>
-                <div class="stage-step active" id="stageStepActiveThaw">
-                  <svg class="dina-icon" viewBox="0 0 48 48" width="18" height="18" style="filter:none;" aria-hidden="true">
-                    <circle class="d" style="--i:0" pathLength="1" cx="24" cy="24" r="18"/><g class="vb spin-fan"><path class="d" style="--i:1" pathLength="1" d="M24 21C23 13 27 8 33 9C34.5 15 30 20 24 21Z"/><g transform="rotate(120 24 24)"><path class="d" style="--i:1" pathLength="1" d="M24 21C23 13 27 8 33 9C34.5 15 30 20 24 21Z"/></g><g transform="rotate(240 24 24)"><path class="d" style="--i:1" pathLength="1" d="M24 21C23 13 27 8 33 9C34.5 15 30 20 24 21Z"/></g></g><circle class="d ac" style="--i:2" pathLength="1" cx="24" cy="24" r="2.8"/>
-                  </svg>
-                  <span class="stage-label">2. Active Thaw</span>
-                  <span class="stage-sub" id="stageThawDurationLabel">+10 &deg;C (~85m)</span>
-                </div>
-                <div class="stage-step" id="stageStepEqualization">
-                  <svg class="dina-icon" viewBox="0 0 48 48" width="18" height="18" style="filter:none;" aria-hidden="true">
-                    <rect class="d" style="--i:0" pathLength="1" x="10" y="10" width="28" height="28" rx="2"/>
-                    <path class="d ac" style="--i:1" pathLength="1" d="M10 24h28M24 10v28"/>
-                    <circle class="d" style="--i:2" pathLength="1" cx="24" cy="24" r="4.5"/>
-                  </svg>
-                  <span class="stage-label">3. Equalize</span>
-                  <span class="stage-sub" id="stageEqualizeDurationLabel">Soak (~20m)</span>
-                </div>
-                <div class="stage-step" id="stageStepHold">
-                  <svg class="dina-icon" viewBox="0 0 48 48" width="18" height="18" style="filter:none;" aria-hidden="true">
-                    <circle class="d" style="--i:0" pathLength="1" cx="26" cy="28" r="11"/><path class="d" style="--i:1" pathLength="1" d="M9 8V40M40 8V40"/><g class="steam"><path class="d ac" style="--i:2" pathLength="1" d="M24 14c-2-2 2-4 0-6"/></g>
-                  </svg>
-                  <span class="stage-label">4. Hold</span>
-                  <span class="stage-sub">+3.0 &deg;C (&le; 24h)</span>
-                </div>
-              </div>
-
-              <!-- Friendly Consumer Summary Box -->
-              <div class="schedule-summary-box" id="scheduleSummaryBox">
-                <div class="summary-row">
-                  <span>Tonight&rsquo;s Dish:</span>
-                  <strong id="summaryMealName">Prime Angus Ribeye (450 g)</strong>
-                </div>
-                <div class="summary-row">
-                  <span>Starts Thawing At:</span>
-                  <strong id="summaryDropTime">17:45 (while you finish work)</strong>
-                </div>
-                <div class="summary-row">
-                  <span>Active Air Thaw (+10 &deg;C):</span>
-                  <strong id="summaryActiveThaw">~85 min (cutoff at +4.0 &deg;C surface)</strong>
-                </div>
-                <div class="summary-row">
-                  <span>Conduction Equalization:</span>
-                  <strong id="summaryEqualization">~20 min (soak to +3.0 &deg;C core)</strong>
-                </div>
-                <div class="summary-row">
-                  <span>If You Arrive Late:</span>
-                  <strong>Kept fridge-fresh at +3.0 &deg;C (up to 24 h)</strong>
-                </div>
-                <div class="late-rescue-notice" id="lateRescueNotice" hidden>
-                  <strong>Starting Right Away:</strong> To thaw your meal gently without cooking the edges, it will be ready for the pan at 19:05.
-                </div>
-                <div class="do-not-refreeze-notice" id="foodSafetyBadge">
-                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
-                  <span><strong>Food Safety Policy:</strong> Once thawed in drawer, do not refreeze &bull; Consume within 24 h at +3.0 &deg;C</span>
-                </div>
-              </div>
-
-              <!-- Quick Preset Chips for Effortless Demo on Any Device -->
-              <div class="quick-time-chips" aria-label="Quick dinner time presets">
-                <button type="button" class="time-preset-chip" data-angle="45">18:30 (Eat Early)</button>
-                <button type="button" class="time-preset-chip active" data-angle="135">19:30 (Usual Time)</button>
-                <button type="button" class="time-preset-chip" data-angle="225">20:30 (Eat Later)</button>
-                <button type="button" class="time-preset-chip" data-angle="300">21:20 (Late Night)</button>
-              </div>
-
-              <!-- Primary Action Button -->
-              <button class="btn-action-primary" id="btnContinueAction" type="button">
-                Schedule Tonight&rsquo;s Dinner
-              </button>
-            </div>
-          </div>
-
-        </div>
-      </section>
-
-      <!-- TAB 2: MY FREEZER (8 of 11 Stocked Carousel & Easy Stocking) -->
-      <section class="tab-content" id="tab-meals">
-        <div class="section-headline-block">
-          <div class="headline-with-icon">
-            <svg class="dina-icon" viewBox="0 0 48 48" width="32" height="32" aria-hidden="true">
-              <circle class="d" style="--i:0" pathLength="1" cx="24" cy="24" r="19"/><circle class="d" style="--i:1" pathLength="1" cx="24" cy="24" r="4"/><g class="vb spin-drum"><path class="d" style="--i:2" pathLength="1" d="M24 20L24 5M27.46 22L40.45 14.5M27.46 26L40.45 33.5M24 28L24 43M20.54 26L7.55 33.5M20.54 22L7.55 14.5"/><circle class="d ac" style="--i:3" pathLength="1" cx="36" cy="24" r="2.6"/></g>
-            </svg>
-            <div>
-              <h2>What&rsquo;s in My Freezer (8 of 11 Stocked)</h2>
-              <p>8 containers stocked &bull; 3 open slots &bull; 1 dedicated auto-drop path &bull; Motorized 2.5 s access alignment</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="tab-split-layout">
-          <div class="tab-col-primary">
-
-            <!-- Interactive Rotating Carousel Visualizer -->
-            <div class="drum-wheel-visualizer">
-              <div class="drum-wheel-svg-box">
-                <svg viewBox="0 0 120 120" width="96" height="96" aria-label="Interactive rotating meal carousel">
-                  <circle cx="60" cy="60" r="52" fill="#F1EFE5" stroke="#191919" stroke-width="2"/>
-                  <g id="interactiveDrumRotor" class="drum-rotor-group">
-                    <line x1="60" y1="8" x2="60" y2="112" stroke="#9E9696" stroke-width="1.5"/>
-                    <line x1="15" y1="34" x2="105" y2="86" stroke="#9E9696" stroke-width="1.5"/>
-                    <line x1="105" y1="34" x2="15" y2="86" stroke="#9E9696" stroke-width="1.5"/>
-                    <circle cx="60" cy="24" r="10" fill="#C0775B"/>
-                    <circle cx="91" cy="42" r="9" fill="#DAD8CB" stroke="#191919" stroke-width="1.5"/>
-                    <circle cx="91" cy="78" r="9" fill="#DAD8CB" stroke="#191919" stroke-width="1.5"/>
-                    <circle cx="60" cy="96" r="9" fill="#FFFFFF" stroke="#191919" stroke-width="1.5" stroke-dasharray="3 2"/>
-                    <circle cx="29" cy="78" r="9" fill="#DAD8CB" stroke="#191919" stroke-width="1.5"/>
-                    <circle cx="29" cy="42" r="9" fill="#DAD8CB" stroke="#191919" stroke-width="1.5"/>
-                  </g>
-                  <circle cx="60" cy="60" r="12" fill="#F1EFE5" stroke="#191919" stroke-width="2"/>
-                  <circle cx="60" cy="60" r="4" fill="#C0775B"/>
-                </svg>
-              </div>
-              <div class="drum-wheel-copy">
-                <span class="caption clay-text">Revolving Meal Carousel &bull; 8 of 11 Stocked (+ Drop Path) <span class="spec-status-tag cad">[CAD Verified]</span></span>
-                <strong id="drumWheelStatusTitle">Container 01 at Front Door (Organic Chicken Breast, 500 g)</strong>
-                <p>No digging through frozen bags at the back. Motorized 2.5 s indexing turns the selected container right behind an insulated loading hatch. Slide meals directly into the carousel without opening the main freezer door or exposing 110 L of frozen food to warm room air.</p>
-              </div>
-            </div>
-
-            <!-- Upper Ring: 6 Containers -->
-            <div class="drum-tier-card">
-              <div class="drum-tier-header">
-                <span class="drum-tier-title">Upper Carousel Ring (6 Meal Containers)</span>
-                <span class="drum-tier-badge">6 / 6 Stocked</span>
-              </div>
-              <div class="drum-slots-row">
-                <button class="drum-slot-btn active" data-slot="01" type="button" aria-label="Container 01: Organic Chicken Breast, 500g">
-                  <span class="slot-num">01</span>
-                  <span class="slot-name">Chicken (500g)</span>
-                </button>
-                <button class="drum-slot-btn" data-slot="02" type="button" aria-label="Container 02: Prime Angus Ribeye, 450g">
-                  <span class="slot-num">02</span>
-                  <span class="slot-name">Ribeye (450g)</span>
-                </button>
-                <button class="drum-slot-btn" data-slot="03" type="button" aria-label="Container 03: Atlantic Salmon Fillet, 320g">
-                  <span class="slot-num">03</span>
-                  <span class="slot-name">Salmon (320g)</span>
-                </button>
-                <button class="drum-slot-btn" data-slot="04" type="button" aria-label="Container 04: Wild Tiger Prawns, 250g">
-                  <span class="slot-num">04</span>
-                  <span class="slot-name">Prawns (250g)</span>
-                </button>
-                <button class="drum-slot-btn" data-slot="05" type="button" aria-label="Container 05: Artisanal Lasagna, 600g">
-                  <span class="slot-num">05</span>
-                  <span class="slot-name">Lasagna (600g)</span>
-                </button>
-                <button class="drum-slot-btn" data-slot="06" type="button" aria-label="Container 06: Pork Tenderloin Medallions, 350g">
-                  <span class="slot-num">06</span>
-                  <span class="slot-name">Pork (350g)</span>
-                </button>
-              </div>
-            </div>
-
-            <!-- Lower Ring: 5 Containers + Auto-Drop Chute -->
-            <div class="drum-tier-card">
-              <div class="drum-tier-header">
-                <span class="drum-tier-title">Lower Carousel Ring (5 Meal Containers)</span>
-                <span class="drum-tier-badge">3 Open Spots</span>
-              </div>
-              <div class="drum-slots-row">
-                <button class="drum-slot-btn" data-slot="07" type="button" aria-label="Container 07: Atlantic Codfish Loins, 400g">
-                  <span class="slot-num">07</span>
-                  <span class="slot-name">Codfish (400g)</span>
-                </button>
-                <button class="drum-slot-btn" data-slot="08" type="button" aria-label="Container 08: Filet Mignon Steak, 300g">
-                  <span class="slot-num">08</span>
-                  <span class="slot-name">Mignon (300g)</span>
-                </button>
-                <button class="drum-slot-btn empty" data-slot="09" type="button" aria-label="Container 09: Empty slot, tap to stock">
-                  <span class="slot-num">09</span>
-                  <span class="slot-name">+ Add Meal</span>
-                </button>
-                <button class="drum-slot-btn empty" data-slot="10" type="button" aria-label="Container 10: Empty slot, tap to stock">
-                  <span class="slot-num">10</span>
-                  <span class="slot-name">+ Add Meal</span>
-                </button>
-                <button class="drum-slot-btn empty" data-slot="11" type="button" aria-label="Container 11: Empty slot, tap to stock">
-                  <span class="slot-num">11</span>
-                  <span class="slot-name">+ Add Meal</span>
-                </button>
-                <button class="drum-slot-btn chimney" data-slot="12" type="button" title="Dedicated pass-through path that lets upper meals drop into the defrost drawer" aria-label="Slot 12: Dedicated auto-drop path chute">
-                  <span class="slot-num" style="color: var(--ink-soft);">Chute</span>
-                  <span class="slot-name" style="color: var(--ink-soft);">Auto-Drop Path</span>
-                </button>
-              </div>
-            </div>
-          </div>
-
-          <div class="tab-col-secondary">
-            <!-- Stock a Fresh Meal Card -->
-            <div class="load-form-card" style="margin-top:0;">
-              <div class="section-headline-block" style="border:none; padding:0; margin-bottom:10px;">
-                <h2 style="font-size: 16px;">Add a Meal to Your Freezer</h2>
-                <p>Select an open container, tell DINA what you&rsquo;re storing, and slide it in</p>
-              </div>
-
-              <span class="form-label">Container to Fill: <strong id="selectedSlotDisplay" style="color:var(--clay)">Container 09</strong></span>
-
-              <label class="form-label" for="loadMealNameInput" style="margin-top:10px; display:flex; justify-content:space-between;">
-                <span>Dish or Meal Name (Optional)</span>
-                <span style="font-size:11px; color:var(--ink-soft); font-weight:normal;">Shown on Dinner Card</span>
-              </label>
-              <input type="text" id="loadMealNameInput" class="app-text-input" placeholder="e.g. Herb-Crusted Ribeye, Roast Duck, Paella..." maxlength="35" style="margin-bottom:12px;">
-
-              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
-                <span class="form-label" style="margin:0;">What Are You Freezing?</span>
-                <button type="button" id="btnToggleCustomType" style="background:none; border:none; color:var(--clay); font-size:11px; cursor:pointer; font-weight:600; text-decoration:underline; padding:0;">+ Add New Food Type</button>
-              </div>
-
-              <div class="category-chips-grid" id="categoryChipsGrid">
-                <button class="cat-chip selected" data-cat="beef" type="button">Steak &amp; Beef</button>
-                <button class="cat-chip" data-cat="chicken" type="button">Chicken &amp; Poultry</button>
-                <button class="cat-chip" data-cat="fish" type="button">Fish Fillets</button>
-                <button class="cat-chip" data-cat="shrimp" type="button">Prawns &amp; Seafood</button>
-                <button class="cat-chip" data-cat="vegetables" type="button">Vegetables &amp; Sides</button>
-                <button class="cat-chip" data-cat="lasagna" type="button">Lasagna &amp; Batch Dish</button>
-                <button class="cat-chip" data-cat="pork" type="button">Pork &amp; Medallions</button>
-                <button class="cat-chip cat-chip-add" id="chipAddCustomType" type="button">+ Other Type</button>
-              </div>
-
-              <!-- Inline Add Custom Food Type Form -->
-              <div id="customTypePanel" class="custom-type-form" hidden>
-                <span class="form-label" style="margin-top:0; margin-bottom:6px; display:block;">Define New Food Type</span>
-                <div style="display:flex; gap:8px; margin-bottom:8px;">
-                  <input type="text" id="customTypeNameInput" class="app-text-input" placeholder="e.g. Soups &amp; Stews, Game &amp; Duck, Pasta..." maxlength="25" style="flex:1;">
-                  <button type="button" id="btnSaveCustomType" class="btn-action-primary" style="padding:8px 12px; font-size:12px; white-space:nowrap;">Add Type</button>
-                  <button type="button" id="btnCancelCustomType" class="btn-action-secondary" style="padding:8px 10px; font-size:12px;">Cancel</button>
-                </div>
-                <div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
-                  <span style="font-size:11px; color:var(--ink-soft);">Thaw Density:</span>
-                  <label style="font-size:11px; color:var(--ink); cursor:pointer;"><input type="radio" name="customThawDensity" value="light" style="margin-right:4px;"> Quick / Light</label>
-                  <label style="font-size:11px; color:var(--ink); cursor:pointer;"><input type="radio" name="customThawDensity" value="medium" checked style="margin-right:4px;"> Standard</label>
-                  <label style="font-size:11px; color:var(--ink); cursor:pointer;"><input type="radio" name="customThawDensity" value="dense" style="margin-right:4px;"> Dense / Meat</label>
-                </div>
-              </div>
-
-              <div class="weight-range-row">
-                <span class="form-label" style="margin:0;">Portion Size</span>
-                <span class="weight-val" id="loadWeightValue">450 g</span>
-              </div>
-              <input type="range" min="100" max="700" step="25" value="450" class="range-slider" id="loadWeightSlider" aria-label="Portion size slider (max 700g for 750ml container)">
-              <div style="font-size:10.5px; color:var(--ink-soft); margin-top:3px; margin-bottom:10px;">
-                750 ml container limit: max 700 g (leaves 10% freeze-expansion headspace) <span class="spec-status-tag cad">[CAD Verified]</span>
-              </div>
-
-              <!-- Density Class Display Box -->
-              <div class="density-display-box" id="densityClassDisplay">
-                <span>Density Class: <strong id="densityClassName">Dense Protein (1.06 g/cm³)</strong></span>
-                <span>Model: <strong>Plank Convective</strong> <span class="spec-status-tag thermal">[Thermal Model]</span></span>
-              </div>
-
-              <div class="calc-result-box">
-                <span class="calc-result-title">Gentle Thaw Time When Scheduled:</span>
-                <span class="calc-result-time" id="loadThawCalcDisplay">~85 min (+ 20 min equalization)</span>
-              </div>
-
-              <button class="btn-action-primary" id="btnConfirmStore" style="padding: 12px 18px; font-size: 14px;" type="button">
-                Bring Container to Door &amp; Save
-              </button>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- TAB 3: RUNNING LATE (Live Animated Mock Location Map, Traffic Jam, Still at Work & ETA Sync) -->
-      <section class="tab-content" id="tab-map">
-        <div class="section-headline-block">
-          <div class="headline-with-icon">
-            <svg class="dina-icon" viewBox="0 0 48 48" width="32" height="32" aria-hidden="true">
-              <g class="bob"><path class="d" style="--i:0" pathLength="1" d="M24 43C24 43 11 30.5 11 20a13 13 0 0 1 26 0C37 30.5 24 43 24 43Z"/><circle class="d ac" style="--i:2" pathLength="1" cx="24" cy="20" r="5"/></g><path class="d" style="--i:3" pathLength="1" d="M16 45H32"/>
-            </svg>
-            <div>
-              <h2>Running Late? Dinner Waits for You</h2>
-              <p>Evening commute simulation &bull; Cycles through On-Time Drive, Traffic Jam, Still at Work, and Arriving Home</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="tab-split-layout">
-          <div class="tab-col-primary">
-
-            <!-- Commute Simulation Clock Indicator -->
-            <div class="commute-sim-clock-bar">
-              <span>Evening Commute Simulation (Target Dinner: 19:30)</span>
-              <span>Commute Clock: <strong id="commuteClockDisplay">19:05</strong></span>
-            </div>
-
-            <!-- LIVE ANIMATED COMMUTE & DEFROST MAP CARD -->
-            <div class="live-map-card" id="liveMapCard">
-              <div class="map-card-topbar">
-                <div class="map-scenario-pills" role="tablist" aria-label="Commute simulation states">
-                  <button type="button" class="map-scene-btn active" data-scene="ontime">1. On Time (19:05)</button>
-                  <button type="button" class="map-scene-btn" data-scene="traffic">2. Traffic Jam (19:15)</button>
-                  <button type="button" class="map-scene-btn" data-scene="atwork">3. Still at Work (19:20)</button>
-                  <button type="button" class="map-scene-btn" data-scene="arrived">4. Arriving Home (19:25)</button>
-                </div>
-                <button type="button" class="map-autocycle-btn active" id="btnToggleMapCycle" title="Automatically cycle through commute scenarios">
-                  <span class="cycle-dot"></span>
-                  <span id="mapCycleBtnLabel">Auto-Cycle: ON</span>
-                </button>
-              </div>
-
-              <!-- Animated SVG City Route Map (Zero-Overlap Pin & Callout Geometry) -->
-              <div class="map-canvas-wrap" data-scene-state="ontime" id="mapCanvasWrap">
-                <svg class="commute-map-svg" viewBox="0 0 560 280" role="img" aria-label="Animated map showing your mock location between Work and Home with live ETA and DINA defrost status">
-                  <!-- City Map Background & Blocks -->
-                  <rect x="0" y="0" width="560" height="280" fill="#EAE6D9"/>
-                  <!-- Soft River Curve -->
-                  <path d="M 190 0 C 215 95, 255 155, 310 280" fill="none" stroke="#D6D1C0" stroke-width="26"/>
-                  <!-- City Blocks / Parks -->
-                  <rect x="24" y="20" width="115" height="62" rx="8" fill="#E1DDD0"/>
-                  <rect x="24" y="100" width="95" height="52" rx="8" fill="#E1DDD0"/>
-                  <rect x="155" y="22" width="90" height="52" rx="8" fill="#E1DDD0"/>
-                  <rect x="310" y="20" width="102" height="52" rx="8" fill="#E1DDD0"/>
-                  <rect x="335" y="168" width="110" height="82" rx="8" fill="#E1DDD0"/>
-                  <rect x="462" y="168" width="76" height="82" rx="8" fill="#E1DDD0"/>
-
-                  <!-- Secondary City Streets -->
-                  <path d="M 0 90 H 560 M 0 160 H 560 M 138 0 V 280 M 435 0 V 280" stroke="#F4F2EA" stroke-width="5"/>
-
-                  <!-- Main Commute Highway Roadbed -->
-                  <path d="M 78 196 C 165 196, 195 126, 285 134 C 375 142, 405 88, 482 88" fill="none" stroke="#FFFFFF" stroke-width="14" stroke-linecap="round"/>
-                  <path d="M 78 196 C 165 196, 195 126, 285 134 C 375 142, 405 88, 482 88" fill="none" stroke="#C8C3B4" stroke-width="10" stroke-linecap="round"/>
-
-                  <!-- Active Route Animated Dashed Line -->
-                  <path id="mapRouteFlowLine" class="map-route-flow" d="M 78 196 C 165 196, 195 126, 285 134 C 375 142, 405 88, 482 88" fill="none" stroke="#191919" stroke-width="3.5" stroke-linecap="round" stroke-dasharray="7 7"/>
-
-                  <!-- Traffic Jam Congestion Segment (Visible in Traffic Scene; Label placed BELOW road so it never collides with user bubble above) -->
-                  <g id="mapTrafficGroup" class="map-traffic-group">
-                    <path d="M 188 148 C 222 128, 258 130, 326 136" fill="none" stroke="#C0775B" stroke-width="12" stroke-linecap="round" opacity="0.45"/>
-                    <path class="traffic-pulse-line" d="M 188 148 C 222 128, 258 130, 326 136" fill="none" stroke="#C0775B" stroke-width="5" stroke-linecap="round"/>
-                    <!-- Traffic Jam Callout Pill BELOW the bridge road -->
-                    <g transform="translate(258, 174)">
-                      <path d="M -6 -14 L 0 -22 L 6 -14 Z" fill="#C0775B"/>
-                      <rect x="-74" y="-14" width="148" height="24" rx="6" fill="#C0775B"/>
-                      <text x="0" y="2" text-anchor="middle" fill="#FFFFFF" font-family="Archivo, sans-serif" font-size="10" font-weight="700">A5 BRIDGE JAM &bull; +30 MIN</text>
-                    </g>
-                  </g>
-
-                  <!-- WORK / OFFICE PIN (Left: 78, 196; Label BELOW at y=+28) -->
-                  <g transform="translate(78, 196)">
-                    <circle class="work-stay-pulse" id="workStayPulse" cx="0" cy="0" r="24" fill="rgba(192, 119, 91, 0.22)"/>
-                    <circle cx="0" cy="0" r="16" fill="#F1EFE5" stroke="#191919" stroke-width="2"/>
-                    <rect x="-7" y="-5" width="14" height="11" rx="2" fill="none" stroke="#191919" stroke-width="1.7"/>
-                    <path d="M -3 -5 V -8 H 3 V -5" fill="none" stroke="#191919" stroke-width="1.6"/>
-                    <rect x="-32" y="22" width="64" height="20" rx="5" fill="#191919"/>
-                    <text x="0" y="35" text-anchor="middle" fill="#F1EFE5" font-family="Archivo, sans-serif" font-size="10" font-weight="700">WORK</text>
-                  </g>
-
-                  <!-- HOME / DINA KITCHEN PIN (Right: 482, 88; Status Badge BELOW at y=+34 so it never collides with user bubble above) -->
-                  <g transform="translate(482, 88)">
-                    <circle id="mapHomeHaloRing" class="map-home-halo amber" cx="0" cy="0" r="26"/>
-                    <circle cx="0" cy="0" r="18" fill="#F1EFE5" stroke="#191919" stroke-width="2"/>
-                    <path d="M -9 1 L 0 -8 L 9 1" fill="none" stroke="#191919" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-                    <path d="M -6 0 V 8 H 6 V 0" fill="none" stroke="#191919" stroke-width="1.8" stroke-linejoin="round"/>
-                    <circle id="mapHomeDot" cx="0" cy="4" r="2.5" fill="#C0775B"/>
-                    <!-- Home Status Callout Badge BELOW the Home Pin -->
-                    <g transform="translate(-8, 35)">
-                      <rect x="-66" y="-12" width="132" height="24" rx="6" fill="#191919"/>
-                      <text id="mapHomeBadgeText" x="0" y="4" text-anchor="middle" fill="#F1EFE5" font-family="Archivo, sans-serif" font-size="10" font-weight="700">HOME &bull; +10&deg;C THAW</text>
-                    </g>
-                  </g>
-
-                  <!-- ANIMATED MOCK USER LOCATION MARKER (Glides smoothly along route; Bubble ALWAYS ABOVE at y=-30) -->
-                  <g id="mapUserMarker" class="map-user-marker" transform="translate(185, 150)">
-                    <circle class="user-gps-pulse" cx="0" cy="0" r="20"/>
-                    <circle cx="0" cy="0" r="10.5" fill="#C0775B" stroke="#FFFFFF" stroke-width="2.5"/>
-                    <circle cx="0" cy="0" r="3.5" fill="#FFFFFF"/>
-                    <!-- Floating User ETA Bubble ABOVE marker -->
-                    <g id="mapUserBubbleGroup" transform="translate(0, -30)">
-                      <path d="M -5 10 L 0 16 L 5 10 Z" fill="#191919"/>
-                      <rect x="-70" y="-14" width="140" height="24" rx="6" fill="#FFFFFF" stroke="#191919" stroke-width="1.5"/>
-                      <text id="mapUserBubbleText" x="0" y="2" text-anchor="middle" fill="#191919" font-family="Archivo, sans-serif" font-size="10.5" font-weight="700">YOU &bull; ETA 19:20</text>
-                    </g>
-                  </g>
-                </svg>
-
-                <!-- Auto-Cycle Progress Bar at bottom of map -->
-                <div class="map-cycle-progress-track">
-                  <div class="map-cycle-progress-bar" id="mapCycleProgressBar"></div>
-                </div>
-              </div>
-
-              <!-- Live 3-Metric Map Telemetry Strip (Location, ETA, Defrost Time & Drawer State) -->
-              <div class="map-live-metrics-row">
-                <div class="map-metric-box">
-                  <span class="map-metric-label">Mock Location</span>
-                  <strong class="map-metric-val" id="mapMetricLocation">Driving Home (Clear)</strong>
-                </div>
-                <div class="map-metric-box">
-                  <span class="map-metric-label">Arrival ETA</span>
-                  <strong class="map-metric-val" id="mapMetricEta">19:20 (in 15 min)</strong>
-                </div>
-                <div class="map-metric-box highlight">
-                  <span class="map-metric-label">DINA Defrost &amp; Hold</span>
-                  <strong class="map-metric-val" id="mapMetricDefrost">Thawing (+10.0 &deg;C) &bull; Surface &le; +4.0 &deg;C</strong>
-                </div>
-              </div>
-            </div>
-
-            <!-- Privacy Toggle Card -->
-            <div class="commute-card" style="margin-bottom:0;">
-              <div class="toggle-row">
-                <div>
-                  <h4 style="font-size:13px; font-weight:600;">On-Device Location Privacy <span class="spec-status-tag target">[Design Target]</span></h4>
-                  <p style="font-size:12px; color:var(--ink-soft);">Your route telemetry stays strictly on-phone &mdash; only an encrypted delay hold signal is dispatched to DINA</p>
-                </div>
-                <button type="button" class="privacy-toggle-btn active" id="btnToggleCommuteSync" aria-pressed="true">ON</button>
-              </div>
-            </div>
-          </div>
-
-          <div class="tab-col-secondary">
-            <div class="commute-card sand-card" style="background: var(--sand);">
-              <div class="section-headline-block" style="border:none; padding:0; margin-bottom:8px;">
-                <h2 style="font-size: 15px;">How DINA Reacts to Your Evening</h2>
-                <p id="commuteStatusText">Route clear (15 min drive): Prime Angus Ribeye is active-thawing (+10.0 &deg;C air) until surface hits +4.0 &deg;C, then equalizes at +3.0 &deg;C so it is ready right as you walk in at 19:30.</p>
-              </div>
-              <p id="commuteArrivalText" style="font-size:12.5px; color:var(--ink); font-weight:600; margin-bottom:12px;">
-                Target Dinner: 19:30 &bull; ETA: 19:20 &bull; Drawer: Active Thaw (+10.0 &deg;C)
-              </p>
-              <button class="btn-action-primary" id="btnSimulateDelay" style="background:var(--ink); font-size:13px; padding:12px 16px;" type="button">
-                Jump to Next Map Scenario
-              </button>
-            </div>
-
-            <div class="commute-card" style="margin-bottom:0;">
-              <div class="section-headline-block" style="border:none; padding:0; margin-bottom:8px;">
-                <h2 style="font-size: 15px;">Works Even If Your Wi-Fi Drops</h2>
-                <p id="offlineStatusText">Home Wi-Fi connected. Even if your internet goes down, DINA executes your dinner schedule locally on its own.</p>
-              </div>
-              <button class="btn-action-primary" id="btnSimulateOffline" style="background:transparent; color:var(--ink); border:1px solid var(--ink); box-shadow:none; font-size:13px; padding:11px 16px;" type="button">
-                Test With Home Wi-Fi Offline
-              </button>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- TAB 4: KITCHEN & CARE -->
-      <section class="tab-content" id="tab-chat">
-        <div class="section-headline-block">
-          <div class="headline-with-icon">
-            <svg class="dina-icon" viewBox="0 0 48 48" width="32" height="32" aria-hidden="true">
-              <path class="d" style="--i:0" pathLength="1" d="M24 5L39 10V22C39 32 32 39 24 43C16 39 9 32 9 22V10Z"/><g class="chk"><path class="d ac" style="--i:2" pathLength="1" d="M16.5 24L22 29.5L32 18.5"/></g>
-            </svg>
-            <div>
-              <h2>Your Kitchen &amp; Everyday Care</h2>
-              <p>Works with Apple Home, Google Home, Samsung SmartThings, and Home Assistant <span class="spec-status-tag planned">[Planned / Architecture Concept]</span> &bull; Matter-over-Wi-Fi local telemetry</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="tab-split-layout">
-          <div class="tab-col-primary">
-            <div class="telemetry-grid">
-              <div class="telem-cell">
-                <div class="telem-cell-top">
-                  <span class="telem-cell-title">Main Freezer</span>
-                  <svg class="dina-icon" viewBox="0 0 48 48" width="22" height="22" style="filter:none;" aria-hidden="true">
-                    <g class="vb spin-snow"><path class="d" style="--i:0" pathLength="1" d="M24 8V40M10 16L38 32M38 16L10 32"/></g><circle class="d ac" style="--i:1" pathLength="1" cx="24" cy="24" r="2.5"/>
-                  </svg>
-                </div>
-                <div class="telem-cell-val">&minus;18.0 &deg;C</div>
-                <span class="telem-cell-sub">11 Meals + 110 L Vault <span class="spec-status-tag cad">[CAD Verified]</span></span>
-              </div>
-
-              <div class="telem-cell">
-                <div class="telem-cell-top">
-                  <span class="telem-cell-title">Defrost Drawer</span>
-                  <svg class="dina-icon" viewBox="0 0 48 48" width="22" height="22" style="filter:none;" aria-hidden="true">
-                    <circle class="d" style="--i:0" pathLength="1" cx="24" cy="24" r="18"/><g class="vb spin-fan"><path class="d" style="--i:1" pathLength="1" d="M24 21C23 13 27 8 33 9C34.5 15 30 20 24 21Z"/><g transform="rotate(120 24 24)"><path class="d" style="--i:1" pathLength="1" d="M24 21C23 13 27 8 33 9C34.5 15 30 20 24 21Z"/></g><g transform="rotate(240 24 24)"><path class="d" style="--i:1" pathLength="1" d="M24 21C23 13 27 8 33 9C34.5 15 30 20 24 21Z"/></g></g><circle class="d ac" style="--i:2" pathLength="1" cx="24" cy="24" r="2.8"/>
-                  </svg>
-                </div>
-                <div class="telem-cell-val" id="telemDrawerTemp" style="color:var(--clay)">+10.0 &deg;C</div>
-                <span class="telem-cell-sub">Convection air: +10.0 &deg;C &bull; Food surface limit: &le; +4.0 &deg;C <span class="spec-status-tag thermal">[Thermal Model]</span></span>
-              </div>
-
-              <div class="telem-cell">
-                <div class="telem-cell-top">
-                  <span class="telem-cell-title">Fridge Hold</span>
-                  <svg class="dina-icon" viewBox="0 0 48 48" width="22" height="22" style="filter:none;" aria-hidden="true">
-                    <path class="d" style="--i:0" pathLength="1" d="M24 5L39 10V22C39 32 32 39 24 43C16 39 9 32 9 22V10Z"/><path class="d ac" style="--i:1" pathLength="1" d="M17 24L22 29L31 19"/>
-                  </svg>
-                </div>
-                <div class="telem-cell-val">+3.0 &deg;C</div>
-                <span class="telem-cell-sub">Uniform +3.0 &deg;C (&le; 24 h) <span class="spec-status-tag logic">[Design Logic]</span></span>
-              </div>
-
-              <div class="telem-cell">
-                <div class="telem-cell-top">
-                  <span class="telem-cell-title">Power-Cut Guard</span>
-                  <svg class="dina-icon" viewBox="0 0 48 48" width="22" height="22" style="filter:none;" aria-hidden="true">
-                    <path class="d" style="--i:0" pathLength="1" d="M27 5L11 27H23L21 43L37 21H25Z"/>
-                  </svg>
-                </div>
-                <div class="telem-cell-val" id="telemBlackoutVal">All Good</div>
-                <span class="telem-cell-sub">Two-Tier Safety: 30m / 2h <span class="spec-status-tag logic">[Food Safety Standard]</span></span>
-              </div>
-            </div>
-
-            <!-- Closed-Loop Surface Sensing & Control Card -->
-            <div class="closed-loop-card">
-              <div class="closed-loop-header">
-                <span class="closed-loop-title">Closed-Loop Surface Control &amp; Sensing</span>
-                <span class="spec-status-tag thermal">[Thermal Model &bull; Design Logic]</span>
-              </div>
-              <p style="font-size:11.5px; color:var(--ink-soft); margin:0;">
-                Food surface is monitored via a lid-contact NTC thermistor probe (with hermetic seal interface) and chamber thermopiles. Air is controlled via setpoint switching with a &plusmn;0.5 &deg;C deadband around +4.0 &deg;C.
-              </p>
-              <div class="closed-loop-grid">
-                <div class="closed-loop-cell">
-                  <span class="closed-loop-cell-title">Convection Air</span>
-                  <span class="closed-loop-cell-val" id="clFanState" style="color:var(--clay)">+10.0 &deg;C (Active)</span>
-                  <span class="closed-loop-cell-sub" id="clFanSub">Forced Air ON</span>
-                </div>
-                <div class="closed-loop-cell">
-                  <span class="closed-loop-cell-title">Lid NTC Surface</span>
-                  <span class="closed-loop-cell-val" id="clSurfaceTemp">+2.2 &deg;C</span>
-                  <span class="closed-loop-cell-sub">Cutoff at &le; +4.0 &deg;C</span>
-                </div>
-                <div class="closed-loop-cell">
-                  <span class="closed-loop-cell-title">Core Temperature</span>
-                  <span class="closed-loop-cell-val" id="clCoreTemp">&minus;1.2 &deg;C</span>
-                  <span class="closed-loop-cell-sub">Latent Phase Change</span>
-                </div>
-              </div>
-              <div style="font-size:11px; color:var(--ink-soft); margin-top:2px;">
-                Step through simulated telemetry sequence:
-              </div>
-              <div class="closed-loop-stepper-row" role="tablist" aria-label="Closed-loop telemetry stages">
-                <button type="button" class="closed-loop-step-btn" data-step="1">1. Drop (&minus;18 &deg;C)</button>
-                <button type="button" class="closed-loop-step-btn active" data-step="2">2. Melting (&minus;1.5 &deg;C)</button>
-                <button type="button" class="closed-loop-step-btn" data-step="3">3. Cutoff (+4.0 &deg;C)</button>
-                <button type="button" class="closed-loop-step-btn" data-step="4">4. Equalize (+3.0 &deg;C)</button>
-              </div>
-            </div>
-
-            <!-- Everyday Peace-of-Mind Scenarios (Customer-Friendly Demo Controls) -->
-            <div class="load-form-card" style="margin-top:14px;">
-              <span class="form-label">Everyday Peace of Mind &mdash; Tap to See How DINA Protects You</span>
-              
-              <!-- Two-Tier Power-Cut Guard Stepper -->
-              <div style="margin-bottom:12px;">
-                <span style="font-size:12px; font-weight:600; color:var(--ink); display:block; margin-bottom:4px;">Power-Cut Protection &mdash; Stepped Outage Simulation:</span>
-                <div class="power-cut-stepper" aria-label="Power cut duration simulation">
-                  <button type="button" class="pcut-step-btn active" data-duration="15" id="btnPcut15">
-                    <strong>&lt; 30 min (15m)</strong>
-                    <span>Safe Resumption</span>
-                  </button>
-                  <button type="button" class="pcut-step-btn" data-duration="45" id="btnPcut45">
-                    <strong>30&ndash;119 min (45m)</strong>
-                    <span>Tier 1 Warning</span>
-                  </button>
-                  <button type="button" class="pcut-step-btn" data-duration="150" id="btnPcut150">
-                    <strong>&ge; 120 min (2.5h)</strong>
-                    <span>Tier 2 Lockout</span>
-                  </button>
-                </div>
-              </div>
-
-              <div class="demo-scenarios-list">
-                <button type="button" class="scenario-btn" id="btnSimDrawerOpen">
-                  <span>What if a dish is still in the drawer at drop time?</span>
-                  <span class="scenario-tag">Smart Pause</span>
-                </button>
-                <button type="button" class="scenario-btn" id="btnSimDishClean">
-                  <span>When does the drip tray need a quick rinse?</span>
-                  <span class="scenario-tag">Easy Care</span>
-                </button>
-              </div>
-
-              <!-- Dedicated live feedback card -->
-              <div class="scenario-feedback-card" id="scenarioFeedbackBox" hidden>
-                <p id="scenarioFeedbackText" style="margin:0;"></p>
-              </div>
-            </div>
-          </div>
-
-          <div class="tab-col-secondary">
-            <!-- Handle Light Ring Guide -->
-            <div class="halo-simulator-card">
-              <span class="drum-tier-title">Drawer Handle Light Guide</span>
-              <p style="font-size:12px; color:var(--ink-soft); margin-top:4px;">See what DINA is doing from across your kitchen</p>
-              <div class="halo-ring-visual amber" id="haloRingVisual"></div>
-              <p id="haloStateLabel" style="font-size:12.5px; font-weight:600; color:var(--ink);">Warm Amber &mdash; Gently Thawing Tonight&rsquo;s Dinner</p>
-              
-              <div class="halo-buttons-row">
-                <button class="halo-btn" data-mode="cyan" type="button">Soft Blue (Standby)</button>
-                <button class="halo-btn active" data-mode="amber" type="button">Warm Amber (Thawing)</button>
-                <button class="halo-btn" data-mode="green" type="button">Green (Ready to Cook)</button>
-                <button class="halo-btn" data-mode="red" type="button">Red (Safety Alert)</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
+      <!-- Connectivity Toggle -->
+      <div class="director-section">
+        <div class="director-sec-title">Connectivity</div>
+        <button type="button" class="btn-scenario-pill" id="btnToggleWifiDesktop">
+          <span>Home Wi-Fi: <strong>Connected</strong></span>
+        </button>
+      </div>
+
+      <!-- Guided Tour Launcher -->
+      <div class="director-section" style="margin-top:auto; padding-top:12px; border-top:var(--hairline);">
+        <button type="button" class="btn-tour-launch" id="btnLaunchTourDesktop">
+          Start Guided Tour (~90s)
+        </button>
+        <span style="font-size:10px; color:var(--ink-soft); text-align:center; display:block; margin-top:4px;">
+          Automatically guides through check-in, airlock drop, thaw cutoff, and traffic delay.
+        </span>
+      </div>
+    </aside>
+
+  </div><!-- /.app-layout-wrapper -->
+
+  <!-- Floating Demo Button on Mobile Screens (< 900px) -->
+  <button type="button" class="floating-demo-btn" id="btnOpenDemoSheet" aria-label="Open Simulation Director Controls">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+    <span>Director</span>
+  </button>
+
+  <!-- ====================================================================
+       BOTTOM SHEETS (Emil 280ms ease-drawer, focus-trapped, backdrop)
+       ==================================================================== -->
+  <div class="sheet-backdrop" id="sheetBackdrop" aria-hidden="true"></div>
+
+  <!-- SHEET 1: CHANGE DINNER SHEET -->
+  <div class="bottom-sheet" id="changeDinnerSheet" role="dialog" aria-labelledby="changeDinnerTitle" aria-modal="true" hidden>
+    <div class="sheet-handle-bar"></div>
+    <div class="sheet-header">
+      <h3 class="sheet-title" id="changeDinnerTitle">Change Tonight&rsquo;s Dinner</h3>
+      <button type="button" class="btn-sheet-close" id="btnCloseChangeDinner">Close</button>
     </div>
+    <div class="sheet-body">
+      <span class="form-label" style="margin-top:0;">1. Tap What You Feel Like Eating Tonight:</span>
+      <div class="meal-grid" id="sheetMealGrid" style="margin-bottom:16px;">
+        <!-- Dynamically rendered 8 stocked meals buttons -->
+      </div>
 
-    <!-- Toast Notification Element -->
-    <div class="toast-msg" id="toastMsg" role="status" aria-live="polite">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <circle cx="12" cy="12" r="10"></circle>
-        <path d="M12 8v4m0 4h.01"></path>
-      </svg>
-      <span class="toast-text">Dinner scheduled</span>
+      <span class="form-label">2. Target Dinner Ready Time:</span>
+      <div class="schedule-widget-wrap">
+        <div class="dial-container" id="dialContainer" role="slider" tabindex="0" aria-label="Target dinner ready time" aria-valuemin="1080" aria-valuemax="1320" aria-valuenow="1170" aria-valuetext="19:30" title="Drag dial or use arrow keys">
+          <svg class="dial-svg" viewBox="0 0 200 200">
+            <circle class="dial-bg-circle" cx="100" cy="100" r="96"/>
+            <g id="dialTicks"></g>
+            <path id="dialArc" d="M 188 100 A 88 88 0 0 1 100 188" fill="none" stroke="#C0775B" stroke-width="14" stroke-linecap="round"/>
+          </svg>
+          <div class="dial-center-disc">
+            <span class="dial-title">Ready By</span>
+            <span class="dial-value" id="dialValue">19:30</span>
+            <span class="dial-sub">Tonight</span>
+          </div>
+        </div>
+        <p class="dial-workflow-caption" style="margin-top:6px;">Drag dial or use &larr;/&rarr; arrow keys</p>
+      </div>
+
+      <!-- Late Rescue / Thermal Window Advisory -->
+      <div class="late-rescue-notice" id="lateRescueNotice" hidden style="margin-bottom:14px;">
+        <strong>Thermal Window Advisory:</strong> Requires gentle thaw + equalization soak. Earliest safe ready time: <strong>19:30</strong>.
+      </div>
+
+      <!-- Quick Preset Chips -->
+      <div class="quick-time-chips" aria-label="Quick dinner time presets" style="margin-bottom:16px;">
+        <button type="button" class="time-preset-chip" data-mins="1110">18:30 (Eat Early)</button>
+        <button type="button" class="time-preset-chip active" data-mins="1170">19:30 (Usual Time)</button>
+        <button type="button" class="time-preset-chip" data-mins="1230">20:30 (Eat Later)</button>
+        <button type="button" class="time-preset-chip" data-mins="1280">21:20 (Late Night)</button>
+      </div>
+
+      <button type="button" class="btn-action-primary" id="btnConfirmDinnerSheet" style="width:100%; padding:14px 18px;">
+        Confirm Dinner Plan
+      </button>
     </div>
-
   </div>
 
-  <script src="js/app.js?v=8.3"></script>
+  <!-- SHEET 2: ADD MEAL SHEET -->
+  <div class="bottom-sheet" id="addMealSheet" role="dialog" aria-labelledby="addMealTitle" aria-modal="true" hidden>
+    <div class="sheet-handle-bar"></div>
+    <div class="sheet-header">
+      <h3 class="sheet-title" id="addMealTitle">Add Meal to Freezer</h3>
+      <button type="button" class="btn-sheet-close" id="btnCloseAddMeal">Close</button>
+    </div>
+    <div class="sheet-body">
+      <span class="form-label" style="margin-top:0;">Container to Stock: <strong id="sheetTargetSlotDisplay" style="color:var(--clay)">Container 09</strong></span>
+
+      <label class="form-label" for="sheetMealNameInput" style="margin-top:10px;">Dish Name (Optional):</label>
+      <input type="text" id="sheetMealNameInput" class="app-text-input" placeholder="e.g. Herb-Crusted Ribeye, Roast Duck..." maxlength="35" style="margin-bottom:12px;">
+
+      <span class="form-label">Food Type:</span>
+      <div class="category-chips-grid" id="sheetCategoryChipsGrid" style="margin-bottom:12px;">
+        <button class="cat-chip selected" data-cat="beef" type="button">Steak &amp; Beef</button>
+        <button class="cat-chip" data-cat="chicken" type="button">Chicken &amp; Poultry</button>
+        <button class="cat-chip" data-cat="fish" type="button">Fish Fillets</button>
+        <button class="cat-chip" data-cat="shrimp" type="button">Prawns &amp; Seafood</button>
+        <button class="cat-chip" data-cat="vegetables" type="button">Vegetables &amp; Sides</button>
+        <button class="cat-chip" data-cat="lasagna" type="button">Homemade Lasagna</button>
+        <button class="cat-chip" data-cat="pork" type="button">Pork &amp; Medallions</button>
+      </div>
+
+      <div class="weight-range-row">
+        <span class="form-label" style="margin:0;">Portion Size:</span>
+        <span class="weight-val" id="sheetWeightDisplay">450 g</span>
+      </div>
+      <input type="range" min="100" max="700" step="25" value="450" class="range-slider" id="sheetWeightSlider" aria-label="Portion size slider (max 700g for 750ml container)">
+      <div style="font-size:10.5px; color:var(--ink-soft); margin-top:3px; margin-bottom:10px;">
+        750 ml container limit: max 700 g (leaves 10% freeze-expansion headspace) <span class="spec-status-tag cad">[CAD Verified]</span>
+      </div>
+
+      <div class="density-display-box" style="margin-bottom:12px;">
+        <span>Density Class: <strong id="sheetDensityName">Dense Protein (1.06 g/cm³)</strong></span>
+        <span>Model: <strong>Plank Convective</strong></span>
+      </div>
+
+      <div class="calc-result-box" style="margin-bottom:16px;">
+        <span class="calc-result-title">Modelled Thaw Cycle:</span>
+        <span class="calc-result-time" id="sheetThawCalcDisplay">~85 min (+ 15 min equalization)</span>
+      </div>
+
+      <button type="button" class="btn-action-primary" id="btnSaveStockMeal" style="width:100%; padding:14px 18px;">
+        Bring Container to Door &amp; Save
+      </button>
+    </div>
+  </div>
+
+  <!-- SHEET 3: LIVE COMMUTE MAP SHEET -->
+  <div class="bottom-sheet" id="liveMapSheet" role="dialog" aria-labelledby="liveMapTitle" aria-modal="true" hidden>
+    <div class="sheet-handle-bar"></div>
+    <div class="sheet-header">
+      <h3 class="sheet-title" id="liveMapTitle">Live Commute &amp; Defrost Sync</h3>
+      <button type="button" class="btn-sheet-close" id="btnCloseLiveMap">Close</button>
+    </div>
+    <div class="sheet-body">
+      <!-- Scenario Selector Pills -->
+      <div class="map-scenario-pills" role="tablist" aria-label="Commute scenarios" style="margin-bottom:12px;">
+        <button type="button" class="map-scene-btn active" data-scene="ontime">1. On Time</button>
+        <button type="button" class="map-scene-btn" data-scene="traffic">2. Traffic Jam (+30m)</button>
+        <button type="button" class="map-scene-btn" data-scene="atwork">3. Still at Work</button>
+        <button type="button" class="map-scene-btn" data-scene="arrived">4. Arrived Home</button>
+      </div>
+
+      <!-- Animated SVG City Route Map -->
+      <div class="map-canvas-wrap" data-scene-state="ontime" id="mapCanvasWrap" style="margin-bottom:14px;">
+        <svg class="commute-map-svg" viewBox="0 0 560 280" role="img" aria-label="Animated map showing your mock location between Work and Home with live ETA and DINA defrost status">
+          <!-- City Map Background & Blocks -->
+          <rect x="0" y="0" width="560" height="280" fill="#EAE6D9"/>
+          <!-- River Curve -->
+          <path d="M 190 0 C 215 95, 255 155, 310 280" fill="none" stroke="#D6D1C0" stroke-width="26"/>
+          <!-- City Blocks -->
+          <rect x="24" y="20" width="115" height="62" rx="8" fill="#E1DDD0"/>
+          <rect x="24" y="100" width="95" height="52" rx="8" fill="#E1DDD0"/>
+          <rect x="155" y="22" width="90" height="52" rx="8" fill="#E1DDD0"/>
+          <rect x="310" y="20" width="102" height="52" rx="8" fill="#E1DDD0"/>
+          <rect x="335" y="168" width="110" height="82" rx="8" fill="#E1DDD0"/>
+          <rect x="462" y="168" width="76" height="82" rx="8" fill="#E1DDD0"/>
+
+          <!-- Secondary Streets -->
+          <path d="M 0 90 H 560 M 0 160 H 560 M 138 0 V 280 M 435 0 V 280" stroke="#F4F2EA" stroke-width="5"/>
+
+          <!-- Highway Roadbed -->
+          <path d="M 78 196 C 165 196, 195 126, 285 134 C 375 142, 405 88, 482 88" fill="none" stroke="#FFFFFF" stroke-width="14" stroke-linecap="round"/>
+          <path d="M 78 196 C 165 196, 195 126, 285 134 C 375 142, 405 88, 482 88" fill="none" stroke="#C8C3B4" stroke-width="10" stroke-linecap="round"/>
+          <path id="mapRouteFlowLine" class="map-route-flow" d="M 78 196 C 165 196, 195 126, 285 134 C 375 142, 405 88, 482 88" fill="none" stroke="#191919" stroke-width="3.5" stroke-linecap="round" stroke-dasharray="7 7"/>
+
+          <!-- Traffic Jam Segment -->
+          <g id="mapTrafficGroup" class="map-traffic-group">
+            <path d="M 188 148 C 222 128, 258 130, 326 136" fill="none" stroke="#C0775B" stroke-width="12" stroke-linecap="round" opacity="0.45"/>
+            <path class="traffic-pulse-line" d="M 188 148 C 222 128, 258 130, 326 136" fill="none" stroke="#C0775B" stroke-width="5" stroke-linecap="round"/>
+            <g transform="translate(258, 174)">
+              <rect x="-74" y="-14" width="148" height="24" rx="6" fill="#C0775B"/>
+              <text x="0" y="2" text-anchor="middle" fill="#FFFFFF" font-family="Archivo, sans-serif" font-size="10" font-weight="700">A5 BRIDGE JAM &bull; +30 MIN</text>
+            </g>
+          </g>
+
+          <!-- WORK PIN -->
+          <g transform="translate(78, 196)">
+            <circle class="work-stay-pulse" cx="0" cy="0" r="24" fill="rgba(192, 119, 91, 0.22)"/>
+            <circle cx="0" cy="0" r="16" fill="#F1EFE5" stroke="#191919" stroke-width="2"/>
+            <rect x="-7" y="-5" width="14" height="11" rx="2" fill="none" stroke="#191919" stroke-width="1.7"/>
+            <path d="M -3 -5 V -8 H 3 V -5" fill="none" stroke="#191919" stroke-width="1.6"/>
+            <rect x="-32" y="22" width="64" height="20" rx="5" fill="#191919"/>
+            <text x="0" y="35" text-anchor="middle" fill="#F1EFE5" font-family="Archivo, sans-serif" font-size="10" font-weight="700">WORK</text>
+          </g>
+
+          <!-- HOME PIN -->
+          <g transform="translate(482, 88)">
+            <circle id="mapHomeHaloRing" class="map-home-halo amber" cx="0" cy="0" r="26"/>
+            <circle cx="0" cy="0" r="18" fill="#F1EFE5" stroke="#191919" stroke-width="2"/>
+            <path d="M -9 1 L 0 -8 L 9 1" fill="none" stroke="#191919" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M -6 0 V 8 H 6 V 0" fill="none" stroke="#191919" stroke-width="1.8" stroke-linejoin="round"/>
+            <circle id="mapHomeDot" cx="0" cy="4" r="2.5" fill="#C0775B"/>
+            <g transform="translate(-8, 35)">
+              <rect x="-66" y="-12" width="132" height="24" rx="6" fill="#191919"/>
+              <text id="mapHomeBadgeText" x="0" y="4" text-anchor="middle" fill="#F1EFE5" font-family="Archivo, sans-serif" font-size="10" font-weight="700">HOME &bull; +10&deg;C THAW</text>
+            </g>
+          </g>
+
+          <!-- USER LOCATION MARKER -->
+          <g id="mapUserMarker" class="map-user-marker" transform="translate(185, 150)">
+            <circle class="user-gps-pulse" cx="0" cy="0" r="20"/>
+            <circle cx="0" cy="0" r="10.5" fill="#C0775B" stroke="#FFFFFF" stroke-width="2.5"/>
+            <circle cx="0" cy="0" r="3.5" fill="#FFFFFF"/>
+            <g id="mapUserBubbleGroup" transform="translate(0, -30)">
+              <rect x="-70" y="-14" width="140" height="24" rx="6" fill="#FFFFFF" stroke="#191919" stroke-width="1.5"/>
+              <text id="mapUserBubbleText" x="0" y="2" text-anchor="middle" fill="#191919" font-family="Archivo, sans-serif" font-size="10.5" font-weight="700">YOU &bull; ETA 19:20</text>
+            </g>
+          </g>
+        </svg>
+      </div>
+
+      <!-- Live Metrics Strip -->
+      <div class="map-live-metrics-row" style="margin-bottom:14px;">
+        <div class="map-metric-box">
+          <span class="map-metric-label">Location</span>
+          <strong class="map-metric-val" id="mapMetricLocation">Driving Home (Clear)</strong>
+        </div>
+        <div class="map-metric-box">
+          <span class="map-metric-label">Arrival ETA</span>
+          <strong class="map-metric-val" id="mapMetricEta">19:20</strong>
+        </div>
+        <div class="map-metric-box highlight">
+          <span class="map-metric-label">Defrost State</span>
+          <strong class="map-metric-val" id="mapMetricDefrost">Thawing (+10.0 &deg;C)</strong>
+        </div>
+      </div>
+
+      <p style="font-size:12px; color:var(--ink-soft); line-height:1.45; margin:0;">
+        <strong>On-Device Location Privacy:</strong> Designed so live location stays on the phone. Only an encrypted delay hold signal is dispatched to DINA when traffic exceeds 15 minutes.
+      </p>
+    </div>
+  </div>
+
+  <!-- SHEET 4: MOBILE DEMO DIRECTOR SHEET (< 900px) -->
+  <div class="bottom-sheet" id="directorSheet" role="dialog" aria-labelledby="directorSheetTitle" aria-modal="true" hidden>
+    <div class="sheet-handle-bar"></div>
+    <div class="sheet-header">
+      <h3 class="sheet-title" id="directorSheetTitle">Simulation Controls</h3>
+      <button type="button" class="btn-sheet-close" id="btnCloseDirectorSheet">Close</button>
+    </div>
+    <div class="sheet-body">
+      <!-- Mobile Clock Controls -->
+      <div class="director-section">
+        <div class="director-sec-title">Simulated Afternoon Clock</div>
+        <div class="director-clock-row">
+          <div class="director-clock-time" id="mobileDirectorClockVal">15:00</div>
+          <div class="director-speed-buttons">
+            <button type="button" class="btn-speed active" data-speed="1" id="btnSpeedMobile1">1x</button>
+            <button type="button" class="btn-speed" data-speed="5" id="btnSpeedMobile5">5x</button>
+            <button type="button" class="btn-speed" data-speed="20" id="btnSpeedMobile20">20x</button>
+            <button type="button" class="btn-speed" id="btnSpeedMobilePlayPause">Pause</button>
+          </div>
+        </div>
+
+        <label for="mobileSimScrubber" class="form-label" style="margin:4px 0 2px; font-size:11px;">Scrub Simulated Evening (15:00 to 21:30):</label>
+        <input type="range" min="900" max="1290" step="1" value="900" class="range-slider" id="mobileSimScrubber" aria-label="Mobile simulated time scrubber">
+        
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-top:2px;">
+          <span style="font-size:10.5px; color:var(--ink-soft);">15:00 Check-in &bull; 17:50 Drop &bull; 19:30 Ready</span>
+          <button type="button" id="btnMobileDirectorReset" style="background:none; border:none; color:var(--clay); font-size:11px; font-weight:700; cursor:pointer; text-decoration:underline;">Reset Evening</button>
+        </div>
+      </div>
+
+      <!-- Mobile Commute Scenarios -->
+      <div class="director-section" style="margin-top:12px;">
+        <div class="director-sec-title">Commute Disruption Scenario</div>
+        <div class="director-pills-grid">
+          <button type="button" class="btn-scenario-pill active" data-commute="ontime" id="pillMobileCommuteOntime">1. On Time</button>
+          <button type="button" class="btn-scenario-pill" data-commute="traffic" id="pillMobileCommuteTraffic">2. Traffic (+30m)</button>
+          <button type="button" class="btn-scenario-pill" data-commute="atwork" id="pillMobileCommuteAtwork">3. Still at Work</button>
+          <button type="button" class="btn-scenario-pill" data-commute="arrived" id="pillMobileCommuteArrived">4. Arrived Home</button>
+        </div>
+      </div>
+
+      <!-- Mobile Safety Scenarios -->
+      <div class="director-section" style="margin-top:12px;">
+        <div class="director-sec-title">Safety Scenarios</div>
+        <div class="director-pills-grid">
+          <button type="button" class="btn-scenario-pill active" data-pcut="0" id="pillMobilePcut0">Power Normal</button>
+          <button type="button" class="btn-scenario-pill" data-pcut="20" id="pillMobilePcut20">Cut 20m (Safe)</button>
+          <button type="button" class="btn-scenario-pill" data-pcut="45" id="pillMobilePcut45">Cut 45m (Warning)</button>
+          <button type="button" class="btn-scenario-pill" data-pcut="130" id="pillMobilePcut130">Cut 130m (Lockout)</button>
+        </div>
+        <button type="button" class="btn-scenario-pill" id="btnMobileToggleDrawerOccupied" style="margin-top:4px;">
+          <span>Dish in Drawer: <strong>Empty (Normal)</strong></span>
+        </button>
+      </div>
+
+      <!-- Mobile Connectivity -->
+      <div class="director-section" style="margin-top:12px;">
+        <div class="director-sec-title">Connectivity</div>
+        <button type="button" class="btn-scenario-pill" id="btnMobileToggleWifi">
+          <span>Home Wi-Fi: <strong>Connected</strong></span>
+        </button>
+      </div>
+
+      <!-- Mobile Tour Launcher -->
+      <div class="director-section" style="margin-top:16px;">
+        <button type="button" class="btn-tour-launch" id="btnLaunchTourMobile">
+          Start Guided Tour (~90s)
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Message Box -->
+  <div class="toast-msg" id="toastMsg" role="status" aria-live="polite">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <circle cx="12" cy="12" r="10"></circle>
+      <path d="M12 8v4m0 4h.01"></path>
+    </svg>
+    <span class="toast-text">Dinner scheduled</span>
+  </div>
+
+  <script src="js/app.js?v=10.0"></script>
 </body>
 </html>
