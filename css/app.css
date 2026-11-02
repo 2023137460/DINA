@@ -1908,4 +1908,353 @@ body.app-body {
   color: var(--ink);
 }
 
+/* ==========================================================================
+   DINA Companion App — Engineering & Sensory Fidelity Updates
+   Strictly follows /dina-brand-identity, /apple-design, /mobile-design, /design-taste-frontend
+   ========================================================================== */
+
+/* Simulator Header Badge & Clock Pill */
+a.app-status-badge.simulator-badge {
+  text-decoration: none;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 4px;
+  background: var(--sand);
+  color: var(--ink);
+  transition: transform 140ms var(--ease-out), background 140ms var(--ease-out);
+}
+
+a.app-status-badge.simulator-badge:active {
+  transform: scale(0.97);
+}
+
+a.app-status-badge.simulator-badge:focus-visible {
+  outline: 2px solid var(--clay);
+  outline-offset: 2px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  a.app-status-badge.simulator-badge:hover {
+    background: #cecbbe;
+  }
+}
+
+.header-clock-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-family: var(--font-body);
+  font-size: 10.5px;
+  color: var(--ink-soft);
+  background: rgba(25, 25, 25, 0.05);
+  border: 1px solid var(--stone);
+  padding: 2px 7px;
+  border-radius: 4px;
+  margin-top: 3px;
+  letter-spacing: 0.02em;
+}
+
+.header-clock-tag strong {
+  color: var(--ink);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Four-Stage Thaw & Equalization Pipeline */
+.thaw-stage-pipeline.four-stage-pipeline {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+@media (max-width: 520px) {
+  .thaw-stage-pipeline.four-stage-pipeline {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 6px;
+  }
+}
+
+.stage-step.done {
+  border-color: rgba(74, 139, 99, 0.45);
+  background: rgba(74, 139, 99, 0.04);
+}
+
+/* Specification Status Tags */
+.spec-status-tag {
+  display: inline-block;
+  font-family: var(--font-body);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  padding: 1px 6px;
+  border-radius: 3px;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+.spec-status-tag.cad {
+  background: #E4E1D4;
+  color: #383633;
+  border: 1px solid #BCB6A6;
+}
+
+.spec-status-tag.thermal {
+  background: rgba(192, 119, 91, 0.12);
+  color: #9E5236;
+  border: 1px solid rgba(192, 119, 91, 0.35);
+}
+
+.spec-status-tag.logic {
+  background: #E8E5DA;
+  color: #403E3B;
+  border: 1px solid #B0ABA0;
+}
+
+.spec-status-tag.target {
+  background: #DFDCCF;
+  color: #4A4641;
+  border: 1px dashed #9E9696;
+}
+
+.spec-status-tag.planned {
+  background: #EFECE1;
+  color: #65615B;
+  border: 1px dashed #9E9696;
+}
+
+/* Persistent Do-Not-Refreeze Food Safety Banner */
+.do-not-refreeze-notice {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(192, 119, 91, 0.09);
+  border: 1px solid var(--clay);
+  border-radius: 6px;
+  padding: 8px 10px;
+  margin-top: 10px;
+  font-size: 11.5px;
+  line-height: 1.35;
+  color: var(--ink);
+}
+
+.do-not-refreeze-notice svg {
+  flex-shrink: 0;
+  color: var(--clay);
+}
+
+/* Keyboard Navigation & Focus Rings (Apple & Accessibility) */
+.meal-card:focus-visible,
+.dial-container:focus-visible,
+.drum-slot-btn:focus-visible,
+.time-preset-chip:focus-visible,
+.one-tap-btn:focus-visible,
+.scenario-btn:focus-visible,
+.halo-btn:focus-visible,
+.map-scene-btn:focus-visible,
+.privacy-toggle-btn:focus-visible,
+.pcut-step-btn:focus-visible,
+.btn-action-primary:focus-visible,
+.app-header-btn:focus-visible {
+  outline: 2px solid var(--clay);
+  outline-offset: 2px;
+}
+
+/* Stagger animations for all 8 meal cards */
+.meal-card:nth-child(7) { animation-delay: 210ms; }
+.meal-card:nth-child(8) { animation-delay: 245ms; }
+
+/* Interactive Stepped Power-Cut Duration Selector */
+.power-cut-stepper {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+  margin-top: 10px;
+}
+
+@media (max-width: 480px) {
+  .power-cut-stepper {
+    grid-template-columns: 1fr;
+  }
+}
+
+.pcut-step-btn {
+  background: var(--paper);
+  border: var(--hairline);
+  border-radius: 6px;
+  padding: 8px 6px;
+  font-family: var(--font-body);
+  font-size: 11.5px;
+  font-weight: 500;
+  color: var(--ink);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 2px;
+  min-height: var(--touch-target-min);
+  touch-action: manipulation;
+  transition: transform 140ms var(--ease-out), border-color 140ms var(--ease-out), background 140ms var(--ease-out);
+}
+
+.pcut-step-btn:active {
+  transform: scale(0.97);
+}
+
+.pcut-step-btn.active {
+  border-color: var(--clay);
+  background: rgba(192, 119, 91, 0.10);
+  font-weight: 600;
+}
+
+.pcut-step-btn strong {
+  font-size: 12px;
+}
+
+.pcut-step-btn span {
+  font-size: 10px;
+  color: var(--ink-soft);
+}
+
+/* Closed-Loop Surface Sensing & Control Card */
+.closed-loop-card {
+  background: var(--paper);
+  border: var(--hairline);
+  border-radius: 10px;
+  padding: 14px;
+  margin-top: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.closed-loop-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.closed-loop-title {
+  font-family: var(--font-head);
+  font-size: 13.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--ink);
+}
+
+.closed-loop-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+}
+
+@media (max-width: 480px) {
+  .closed-loop-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.closed-loop-cell {
+  background: var(--white);
+  border: var(--hairline);
+  border-radius: 6px;
+  padding: 8px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.closed-loop-cell-title {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--ink-soft);
+}
+
+.closed-loop-cell-val {
+  font-size: 13px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: var(--ink);
+}
+
+.closed-loop-cell-sub {
+  font-size: 10px;
+  color: var(--ink-soft);
+}
+
+.closed-loop-stepper-row {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  padding-bottom: 2px;
+}
+
+.closed-loop-step-btn {
+  background: var(--white);
+  border: var(--hairline);
+  border-radius: 5px;
+  padding: 6px 9px;
+  font-size: 11px;
+  color: var(--ink);
+  cursor: pointer;
+  white-space: nowrap;
+  touch-action: manipulation;
+  transition: transform 140ms var(--ease-out), border-color 140ms var(--ease-out), background 140ms var(--ease-out);
+}
+
+.closed-loop-step-btn:active {
+  transform: scale(0.96);
+}
+
+.closed-loop-step-btn.active {
+  border-color: var(--clay);
+  background: rgba(192, 119, 91, 0.12);
+  font-weight: 600;
+}
+
+/* Commute Clock Pill */
+.commute-sim-clock-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 6px;
+  background: var(--sand);
+  border: var(--hairline);
+  border-radius: 6px;
+  padding: 7px 10px;
+  margin-bottom: 10px;
+  font-size: 11.5px;
+  color: var(--ink);
+}
+
+.commute-sim-clock-bar strong {
+  font-variant-numeric: tabular-nums;
+  color: var(--clay);
+  font-weight: 700;
+}
+
+/* Tab 2 Density Display */
+.density-display-box {
+  background: rgba(25, 25, 25, 0.04);
+  border: var(--hairline);
+  border-radius: 6px;
+  padding: 6px 10px;
+  margin-bottom: 10px;
+  font-size: 11px;
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+
 

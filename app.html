@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>DINA App — Your Weeknight Dinner, Scheduled</title>
-  <meta name="description" content="DINA Companion App — Schedule tonight's dinner in one tap, browse your 11 freezer meals, and keep dinner fridge-fresh at +3 °C if you're running late.">
+  <meta name="description" content="DINA Companion App — Schedule tonight's dinner in one tap, browse your 8 stocked freezer meals, and keep dinner fridge-fresh at +3.0 °C if you're running late.">
   <meta name="theme-color" content="#F1EFE5">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="mobile-web-app-capable" content="yes">
@@ -105,10 +105,13 @@
           </svg>
           <h1 class="app-header-title">DINA</h1>
         </div>
-        <span class="app-status-badge" id="headerConnectionBadge">
+        <a href="index.html#kitchen" class="app-status-badge simulator-badge" id="headerConnectionBadge" title="View Concept &amp; Engineering Validation Specs">
           <span class="status-pulse-dot" id="headerPulseDot"></span>
-          <span id="headerStatusText">My Kitchen &bull; Connected</span>
-        </span>
+          <span id="headerStatusText">Concept Simulator &bull; Virtual Appliance</span>
+        </a>
+        <div class="header-clock-tag" title="Simulated afternoon clock for demo evaluation">
+          <span>Simulated:</span> <strong id="simClockDisplay">17:20</strong>
+        </div>
       </div>
 
       <div class="app-header-actions">
@@ -132,7 +135,7 @@
         <svg class="dina-icon tab-nav-icon" viewBox="0 0 48 48" width="18" height="18" style="filter:none;" aria-hidden="true">
           <circle class="d" style="--i:0" pathLength="1" cx="24" cy="24" r="18"/><circle class="d ac" style="--i:1" pathLength="1" cx="24" cy="24" r="5"/>
         </svg>
-        <span>My Freezer (11)</span>
+        <span>My Freezer (8/11)</span>
       </button>
       <button class="pill-tab" data-tab="tab-map" type="button">
         <svg class="dina-icon tab-nav-icon" viewBox="0 0 48 48" width="18" height="18" style="filter:none;" aria-hidden="true">
@@ -155,22 +158,22 @@
       <section class="tab-content active" id="tab-frozen">
         <div class="tab-split-layout">
 
-          <!-- Left Column: 3:00 PM Afternoon Check-In + 6 Meals in Your Freezer -->
+          <!-- Left Column: 15:00 Afternoon Check-In + 8 Stocked Meals in Your Freezer -->
           <div class="tab-col-primary">
 
-            <!-- 3:00 PM One-Tap Check-In Card for Busy Days -->
+            <!-- 15:00 One-Tap Check-In Card for Busy Days -->
             <div class="one-tap-prompt-card" id="oneTapPromptCard">
               <div class="one-tap-header">
                 <div class="one-tap-title-wrap">
                   <svg class="dina-icon" viewBox="0 0 48 48" width="24" height="24" aria-hidden="true">
                     <rect class="d" style="--i:0" pathLength="1" x="6" y="9" width="36" height="33" rx="3"/><path class="d" style="--i:1" pathLength="1" d="M6 18H42"/><path class="d" style="--i:1" pathLength="1" d="M15 5V12M33 5V12"/><g class="vb pulse-cal"><circle class="d ac" style="--i:2" pathLength="1" cx="33.5" cy="34" r="3.6"/></g>
                   </svg>
-                  <span class="one-tap-badge">3:00 PM Afternoon Check-In</span>
+                  <span class="one-tap-badge">15:00 Afternoon Check-In</span>
                 </div>
                 <span class="one-tap-meta">Runs automatically if you&rsquo;re busy</span>
               </div>
               <p class="one-tap-question" id="oneTapQuestionText">
-                Tonight at <strong>19:30</strong>: Ready for <strong>Beef Ribeye</strong>?
+                Tonight at <strong>19:30</strong>: Ready for <strong>Prime Angus Ribeye</strong>?
               </p>
               <div class="one-tap-actions">
                 <button type="button" class="one-tap-btn confirm" id="btnOneTapYes">Sounds Good</button>
@@ -181,80 +184,100 @@
 
             <div class="sub-section-label-row">
               <span class="form-label" style="margin:0;">Tap What You Feel Like Eating Tonight</span>
-              <span style="font-size:11px; color:var(--ink-soft);">Kept at &minus;18 &deg;C</span>
+              <span style="font-size:11px; color:var(--ink-soft);">Stored in Drum Vault at &minus;18.0 &deg;C <span class="spec-status-tag cad">[CAD Verified]</span></span>
             </div>
 
-            <!-- 2x3 (Phone) / 3x2 (iPad & PC) Grid of Meals in Your Freezer -->
+            <!-- 2x4 (Phone) / 4x2 (iPad & PC) Grid of Stocked Meals in Your Freezer -->
             <div class="meal-grid" id="mealGrid">
 
-              <!-- 1. Beef Ribeye -->
-              <article class="meal-card selected" data-slot="02" tabindex="0">
-                <span class="badge-tagged">~1h 25m</span>
+              <!-- 1. Prime Angus Ribeye -->
+              <article class="meal-card selected" data-slot="02" role="button" tabindex="0" aria-label="Select Prime Angus Ribeye, 450 grams">
+                <span class="badge-tagged">~85 min</span>
                 <div class="meal-thumb-wrap">
-                  <img src="assets/images/meal_beef_ribeye.jpg" alt="Beef Ribeye Steak" loading="lazy">
+                  <img src="assets/images/meal_beef_ribeye.jpg" alt="Prime Angus Ribeye Steak" loading="lazy">
                 </div>
-                <div class="meal-label">Beef Ribeye</div>
+                <div class="meal-label">Prime Angus Ribeye</div>
                 <div class="meal-sublabel">2 Portions (450 g)</div>
               </article>
 
-              <!-- 2. Salmon Fillet -->
-              <article class="meal-card" data-slot="03" tabindex="0">
-                <span class="badge-tagged">~1h 05m</span>
+              <!-- 2. Atlantic Salmon Fillet -->
+              <article class="meal-card" data-slot="03" role="button" tabindex="0" aria-label="Select Atlantic Salmon Fillet, 320 grams">
+                <span class="badge-tagged">~65 min</span>
                 <div class="meal-thumb-wrap">
                   <img src="assets/images/meal_salmon_fillet.jpg" alt="Atlantic Salmon Fillet" loading="lazy">
                 </div>
-                <div class="meal-label">Atlantic Salmon</div>
+                <div class="meal-label">Atlantic Salmon Fillet</div>
                 <div class="meal-sublabel">2 Fillets (320 g)</div>
               </article>
 
-              <!-- 3. Chicken Breast -->
-              <article class="meal-card" data-slot="01" tabindex="0">
-                <span class="badge-tagged">~1h 35m</span>
+              <!-- 3. Organic Chicken Breast -->
+              <article class="meal-card" data-slot="01" role="button" tabindex="0" aria-label="Select Organic Chicken Breast, 500 grams">
+                <span class="badge-tagged">~95 min</span>
                 <div class="meal-thumb-wrap">
-                  <img src="assets/images/meal_chicken_breast.jpg" alt="Roast Chicken Breast" loading="lazy">
+                  <img src="assets/images/meal_chicken_breast.jpg" alt="Organic Chicken Breast" loading="lazy">
                 </div>
-                <div class="meal-label">Chicken Breast</div>
+                <div class="meal-label">Organic Chicken Breast</div>
                 <div class="meal-sublabel">Family Cut (500 g)</div>
               </article>
 
-              <!-- 4. Tiger Prawns -->
-              <article class="meal-card" data-slot="04" tabindex="0">
+              <!-- 4. Wild Tiger Prawns -->
+              <article class="meal-card" data-slot="04" role="button" tabindex="0" aria-label="Select Wild Tiger Prawns, 250 grams">
                 <span class="badge-tagged">~40 min</span>
                 <div class="meal-thumb-wrap">
-                  <img src="assets/images/meal_tiger_prawns.jpg" alt="Grilled Tiger Prawns" loading="lazy">
+                  <img src="assets/images/meal_tiger_prawns.jpg" alt="Wild Tiger Prawns" loading="lazy">
                 </div>
-                <div class="meal-label">Tiger Prawns</div>
+                <div class="meal-label">Wild Tiger Prawns</div>
                 <div class="meal-sublabel">Quick Thaw (250 g)</div>
               </article>
 
-              <!-- 5. Lasagna Prep -->
-              <article class="meal-card" data-slot="05" tabindex="0">
-                <span class="badge-tagged">~1h 45m</span>
+              <!-- 5. Artisanal Lasagna -->
+              <article class="meal-card" data-slot="05" role="button" tabindex="0" aria-label="Select Artisanal Lasagna Prep, 600 grams">
+                <span class="badge-tagged">~1h 44m</span>
                 <div class="meal-thumb-wrap">
-                  <img src="assets/images/meal_lasagna.jpg" alt="Homemade Lasagna" loading="lazy">
+                  <img src="assets/images/meal_lasagna.jpg" alt="Artisanal Lasagna Prep" loading="lazy">
                 </div>
-                <div class="meal-label">Homemade Lasagna</div>
-                <div class="meal-sublabel">Batch Meal (600 g)</div>
+                <div class="meal-label">Artisanal Lasagna</div>
+                <div class="meal-sublabel">Batch Dish (600 g)</div>
               </article>
 
-              <!-- 6. Pork Tenderloin -->
-              <article class="meal-card" data-slot="06" tabindex="0">
-                <span class="badge-tagged">~1h 15m</span>
+              <!-- 6. Pork Tenderloin Medallions -->
+              <article class="meal-card" data-slot="06" role="button" tabindex="0" aria-label="Select Pork Tenderloin Medallions, 350 grams">
+                <span class="badge-tagged">~74 min</span>
                 <div class="meal-thumb-wrap">
                   <img src="assets/images/meal_pork_tenderloin.jpg" alt="Pork Tenderloin Medallions" loading="lazy">
                 </div>
-                <div class="meal-label">Pork Tenderloin</div>
+                <div class="meal-label">Pork Medallions</div>
                 <div class="meal-sublabel">Medallions (350 g)</div>
+              </article>
+
+              <!-- 7. Atlantic Codfish Loins -->
+              <article class="meal-card" data-slot="07" role="button" tabindex="0" aria-label="Select Atlantic Codfish Loins, 400 grams">
+                <span class="badge-tagged">~76 min</span>
+                <div class="meal-thumb-wrap">
+                  <img src="assets/images/meal_salmon_fillet.jpg" alt="Atlantic Codfish Loins" loading="lazy">
+                </div>
+                <div class="meal-label">Atlantic Codfish</div>
+                <div class="meal-sublabel">Loins (400 g)</div>
+              </article>
+
+              <!-- 8. Filet Mignon Steak -->
+              <article class="meal-card" data-slot="08" role="button" tabindex="0" aria-label="Select Filet Mignon Steak, 300 grams">
+                <span class="badge-tagged">~64 min</span>
+                <div class="meal-thumb-wrap">
+                  <img src="assets/images/meal_beef_ribeye.jpg" alt="Filet Mignon Steak" loading="lazy">
+                </div>
+                <div class="meal-label">Filet Mignon</div>
+                <div class="meal-sublabel">Tender Steak (300 g)</div>
               </article>
 
             </div>
           </div>
 
-          <!-- Right Column: Schedule Dial, Visual 3-Stage Evening Plan & Action Button -->
+          <!-- Right Column: Schedule Dial, Visual 4-Stage Evening Plan & Action Button -->
           <div class="tab-col-secondary">
             <div class="schedule-panel-card">
               <div class="schedule-widget-wrap">
-                <div class="dial-container" id="dialContainer" title="Drag or tap to choose when you want dinner ready">
+                <div class="dial-container" id="dialContainer" role="slider" tabindex="0" aria-label="Target dinner ready time" aria-valuemin="1080" aria-valuemax="1320" aria-valuenow="1170" aria-valuetext="19:30" title="Drag the dial, use arrow keys, or tap a preset below">
                   <svg class="dial-svg" viewBox="0 0 200 200">
                     <circle class="dial-bg-circle" cx="100" cy="100" r="96" />
                     <g id="dialTicks"></g>
@@ -268,31 +291,40 @@
                   </div>
                 </div>
 
-                <p class="dial-workflow-caption">Drag the dial or pick a time below</p>
+                <p class="dial-workflow-caption">Drag dial or use &larr;/&rarr; keys &bull; Pick preset below</p>
               </div>
 
-              <!-- Animated 3-Stage Visual Evening Plan (Frozen -> Gentle Thaw -> Fridge Hold) -->
-              <div class="thaw-stage-pipeline" aria-label="Tonight's automatic dinner plan">
-                <div class="stage-step done">
-                  <svg class="dina-icon" viewBox="0 0 48 48" width="22" height="22" style="filter:none;" aria-hidden="true">
+              <!-- Animated 4-Stage Visual Evening Plan (Frozen -> Active Thaw -> Equalization -> Fridge Hold) -->
+              <div class="thaw-stage-pipeline four-stage-pipeline" aria-label="Tonight's 4-stage automatic dinner plan">
+                <div class="stage-step done" id="stageStepFrozen">
+                  <svg class="dina-icon" viewBox="0 0 48 48" width="18" height="18" style="filter:none;" aria-hidden="true">
                     <g class="vb spin-snow"><path class="d" style="--i:0" pathLength="1" d="M24 8V40M10 16L38 32M38 16L10 32"/></g><circle class="d ac" style="--i:1" pathLength="1" cx="24" cy="24" r="2.5"/>
                   </svg>
                   <span class="stage-label">1. Frozen</span>
-                  <span class="stage-sub" id="stageDropTimeLabel">Until 18:05</span>
+                  <span class="stage-sub" id="stageDropTimeLabel">-18 &deg;C (Until 17:45)</span>
                 </div>
-                <div class="stage-step active">
-                  <svg class="dina-icon" viewBox="0 0 48 48" width="22" height="22" style="filter:none;" aria-hidden="true">
+                <div class="stage-step active" id="stageStepActiveThaw">
+                  <svg class="dina-icon" viewBox="0 0 48 48" width="18" height="18" style="filter:none;" aria-hidden="true">
                     <circle class="d" style="--i:0" pathLength="1" cx="24" cy="24" r="18"/><g class="vb spin-fan"><path class="d" style="--i:1" pathLength="1" d="M24 21C23 13 27 8 33 9C34.5 15 30 20 24 21Z"/><g transform="rotate(120 24 24)"><path class="d" style="--i:1" pathLength="1" d="M24 21C23 13 27 8 33 9C34.5 15 30 20 24 21Z"/></g><g transform="rotate(240 24 24)"><path class="d" style="--i:1" pathLength="1" d="M24 21C23 13 27 8 33 9C34.5 15 30 20 24 21Z"/></g></g><circle class="d ac" style="--i:2" pathLength="1" cx="24" cy="24" r="2.8"/>
                   </svg>
-                  <span class="stage-label">2. Gentle Thaw</span>
-                  <span class="stage-sub" id="stageThawDurationLabel">~85 mins</span>
+                  <span class="stage-label">2. Active Thaw</span>
+                  <span class="stage-sub" id="stageThawDurationLabel">+10 &deg;C (~85m)</span>
                 </div>
-                <div class="stage-step">
-                  <svg class="dina-icon" viewBox="0 0 48 48" width="22" height="22" style="filter:none;" aria-hidden="true">
+                <div class="stage-step" id="stageStepEqualization">
+                  <svg class="dina-icon" viewBox="0 0 48 48" width="18" height="18" style="filter:none;" aria-hidden="true">
+                    <rect class="d" style="--i:0" pathLength="1" x="10" y="10" width="28" height="28" rx="2"/>
+                    <path class="d ac" style="--i:1" pathLength="1" d="M10 24h28M24 10v28"/>
+                    <circle class="d" style="--i:2" pathLength="1" cx="24" cy="24" r="4.5"/>
+                  </svg>
+                  <span class="stage-label">3. Equalize</span>
+                  <span class="stage-sub" id="stageEqualizeDurationLabel">Soak (~20m)</span>
+                </div>
+                <div class="stage-step" id="stageStepHold">
+                  <svg class="dina-icon" viewBox="0 0 48 48" width="18" height="18" style="filter:none;" aria-hidden="true">
                     <circle class="d" style="--i:0" pathLength="1" cx="26" cy="28" r="11"/><path class="d" style="--i:1" pathLength="1" d="M9 8V40M40 8V40"/><g class="steam"><path class="d ac" style="--i:2" pathLength="1" d="M24 14c-2-2 2-4 0-6"/></g>
                   </svg>
-                  <span class="stage-label">3. Fridge Hold</span>
-                  <span class="stage-sub">+3 &deg;C (24 h)</span>
+                  <span class="stage-label">4. Hold</span>
+                  <span class="stage-sub">+3.0 &deg;C (&le; 24h)</span>
                 </div>
               </div>
 
@@ -300,18 +332,30 @@
               <div class="schedule-summary-box" id="scheduleSummaryBox">
                 <div class="summary-row">
                   <span>Tonight&rsquo;s Dish:</span>
-                  <strong id="summaryMealName">Beef Ribeye (450 g)</strong>
+                  <strong id="summaryMealName">Prime Angus Ribeye (450 g)</strong>
                 </div>
                 <div class="summary-row">
                   <span>Starts Thawing At:</span>
-                  <strong id="summaryDropTime">18:05 (while you finish work)</strong>
+                  <strong id="summaryDropTime">17:45 (while you finish work)</strong>
+                </div>
+                <div class="summary-row">
+                  <span>Active Air Thaw (+10 &deg;C):</span>
+                  <strong id="summaryActiveThaw">~85 min (cutoff at +4.0 &deg;C surface)</strong>
+                </div>
+                <div class="summary-row">
+                  <span>Conduction Equalization:</span>
+                  <strong id="summaryEqualization">~20 min (soak to +3.0 &deg;C core)</strong>
                 </div>
                 <div class="summary-row">
                   <span>If You Arrive Late:</span>
                   <strong>Kept fridge-fresh at +3.0 &deg;C (up to 24 h)</strong>
                 </div>
                 <div class="late-rescue-notice" id="lateRescueNotice" hidden>
-                  <strong>Starting Right Away:</strong> To thaw your meal gently without cooking the edges, it will be ready for the pan at 18:45.
+                  <strong>Starting Right Away:</strong> To thaw your meal gently without cooking the edges, it will be ready for the pan at 19:05.
+                </div>
+                <div class="do-not-refreeze-notice" id="foodSafetyBadge">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+                  <span><strong>Food Safety Policy:</strong> Once thawed in drawer, do not refreeze &bull; Consume within 24 h at +3.0 &deg;C</span>
                 </div>
               </div>
 
@@ -333,7 +377,7 @@
         </div>
       </section>
 
-      <!-- TAB 2: MY FREEZER (11-Meal Revolving Carousel & Easy Stocking) -->
+      <!-- TAB 2: MY FREEZER (8 of 11 Stocked Carousel & Easy Stocking) -->
       <section class="tab-content" id="tab-meals">
         <div class="section-headline-block">
           <div class="headline-with-icon">
@@ -341,8 +385,8 @@
               <circle class="d" style="--i:0" pathLength="1" cx="24" cy="24" r="19"/><circle class="d" style="--i:1" pathLength="1" cx="24" cy="24" r="4"/><g class="vb spin-drum"><path class="d" style="--i:2" pathLength="1" d="M24 20L24 5M27.46 22L40.45 14.5M27.46 26L40.45 33.5M24 28L24 43M20.54 26L7.55 33.5M20.54 22L7.55 14.5"/><circle class="d ac" style="--i:3" pathLength="1" cx="36" cy="24" r="2.6"/></g>
             </svg>
             <div>
-              <h2>What&rsquo;s in My Freezer (11 Meals)</h2>
-              <p>Tap any container to bring it to the front door, or stock a fresh meal for the week</p>
+              <h2>What&rsquo;s in My Freezer (8 of 11 Stocked)</h2>
+              <p>8 containers stocked &bull; 3 open slots &bull; 1 dedicated auto-drop path &bull; Motorized 2.5 s access alignment</p>
             </div>
           </div>
         </div>
@@ -371,9 +415,9 @@
                 </svg>
               </div>
               <div class="drum-wheel-copy">
-                <span class="caption clay-text">Revolving Meal Carousel &bull; 8 of 11 Containers Full</span>
-                <strong id="drumWheelStatusTitle">Container 01 at Front Door (Chicken Breast, 500 g)</strong>
-                <p>No digging through frozen bags at the back. Tap a slot below and DINA turns that container right to the front window.</p>
+                <span class="caption clay-text">Revolving Meal Carousel &bull; 8 of 11 Stocked (+ Drop Path) <span class="spec-status-tag cad">[CAD Verified]</span></span>
+                <strong id="drumWheelStatusTitle">Container 01 at Front Door (Organic Chicken Breast, 500 g)</strong>
+                <p>No digging through frozen bags at the back. Motorized 2.5 s indexing turns the selected container right behind an insulated loading hatch. Slide meals directly into the carousel without opening the main freezer door or exposing 110 L of frozen food to warm room air.</p>
               </div>
             </div>
 
@@ -384,27 +428,27 @@
                 <span class="drum-tier-badge">6 / 6 Stocked</span>
               </div>
               <div class="drum-slots-row">
-                <button class="drum-slot-btn active" data-slot="01" type="button">
+                <button class="drum-slot-btn active" data-slot="01" type="button" aria-label="Container 01: Organic Chicken Breast, 500g">
                   <span class="slot-num">01</span>
                   <span class="slot-name">Chicken (500g)</span>
                 </button>
-                <button class="drum-slot-btn" data-slot="02" type="button">
+                <button class="drum-slot-btn" data-slot="02" type="button" aria-label="Container 02: Prime Angus Ribeye, 450g">
                   <span class="slot-num">02</span>
                   <span class="slot-name">Ribeye (450g)</span>
                 </button>
-                <button class="drum-slot-btn" data-slot="03" type="button">
+                <button class="drum-slot-btn" data-slot="03" type="button" aria-label="Container 03: Atlantic Salmon Fillet, 320g">
                   <span class="slot-num">03</span>
                   <span class="slot-name">Salmon (320g)</span>
                 </button>
-                <button class="drum-slot-btn" data-slot="04" type="button">
+                <button class="drum-slot-btn" data-slot="04" type="button" aria-label="Container 04: Wild Tiger Prawns, 250g">
                   <span class="slot-num">04</span>
                   <span class="slot-name">Prawns (250g)</span>
                 </button>
-                <button class="drum-slot-btn" data-slot="05" type="button">
+                <button class="drum-slot-btn" data-slot="05" type="button" aria-label="Container 05: Artisanal Lasagna, 600g">
                   <span class="slot-num">05</span>
                   <span class="slot-name">Lasagna (600g)</span>
                 </button>
-                <button class="drum-slot-btn" data-slot="06" type="button">
+                <button class="drum-slot-btn" data-slot="06" type="button" aria-label="Container 06: Pork Tenderloin Medallions, 350g">
                   <span class="slot-num">06</span>
                   <span class="slot-name">Pork (350g)</span>
                 </button>
@@ -418,27 +462,27 @@
                 <span class="drum-tier-badge">3 Open Spots</span>
               </div>
               <div class="drum-slots-row">
-                <button class="drum-slot-btn" data-slot="07" type="button">
+                <button class="drum-slot-btn" data-slot="07" type="button" aria-label="Container 07: Atlantic Codfish Loins, 400g">
                   <span class="slot-num">07</span>
                   <span class="slot-name">Codfish (400g)</span>
                 </button>
-                <button class="drum-slot-btn" data-slot="08" type="button">
+                <button class="drum-slot-btn" data-slot="08" type="button" aria-label="Container 08: Filet Mignon Steak, 300g">
                   <span class="slot-num">08</span>
                   <span class="slot-name">Mignon (300g)</span>
                 </button>
-                <button class="drum-slot-btn empty" data-slot="09" type="button">
+                <button class="drum-slot-btn empty" data-slot="09" type="button" aria-label="Container 09: Empty slot, tap to stock">
                   <span class="slot-num">09</span>
                   <span class="slot-name">+ Add Meal</span>
                 </button>
-                <button class="drum-slot-btn empty" data-slot="10" type="button">
+                <button class="drum-slot-btn empty" data-slot="10" type="button" aria-label="Container 10: Empty slot, tap to stock">
                   <span class="slot-num">10</span>
                   <span class="slot-name">+ Add Meal</span>
                 </button>
-                <button class="drum-slot-btn empty" data-slot="11" type="button">
+                <button class="drum-slot-btn empty" data-slot="11" type="button" aria-label="Container 11: Empty slot, tap to stock">
                   <span class="slot-num">11</span>
                   <span class="slot-name">+ Add Meal</span>
                 </button>
-                <button class="drum-slot-btn chimney" data-slot="12" type="button" title="Dedicated path that lets upper meals drop into the defrost drawer">
+                <button class="drum-slot-btn chimney" data-slot="12" type="button" title="Dedicated pass-through path that lets upper meals drop into the defrost drawer" aria-label="Slot 12: Dedicated auto-drop path chute">
                   <span class="slot-num" style="color: var(--ink-soft);">Chute</span>
                   <span class="slot-name" style="color: var(--ink-soft);">Auto-Drop Path</span>
                 </button>
@@ -498,12 +542,29 @@
                 <span class="form-label" style="margin:0;">Portion Size</span>
                 <span class="weight-val" id="loadWeightValue">450 g</span>
               </div>
-              <input type="range" min="100" max="1200" step="25" value="450" class="range-slider" id="loadWeightSlider">
+              <input type="range" min="100" max="700" step="25" value="450" class="range-slider" id="loadWeightSlider" aria-label="Portion size slider (max 700g for 750ml container)">
+              <div style="font-size:10.5px; color:var(--ink-soft); margin-top:3px; margin-bottom:10px;">
+                750 ml container limit: max 700 g (leaves 10% freeze-expansion headspace) <span class="spec-status-tag cad">[CAD Verified]</span>
+              </div>
+
+              <!-- Density Class Display Box -->
+              <div class="density-display-box" id="densityClassDisplay">
+                <span>Density Class: <strong id="densityClassName">Dense Protein (1.06 g/cm³)</strong></span>
+                <span>Model: <strong>Plank Convective</strong> <span class="spec-status-tag thermal">[Thermal Model]</span></span>
+              </div>
 
               <div class="calc-result-box">
                 <span class="calc-result-title">Gentle Thaw Time When Scheduled:</span>
-                <span class="calc-result-time" id="loadThawCalcDisplay">~85 min</span>
+                <span class="calc-result-time" id="loadThawCalcDisplay">~85 min (+ 20 min equalization)</span>
               </div>
+
+              <button class="btn-action-primary" id="btnConfirmStore" style="padding: 12px 18px; font-size: 14px;" type="button">
+                Bring Container to Door &amp; Save
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
 
               <button class="btn-action-primary" id="btnConfirmStore" style="padding: 12px 18px; font-size: 14px;" type="button">
                 Bring Container to Door &amp; Save
@@ -522,7 +583,7 @@
             </svg>
             <div>
               <h2>Running Late? Dinner Waits for You</h2>
-              <p>Live mock commute map &bull; Cycles through On-Time Drive, Traffic Jam, Still at Work, and Arriving Home</p>
+              <p>Evening commute simulation &bull; Cycles through On-Time Drive, Traffic Jam, Still at Work, and Arriving Home</p>
             </div>
           </div>
         </div>
@@ -530,14 +591,20 @@
         <div class="tab-split-layout">
           <div class="tab-col-primary">
 
+            <!-- Commute Simulation Clock Indicator -->
+            <div class="commute-sim-clock-bar">
+              <span>Evening Commute Simulation (Target Dinner: 19:30)</span>
+              <span>Commute Clock: <strong id="commuteClockDisplay">19:05</strong></span>
+            </div>
+
             <!-- LIVE ANIMATED COMMUTE & DEFROST MAP CARD -->
             <div class="live-map-card" id="liveMapCard">
               <div class="map-card-topbar">
                 <div class="map-scenario-pills" role="tablist" aria-label="Commute simulation states">
-                  <button type="button" class="map-scene-btn active" data-scene="ontime">1. On Time</button>
-                  <button type="button" class="map-scene-btn" data-scene="traffic">2. Traffic Jam</button>
-                  <button type="button" class="map-scene-btn" data-scene="atwork">3. Still at Work</button>
-                  <button type="button" class="map-scene-btn" data-scene="arrived">4. Arriving Home</button>
+                  <button type="button" class="map-scene-btn active" data-scene="ontime">1. On Time (19:05)</button>
+                  <button type="button" class="map-scene-btn" data-scene="traffic">2. Traffic Jam (19:15)</button>
+                  <button type="button" class="map-scene-btn" data-scene="atwork">3. Still at Work (19:20)</button>
+                  <button type="button" class="map-scene-btn" data-scene="arrived">4. Arriving Home (19:25)</button>
                 </div>
                 <button type="button" class="map-autocycle-btn active" id="btnToggleMapCycle" title="Automatically cycle through commute scenarios">
                   <span class="cycle-dot"></span>
@@ -634,11 +701,11 @@
                 </div>
                 <div class="map-metric-box">
                   <span class="map-metric-label">Arrival ETA</span>
-                  <strong class="map-metric-val" id="mapMetricEta">19:20 (In 20 mins)</strong>
+                  <strong class="map-metric-val" id="mapMetricEta">19:20 (in 15 min)</strong>
                 </div>
                 <div class="map-metric-box highlight">
                   <span class="map-metric-label">DINA Defrost &amp; Hold</span>
-                  <strong class="map-metric-val" id="mapMetricDefrost">Thawing (+10 &deg;C) &bull; 10m left</strong>
+                  <strong class="map-metric-val" id="mapMetricDefrost">Thawing (+10.0 &deg;C) &bull; Surface &le; +4.0 &deg;C</strong>
                 </div>
               </div>
             </div>
@@ -647,8 +714,8 @@
             <div class="commute-card" style="margin-bottom:0;">
               <div class="toggle-row">
                 <div>
-                  <h4 style="font-size:13px; font-weight:600;">100% On-Phone Location Privacy</h4>
-                  <p style="font-size:12px; color:var(--ink-soft);">Your map never leaves your phone &mdash; it only sends a delay hold signal to your freezer</p>
+                  <h4 style="font-size:13px; font-weight:600;">On-Device Location Privacy <span class="spec-status-tag target">[Design Target]</span></h4>
+                  <p style="font-size:12px; color:var(--ink-soft);">Your route telemetry stays strictly on-phone &mdash; only an encrypted delay hold signal is dispatched to DINA</p>
                 </div>
                 <button type="button" class="privacy-toggle-btn active" id="btnToggleCommuteSync" aria-pressed="true">ON</button>
               </div>
@@ -659,10 +726,10 @@
             <div class="commute-card sand-card" style="background: var(--sand);">
               <div class="section-headline-block" style="border:none; padding:0; margin-bottom:8px;">
                 <h2 style="font-size: 15px;">How DINA Reacts to Your Evening</h2>
-                <p id="commuteStatusText">Route clear: Beef Ribeye is gently thawing (+10 &deg;C) so it is ready right when you walk in at 19:30.</p>
+                <p id="commuteStatusText">Route clear (15 min drive): Prime Angus Ribeye is active-thawing (+10.0 &deg;C air) until surface hits +4.0 &deg;C, then equalizes at +3.0 &deg;C so it is ready right as you walk in at 19:30.</p>
               </div>
               <p id="commuteArrivalText" style="font-size:12.5px; color:var(--ink); font-weight:600; margin-bottom:12px;">
-                Target Dinner: 19:30 &bull; ETA: 19:20 &bull; Drawer: Gently Thawing
+                Target Dinner: 19:30 &bull; ETA: 19:20 &bull; Drawer: Active Thaw (+10.0 &deg;C)
               </p>
               <button class="btn-action-primary" id="btnSimulateDelay" style="background:var(--ink); font-size:13px; padding:12px 16px;" type="button">
                 Jump to Next Map Scenario
@@ -672,7 +739,7 @@
             <div class="commute-card" style="margin-bottom:0;">
               <div class="section-headline-block" style="border:none; padding:0; margin-bottom:8px;">
                 <h2 style="font-size: 15px;">Works Even If Your Wi-Fi Drops</h2>
-                <p id="offlineStatusText">Home Wi-Fi connected. Even if your internet goes down, DINA remembers your dinner plan on its own.</p>
+                <p id="offlineStatusText">Home Wi-Fi connected. Even if your internet goes down, DINA executes your dinner schedule locally on its own.</p>
               </div>
               <button class="btn-action-primary" id="btnSimulateOffline" style="background:transparent; color:var(--ink); border:1px solid var(--ink); box-shadow:none; font-size:13px; padding:11px 16px;" type="button">
                 Test With Home Wi-Fi Offline
@@ -691,7 +758,7 @@
             </svg>
             <div>
               <h2>Your Kitchen &amp; Everyday Care</h2>
-              <p>Works with Apple Home, Google Home, Samsung SmartThings, and Home Assistant &bull; No subscription</p>
+              <p>Works with Apple Home, Google Home, Samsung SmartThings, and Home Assistant <span class="spec-status-tag planned">[Planned / Architecture Concept]</span> &bull; Matter-over-Wi-Fi local telemetry</p>
             </div>
           </div>
         </div>
@@ -707,7 +774,7 @@
                   </svg>
                 </div>
                 <div class="telem-cell-val">&minus;18.0 &deg;C</div>
-                <span class="telem-cell-sub">11 Meals + 110 L Shelves</span>
+                <span class="telem-cell-sub">11 Meals + 110 L Vault <span class="spec-status-tag cad">[CAD Verified]</span></span>
               </div>
 
               <div class="telem-cell">
@@ -718,7 +785,7 @@
                   </svg>
                 </div>
                 <div class="telem-cell-val" id="telemDrawerTemp" style="color:var(--clay)">+10.0 &deg;C</div>
-                <span class="telem-cell-sub">Gentle Air Thaw (&le; +4 &deg;C)</span>
+                <span class="telem-cell-sub">Convection air: +10.0 &deg;C &bull; Food surface limit: &le; +4.0 &deg;C <span class="spec-status-tag thermal">[Thermal Model]</span></span>
               </div>
 
               <div class="telem-cell">
@@ -729,7 +796,7 @@
                   </svg>
                 </div>
                 <div class="telem-cell-val">+3.0 &deg;C</div>
-                <span class="telem-cell-sub">Keeps Fresh up to 24 h</span>
+                <span class="telem-cell-sub">Uniform +3.0 &deg;C (&le; 24 h) <span class="spec-status-tag logic">[Design Logic]</span></span>
               </div>
 
               <div class="telem-cell">
@@ -740,18 +807,71 @@
                   </svg>
                 </div>
                 <div class="telem-cell-val" id="telemBlackoutVal">All Good</div>
-                <span class="telem-cell-sub">2-Hour Safety Check</span>
+                <span class="telem-cell-sub">Two-Tier Safety: 30m / 2h <span class="spec-status-tag logic">[Food Safety Standard]</span></span>
+              </div>
+            </div>
+
+            <!-- Closed-Loop Surface Sensing & Control Card -->
+            <div class="closed-loop-card">
+              <div class="closed-loop-header">
+                <span class="closed-loop-title">Closed-Loop Surface Control &amp; Sensing</span>
+                <span class="spec-status-tag thermal">[Thermal Model &bull; Design Logic]</span>
+              </div>
+              <p style="font-size:11.5px; color:var(--ink-soft); margin:0;">
+                Food surface is monitored via a lid-contact NTC thermistor probe (with hermetic seal interface) and chamber thermopiles. Air is controlled via setpoint switching with a &plusmn;0.5 &deg;C deadband around +4.0 &deg;C.
+              </p>
+              <div class="closed-loop-grid">
+                <div class="closed-loop-cell">
+                  <span class="closed-loop-cell-title">Convection Air</span>
+                  <span class="closed-loop-cell-val" id="clFanState" style="color:var(--clay)">+10.0 &deg;C (Active)</span>
+                  <span class="closed-loop-cell-sub" id="clFanSub">Forced Air ON</span>
+                </div>
+                <div class="closed-loop-cell">
+                  <span class="closed-loop-cell-title">Lid NTC Surface</span>
+                  <span class="closed-loop-cell-val" id="clSurfaceTemp">+2.2 &deg;C</span>
+                  <span class="closed-loop-cell-sub">Cutoff at &le; +4.0 &deg;C</span>
+                </div>
+                <div class="closed-loop-cell">
+                  <span class="closed-loop-cell-title">Core Temperature</span>
+                  <span class="closed-loop-cell-val" id="clCoreTemp">&minus;1.2 &deg;C</span>
+                  <span class="closed-loop-cell-sub">Latent Phase Change</span>
+                </div>
+              </div>
+              <div style="font-size:11px; color:var(--ink-soft); margin-top:2px;">
+                Step through simulated telemetry sequence:
+              </div>
+              <div class="closed-loop-stepper-row" role="tablist" aria-label="Closed-loop telemetry stages">
+                <button type="button" class="closed-loop-step-btn" data-step="1">1. Drop (&minus;18 &deg;C)</button>
+                <button type="button" class="closed-loop-step-btn active" data-step="2">2. Melting (&minus;1.5 &deg;C)</button>
+                <button type="button" class="closed-loop-step-btn" data-step="3">3. Cutoff (+4.0 &deg;C)</button>
+                <button type="button" class="closed-loop-step-btn" data-step="4">4. Equalize (+3.0 &deg;C)</button>
               </div>
             </div>
 
             <!-- Everyday Peace-of-Mind Scenarios (Customer-Friendly Demo Controls) -->
-            <div class="load-form-card" style="margin-top:0;">
+            <div class="load-form-card" style="margin-top:14px;">
               <span class="form-label">Everyday Peace of Mind &mdash; Tap to See How DINA Protects You</span>
+              
+              <!-- Two-Tier Power-Cut Guard Stepper -->
+              <div style="margin-bottom:12px;">
+                <span style="font-size:12px; font-weight:600; color:var(--ink); display:block; margin-bottom:4px;">Power-Cut Protection &mdash; Stepped Outage Simulation:</span>
+                <div class="power-cut-stepper" aria-label="Power cut duration simulation">
+                  <button type="button" class="pcut-step-btn active" data-duration="15" id="btnPcut15">
+                    <strong>&lt; 30 min (15m)</strong>
+                    <span>Safe Resumption</span>
+                  </button>
+                  <button type="button" class="pcut-step-btn" data-duration="45" id="btnPcut45">
+                    <strong>30&ndash;119 min (45m)</strong>
+                    <span>Tier 1 Warning</span>
+                  </button>
+                  <button type="button" class="pcut-step-btn" data-duration="150" id="btnPcut150">
+                    <strong>&ge; 120 min (2.5h)</strong>
+                    <span>Tier 2 Lockout</span>
+                  </button>
+                </div>
+              </div>
+
               <div class="demo-scenarios-list">
-                <button type="button" class="scenario-btn" id="btnSimPowerCut">
-                  <span>What if the power goes out for over 2 hours?</span>
-                  <span class="scenario-tag">Safety Alert</span>
-                </button>
                 <button type="button" class="scenario-btn" id="btnSimDrawerOpen">
                   <span>What if a dish is still in the drawer at drop time?</span>
                   <span class="scenario-tag">Smart Pause</span>
@@ -778,7 +898,7 @@
               <p id="haloStateLabel" style="font-size:12.5px; font-weight:600; color:var(--ink);">Warm Amber &mdash; Gently Thawing Tonight&rsquo;s Dinner</p>
               
               <div class="halo-buttons-row">
-                <button class="halo-btn" data-mode="cyan" type="button">Soft Blue (Freezing)</button>
+                <button class="halo-btn" data-mode="cyan" type="button">Soft Blue (Standby)</button>
                 <button class="halo-btn active" data-mode="amber" type="button">Warm Amber (Thawing)</button>
                 <button class="halo-btn" data-mode="green" type="button">Green (Ready to Cook)</button>
                 <button class="halo-btn" data-mode="red" type="button">Red (Safety Alert)</button>

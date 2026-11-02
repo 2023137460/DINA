@@ -1,7 +1,18 @@
 /**
- * DINA Companion App — Interactive Consumer Web App & Demo Logic
- * Warm, buyer-focused experience aligned with PRD 3.1.0 and DINA Brand Identity
- * Responsive across Mobile, iPad/Tablet, and PC; works in browser or installed as PWA
+ * DINA Companion App — Interactive Consumer Web App & Demo Logic (v9.3)
+ * Engineering & sensory fidelity aligned with PRD 3.1.0, DINA Brand Identity,
+ * Apple Design principles, and mobile/anti-slop guidelines.
+ * Responsive across Mobile, iPad/Tablet, and PC; works in browser or installed as PWA.
+ *
+ * Thermal Model Assumptions & Boundary Conditions:
+ * 1. Geometry: Shallow 750 ml container (210 x 130 x 28 mm, total convective area A ≈ 0.074 m²).
+ *    Flatter profile reduces conduction distance to core (D/2 ≈ 10–14 mm).
+ * 2. Convective Power: Forced air at +10.0 °C duct setpoint with dual-crossflow circulation
+ *    delivers net 18–22 W heat flux into food container (overall U ≈ 16.3 W/(m²·K)).
+ * 3. Sensing & Closed-Loop Control: Lid-contact food surface thermistor probe (NTC) with hermetic seal
+ *    interface monitors boundary layer; +10.0 °C air shuts off at +4.0 °C (±0.5 °C hysteresis band).
+ * 4. Four-Stage Defrost Cycle: Frozen (-18 °C) -> Active Thaw (+10 °C air until surface +4.0 °C)
+ *    -> Equalization (conduction soak at +3.0 °C) -> Fridge Hold (+3.0 °C, up to 24 h).
  */
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -10,41 +21,108 @@ document.addEventListener("DOMContentLoaded", () => {
     navigator.serviceWorker.register("sw.js").catch(() => {});
   }
 
-  // Haptic Helper
+  // Haptic Helper (Apple WWDC 2026 Multimodal Feedback Principle)
   function triggerHaptic(pattern = [15]) {
     if ("vibrate" in navigator) {
       try { navigator.vibrate(pattern); } catch (e) {}
     }
   }
 
-  // 11-Meal Revolving Carousel Inventory
+  // Modified Plank-Type Convective Model Parameters
+  // Synchronized identically with calculator.js and main-site validation specs
+  const CATEGORY_FORMULAS = {
+    beef: {
+      name: "Prime Angus Steak & Beef",
+      base: 26,
+      factor: 0.131,
+      holdMinutes: 20,
+      densityName: "Dense Protein (1.06 g/cm³)"
+    },
+    chicken: {
+      name: "Organic Poultry & Chicken",
+      base: 30,
+      factor: 0.130,
+      holdMinutes: 20,
+      densityName: "Standard Poultry (1.04 g/cm³)"
+    },
+    fish: {
+      name: "Fish Fillets & Whitefish",
+      base: 25,
+      factor: 0.125,
+      holdMinutes: 15,
+      densityName: "Tender Fillet (1.05 g/cm³)"
+    },
+    shrimp: {
+      name: "Wild Prawns & Shellfish",
+      base: 15,
+      factor: 0.100,
+      holdMinutes: 10,
+      densityName: "Shellfish / Porous (1.02 g/cm³)"
+    },
+    vegetables: {
+      name: "Fresh Garden Vegetables",
+      base: 15,
+      factor: 0.080,
+      holdMinutes: 10,
+      densityName: "Light / Fibrous (0.92 g/cm³)"
+    },
+    lasagna: {
+      name: "Artisanal Lasagna & Batch Dish",
+      base: 35,
+      factor: 0.115,
+      holdMinutes: 25,
+      densityName: "Dense Layered Batch (1.08 g/cm³)"
+    },
+    pork: {
+      name: "Pork Tenderloin & Medallions",
+      base: 28,
+      factor: 0.131,
+      holdMinutes: 15,
+      densityName: "Lean Cut (1.05 g/cm³)"
+    }
+  };
+
+  function calculateThaw(catKey, grams) {
+    const formula = CATEGORY_FORMULAS[catKey] || CATEGORY_FORMULAS.beef;
+    return Math.round(formula.base + (formula.factor * grams));
+  }
+
+  function getEqualizationTime(catKey, grams) {
+    const formula = CATEGORY_FORMULAS[catKey] || CATEGORY_FORMULAS.beef;
+    return formula.holdMinutes || 15;
+  }
+
+  function getDensityName(catKey) {
+    const formula = CATEGORY_FORMULAS[catKey] || CATEGORY_FORMULAS.beef;
+    return formula.densityName || "Standard (1.04 g/cm³)";
+  }
+
+  // 11-Meal Revolving Carousel Inventory (Aligned with main site and validation table)
   // Upper Ring: Containers 01 - 06 (6 meal containers)
   // Lower Ring: Containers 07 - 11 (5 meal containers) + Slot 12 (Auto-Drop Path)
   const drumInventory = {
-    "01": { id: "01", name: "Chicken Breast", category: "chicken", weight: 500, tier: 2, slot: "01", thawTime: 95, photo: "assets/images/meal_chicken_breast.jpg" },
-    "02": { id: "02", name: "Beef Ribeye", category: "beef", weight: 450, tier: 2, slot: "02", thawTime: 85, photo: "assets/images/meal_beef_ribeye.jpg" },
-    "03": { id: "03", name: "Atlantic Salmon", category: "fish", weight: 320, tier: 2, slot: "03", thawTime: 65, photo: "assets/images/meal_salmon_fillet.jpg" },
-    "04": { id: "04", name: "Tiger Prawns", category: "shrimp", weight: 250, tier: 2, slot: "04", thawTime: 40, photo: "assets/images/meal_tiger_prawns.jpg" },
-    "05": { id: "05", name: "Homemade Lasagna", category: "lasagna", weight: 600, tier: 2, slot: "05", thawTime: 104, photo: "assets/images/meal_lasagna.jpg" },
-    "06": { id: "06", name: "Pork Tenderloin", category: "pork", weight: 350, tier: 2, slot: "06", thawTime: 74, photo: "assets/images/meal_pork_tenderloin.jpg" },
-    "07": { id: "07", name: "Codfish Loins", category: "fish", weight: 400, tier: 1, slot: "07", thawTime: 76, photo: "assets/images/meal_salmon_fillet.jpg" },
-    "08": { id: "08", name: "Steak Mignon", category: "beef", weight: 300, tier: 1, slot: "08", thawTime: 64, photo: "assets/images/meal_beef_ribeye.jpg" },
+    "01": { id: "01", name: "Organic Chicken Breast", category: "chicken", weight: 500, tier: 2, slot: "01", photo: "assets/images/meal_chicken_breast.jpg" },
+    "02": { id: "02", name: "Prime Angus Ribeye", category: "beef", weight: 450, tier: 2, slot: "02", photo: "assets/images/meal_beef_ribeye.jpg" },
+    "03": { id: "03", name: "Atlantic Salmon Fillet", category: "fish", weight: 320, tier: 2, slot: "03", photo: "assets/images/meal_salmon_fillet.jpg" },
+    "04": { id: "04", name: "Wild Tiger Prawns", category: "shrimp", weight: 250, tier: 2, slot: "04", photo: "assets/images/meal_tiger_prawns.jpg" },
+    "05": { id: "05", name: "Artisanal Lasagna", category: "lasagna", weight: 600, tier: 2, slot: "05", photo: "assets/images/meal_lasagna.jpg" },
+    "06": { id: "06", name: "Pork Tenderloin Medallions", category: "pork", weight: 350, tier: 2, slot: "06", photo: "assets/images/meal_pork_tenderloin.jpg" },
+    "07": { id: "07", name: "Atlantic Codfish Loins", category: "fish", weight: 400, tier: 1, slot: "07", photo: "assets/images/meal_salmon_fillet.jpg" },
+    "08": { id: "08", name: "Filet Mignon Steak", category: "beef", weight: 300, tier: 1, slot: "08", photo: "assets/images/meal_beef_ribeye.jpg" },
     "09": null,
     "10": null,
     "11": null,
     "12": { id: "12", name: "Auto-Drop Path", category: "chimney", isChimney: true, tier: 1, slot: "12" }
   };
 
-  // Gentle Thaw Category Curves
-  const CATEGORY_FORMULAS = {
-    beef: { name: "Steak & Beef", base: 25, factor: 0.13 },
-    chicken: { name: "Chicken & Poultry", base: 30, factor: 0.13 },
-    fish: { name: "Fish Fillets", base: 20, factor: 0.14 },
-    shrimp: { name: "Prawns & Seafood", base: 15, factor: 0.10 },
-    vegetables: { name: "Vegetables & Sides", base: 15, factor: 0.08 },
-    lasagna: { name: "Lasagna & Batch Dish", base: 35, factor: 0.115 },
-    pork: { name: "Pork & Medallions", base: 28, factor: 0.13 }
-  };
+  // Dynamically compute thawTime and equalizationTime for all stocked inventory items
+  Object.keys(drumInventory).forEach(slotKey => {
+    const item = drumInventory[slotKey];
+    if (item && !item.isChimney) {
+      item.thawTime = calculateThaw(item.category, item.weight);
+      item.equalizationTime = getEqualizationTime(item.category, item.weight);
+    }
+  });
 
   function getCategoryPhoto(cat) {
     const photos = {
@@ -56,7 +134,7 @@ document.addEventListener("DOMContentLoaded", () => {
       pork: "assets/images/meal_pork_tenderloin.jpg",
       vegetables: "assets/images/meal_vegetables.jpg"
     };
-    return photos[cat] || "assets/images/meal_custom_dish.jpg";
+    return photos[cat] || "assets/images/meal_beef_ribeye.jpg";
   }
 
   // Simulated current afternoon time (17:20) so visitors can test both usual and early dinner times
@@ -71,7 +149,8 @@ document.addEventListener("DOMContentLoaded", () => {
     targetDinnerMinute: 30,
     dialAngle: 135,
     isThawing: false,
-    drawerTemp: -18.0,
+    hasThawed: false,
+    drawerTemp: 3.0, // Drawer starts in standby at +3.0 °C (NOT -18.0 °C)
     haloState: "amber",
     commuteDelayActive: false,
     commuteSyncEnabled: true,
@@ -79,7 +158,9 @@ document.addEventListener("DOMContentLoaded", () => {
     loadingTargetSlot: "09",
     loadingCategory: "beef",
     loadingWeight: 450,
-    drumRotationDeg: 0
+    drumRotationDeg: 0,
+    closedLoopStep: 2,
+    powerCutDurationMins: 15
   };
 
   // Toast Functionality (Zero emojis, warm consumer voice)
@@ -106,11 +187,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const h = Math.floor(normalized / 60);
     const m = normalized % 60;
     return formatTime(h, m);
-  }
-
-  function calculateThaw(catKey, grams) {
-    const formula = CATEGORY_FORMULAS[catKey] || CATEGORY_FORMULAS.beef;
-    return Math.round(formula.base + (formula.factor * grams));
   }
 
   // Ensure automatic responsive layout across Phone, iPad/Tablet, and PC
@@ -143,10 +219,13 @@ document.addEventListener("DOMContentLoaded", () => {
   const dialValue = document.getElementById("dialValue");
   const summaryMealName = document.getElementById("summaryMealName");
   const summaryDropTime = document.getElementById("summaryDropTime");
+  const summaryActiveThaw = document.getElementById("summaryActiveThaw");
+  const summaryEqualization = document.getElementById("summaryEqualization");
   const lateRescueNotice = document.getElementById("lateRescueNotice");
   const oneTapQuestionText = document.getElementById("oneTapQuestionText");
   const stageDropTimeLabel = document.getElementById("stageDropTimeLabel");
   const stageThawDurationLabel = document.getElementById("stageThawDurationLabel");
+  const stageEqualizeDurationLabel = document.getElementById("stageEqualizeDurationLabel");
   const presetChips = document.querySelectorAll(".time-preset-chip");
 
   function renderDialTicks() {
@@ -208,33 +287,59 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const meal = state.selectedMeal || drumInventory["02"];
     const requestedMins = state.targetDinnerHour * 60 + state.targetDinnerMinute;
-    const earliestSafeReadyMins = DEMO_NOW_MINS + meal.thawTime;
+
+    // Four-Stage Defrost Cycle calculation:
+    // Total defrost duration = active thaw minutes (+10 °C air) + conduction equalization minutes (+3 °C soak)
+    const activeThawMins = meal.thawTime || calculateThaw(meal.category, meal.weight);
+    const equalizationMins = meal.equalizationTime || getEqualizationTime(meal.category, meal.weight);
+    const totalDefrostMins = activeThawMins + equalizationMins;
+
+    const earliestSafeReadyMins = DEMO_NOW_MINS + totalDefrostMins;
     const isLateRescue = requestedMins < earliestSafeReadyMins;
 
     const effectiveReadyMins = isLateRescue ? earliestSafeReadyMins : requestedMins;
-    const dropMins = effectiveReadyMins - meal.thawTime;
+    const dropMins = effectiveReadyMins - totalDefrostMins;
+    const activeCutoffMins = dropMins + activeThawMins;
 
     const displayTimeStr = minsToTimeStr(effectiveReadyMins);
     dialValue.textContent = displayTimeStr;
+
+    // Accessibility ARIA values
+    if (dialContainer) {
+      dialContainer.setAttribute("aria-valuenow", String(requestedMins));
+      dialContainer.setAttribute("aria-valuetext", `${displayTimeStr} tonight`);
+    }
 
     if (summaryMealName) {
       summaryMealName.textContent = `${meal.name} (${meal.weight} g)`;
     }
     if (summaryDropTime) {
       summaryDropTime.textContent = isLateRescue
-        ? `Right away (${minsToTimeStr(DEMO_NOW_MINS)}) • ~${meal.thawTime} mins`
+        ? `Right away (${minsToTimeStr(DEMO_NOW_MINS)}) • ${totalDefrostMins} min cycle`
         : `${minsToTimeStr(dropMins)} (while you finish work)`;
     }
+    if (summaryActiveThaw) {
+      summaryActiveThaw.textContent = `~${activeThawMins} min (cutoff at +4.0 °C surface at ${minsToTimeStr(activeCutoffMins)})`;
+    }
+    if (summaryEqualization) {
+      summaryEqualization.textContent = `~${equalizationMins} min (+3.0 °C soak until ready at ${displayTimeStr})`;
+    }
+
+    // Four-Stage Visual Pipeline Labels
     if (stageDropTimeLabel) {
-      stageDropTimeLabel.textContent = isLateRescue ? "Drops now" : `Until ${minsToTimeStr(dropMins)}`;
+      stageDropTimeLabel.textContent = isLateRescue ? "Drops now" : `-18 °C (Until ${minsToTimeStr(dropMins)})`;
     }
     if (stageThawDurationLabel) {
-      stageThawDurationLabel.textContent = `~${meal.thawTime} mins`;
+      stageThawDurationLabel.textContent = `+10 °C (~${activeThawMins}m)`;
     }
+    if (stageEqualizeDurationLabel) {
+      stageEqualizeDurationLabel.textContent = `Soak (~${equalizationMins}m)`;
+    }
+
     if (lateRescueNotice) {
       if (isLateRescue) {
         lateRescueNotice.removeAttribute("hidden");
-        lateRescueNotice.innerHTML = `<strong>Starting Right Away:</strong> To thaw your ${meal.name} gently without cooking the edges, it will be ready for the pan at <strong>${displayTimeStr}</strong> (instead of ${minsToTimeStr(requestedMins)}).`;
+        lateRescueNotice.innerHTML = `<strong>Thermal Window Advisory:</strong> Requires <strong>${activeThawMins} min</strong> active thaw + <strong>${equalizationMins} min</strong> conduction equalization (${totalDefrostMins} min total). Earliest safe ready time from current simulated 17:20 clock is <strong>${displayTimeStr}</strong> (instead of requested ${minsToTimeStr(requestedMins)}).`;
       } else {
         lateRescueNotice.setAttribute("hidden", "");
       }
@@ -286,6 +391,42 @@ document.addEventListener("DOMContentLoaded", () => {
       isDragging = false;
     });
 
+    // Keyboard Accessibility for Dial
+    dialContainer.addEventListener("keydown", (e) => {
+      let deltaAngle = 0;
+      if (e.key === "ArrowRight" || e.key === "ArrowUp") {
+        deltaAngle = 15; // ~10 min step
+      } else if (e.key === "ArrowLeft" || e.key === "ArrowDown") {
+        deltaAngle = -15;
+      } else if (e.key === "PageUp") {
+        deltaAngle = 45; // ~30 min step
+      } else if (e.key === "PageDown") {
+        deltaAngle = -45;
+      } else if (e.key === "Home") {
+        state.dialAngle = 15;
+        presetChips.forEach(c => c.classList.remove("active"));
+        updateDialUI();
+        triggerHaptic([10]);
+        e.preventDefault();
+        return;
+      } else if (e.key === "End") {
+        state.dialAngle = 345;
+        presetChips.forEach(c => c.classList.remove("active"));
+        updateDialUI();
+        triggerHaptic([10]);
+        e.preventDefault();
+        return;
+      }
+
+      if (deltaAngle !== 0) {
+        state.dialAngle = Math.max(15, Math.min(345, state.dialAngle + deltaAngle));
+        presetChips.forEach(c => c.classList.remove("active"));
+        updateDialUI();
+        triggerHaptic([5]);
+        e.preventDefault();
+      }
+    });
+
     updateDialUI();
   }
 
@@ -302,18 +443,29 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Meal Cards Selection in TAB 1: Tonight's Dinner
   const mealCards = document.querySelectorAll(".meal-card");
+  function selectMealCard(card) {
+    mealCards.forEach(c => c.classList.remove("selected"));
+    card.classList.add("selected");
+    const slot = card.dataset.slot;
+    state.selectedSlot = slot;
+    state.selectedMeal = drumInventory[slot];
+    updateDialUI();
+
+    if (state.selectedMeal) {
+      showToast(`${state.selectedMeal.name} selected for tonight (~${state.selectedMeal.thawTime} min gentle thaw).`);
+    }
+  }
+
   mealCards.forEach(card => {
     card.addEventListener("click", () => {
       triggerHaptic([10]);
-      mealCards.forEach(c => c.classList.remove("selected"));
-      card.classList.add("selected");
-      const slot = card.dataset.slot;
-      state.selectedSlot = slot;
-      state.selectedMeal = drumInventory[slot];
-      updateDialUI();
-
-      if (state.selectedMeal) {
-        showToast(`${state.selectedMeal.name} selected for tonight (~${state.selectedMeal.thawTime} min gentle thaw).`);
+      selectMealCard(card);
+    });
+    card.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        triggerHaptic([10]);
+        selectMealCard(card);
       }
     });
   });
@@ -336,11 +488,14 @@ document.addEventListener("DOMContentLoaded", () => {
   if (btnOneTapSwap) {
     btnOneTapSwap.addEventListener("click", () => {
       triggerHaptic([10]);
-      const order = ["02", "03", "01", "04", "05", "06"];
+      const order = ["02", "03", "01", "04", "05", "06", "07", "08"];
       const nextIdx = (order.indexOf(state.selectedSlot) + 1) % order.length;
       const nextSlot = order[nextIdx];
       const nextCard = document.querySelector(`.meal-card[data-slot="${nextSlot}"]`);
-      if (nextCard) nextCard.click();
+      if (nextCard) {
+        nextCard.focus();
+        nextCard.click();
+      }
     });
   }
 
@@ -466,10 +621,17 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       const catKey = "custom_" + Date.now().toString(36);
+      const densityNameStr = density === "dense"
+        ? "Dense Protein (1.06 g/cm³)"
+        : (density === "light" ? "Light / Porous (0.65 g/cm³)" : "Medium density (lean fish & poultry)");
+      const holdMinsVal = density === "dense" ? 20 : (density === "light" ? 10 : 15);
+
       CATEGORY_FORMULAS[catKey] = {
         name: typeName,
         base: base,
-        factor: factor
+        factor: factor,
+        holdMinutes: holdMinsVal,
+        densityName: densityNameStr
       };
 
       // Create new category chip button in the grid
@@ -505,6 +667,8 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  const densityClassName = document.getElementById("densityClassName");
+
   drumSlotButtons.forEach(btn => {
     btn.addEventListener("click", () => {
       const slot = btn.dataset.slot;
@@ -536,7 +700,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (loadWeightSlider) {
     loadWeightSlider.addEventListener("input", (e) => {
-      state.loadingWeight = parseInt(e.target.value, 10);
+      state.loadingWeight = Math.min(700, Math.max(100, parseInt(e.target.value, 10)));
       if (loadWeightValue) loadWeightValue.textContent = `${state.loadingWeight} g`;
       updateLoadingThawDisplay();
     });
@@ -544,8 +708,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function updateLoadingThawDisplay() {
     const mins = calculateThaw(state.loadingCategory, state.loadingWeight);
+    const catFormula = CATEGORY_FORMULAS[state.loadingCategory] || CATEGORY_FORMULAS.beef;
+    const holdMins = catFormula.holdMinutes || 15;
+    const totalCycle = mins + holdMins;
+
     if (loadThawCalcDisplay) {
-      loadThawCalcDisplay.textContent = `~${mins} min`;
+      loadThawCalcDisplay.textContent = `~${totalCycle} min (${mins}m thaw + ${holdMins}m soak)`;
+    }
+
+    if (densityClassName) {
+      densityClassName.textContent = catFormula.densityName || "Medium density (lean fish & poultry)";
     }
   }
   updateLoadingThawDisplay();
@@ -556,6 +728,8 @@ document.addEventListener("DOMContentLoaded", () => {
       const slot = state.loadingTargetSlot;
       const mins = calculateThaw(state.loadingCategory, state.loadingWeight);
       const catFormula = CATEGORY_FORMULAS[state.loadingCategory] || CATEGORY_FORMULAS.beef;
+      const holdMins = catFormula.holdMinutes || 15;
+      const totalCycle = mins + holdMins;
       const customMealName = loadMealNameInput ? loadMealNameInput.value.trim() : "";
       const finalMealName = customMealName || catFormula.name.split("&")[0].trim();
       const photoPath = getCategoryPhoto(state.loadingCategory);
@@ -568,6 +742,7 @@ document.addEventListener("DOMContentLoaded", () => {
         tier: parseInt(slot, 10) <= 6 ? 2 : 1,
         slot: slot,
         thawTime: mins,
+        equalizationTime: holdMins,
         photo: photoPath
       };
 
@@ -582,7 +757,10 @@ document.addEventListener("DOMContentLoaded", () => {
       const existingMealCard = document.querySelector(`.meal-card[data-slot="${slot}"]`);
       if (existingMealCard) {
         const thumbImg = existingMealCard.querySelector(".meal-thumb-wrap img");
-        if (thumbImg) thumbImg.src = photoPath;
+        if (thumbImg) {
+          thumbImg.src = photoPath;
+          thumbImg.alt = finalMealName;
+        }
         const badge = existingMealCard.querySelector(".badge-tagged");
         if (badge) badge.textContent = `~${mins} min`;
         const label = existingMealCard.querySelector(".meal-label");
@@ -596,15 +774,34 @@ document.addEventListener("DOMContentLoaded", () => {
           newCard.className = "meal-card";
           newCard.dataset.slot = slot;
           newCard.tabIndex = 0;
-          newCard.innerHTML = `
-            <span class="badge-tagged">~${mins} min</span>
-            <div class="meal-thumb-wrap">
-              <img src="${photoPath}" alt="${finalMealName}" loading="lazy">
-            </div>
-            <div class="meal-label">${finalMealName}</div>
-            <div class="meal-sublabel">Container ${slot} (${state.loadingWeight} g)</div>
-          `;
-          newCard.addEventListener("click", () => {
+          newCard.setAttribute("role", "button");
+
+          const badge = document.createElement("span");
+          badge.className = "badge-tagged";
+          badge.textContent = `~${mins} min`;
+
+          const thumbWrap = document.createElement("div");
+          thumbWrap.className = "meal-thumb-wrap";
+          const thumbImg = document.createElement("img");
+          thumbImg.src = photoPath;
+          thumbImg.alt = finalMealName;
+          thumbImg.loading = "lazy";
+          thumbWrap.appendChild(thumbImg);
+
+          const labelEl = document.createElement("div");
+          labelEl.className = "meal-label";
+          labelEl.textContent = finalMealName;
+
+          const sublabelEl = document.createElement("div");
+          sublabelEl.className = "meal-sublabel";
+          sublabelEl.textContent = `Container ${slot} (${state.loadingWeight} g)`;
+
+          newCard.appendChild(badge);
+          newCard.appendChild(thumbWrap);
+          newCard.appendChild(labelEl);
+          newCard.appendChild(sublabelEl);
+
+          const selectThisMeal = () => {
             triggerHaptic([10]);
             document.querySelectorAll(".meal-card").forEach(c => c.classList.remove("selected"));
             newCard.classList.add("selected");
@@ -612,7 +809,16 @@ document.addEventListener("DOMContentLoaded", () => {
             state.selectedMeal = drumInventory[slot];
             updateDialUI();
             showToast(`${finalMealName} selected for tonight (~${mins} min gentle thaw).`);
+          };
+
+          newCard.addEventListener("click", selectThisMeal);
+          newCard.addEventListener("keydown", (e) => {
+            if (e.key === "Enter" || e.key === " ") {
+              e.preventDefault();
+              selectThisMeal();
+            }
           });
+
           mealGrid.appendChild(newCard);
         }
       }
@@ -629,12 +835,87 @@ document.addEventListener("DOMContentLoaded", () => {
   const haloBtns = document.querySelectorAll(".halo-btn");
   const telemDrawerTemp = document.getElementById("telemDrawerTemp");
   const telemBlackoutVal = document.getElementById("telemBlackoutVal");
-  const btnSimPowerCut = document.getElementById("btnSimPowerCut");
   const btnSimDrawerOpen = document.getElementById("btnSimDrawerOpen");
   const btnSimDishClean = document.getElementById("btnSimDishClean");
   const scenarioBtns = document.querySelectorAll(".scenario-btn");
   const scenarioFeedbackBox = document.getElementById("scenarioFeedbackBox");
   const scenarioFeedbackText = document.getElementById("scenarioFeedbackText");
+
+  // Closed-Loop Surface Sensing & Control Elements
+  const clStepBtns = document.querySelectorAll(".closed-loop-step-btn");
+  const clFanState = document.getElementById("clFanState");
+  const clFanSub = document.getElementById("clFanSub");
+  const clSurfaceTemp = document.getElementById("clSurfaceTemp");
+  const clCoreTemp = document.getElementById("clCoreTemp");
+
+  const CLOSED_LOOP_STEPS = {
+    1: {
+      fanState: "+10.0 °C (Active)",
+      fanColor: "var(--clay)",
+      fanSub: "Forced Air ON • Crossflow",
+      surfaceTemp: "-18.0 °C",
+      coreTemp: "-18.0 °C",
+      toast: "Step 1: Meal drops from -18.0 °C carousel. Crossflow +10.0 °C convection starts."
+    },
+    2: {
+      fanState: "+10.0 °C (Active)",
+      fanColor: "var(--clay)",
+      fanSub: "Forced Air ON • Melting",
+      surfaceTemp: "+1.8 °C",
+      coreTemp: "-1.5 °C",
+      toast: "Step 2: Latent phase change plateau at -1.5 °C core. Food surface safely at +1.8 °C (well below +4.0 °C limit)."
+    },
+    3: {
+      fanState: "Standby (+3.0 °C)",
+      fanColor: "var(--ink-soft)",
+      fanSub: "Forced Air OFF • Cutoff Hit",
+      surfaceTemp: "+4.0 °C",
+      coreTemp: "-0.4 °C",
+      toast: "Step 3: Surface reached +4.0 °C! Closed-loop sensor triggers heater cutoff (deadband ±0.5 °C) to prevent edge cooking."
+    },
+    4: {
+      fanState: "Standby (+3.0 °C)",
+      fanColor: "var(--ink-soft)",
+      fanSub: "Forced Air OFF • Equalizing",
+      surfaceTemp: "+3.2 °C",
+      coreTemp: "+3.0 °C",
+      toast: "Step 4: Conduction equalization completed. Uniform +3.0 °C core throughout container. Drawer glows fresh green."
+    }
+  };
+
+  function applyClosedLoopStep(stepNum) {
+    state.closedLoopStep = stepNum;
+    const data = CLOSED_LOOP_STEPS[stepNum];
+    if (!data) return;
+
+    clStepBtns.forEach(btn => {
+      btn.classList.toggle("active", btn.dataset.step === String(stepNum));
+    });
+
+    if (clFanState) {
+      clFanState.textContent = data.fanState;
+      clFanState.style.color = data.fanColor;
+    }
+    if (clFanSub) clFanSub.textContent = data.fanSub;
+    if (clSurfaceTemp) clSurfaceTemp.textContent = data.surfaceTemp;
+    if (clCoreTemp) clCoreTemp.textContent = data.coreTemp;
+
+    if (stepNum === 4) {
+      setHaloState("green", false);
+    } else if (stepNum === 1 || stepNum === 2) {
+      setHaloState("amber", false);
+    }
+  }
+
+  clStepBtns.forEach(btn => {
+    btn.addEventListener("click", () => {
+      triggerHaptic([10]);
+      const step = parseInt(btn.dataset.step, 10);
+      applyClosedLoopStep(step);
+      const data = CLOSED_LOOP_STEPS[step];
+      if (data) showToast(data.toast);
+    });
+  });
 
   function setHaloState(mode, isUserManual = false) {
     if (isUserManual) {
@@ -651,11 +932,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let desc = "Warm Amber — Gently Thawing Tonight's Dinner";
     if (mode === "cyan") {
-      desc = "Soft Blue — All Meals Deep-Frozen (-18.0 °C)";
-      if (telemDrawerTemp) telemDrawerTemp.textContent = "-18.0 °C";
+      desc = "Soft Blue — Standby • All Meals Kept at -18.0 °C (Drawer Standby at +3.0 °C)";
+      if (telemDrawerTemp) telemDrawerTemp.textContent = "+3.0 °C";
       if (telemBlackoutVal) telemBlackoutVal.textContent = "All Good";
     } else if (mode === "amber") {
-      desc = "Warm Amber — Gently Thawing Tonight's Dinner";
+      desc = "Warm Amber — Gently Thawing Tonight's Dinner (+10.0 °C Convection)";
       if (telemDrawerTemp) telemDrawerTemp.textContent = "+10.0 °C";
       if (telemBlackoutVal) telemBlackoutVal.textContent = "All Good";
     } else if (mode === "green") {
@@ -663,9 +944,9 @@ document.addEventListener("DOMContentLoaded", () => {
       if (telemDrawerTemp) telemDrawerTemp.textContent = "+3.0 °C";
       if (telemBlackoutVal) telemBlackoutVal.textContent = "All Good";
     } else if (mode === "red") {
-      desc = "Red Pulse — Food Safety Alert (Check Phone)";
-      if (telemDrawerTemp) telemDrawerTemp.textContent = "+5.8 °C";
-      if (telemBlackoutVal) telemBlackoutVal.textContent = "Alert: Discard Meal";
+      desc = "Red Pulse — Food Safety Lockout (Check Phone)";
+      if (telemDrawerTemp) telemDrawerTemp.textContent = "+6.4 °C";
+      if (telemBlackoutVal) telemBlackoutVal.textContent = "Tier 2 Lockout: Discard";
     }
 
     if (haloStateLabel) haloStateLabel.textContent = desc;
@@ -682,22 +963,60 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // Customer-Friendly Peace-of-Mind Scenarios
-  if (btnSimPowerCut) {
-    btnSimPowerCut.addEventListener("click", () => {
-      triggerHaptic([30, 40, 30]);
-      scenarioBtns.forEach(b => b.classList.remove("active"));
-      btnSimPowerCut.classList.add("active");
-      setHaloState("red", true);
-      if (telemBlackoutVal) telemBlackoutVal.textContent = "Alert: Discard Meal";
-      if (scenarioFeedbackBox) scenarioFeedbackBox.removeAttribute("hidden");
-      if (scenarioFeedbackText) {
-        scenarioFeedbackText.innerHTML = "<strong>Power-Cut Guard:</strong> Power was out for over 2 hours and food rose above +5.0 °C. Thawing was paused immediately, handle is pulsing red, and an alert was sent to your phone to discard the dish safely.";
-      }
-      showToast("Power-Cut Protection: Drawer warmed above +5 °C for >2h. Thawing stopped & safety alert triggered.");
+  // Two-Tier Power-Cut Stepper Simulation
+  const pcutStepBtns = document.querySelectorAll(".pcut-step-btn");
+
+  const PCUT_CONFIGS = {
+    15: {
+      temp: "+3.8 °C",
+      blackoutVal: "Safe: Resumed",
+      halo: "amber",
+      text: "<strong>Outage &lt; 30 min (15 min simulated):</strong> Power was restored after 15 minutes. The insulated drawer remained safely at +3.8 °C (well below the conservative +5.0 °C advisory threshold). Active defrost safely resumed under DINA's thermal lag margin.",
+      toast: "Power restored at 15m (< 30m): Chamber at +3.8 °C. Active thaw safely resumed."
+    },
+    45: {
+      temp: "+5.2 °C",
+      blackoutVal: "Tier 1 Warning",
+      halo: "amber",
+      text: "<strong>Tier 1 Warning (30–119 min, 45 min simulated):</strong> Chamber temperature reached +5.2 °C (&gt; +5.0 °C for &gt; 30 min). While still well within EFSA microbial guidelines, DINA's conservative advisory rule pauses active heating pending user inspection to account for sensor lag and thermal inertia.",
+      toast: "Tier 1 Warning: Drawer > +5.0 °C for > 30 min. Heating paused for safety."
+    },
+    150: {
+      temp: "+6.4 °C",
+      blackoutVal: "Tier 2 Lockout: Discard",
+      halo: "red",
+      text: "<strong>Tier 2 Food Safety Lockout (&ge; 120 min, 2.5 h simulated):</strong> Food temperature exceeded +5.0 °C for more than 2 hours (USDA / EFSA microbial proliferation danger zone). Active heating is permanently locked out, handle light pulses red, and an emergency phone notification is sent recommending safe disposal.",
+      toast: "Tier 2 Lockout: Food exceeded +5.0 °C for > 2 hours. Active heating locked out; discard meal."
+    }
+  };
+
+  function applyPowerCutDuration(durationMins) {
+    state.powerCutDurationMins = durationMins;
+    const config = PCUT_CONFIGS[durationMins] || PCUT_CONFIGS[15];
+
+    pcutStepBtns.forEach(b => {
+      b.classList.toggle("active", b.dataset.duration === String(durationMins));
     });
+
+    if (telemDrawerTemp) telemDrawerTemp.textContent = config.temp;
+    if (telemBlackoutVal) telemBlackoutVal.textContent = config.blackoutVal;
+    setHaloState(config.halo, true);
+
+    if (scenarioFeedbackBox) scenarioFeedbackBox.removeAttribute("hidden");
+    if (scenarioFeedbackText) scenarioFeedbackText.innerHTML = config.text;
   }
 
+  pcutStepBtns.forEach(btn => {
+    btn.addEventListener("click", () => {
+      triggerHaptic([20]);
+      const duration = parseInt(btn.dataset.duration, 10);
+      applyPowerCutDuration(duration);
+      const config = PCUT_CONFIGS[duration];
+      if (config) showToast(config.toast);
+    });
+  });
+
+  // Customer-Friendly Peace-of-Mind Scenarios
   if (btnSimDrawerOpen) {
     btnSimDrawerOpen.addEventListener("click", () => {
       triggerHaptic([20]);
@@ -718,9 +1037,9 @@ document.addEventListener("DOMContentLoaded", () => {
       btnSimDishClean.classList.add("active");
       if (scenarioFeedbackBox) scenarioFeedbackBox.removeAttribute("hidden");
       if (scenarioFeedbackText) {
-        scenarioFeedbackText.innerHTML = "<strong>Easy Care:</strong> Any moisture from gentle convection defrosting drains into the self-evaporating drip tray. It slides out effortlessly and is 100% dishwasher-safe.";
+        scenarioFeedbackText.innerHTML = "<strong>Easy Care & Hygiene:</strong> Any moisture from gentle convection defrosting channels into the removable drip tray beneath the drawer. It slides out effortlessly from the front and is 100% dishwasher-safe (tested to 70 °C, EU 10/2011 food-contact compliant).";
       }
-      showToast("Easy Care: Removable drip tray is dishwasher-safe and ready for a quick rinse.");
+      showToast("Removable drip tray slides out from front — dishwasher-safe up to 70 °C.");
     });
   }
 
@@ -728,6 +1047,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const btnSimulateDelay = document.getElementById("btnSimulateDelay");
   const commuteStatusText = document.getElementById("commuteStatusText");
   const commuteArrivalText = document.getElementById("commuteArrivalText");
+  const commuteClockDisplay = document.getElementById("commuteClockDisplay");
   const btnToggleCommuteSync = document.getElementById("btnToggleCommuteSync");
   const btnSimulateOffline = document.getElementById("btnSimulateOffline");
   const offlineStatusText = document.getElementById("offlineStatusText");
@@ -753,6 +1073,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const MAP_SCENES = {
     ontime: {
       key: "ontime",
+      clockStr: "19:05",
       startT: 0.14,
       endT: 0.66,
       bubbleOffsetX: 0,
@@ -760,14 +1081,15 @@ document.addEventListener("DOMContentLoaded", () => {
       homeBadge: "HOME • +10°C THAW",
       homeHalo: "amber",
       locationLabel: "Driving Home (Clear Route)",
-      etaLabel: "19:20 (In 20 mins)",
-      defrostLabel: "Thawing (+10 °C) • 10m left",
-      statusText: "Route clear: Your meal is gently thawing (+10 °C) so it finishes right as you walk in at 19:30.",
-      arrivalText: "Target Dinner: 19:30 • ETA: 19:20 • Drawer: Gently Thawing",
+      etaLabel: "19:20 (in 15 min)",
+      defrostLabel: "Active Thaw (+10.0 °C air) • Surface ≤ +4.0 °C",
+      statusText: "Route clear (15 min drive from 19:05): Active thaw finishes at 19:10, then conduction equalizes at +3.0 °C so dinner is ready right as you walk in at 19:30.",
+      arrivalText: "Commute Clock: 19:05 • ETA: 19:20 • Drawer: Convection Thaw Active",
       statusColor: "var(--ink-soft)"
     },
     traffic: {
       key: "traffic",
+      clockStr: "19:15",
       startT: 0.36,
       endT: 0.54,
       bubbleOffsetX: 0,
@@ -776,28 +1098,30 @@ document.addEventListener("DOMContentLoaded", () => {
       homeHalo: "green",
       locationLabel: "A5 Bridge (Traffic Jam)",
       etaLabel: "19:55 (+30 min delay)",
-      defrostLabel: "Switched to +3.0 °C Fridge Hold",
-      statusText: "Traffic jam ahead (+30 mins): DINA automatically switched the lower drawer to a +3.0 °C fridge hold so dinner waits safely for you.",
-      arrivalText: "Target Dinner: 19:30 • New ETA: 19:55 • Held at +3.0 °C (Up to 24 h)",
+      defrostLabel: "Auto-Switched to +3.0 °C Fridge Hold",
+      statusText: "Traffic jam detected at 19:15 (+30 min delay): DINA finishes equalization at 19:30 and holds the drawer at +3.0 °C so dinner waits safely without drying out or spoiling.",
+      arrivalText: "Commute Clock: 19:15 • New ETA: 19:55 • Held at +3.0 °C (Up to 24 h)",
       statusColor: "var(--clay)"
     },
     atwork: {
       key: "atwork",
+      clockStr: "19:20",
       startT: 0.0,
       endT: 0.0,
       bubbleOffsetX: 18,
-      bubble: "STILL AT WORK • 19:15",
+      bubble: "STILL AT WORK • 19:20",
       homeBadge: "HOME • +3°C HOLD",
       homeHalo: "green",
       locationLabel: "Still at Office (Late Meeting)",
-      etaLabel: "~20:15 (Not left work yet)",
-      defrostLabel: "Chilled at +3.0 °C (Up to 24 h)",
-      statusText: "Still at work past 19:00? Because you haven't left the office yet, DINA keeps tonight's meal fridge-fresh at +3.0 °C until you get home.",
-      arrivalText: "Still at Office • Est. Arrival: 20:15 • Held at +3.0 °C (Up to 24 h)",
+      etaLabel: "~20:15 (Not departed yet)",
+      defrostLabel: "Held at +3.0 °C (Safe up to 24 h)",
+      statusText: "Still at work past 19:00? Because departure has not been logged at 19:20, DINA holds dinner chilled at +3.0 °C with zero danger-zone exposure.",
+      arrivalText: "Commute Clock: 19:20 • Est. Arrival: ~20:15 • Held at +3.0 °C (Up to 24 h)",
       statusColor: "var(--clay)"
     },
     arrived: {
       key: "arrived",
+      clockStr: "19:25",
       startT: 0.66,
       endT: 0.85,
       bubbleOffsetX: -14,
@@ -807,8 +1131,8 @@ document.addEventListener("DOMContentLoaded", () => {
       locationLabel: "Home Driveway",
       etaLabel: "Arrived (Now)",
       defrostLabel: "Green Handle • Ready for Pan!",
-      statusText: "Welcome home! The drawer handle is glowing soft green — slide it open and your meal is evenly thawed, chilled, and ready for a hot pan.",
-      arrivalText: "Arrived Home • Drawer: +3.0 °C • Ready to Cook!",
+      statusText: "Welcome home! Drawer handle is glowing soft green (+3.0 °C hold). Your meal is evenly thawed through to the core and ready for a hot skillet.",
+      arrivalText: "Commute Clock: 19:25 • Drawer: +3.0 °C • Ready to Cook!",
       statusColor: "#4A8B63"
     }
   };
@@ -857,6 +1181,10 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     setMarkerAlongRoute(scene.startT);
+
+    if (commuteClockDisplay && scene.clockStr) {
+      commuteClockDisplay.textContent = scene.clockStr;
+    }
 
     if (mapUserBubbleText) mapUserBubbleText.textContent = scene.bubble;
     if (mapHomeBadgeText) mapHomeBadgeText.textContent = scene.homeBadge;

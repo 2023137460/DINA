@@ -170,7 +170,7 @@
         <div class="hero-concept-badge">Academic Product Concept &bull; Mechanical Engineering Coursework</div>
         <h1>Dinner, <em>scheduled</em>.</h1>
         <p class="lead">
-          Come home at 7:00 PM to a dinner that is tender, evenly thawed, and ready for the pan.
+          Come home at 19:00 to a dinner that is tender, evenly thawed, and ready for the pan.
         </p>
         <p>
           DINA is an upright 60 cm companion freezer concept with an independent defrost drawer and motorized carousel. Load meals on Sunday; DINA lowers tonight&rsquo;s portion through a thermal airlock and gently thaws it for dinner.
@@ -334,19 +334,19 @@
 
           <div class="calc-result-box">
             <p class="calc-result-sentence" id="calcResultSentence">
-              Tonight's Atlantic Salmon Fillet (320 g): DINA drops the container at 17:48, runs active thaw (+10 °C air) for 87 min until surface reaches +4.0 °C (19:15), then holds at +3.0 °C until 19:30.
+              Tonight's Atlantic Salmon Fillet (320 g): DINA drops the container at 18:10, runs active thaw (+10 °C air) for 65 min until surface reaches +4.0 °C (19:15), then holds at +3.0 °C until 19:30.
             </p>
 
             <div class="calc-timeline">
               <div class="calc-timeline-step">
-                <span class="calc-step-time" id="calcDropTime">17:48</span>
+                <span class="calc-step-time" id="calcDropTime">18:10</span>
                 <span class="calc-step-label">Airlock Drop</span>
                 <span class="calc-step-desc">Sealed hatch opens for 2.5 s into defrost drawer</span>
               </div>
               <div class="calc-timeline-step">
-                <span class="calc-step-time" id="calcActiveTime">17:48 &ndash; 19:15</span>
+                <span class="calc-step-time" id="calcActiveTime">18:10 &ndash; 19:15</span>
                 <span class="calc-step-label">Active Thaw</span>
-                <span class="calc-step-desc">+10 &deg;C forced air until surface reads +4.0 &deg;C (<span id="calcThawDuration">87</span> min)</span>
+                <span class="calc-step-desc">+10 &deg;C forced air until surface reads +4.0 &deg;C (<span id="calcThawDuration">65</span> min)</span>
               </div>
               <div class="calc-timeline-step">
                 <span class="calc-step-time" id="calcHoldTime">19:15 &ndash; 19:30</span>
@@ -361,7 +361,7 @@
             </div>
 
             <p class="calc-result-meta" id="calcResultMeta">
-              Gentle low-temperature thaw preserves tender, flaky restaurant texture &bull; 87 min active thaw (+10 &deg;C air until +4.0 &deg;C surface cutoff), followed by 15 min conduction equalization at +3.0 &deg;C.
+              Gentle low-temperature thaw preserves tender, flaky restaurant texture &bull; 65 min active thaw (+10 &deg;C air until +4.0 &deg;C surface cutoff), followed by 15 min conduction equalization at +3.0 &deg;C.
             </p>
           </div>
         </div>
@@ -397,7 +397,7 @@
 
           <div class="stat-row">
             <div class="stat-figure">0 Lines</div>
-            <p class="stat-text"><strong>Plug In Anywhere</strong> &mdash; Self-evaporating condensate channel using waste heat, with a removable pan for periodic cleaning.</p>
+            <p class="stat-text"><strong>Plug In Anywhere</strong> &mdash; Removable, dishwasher-safe condensate collection tray sliding out beneath the drawer for effortless periodic rinsing.</p>
           </div>
         </div>
 
@@ -440,12 +440,12 @@
                 </tr>
                 <tr>
                   <td class="col-param">Thaw Convection Duration</td>
-                  <td class="col-val">85–90 min active thaw for 320 g salmon fillet (+10 &deg;C forced air, convective h &approx; 20 W/(m&sup2;&middot;K)) + equalization hold.</td>
+                  <td class="col-val">65–85 min active thaw for single-portion meals (+10 &deg;C forced air, convective h &approx; 24 W/(m&sup2;&middot;K), shallow 750 ml container) + 15–20 min conduction equalization hold.</td>
                   <td class="col-tag"><span class="status-tag calc">[Calculated Model]</span></td>
                 </tr>
                 <tr>
                   <td class="col-param">Closed-Loop Thaw Logic</td>
-                  <td class="col-val">+10 &deg;C forced air until IR/NTC surface sensors read +4.0 &deg;C, stepping down to +3.0 &deg;C hold for up to 24 h (DIN 10508 / EFSA principle).</td>
+                  <td class="col-val">+10 &deg;C forced air until lid-contact NTC probe &amp; IR sensors read +4.0 &deg;C (&plusmn;0.5 &deg;C hysteresis band), stepping down to +3.0 &deg;C hold for up to 24 h (DIN 10508 / EFSA principle).</td>
                   <td class="col-tag"><span class="status-tag logic">[Design Logic]</span></td>
                 </tr>
                 <tr>
@@ -455,7 +455,7 @@
                 </tr>
                 <tr>
                   <td class="col-param">Temperature Abuse Cutoff</td>
-                  <td class="col-val">Autonomous temperature logging; discard alert triggered if food temperature exceeds +5.0 &deg;C for more than 2 hours.</td>
+                  <td class="col-val">Two-tier autonomous logging: Tier 1 advisory warning at &gt;30 min above +5.0 &deg;C (conservative thermal lag margin); Tier 2 discard lockout if food temperature exceeds +5.0 &deg;C for more than 2 hours (USDA/EFSA microbial danger zone guideline).</td>
                   <td class="col-tag"><span class="status-tag logic">[Design Logic]</span></td>
                 </tr>
                 <tr>
@@ -515,7 +515,7 @@
         <div class="faq-reading-flow">
           <p class="faq-entry">
             <span class="faq-q">How easy is it to keep clean?</span>
-            <span class="faq-a">Your food stays sealed inside BPA-free 750 ml containers that go straight into the dishwasher (compliant with EU Regulation 10/2011). The interior drum wipes clean with a damp cloth in seconds, and defrost moisture channels into a self-evaporating system powered by compressor waste heat, with a removable pan for periodic cleaning.</span>
+            <span class="faq-a">Your food stays sealed inside BPA-free 750 ml containers that go straight into the dishwasher (compliant with EU Regulation 10/2011). The interior drum wipes clean with a damp cloth in seconds, and defrost moisture channels into a removable, dishwasher-safe condensate collection tray that slides out from below the drawer for effortless periodic rinsing.</span>
           </p>
 
           <p class="faq-entry">
@@ -530,7 +530,7 @@
 
           <p class="faq-entry">
             <span class="faq-q">What happens if the power goes out?</span>
-            <span class="faq-a">DINA logs internal temperature telemetry throughout. If power returns and the meal remained safely chilled, the cycle safely resumes. If temperature telemetry records food warming above +5.0 &deg;C for more than 2 hours, DINA halts active warming and triggers a phone alert recommending discarding the dish (conforming to EFSA temperature abuse guidelines).</span>
+            <span class="faq-a">DINA logs internal temperature telemetry throughout. If power returns within 30 minutes and the meal remained safely chilled below +5.0 &deg;C, the cycle safely resumes. If temperature telemetry records food warming above +5.0 &deg;C for more than 30 minutes, DINA triggers a Tier 1 conservative warning and pauses heating (accounting for thermal lag and sensor latency). If food temperature exceeds +5.0 &deg;C for more than 2 hours, DINA permanently halts active warming and triggers a phone alert recommending discarding the dish (conforming to USDA / EFSA temperature abuse guidelines).</span>
           </p>
 
           <p class="faq-entry">

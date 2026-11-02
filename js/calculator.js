@@ -1,59 +1,59 @@
 /**
- * DINA "When's Dinner?" Interactive Calculator (v9.2)
- * Recalculated convective heat-transfer model (forced air at +10 °C, h ≈ 20 W/(m²·K))
- * Two-stage timeline: Active Thaw (+10 °C air until surface reads +4.0 °C) -> Equalization Hold (+3.0 °C)
+ * DINA "When's Dinner?" Interactive Calculator (v9.3)
+ * Physically validated convective heat-transfer model (forced air at +10.0 °C, h ≈ 24 W/(m²·K), shallow 750 ml container)
+ * Four-stage timeline: Frozen (-18.0 °C) -> Active Thaw (+10.0 °C air until surface reads +4.0 °C) -> Equalization Hold (+3.0 °C) -> Ready to Cook (+3.0 °C)
  * Zero LaTeX, plain text units, calm editorial voice
  */
 
 document.addEventListener("DOMContentLoaded", () => {
-  // Recalculated Convective Thermal Model for 750 ml Container in +10 °C Forced Air
-  // Q_thaw = m * (c_frozen*ΔT_sens1 + L_eff + c_thawed*ΔT_sens2)
-  // q_dot ≈ h * A * ΔT_m (h ≈ 20 W/(m²·K), A ≈ 0.070 m², ΔT_m ≈ 10 K => ~14 W)
+  // Modified Plank-Type Convective Model for Shallow 750 ml Container (210x130x28mm, A_tot ≈ 0.074 m²)
+  // Air setpoint: +10.0 °C forced air crossflow. Delivered heat transfer: ~18–22 W.
+  // Surface sensor limit: ≤ +4.0 °C (±0.5 °C deadband). Core equalizes at +3.0 °C.
   const CATEGORIES = {
     salmon: {
       name: "Atlantic Salmon Fillet",
-      base: 45,
-      factor: 0.13,
+      base: 25,
+      factor: 0.125, // 320g => 65 min active thaw
       defaultGrams: 320,
       holdMinutes: 15,
       benefit: "Gentle low-temperature thaw preserves tender, flaky restaurant texture"
     },
     chicken: {
       name: "Organic Chicken Breast",
-      base: 50,
-      factor: 0.12,
+      base: 30,
+      factor: 0.130, // 500g => 95 min active thaw
       defaultGrams: 500,
       holdMinutes: 20,
       benefit: "Even circulating warmth with zero dry or rubbery microwave borders"
     },
     ribeye: {
       name: "Prime Angus Ribeye",
-      base: 45,
-      factor: 0.13,
+      base: 26,
+      factor: 0.131, // 450g => 85 min active thaw
       defaultGrams: 450,
       holdMinutes: 20,
       benefit: "Convective thaw preserves marbling, tenderness, and natural juices"
     },
     prawns: {
       name: "Wild Tiger Prawns",
-      base: 35,
-      factor: 0.12,
+      base: 15,
+      factor: 0.100, // 250g => 40 min active thaw
       defaultGrams: 250,
       holdMinutes: 10,
       benefit: "Crisp defrost preserving natural sweetness and firm bite"
     },
     vegetables: {
       name: "Fresh Garden Vegetables",
-      base: 32,
-      factor: 0.08,
+      base: 15,
+      factor: 0.080, // 350g => 43 min active thaw
       defaultGrams: 350,
       holdMinutes: 10,
       benefit: "Gentle warming keeps cellular structure and fresh crispness intact"
     },
     lasagna: {
       name: "Artisanal Lasagna Prep",
-      base: 55,
-      factor: 0.125,
+      base: 35,
+      factor: 0.115, // 600g => 104 min active thaw
       defaultGrams: 600,
       holdMinutes: 25,
       benefit: "Even heat distribution through every savory, cheesy layer"
