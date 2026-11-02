@@ -15,7 +15,7 @@
   <link rel="icon" type="image/png" sizes="192x192" href="assets/images/pwa-icon-192.png">
   <link rel="apple-touch-icon" sizes="180x180" href="assets/images/apple-touch-icon.png">
   <link rel="stylesheet" href="css/tokens.css?v=10.6">
-  <link rel="stylesheet" href="css/app.css?v=10.7">
+  <link rel="stylesheet" href="css/app.css?v=10.8">
 </head>
 <body class="app-body">
 
@@ -1221,155 +1221,218 @@
       <!-- Tab Panel 2: Engineering & CAD View -->
       <div class="director-tab-panel" id="directorCadPanel" role="tabpanel">
         <div id="mobileCutawayHost">
-          <!-- Cutaway Illustration (CAD True Vertical Section A-A: 110L vault, 2-tier carousel, drop chute, hatch, drawer) -->
-          <div class="cutaway-card cutaway-container" id="cutawayCard" aria-label="Appliance mechanical cutaway cross-section" style="background: #EFECE6; border: 1.5px solid #191919; border-radius: 12px; padding: 12px;">
-            <div class="cutaway-header" style="margin-bottom: 10px;">
-              <span class="cutaway-title">Appliance Cutaway &bull; Section A–A (Vertical)</span>
+          <!-- Cutaway Illustration (CAD True Vertical Section A-A: 110L vault, 2-tier carousel, drop chute, hatch, drawer, machinery) -->
+          <div class="cutaway-card cutaway-container" id="cutawayCard" aria-label="Appliance mechanical cutaway cross-section" style="background: #F1EFE5; border: 1px solid #9E9696; border-radius: 12px; padding: 12px 8px;">
+            <div class="cutaway-header" style="margin-bottom: 8px; padding: 0 4px;">
+              <span class="cutaway-title">Appliance Cutaway &bull; True Section (600 &times; 1450 mm)</span>
               <span class="spec-status-tag cad">[CAD Verified Architecture]</span>
             </div>
-            <svg class="cutaway-svg" viewBox="0 0 680 540" width="100%" height="auto" xmlns="http://www.w3.org/2000/svg" style="font-family: 'Inter', Archivo, -apple-system, sans-serif; display: block;" aria-label="DINA upright freezer CAD vertical cross-section diagram">
+            <svg class="cutaway-svg" viewBox="0 0 540 820" width="100%" height="auto" xmlns="http://www.w3.org/2000/svg" style="display: block; max-width: 460px; margin: 0 auto;" aria-label="DINA upright freezer CAD vertical cross-section diagram">
               <defs>
-                <!-- ANSI 45-degree VIP Insulation Cross-Hatching -->
-                <pattern id="insulation-hatch" width="8" height="8" patternTransform="rotate(45 0 0)" patternUnits="userSpaceOnUse">
-                  <line x1="0" y1="0" x2="0" y2="8" stroke="#B8B2A6" stroke-width="1.5" />
+                <style>
+                  @import url("https://fonts.googleapis.com/css2?family=Archivo:wght@400;600&amp;family=Playfair+Display:ital,wght@0,400;0,600;1,400&amp;display=swap");
+                  .bg-paper { fill: #F1EFE5; }
+                  .bg-sand { fill: #DAD8CB; }
+                  .bg-white { fill: #FFFFFF; }
+                  .stroke-ink { stroke: #191919; fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+                  .stroke-stone { stroke: #9E9696; fill: none; stroke-width: 1; }
+                  .stroke-clay { stroke: #C0775B; fill: none; stroke-width: 1.5; }
+                  .fill-clay { fill: #C0775B; stroke: #191919; stroke-width: 1.5; }
+                  .head-zone { font-family: "Playfair Display", Georgia, serif; font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; fill: #191919; }
+                  .body-label { font-family: "Archivo", Arial, sans-serif; font-size: 10.5px; fill: #191919; }
+                  .body-muted { font-family: "Archivo", Arial, sans-serif; font-size: 9.5px; fill: #5A5753; }
+                  .body-white { font-family: "Archivo", Arial, sans-serif; font-size: 9.5px; fill: #F1EFE5; }
+                  .dim-text { font-family: "Archivo", Arial, sans-serif; font-size: 9.5px; fill: #5A5753; }
+                </style>
+
+                <!-- 45-degree PUR / VIP Insulation Hatching (Stone #9E9696) -->
+                <pattern id="vip-hatch" width="8" height="8" patternTransform="rotate(45 0 0)" patternUnits="userSpaceOnUse">
+                  <line x1="0" y1="0" x2="0" y2="8" stroke="#9E9696" stroke-width="1" />
                 </pattern>
-                <!-- Drop Arrow Marker -->
-                <marker id="arrow-terracotta" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-                  <path d="M 0 1 L 8 5 L 0 9 z" fill="#C87D55" />
+
+                <!-- Markers -->
+                <marker id="arrow-clay" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                  <path d="M 0 1.5 L 7 5 L 0 8.5 z" fill="#C0775B" />
                 </marker>
-                <marker id="arrow-dark" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
-                  <path d="M 0 1 L 8 5 L 0 9 z" fill="#191919" />
+                <marker id="arrow-ink" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+                  <path d="M 0 2 L 7 5 L 0 8 z" fill="#191919" />
+                </marker>
+                <marker id="dim-tick" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+                  <line x1="5" y1="1" x2="5" y2="9" stroke="#5A5753" stroke-width="1.2" />
                 </marker>
               </defs>
 
-              <!-- OUTER APPLIANCE CHASSIS & VIP INSULATED WALLS (CROSS-HATCHED) -->
-              <rect x="20" y="16" width="640" height="508" rx="10" fill="url(#insulation-hatch)" stroke="#191919" stroke-width="2.5" />
-              
-              <!-- ================= ZONE 1: 110L MANUAL FREEZER VAULT (TOP) ================= -->
-              <rect x="38" y="34" width="604" height="92" rx="4" fill="#F7F5EE" stroke="#191919" stroke-width="1.5" />
-              <text x="52" y="54" font-size="11" font-weight="700" fill="#191919" letter-spacing="0.06em">110 L UPPER FREEZER VAULT</text>
-              <text x="628" y="54" font-size="11" font-weight="600" fill="#5A554C" text-anchor="end">−18.0 °C • Manual Shelves</text>
-              
-              <!-- Wire Shelf & Static Packages -->
-              <line x1="48" y1="104" x2="632" y2="104" stroke="#8C857B" stroke-width="1.5" stroke-dasharray="6 4" />
-              <rect x="70" y="72" width="76" height="30" rx="3" fill="#DEDAD0" stroke="#7A746B" stroke-width="1.2" />
-              <rect x="158" y="78" width="60" height="24" rx="3" fill="#DEDAD0" stroke="#7A746B" stroke-width="1.2" />
-              <rect x="440" y="70" width="90" height="32" rx="3" fill="#DEDAD0" stroke="#7A746B" stroke-width="1.2" />
+              <!-- BACKGROUND -->
+              <rect x="0" y="0" width="540" height="820" class="bg-paper" />
 
-              <!-- ================= ZONE 2: VERTICAL-AXIS 2-TIER CAROUSEL BAY ================= -->
-              <rect x="38" y="138" width="604" height="222" rx="4" fill="#F7F5EE" stroke="#191919" stroke-width="1.5" />
-              <text x="52" y="158" font-size="11" font-weight="700" fill="#191919" letter-spacing="0.06em">VERTICAL-AXIS 2-TIER CAROUSEL (SECTION A–A)</text>
-              <text x="628" y="158" font-size="11" font-weight="600" fill="#5A554C" text-anchor="end">11 Pods + 1 Chute • −18.0 °C</text>
+              <!-- ================= TOP WIDTH DIMENSION (600 mm) ================= -->
+              <line x1="90" y1="26" x2="390" y2="26" class="stroke-stone" />
+              <line x1="90" y1="20" x2="90" y2="42" class="stroke-stone" />
+              <line x1="390" y1="20" x2="390" y2="42" class="stroke-stone" />
+              <rect x="195" y="16" width="90" height="18" class="bg-paper" />
+              <text x="240" y="29" class="dim-text" font-weight="600" text-anchor="middle">600 mm WIDTH</text>
 
-              <!-- CYLINDER OUTER SHROUD IN SECTION -->
-              <rect x="150" y="172" width="380" height="172" rx="6" fill="#EFECE4" stroke="#191919" stroke-width="2" />
-              
-              <!-- VERTICAL CENTER AXIS & MOTOR DRIVE SHAFT -->
-              <rect x="334" y="166" width="12" height="184" fill="#C2BDB3" stroke="#191919" stroke-width="1.5" />
-              <!-- Centerline (ANSI Dash-Dot) -->
-              <line x1="340" y1="160" x2="340" y2="356" stroke="#C87D55" stroke-width="1.2" stroke-dasharray="10 4 2 4" />
+              <!-- ================= LEFT TOTAL HEIGHT DIMENSION (1450 mm) ================= -->
+              <line x1="36" y1="48" x2="36" y2="773" class="stroke-stone" />
+              <line x1="28" y1="48" x2="82" y2="48" class="stroke-stone" />
+              <line x1="28" y1="773" x2="82" y2="773" class="stroke-stone" />
+              <rect x="12" y="375" width="48" height="64" class="bg-paper" />
+              <text x="36" y="402" class="dim-text" font-weight="600" text-anchor="middle">1450</text>
+              <text x="36" y="415" class="dim-text" text-anchor="middle">mm</text>
+              <text x="36" y="428" class="dim-text" text-anchor="middle">HIGH</text>
+
+              <!-- ================= OUTER UPRIGHT CABINET (300 x 725 px = 600 x 1450 mm) ================= -->
+              <rect x="90" y="48" width="300" height="725" fill="url(#vip-hatch)" stroke="#191919" stroke-width="1.5" />
+
+              <!-- ================= ZONE 01: 110 L TOP FREEZER VAULT (y=62..292) ================= -->
+              <rect x="104" y="62" width="272" height="230" class="bg-paper" stroke="#191919" stroke-width="1.5" />
+              <rect x="104" y="62" width="272" height="24" class="bg-sand" />
+              <line x1="104" y1="86" x2="376" y2="86" class="stroke-stone" />
+              <text x="114" y="78" class="head-zone">01 · TOP FREEZER VAULT (110 L)</text>
+              <text x="366" y="78" class="body-muted" text-anchor="end">-18 °C</text>
+
+              <!-- Shelf 1 -->
+              <line x1="112" y1="154" x2="368" y2="154" class="stroke-stone" stroke-dasharray="5 3" />
+              <rect x="124" y="114" width="92" height="38" class="bg-sand" stroke="#191919" stroke-width="1" />
+              <text x="170" y="137" class="body-muted" text-anchor="middle">Frozen Bulk</text>
+              <rect x="234" y="122" width="114" height="30" class="bg-sand" stroke="#191919" stroke-width="1" />
+              <text x="291" y="141" class="body-muted" text-anchor="middle">Manual Storage</text>
+
+              <!-- Shelf 2 -->
+              <line x1="112" y1="224" x2="368" y2="224" class="stroke-stone" stroke-dasharray="5 3" />
+              <rect x="124" y="180" width="120" height="42" class="bg-sand" stroke="#191919" stroke-width="1" />
+              <text x="184" y="205" class="body-muted" text-anchor="middle">Drawer / Box</text>
+              <rect x="260" y="190" width="88" height="32" class="bg-sand" stroke="#191919" stroke-width="1" />
+
+              <!-- Shelf 3 (Floor of Top Vault) -->
+              <rect x="124" y="246" width="150" height="34" class="bg-sand" stroke="#191919" stroke-width="1" />
+              <text x="199" y="267" class="body-muted" text-anchor="middle">110 L Static Shelves (-18 °C)</text>
+
+              <!-- Right Callout: Zone 01 -->
+              <line x1="396" y1="62" x2="412" y2="62" class="stroke-stone" />
+              <line x1="396" y1="292" x2="412" y2="292" class="stroke-stone" />
+              <line x1="404" y1="62" x2="404" y2="292" class="stroke-stone" />
+              <text x="418" y="168" class="head-zone">110 L VAULT</text>
+              <text x="418" y="183" class="body-muted">3 manual shelves</text>
+              <text x="418" y="197" class="body-muted">-18 °C deep freeze</text>
+
+              <!-- ================= ZONE 02: 60 L TWO-TIER REVOLVING DRUM (y=302..526) ================= -->
+              <rect x="104" y="302" width="272" height="224" class="bg-paper" stroke="#191919" stroke-width="1.5" />
+              <rect x="104" y="302" width="272" height="24" class="bg-sand" />
+              <line x1="104" y1="326" x2="376" y2="326" class="stroke-stone" />
+              <text x="114" y="318" class="head-zone">02 · REVOLVING DRUM (60 L)</text>
+              <text x="366" y="318" class="body-muted" text-anchor="end">11 Meals · -18 °C</text>
+
+              <!-- Revolving Cylinder Shroud (Full internal width) -->
+              <rect x="116" y="338" width="248" height="174" class="bg-paper" stroke="#191919" stroke-width="1.5" />
+
+              <!-- Central Vertical Drive Shaft (Z-Axis) -->
+              <rect x="235" y="332" width="10" height="186" class="bg-sand" stroke="#191919" stroke-width="1.5" />
+              <line x1="240" y1="328" x2="240" y2="522" class="stroke-stone" stroke-dasharray="6 3 2 3" />
               <!-- Top & Bottom Thrust Bearings -->
-              <rect x="324" y="168" width="32" height="8" rx="2" fill="#5A554C" stroke="#191919" stroke-width="1" />
-              <rect x="324" y="340" width="32" height="8" rx="2" fill="#5A554C" stroke="#191919" stroke-width="1" />
-              <!-- Horizontal Rotation Indicator around Vertical Shaft -->
-              <path d="M 312 256 C 312 246, 368 246, 368 256" fill="none" stroke="#191919" stroke-width="1.5" marker-end="url(#arrow-dark)" />
-              <text x="340" y="245" font-size="9" font-weight="700" fill="#191919" text-anchor="middle">ω (2.5s Index)</text>
+              <rect x="228" y="334" width="24" height="6" class="bg-white" stroke="#191919" stroke-width="1" />
+              <rect x="228" y="510" width="24" height="6" class="bg-white" stroke="#191919" stroke-width="1" />
 
-              <!-- TIER DIVIDER PLATE (Separates Upper Ring & Lower Ring) -->
-              <line x1="150" y1="258" x2="405" y2="258" stroke="#191919" stroke-width="2" />
-              <!-- Open Chute Gap on Right Side of Divider Plate -->
-              <line x1="405" y1="258" x2="520" y2="258" stroke="#C87D55" stroke-width="1.5" stroke-dasharray="4 4" />
+              <!-- Horizontal Rotation Indicator -->
+              <path d="M 218 424 C 218 416, 262 416, 262 424" fill="none" stroke="#191919" stroke-width="1.2" marker-end="url(#arrow-ink)" />
 
-              <!-- UPPER RING (6 MEAL CONTAINERS) - Cut Plane shows Left & Right Pods + Back Pods in projection -->
-              <text x="162" y="188" font-size="9.5" font-weight="700" fill="#5A554C">UPPER RING (SLOTS 01–06)</text>
-              <!-- Faint background slots behind the section plane -->
-              <rect x="268" y="198" width="58" height="44" rx="3" fill="#E5E1D8" stroke="#ACA69B" stroke-width="1" stroke-dasharray="3 2" />
-              <rect x="354" y="198" width="46" height="44" rx="3" fill="#E5E1D8" stroke="#ACA69B" stroke-width="1" stroke-dasharray="3 2" />
-              
+              <!-- Horizontal Disc Divider Plate -->
+              <line x1="116" y1="425" x2="256" y2="425" class="stroke-ink" />
+              <line x1="256" y1="425" x2="364" y2="425" class="stroke-stone" stroke-dasharray="4 4" />
+
+              <!-- UPPER DISC (SLOTS 01–06) -->
+              <text x="124" y="352" class="head-zone" style="font-size:8.5px;">UPPER DISC (01–06)</text>
               <!-- Sectioned Left Container (Slot 05) -->
-              <rect x="166" y="196" width="94" height="50" rx="4" fill="#DEDAD0" stroke="#191919" stroke-width="1.8" />
-              <text x="213" y="218" font-size="10" font-weight="700" fill="#191919" text-anchor="middle">SLOT 05</text>
-              <text x="213" y="232" font-size="9" fill="#5A554C" text-anchor="middle">600g • Stocked</text>
+              <rect x="124" y="360" width="98" height="52" class="bg-sand" stroke="#191919" stroke-width="1.5" />
+              <text x="173" y="383" class="body-label" font-weight="600" text-anchor="middle">Slot 05</text>
+              <text x="173" y="398" class="body-muted" text-anchor="middle">600 g · Bolognese</text>
 
-              <!-- Sectioned Right Active Container (Slot 02 - Beef Ribeye Ready over Drop Chute) -->
+              <!-- Sectioned Right Active Container (Slot 02 - Single Clay Accent) -->
               <g id="cutaway-slot-active" style="transition: opacity 300ms ease;">
-                <rect x="414" y="196" width="98" height="50" rx="4" fill="#C87D55" stroke="#191919" stroke-width="2" />
-                <text x="463" y="217" font-size="10" font-weight="700" fill="#FFFFFF" text-anchor="middle">SLOT 02 (ACTIVE)</text>
-                <text x="463" y="231" font-size="9" font-weight="600" fill="#FFF8F3" text-anchor="middle">Beef Ribeye • 450g</text>
+                <rect x="258" y="360" width="98" height="52" class="fill-clay" />
+                <text x="307" y="383" class="body-white" font-weight="600" text-anchor="middle">Slot 02 · Tonight</text>
+                <text x="307" y="398" class="body-white" text-anchor="middle">Beef Ribeye · 450 g</text>
               </g>
 
-              <!-- LOWER RING (5 MEAL CONTAINERS + 1 PASS-THROUGH CHUTE) -->
-              <text x="162" y="274" font-size="9.5" font-weight="700" fill="#5A554C">LOWER RING (SLOTS 07–11 + CHUTE)</text>
-              <!-- Faint background slots -->
-              <rect x="268" y="284" width="58" height="44" rx="3" fill="#E5E1D8" stroke="#ACA69B" stroke-width="1" stroke-dasharray="3 2" />
-              
+              <!-- LOWER DISC (SLOTS 07–11 + CHIMNEY) -->
+              <text x="124" y="440" class="head-zone" style="font-size:8.5px;">LOWER DISC (07–11)</text>
               <!-- Sectioned Left Lower Container (Slot 08) -->
-              <rect x="166" y="282" width="94" height="50" rx="4" fill="#DEDAD0" stroke="#191919" stroke-width="1.8" />
-              <text x="213" y="304" font-size="10" font-weight="700" fill="#191919" text-anchor="middle">SLOT 08</text>
-              <text x="213" y="318" font-size="9" fill="#5A554C" text-anchor="middle">300g • Filet</text>
+              <rect x="124" y="448" width="98" height="52" class="bg-sand" stroke="#191919" stroke-width="1.5" />
+              <text x="173" y="471" class="body-label" font-weight="600" text-anchor="middle">Slot 08</text>
+              <text x="173" y="486" class="body-muted" text-anchor="middle">300 g · Filet</text>
 
-              <!-- Sectioned Right Lower Slot = SLOT 12 VERTICAL PASS-THROUGH CHUTE -->
-              <rect x="414" y="264" width="98" height="80" fill="rgba(200, 125, 85, 0.12)" stroke="#C87D55" stroke-width="1.8" stroke-dasharray="5 3" />
-              <text x="463" y="294" font-size="9.5" font-weight="700" fill="#9E5834" text-anchor="middle">SLOT 12: CHUTE</text>
-              <text x="463" y="307" font-size="8.5" fill="#9E5834" text-anchor="middle">Vertical Pass-Through</text>
-              <!-- Vertical Gravity Drop Vector Arrow -->
-              <line x1="463" y1="248" x2="463" y2="392" stroke="#C87D55" stroke-width="2.2" stroke-dasharray="4 3" marker-end="url(#arrow-terracotta)" />
+              <!-- Sectioned Right Lower Sector = SLOT 12 DROP CHIMNEY -->
+              <rect x="258" y="432" width="98" height="72" fill="none" stroke="#9E9696" stroke-width="1" stroke-dasharray="4 3" />
+              <text x="307" y="463" class="head-zone" style="font-size:8.5px;" text-anchor="middle">SLOT 12 · CHIMNEY</text>
+              <text x="307" y="477" class="body-muted" text-anchor="middle">Pass-Through</text>
 
-              <!-- Left Callout Pill -->
-              <rect x="48" y="206" width="92" height="68" rx="4" fill="#FFFFFF" stroke="#CFCBC0" stroke-width="1.2" />
-              <text x="56" y="223" font-size="9.5" font-weight="700" fill="#191919">2-TIER DRUM</text>
-              <text x="56" y="237" font-size="8.5" fill="#5A554C">Upper: 6 Meals</text>
-              <text x="56" y="249" font-size="8.5" fill="#5A554C">Lower: 5 Meals</text>
-              <text x="56" y="261" font-size="8.5" fill="#5A554C">Front Hatch Access</text>
+              <!-- Gravity Drop Vector (Clay 1.5 px) -->
+              <line x1="307" y1="414" x2="307" y2="612" class="stroke-clay" stroke-dasharray="4 3" marker-end="url(#arrow-clay)" />
 
-              <!-- Right Callout Pill -->
-              <rect x="540" y="206" width="92" height="68" rx="4" fill="#FFFFFF" stroke="#CFCBC0" stroke-width="1.2" />
-              <text x="548" y="223" font-size="9.5" font-weight="700" fill="#191919">DROP CHUTE</text>
-              <text x="548" y="237" font-size="8.5" fill="#5A554C">Aligned on Right</text>
-              <text x="548" y="249" font-size="8.5" fill="#5A554C">Drops at 17:50</text>
-              <text x="548" y="261" font-size="8.5" fill="#C87D55" font-weight="600">Airlock Sealed</text>
+              <!-- Right Callout: Zone 02 -->
+              <line x1="396" y1="302" x2="412" y2="302" class="stroke-stone" />
+              <line x1="396" y1="526" x2="412" y2="526" class="stroke-stone" />
+              <line x1="404" y1="302" x2="404" y2="526" class="stroke-stone" />
+              <text x="418" y="396" class="head-zone">2-TIER DRUM</text>
+              <text x="418" y="411" class="body-muted">Top disc: 6 meals</text>
+              <text x="418" y="425" class="body-muted">Bottom: 5 + chute</text>
+              <text x="418" y="439" class="body-muted">2.5 s stepper index</text>
 
-              <!-- ================= INSULATED INTER-ZONE THERMAL BARRIER & AIRLOCK HATCH ================= -->
-              <!-- Insulated Partition Wall between -18°C Vault and +3°C Drawer -->
-              <rect x="38" y="360" width="368" height="22" fill="url(#insulation-hatch)" stroke="#191919" stroke-width="1.5" />
-              <rect x="520" y="360" width="122" height="22" fill="url(#insulation-hatch)" stroke="#191919" stroke-width="1.5" />
-              
-              <!-- Motorized Airlock Trapdoor (Directly below Slot 12 Chute at x=406..520) -->
-              <g id="cutaway-hatch" style="transform-origin: 406px 360px; transition: transform 400ms cubic-bezier(0.32, 0.72, 0, 1);">
-                <polygon points="406,360 520,360 512,382 414,382" fill="#D5D0C5" stroke="#191919" stroke-width="2" />
-                <line x1="422" y1="371" x2="504" y2="371" stroke="#191919" stroke-width="3" stroke-linecap="round" />
-                <text x="398" y="375" font-size="8.5" font-weight="700" fill="#191919" text-anchor="end">INSULATED AIRLOCK HATCH</text>
+              <!-- ================= ZONE 03: VIP BARRIER & THERMAL AIRLOCK (y=526..552) ================= -->
+              <rect x="104" y="526" width="146" height="26" fill="url(#vip-hatch)" stroke="#191919" stroke-width="1.5" />
+              <rect x="362" y="526" width="14" height="26" fill="url(#vip-hatch)" stroke="#191919" stroke-width="1.5" />
+
+              <!-- Motorized Airlock Hatch (Aligned under x=258..356) -->
+              <g id="cutaway-hatch" style="transform-origin: 250px 526px; transition: transform 400ms cubic-bezier(0.32, 0.72, 0, 1);">
+                <rect x="250" y="526" width="112" height="26" class="bg-sand" stroke="#191919" stroke-width="1.5" />
+                <line x1="262" y1="539" x2="350" y2="539" class="stroke-ink" />
               </g>
+              <text x="418" y="543" class="head-zone" style="font-size:9px;">AIRLOCK HATCH</text>
 
               <!-- Animated Falling Meal Container during Pass-Through Drop -->
               <g id="cutawayDropContainer" transform="translate(0, 0)" opacity="0" pointer-events="none" style="transition: transform 900ms cubic-bezier(0.22, 0.61, 0.36, 1), opacity 300ms ease;">
-                <rect x="414" y="196" width="98" height="50" rx="4" fill="#C87D55" stroke="#191919" stroke-width="2" />
-                <text x="463" y="217" font-size="10" font-weight="700" fill="#FFFFFF" text-anchor="middle">SLOT 02</text>
-                <text x="463" y="231" font-size="9" font-weight="600" fill="#FFF8F3" text-anchor="middle">Beef Ribeye • 450g</text>
+                <rect x="258" y="360" width="98" height="52" class="fill-clay" />
+                <text x="307" y="383" class="body-white" font-weight="600" text-anchor="middle">Slot 02</text>
+                <text x="307" y="398" class="body-white" text-anchor="middle">Beef Ribeye · 450 g</text>
               </g>
 
-              <!-- ================= ZONE 3: INDEPENDENT DEFROST & HOLD DRAWER (BOTTOM) ================= -->
-              <rect x="38" y="382" width="604" height="124" rx="4" fill="#F7F5EE" stroke="#191919" stroke-width="1.5" />
-              <text x="52" y="404" font-size="11" font-weight="700" fill="#191919" letter-spacing="0.06em">DEFROST &amp; FRIDGE HOLD DRAWER (INDEPENDENT ZONE)</text>
-              <text id="cutaway-drawer-temp" x="628" y="404" font-size="11" font-weight="700" fill="#2C4C3E" text-anchor="end">+3.0 °C Standby</text>
+              <!-- ================= ZONE 04: 15 L DEFROST & SAFE-HOLD DRAWER (y=552..682) ================= -->
+              <rect x="104" y="552" width="272" height="130" class="bg-paper" stroke="#191919" stroke-width="1.5" />
+              <rect x="104" y="552" width="272" height="24" class="bg-sand" />
+              <line x1="104" y1="576" x2="376" y2="576" class="stroke-stone" />
+              <text x="114" y="568" class="head-zone">03 · DEFROST DRAWER (15 L)</text>
+              <text id="cutaway-drawer-temp" x="366" y="568" class="body-label" font-weight="600" text-anchor="end">+3 °C Hold</text>
 
-              <!-- Lid-Mounted NTC Surface Probe & Forced Convection Heater/Fan Module -->
-              <rect x="260" y="382" width="110" height="16" rx="2" fill="#E2DDD2" stroke="#191919" stroke-width="1.2" />
-              <text x="315" y="393" font-size="8" font-weight="700" fill="#5A554C" text-anchor="middle">NTC IR PROBE + FAN</text>
+              <!-- Peltier & Surface IR Module (Left side of drawer ceiling, zero overlap) -->
+              <rect x="116" y="576" width="122" height="20" class="bg-sand" stroke="#191919" stroke-width="1" />
+              <text x="177" y="589" class="body-muted" style="font-size:8.5px;" text-anchor="middle">Peltier +10 °C · IR Sensor</text>
 
-              <!-- Cushion Receiving Platter directly aligned with Drop Chute -->
-              <rect x="64" y="482" width="540" height="10" rx="3" fill="#D5D0C5" stroke="#7A746B" stroke-width="1.2" />
-              
-              <!-- Ghost/Dropped Container Landing Zone (Directly below x=414..512) -->
+              <!-- Drawer Status Text (Bottom Left) -->
+              <text id="cutaway-drawer-status" x="116" y="632" class="body-label" font-weight="600">Status: Standby</text>
+              <text x="116" y="647" class="body-muted">Chilled zone (+3.0 °C)</text>
+
+              <!-- Receiving Platter & Landing Slot (Aligned under x=258..356) -->
               <g id="cutaway-drawer-meal" opacity="0.35" style="transition: opacity 400ms ease;">
-                <rect x="414" y="432" width="98" height="48" rx="4" fill="none" stroke="#8C857B" stroke-width="1.5" stroke-dasharray="4 3" />
-                <text x="463" y="459" font-size="9" font-weight="600" fill="#5A554C" text-anchor="middle">Drop Landing Zone</text>
+                <rect x="258" y="616" width="98" height="46" fill="none" stroke="#9E9696" stroke-width="1" stroke-dasharray="4 3" />
+                <text x="307" y="643" class="body-muted" text-anchor="middle">Receiving Platter</text>
               </g>
+              <rect x="116" y="664" width="248" height="8" class="bg-sand" stroke="#191919" stroke-width="1" />
 
-              <text id="cutaway-drawer-status" x="70" y="465" font-size="11" font-weight="700" fill="#191919">Status: Empty • Standby (+3.0 °C Zone)</text>
+              <!-- Right Callout: Zone 04 -->
+              <line x1="396" y1="552" x2="412" y2="552" class="stroke-stone" />
+              <line x1="396" y1="682" x2="412" y2="682" class="stroke-stone" />
+              <line x1="404" y1="552" x2="404" y2="682" class="stroke-stone" />
+              <text x="418" y="608" class="head-zone">15 L DRAWER</text>
+              <text x="418" y="623" class="body-muted">+10 °C gentle thaw</text>
+              <text x="418" y="637" class="body-muted">+3 °C safe hold</text>
 
-              <!-- Thermal Status Bar Indicator on Right Wall -->
-              <rect id="cutaway-drawer-indicator" x="618" y="418" width="10" height="74" rx="5" fill="#5B82B8" stroke="#191919" stroke-width="1.2" />
+              <!-- ================= ZONE 05: MACHINERY BAY (y=692..759) ================= -->
+              <rect x="104" y="692" width="272" height="67" class="bg-sand" stroke="#191919" stroke-width="1.5" />
+              <text x="114" y="712" class="head-zone">04 · MACHINERY BAY</text>
+              <rect x="116" y="722" width="114" height="26" class="bg-paper" stroke="#191919" stroke-width="1" />
+              <text x="173" y="739" class="body-muted" text-anchor="middle">R600a Compressor</text>
+              <rect x="242" y="722" width="122" height="26" class="bg-paper" stroke="#191919" stroke-width="1" />
+              <text x="303" y="739" class="body-muted" text-anchor="middle">Passive Condensate</text>
             </svg>
           </div>
         </div>
@@ -1502,6 +1565,6 @@
   <!-- Hidden compatibility button for legacy script references -->
   <button type="button" class="floating-demo-btn" id="btnOpenDemoSheet" aria-label="Open Simulation Director Controls" style="display:none !important;" aria-hidden="true"></button>
 
-  <script src="js/app.js?v=10.7"></script>
+  <script src="js/app.js?v=10.8"></script>
 </body>
 </html>
